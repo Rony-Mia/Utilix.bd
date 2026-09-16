@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { useCopyToClipboard } from '../hooks/useCopyToClipboard.ts';
 import {
   ArrowRight,
   ArrowLeftRight,
@@ -84,7 +85,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   // Mini converter interactive state
   const [miniInput, setMiniInput] = useState<string>(SAMPLE_BIJOY_TEXT);
   const [miniMode, setMiniMode] = useState<ConversionMode>('bijoy_to_unicode');
-  const [copied, setCopied] = useState<boolean>(false);
+  const { copied, copy } = useCopyToClipboard();
 
   // Live conversion using real algorithm
   const miniOutput = useMemo(() => {
@@ -94,17 +95,8 @@ export const HomePage: React.FC<HomePageProps> = ({
       : unicodeToBijoy(miniInput);
   }, [miniInput, miniMode]);
 
-  const handleCopy = async () => {
-    if (!miniOutput) return;
-    try {
-      await navigator.clipboard.writeText(miniOutput);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Fallback
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
+  const handleCopy = () => {
+    void copy(miniOutput);
   };
 
   const handleSwapMode = () => {

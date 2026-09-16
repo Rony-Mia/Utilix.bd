@@ -24,11 +24,12 @@ import {
   SAMPLE_UNICODE_TEXT,
   CONVERSION_MAP
 } from '../bijoyConverter.ts';
+import { useCopyToClipboard } from '../hooks/useCopyToClipboard.ts';
 
 export const ConverterPage: React.FC = () => {
   const [mode, setMode] = useState<ConversionMode>('bijoy_to_unicode');
   const [inputText, setInputText] = useState<string>(SAMPLE_BIJOY_TEXT);
-  const [copied, setCopied] = useState<boolean>(false);
+  const { copied, copy } = useCopyToClipboard();
   const [syncPulse, setSyncPulse] = useState<boolean>(false);
   const [showMappingTable, setShowMappingTable] = useState<boolean>(false);
   const [searchMap, setSearchMap] = useState<string>('');
@@ -67,16 +68,8 @@ export const ConverterPage: React.FC = () => {
   };
 
   // Copy to clipboard
-  const handleCopy = async () => {
-    if (!outputText) return;
-    try {
-      await navigator.clipboard.writeText(outputText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
+  const handleCopy = () => {
+    void copy(outputText);
   };
 
   // Download converted text as .txt

@@ -19,6 +19,9 @@ import {
 import { PresetProfile } from '../types.ts';
 import { GOVERNMENT_PRESET_PROFILES } from '../constants/presets.ts';
 
+const ACCEPTED_UPLOAD_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+const MAX_UPLOAD_MB = 15;
+
 // Helper to calculate exact byte length of a base64 data URL
 function getDataUrlByteLength(dataUrl: string): number {
   const commaIdx = dataUrl.indexOf(',');
@@ -55,6 +58,7 @@ export const PhotoResizerPage: React.FC = () => {
 
   // Processing state
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   // Result state
   const [resultDataUrl, setResultDataUrl] = useState<string | null>(null);
@@ -209,12 +213,31 @@ export const PhotoResizerPage: React.FC = () => {
   // Handle File Upload
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    e.target.value = '';
     if (!file) return;
 
+    setUploadError(null);
+
+    if (!ACCEPTED_UPLOAD_TYPES.includes(file.type)) {
+      setUploadError('শুধুমাত্র JPG, PNG বা WebP ছবি আপলোড করা যাবে।');
+      return;
+    }
+
+    if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
+      setUploadError(`ছবির সর্বোচ্চ আকার ${MAX_UPLOAD_MB} MB; এই ফাইলটি ${(file.size / (1024 * 1024)).toFixed(1)} MB।`);
+      return;
+    }
+
     const reader = new FileReader();
+    reader.onerror = () => {
+      setUploadError('ফাইলটি পড়া যায়নি। অন্য একটি ছবি চেষ্টা করুন।');
+    };
     reader.onload = (event) => {
       const dataUrl = event.target?.result as string;
       const img = new Image();
+      img.onerror = () => {
+        setUploadError('ছবিটি খোলা যায়নি (ফাইলটি ক্ষতিগ্রস্ত হতে পারে)।');
+      };
       img.onload = () => {
         setImageSrc(dataUrl);
         setOriginalMeta({
@@ -237,13 +260,18 @@ export const PhotoResizerPage: React.FC = () => {
   useEffect(() => {
     if (!imageSrc) return;
 
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      imgElementRef.current = img;
-      processImage();
-    };
-    img.src = imageSrc;
+    // Encoding runs a quality search over the canvas, so coalesce rapid slider
+    // changes into a single pass
+    const timer = setTimeout(() => {
+      const img = new Image();
+      img.onload = () => {
+        imgElementRef.current = img;
+        processImage();
+      };
+      img.src = imageSrc;
+    }, 120);
+
+    return () => clearTimeout(timer);
   }, [
     imageSrc,
     activeWidth,
@@ -631,6 +659,13 @@ export const PhotoResizerPage: React.FC = () => {
                 JPG, PNG, WebP (ব্রাউজার মেমোরিতে নিরাপদে প্রসেস হবে)
               </div>
             </div>
+
+            {uploadError && (
+              <div className="bg-[#fef2f2] border border-[#fecaca] text-[#991b1b] p-2.5 flex items-start space-x-2 text-xs">
+                <AlertTriangle className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                <span>{uploadError}</span>
+              </div>
+            )}
 
             {/* Original Metadata Tag */}
             {originalMeta && (

@@ -32,8 +32,8 @@ async function prerender() {
     const { html: renderedHtml, helmet } = render(url);
 
     // Extract title and meta tags from rendered HTML
-    const titleMatch = renderedHtml.match(/<title>([\s\S]*?)<\/title>/);
-    const newTitle = titleMatch ? titleMatch[1] : '';
+    const titleMatch = renderedHtml.match(/<title>[\s\S]*?<\/title>/);
+    const newTitle = titleMatch ? titleMatch[0] : '';
 
     // Extract meta tags from rendered output
     const metaMatches = renderedHtml.match(/<meta\s+[^>]*\/?>/g) || [];
