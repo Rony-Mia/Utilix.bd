@@ -29,13 +29,13 @@ async function prerender() {
 
   for (const url of ROUTES) {
     console.log(`[prerender] Rendering route: ${url}`);
-    const { html: renderedHtml } = render(url);
+    const { html: renderedHtml, helmet } = render(url);
 
-    // Extract title
+    // Extract title and meta tags from rendered HTML
     const titleMatch = renderedHtml.match(/<title>([\s\S]*?)<\/title>/);
     const newTitle = titleMatch ? titleMatch[1] : '';
 
-    // Extract meta tags
+    // Extract meta tags from rendered output
     const metaMatches = renderedHtml.match(/<meta\s+[^>]*\/?>/g) || [];
 
     // Extract body by stripping title and meta tags from rendered output
@@ -47,22 +47,48 @@ async function prerender() {
     // Inject into template
     let pageHtml = template;
 
-    // 1. Replace or update <title>
-    if (newTitle) {
+    // 1. Replace or update <title> from Helmet or rendered HTML
+    const finalTitle = newTitle || (helmet?.title?.toString() || '');
+    if (finalTitle) {
       if (pageHtml.includes('<title>')) {
-        pageHtml = pageHtml.replace(/<title>[\s\S]*?<\/title>/, `<title>${newTitle}</title>`);
+        pageHtml = pageHtml.replace(/<title>[\s\S]*?<\/title>/, finalTitle);
       } else {
-        pageHtml = pageHtml.replace('</head>', `  <title>${newTitle}</title>\n</head>`);
+        pageHtml = pageHtml.replace('</head>', `  ${finalTitle}\n</head>`);
       }
     }
 
-    // 2. Remove default meta description/og/twitter tags from template to avoid duplicate tags
-    if (metaMatches.length > 0) {
+    // 2. Handle meta tags from Helmet context
+    let allMetaTags = metaMatches || [];
+    
+    // Extract meta tags from Helmet if available
+    if (helmet?.meta) {
+      const helmetMetaHtml = helmet.meta.toString();
+      // Extract individual meta tags from helmet output
+      const helmetMetaMatches = helmetMetaHtml.match(/<meta\s+[^>]*\/?>/g) || [];
+      allMetaTags = [...allMetaTags, ...helmetMetaMatches];
+    }
+
+    // Remove default meta description/og/twitter tags from template to avoid duplicates
+    if (allMetaTags.length > 0) {
       pageHtml = pageHtml.replace(/<meta\s+name="description"[^>]*\/?>\s*/gi, '');
       pageHtml = pageHtml.replace(/<meta\s+property="og:[^"]*"[^>]*\/?>\s*/gi, '');
       pageHtml = pageHtml.replace(/<meta\s+name="twitter:[^"]*"[^>]*\/?>\s*/gi, '');
 
-      const metaTagsStr = metaMatches.map((m: string) => `    ${m}`).join('\n');
+      // Deduplicate meta tags by name/property
+      const metaMap = new Map<string, string>();
+      for (const metaTag of allMetaTags) {
+        const nameMatch = metaTag.match(/name="([^"]*)"/);
+        const propertyMatch = metaTag.match(/property="([^"]*)"/);
+        const key = nameMatch ? nameMatch[1] : (propertyMatch ? propertyMatch[1] : null);
+        
+        if (key) {
+          metaMap.set(key, metaTag);
+        }
+      }
+
+      const dedupedMetaTags = Array.from(metaMap.values());
+      const metaTagsStr = dedupedMetaTags.map((m: string) => `    ${m}`).join('\n');
+      
       if (pageHtml.includes('</head>')) {
         pageHtml = pageHtml.replace('</head>', `${metaTagsStr}\n  </head>`);
       }
