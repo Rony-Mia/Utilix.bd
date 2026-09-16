@@ -16,7 +16,8 @@ import {
   FileText,
   Shield,
   RefreshCw,
-  Clock
+  Clock,
+  Coins
 } from 'lucide-react';
 import { ToolCategory, ToolItem, ConversionMode } from '../types.ts';
 import { bijoyToUnicode, unicodeToBijoy, SAMPLE_BIJOY_TEXT, SAMPLE_UNICODE_TEXT } from '../bijoyConverter.ts';
@@ -54,6 +55,17 @@ const TOOLS: ToolItem[] = [
     status: 'active',
     version: 'v1.0',
     link: '/age-calculator'
+  },
+  {
+    id: 'amount-in-words',
+    refCode: 'FIN-WRD-01',
+    title: 'টাকা → কথায় কনভার্টার (Amount in Words)',
+    description: 'ব্যাংক চেক, জমির দলিল, ভাউচার ও রসিদে লেখার জন্য যেকোনো টাকার অংক (হাজার, লক্ষ, কোটি ও পয়সাসহ) তাৎক্ষণিক নির্ভুল বাংলা কথায় রূপান্তর।',
+    feature: 'লাইভ কনভার্ট • পয়সা সাপোর্ট • ব্যাংক ও দলিল প্রমিত রূপ',
+    category: 'calculator',
+    status: 'active',
+    version: 'v1.0',
+    link: '/amount-in-words'
   }
 ];
 
@@ -222,6 +234,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       {tool.id === 'bijoy-converter' && <ArrowLeftRight className="w-5 h-5" />}
                       {tool.id === 'photo-resizer' && <Crop className="w-5 h-5" />}
                       {tool.id === 'age-calculator' && <Calculator className="w-5 h-5" />}
+                      {tool.id === 'amount-in-words' && <Coins className="w-5 h-5" />}
                     </div>
 
                     <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-[#0c5c3d] text-[#fffdf7]">
@@ -249,6 +262,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     {tool.id === 'bijoy-converter' && <Zap className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
                     {tool.id === 'photo-resizer' && <ImageIcon className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
                     {tool.id === 'age-calculator' && <Clock className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
+                    {tool.id === 'amount-in-words' && <Coins className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
                     <span className="truncate">{tool.feature}</span>
                   </div>
                 </div>

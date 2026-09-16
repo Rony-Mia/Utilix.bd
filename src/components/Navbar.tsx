@@ -75,6 +75,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeCategory = 'all', onSelect
           >
             বয়স ক্যালকুলেটর
           </Link>
+          <Link
+            to="/amount-in-words"
+            className={`px-3 py-1.5 transition-colors font-medium ${
+              location.pathname === '/amount-in-words'
+                ? 'text-[#083f2a] border-b-2 border-[#0c5c3d] font-semibold'
+                : 'text-[#6b6255] hover:text-[#083f2a]'
+            }`}
+          >
+            টাকা কথায়
+          </Link>
         </nav>
 
         {/* Right side: Engine status */}
