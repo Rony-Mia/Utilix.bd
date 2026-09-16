@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import {
   ArrowLeftRight,
   Copy,
@@ -124,6 +125,27 @@ export const ConverterPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 space-y-8">
+      <Helmet>
+        <title>বিজয় ↔ ইউনিকোড কনভার্টার — Bijoy to Unicode Bengali Converter | Utilix.bd</title>
+        <meta
+          name="description"
+          content="সুতন্বীএমজে (Bijoy ANSI) এবং ইউনিকোড (Avro/Unicode) ফন্টের মধ্যে দ্রুত ও নির্ভুল দ্বিমুখী বাংলা রূপান্তরকারী। শতভাগ অফলাইন ও নিরাপদ।"
+        />
+        <meta property="og:title" content="বিজয় ↔ ইউনিকোড কনভার্টার — Bijoy to Unicode Converter | Utilix.bd" />
+        <meta
+          property="og:description"
+          content="সুতন্বীএমজে (Bijoy ANSI) এবং ইউনিকোড (Avro/Unicode) ফন্টের মধ্যে দ্রুত ও নির্ভুল দ্বিমুখী বাংলা রূপান্তরকারী। শতভাগ অফলাইন ও নিরাপদ।"
+        />
+        <meta property="og:url" content="https://utilix.bd/converter" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="বিজয় ↔ ইউনিকোড কনভার্টার | Utilix.bd" />
+        <meta
+          name="twitter:description"
+          content="সুতন্বীএমজে এবং ইউনিকোডের মধ্যে দ্রুত ও নির্ভুল দ্বিমুখী বাংলা টেক্সট রূপান্তর।"
+        />
+      </Helmet>
+
       {/* Breadcrumb */}
       <nav className="flex items-center space-x-2 text-xs text-[#6b6255]">
         <Link to="/" className="hover:text-[#083f2a] underline-offset-2 hover:underline">

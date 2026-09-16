@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import {
   ArrowLeft,
   Copy,
@@ -80,6 +81,30 @@ export const AmountInWordsPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <Helmet>
+        <title>টাকা কথায় রূপান্তর — Number & Taka to Words Converter | Utilix.bd</title>
+        <meta
+          name="description"
+          content="যেকোনো সংখ্যা বা টাকার পরিমাণ তাৎক্ষণিক শুদ্ধ বাংলা ও ইংরেজিতে কথায় লিখুন। চেক, রসিদ ও দাপ্তরিক ভাউচারের জন্য আদর্শ।"
+        />
+        <meta
+          property="og:title"
+          content="টাকা কথায় রূপান্তর — Number & Taka to Words Converter | Utilix.bd"
+        />
+        <meta
+          property="og:description"
+          content="যেকোনো সংখ্যা বা টাকার পরিমাণ তাৎক্ষণিক শুদ্ধ বাংলা ও ইংরেজিতে কথায় লিখুন। চেক, রসিদ ও দাপ্তরিক ভাউচারের জন্য আদর্শ।"
+        />
+        <meta property="og:url" content="https://utilix.bd/amount-in-words" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="টাকা কথায় রূপান্তর | Utilix.bd" />
+        <meta
+          name="twitter:description"
+          content="যেকোনো সংখ্যা বা টাকার পরিমাণ শুদ্ধ বাংলা ও ইংরেজিতে কথায় লেখার অনলাইন টুল।"
+        />
+      </Helmet>
+
       {/* Top Breadcrumb & Privacy Guarantee */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#d8cfb8]">
         <div className="flex items-center space-x-3">

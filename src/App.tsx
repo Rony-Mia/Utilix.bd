@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
-import { HomePage } from './pages/HomePage.tsx';
-import { ConverterPage } from './pages/ConverterPage.tsx';
-import { PhotoResizerPage } from './pages/PhotoResizerPage.tsx';
-import { AgeCalculatorPage } from './pages/AgeCalculatorPage.tsx';
-import { AmountInWordsPage } from './pages/AmountInWordsPage.tsx';
+import { AppRoutes } from './routes.tsx';
 
-export default function App() {
+interface AppProps {
+  helmetContext?: Record<string, unknown>;
+}
+
+export default function App({ helmetContext }: AppProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false);
 
   return (
-    <BrowserRouter>
+    <HelmetProvider context={helmetContext}>
       <div className="min-h-screen flex flex-col bg-[#f4efe4] text-[#14231c]">
         {/* Top Navbar */}
         <Navbar
@@ -23,24 +23,11 @@ export default function App() {
 
         {/* Main Content Area */}
         <main className="flex-grow">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <HomePage
-                  selectedCategory={selectedCategory}
-                  onSelectCategory={(cat) => setSelectedCategory(cat)}
-                  onOpenTerms={() => setShowTermsModal(true)}
-                />
-              }
-            />
-            <Route path="/converter" element={<ConverterPage />} />
-            <Route path="/photo-resizer" element={<PhotoResizerPage />} />
-            <Route path="/age-calculator" element={<AgeCalculatorPage />} />
-            <Route path="/amount-in-words" element={<AmountInWordsPage />} />
-            {/* Fallback route */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <AppRoutes
+            selectedCategory={selectedCategory}
+            onSelectCategory={(cat) => setSelectedCategory(cat)}
+            onOpenTerms={() => setShowTermsModal(true)}
+          />
         </main>
 
         {/* Footer */}
@@ -77,6 +64,6 @@ export default function App() {
           </div>
         )}
       </div>
-    </BrowserRouter>
+    </HelmetProvider>
   );
 }

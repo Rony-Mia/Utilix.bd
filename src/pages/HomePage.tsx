@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import {
   ArrowRight,
   ArrowLeftRight,
@@ -124,6 +125,27 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-12">
+      <Helmet>
+        <title>Utilix.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব</title>
+        <meta
+          name="description"
+          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর এবং টাকা কথায় কনভার্টার।"
+        />
+        <meta property="og:title" content="Utilix.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
+        <meta
+          property="og:description"
+          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর এবং টাকা কথায় কনভার্টার।"
+        />
+        <meta property="og:url" content="https://utilix.bd/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Utilix.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
+        <meta
+          name="twitter:description"
+          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর এবং টাকা কথায় কনভার্টার।"
+        />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="space-y-4">
         {/* Small tag pill */}

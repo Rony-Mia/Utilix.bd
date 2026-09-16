@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import {
   ArrowLeft,
   Upload,
@@ -403,6 +404,30 @@ export const PhotoResizerPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <Helmet>
+        <title>সরকারি চাকরি ও পাসপোর্ট ছবি রিসাইজার — Photo & Signature Resizer | Utilix.bd</title>
+        <meta
+          name="description"
+          content="বিসিএস, সরকারি চাকরি (৩০০×৩০০ পিক্সেল, ১০০ কেবি) ও স্বাক্ষর (৩০০×৮০ পিক্সেল, ৬০ কেবি) সহ পাসপোর্ট সাইজ ছবির নির্ভুল অনলাইন রিসাইজার ও ক্রপার।"
+        />
+        <meta
+          property="og:title"
+          content="সরকারি চাকরি ও পাসপোর্ট ছবি রিসাইজার — Photo & Signature Resizer | Utilix.bd"
+        />
+        <meta
+          property="og:description"
+          content="বিসিএস, সরকারি চাকরি (৩০০×৩০০ পিক্সেল, ১০০ কেবি) ও স্বাক্ষর (৩০০×৮০ পিক্সেল, ৬০ কেবি) সহ পাসপোর্ট সাইজ ছবির নির্ভুল অনলাইন রিসাইজার ও ক্রপার।"
+        />
+        <meta property="og:url" content="https://utilix.bd/photo-resizer" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="ছবি ও স্বাক্ষর রিসাইজার | Utilix.bd" />
+        <meta
+          name="twitter:description"
+          content="সরকারি চাকরি ও পাসপোর্টের নির্ধারিত মাপে ছবি এবং স্বাক্ষর রিসাইজার।"
+        />
+      </Helmet>
+
       {/* Top Breadcrumb & Privacy Guarantee */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#d8cfb8]">
         <div className="flex items-center space-x-3">

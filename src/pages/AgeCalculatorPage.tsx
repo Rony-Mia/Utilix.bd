@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import {
   ArrowLeft,
   Calendar,
@@ -328,6 +329,30 @@ export const AgeCalculatorPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <Helmet>
+        <title>সরকারি চাকরির বয়স ক্যালকুলেটর — Job Age Calculator BD | Utilix.bd</title>
+        <meta
+          name="description"
+          content="বিজ্ঞপ্তির নির্দিষ্ট তারিখে আপনার সঠিক বয়স (বছর, মাস, দিন) এবং সরকারি ও কোটাভিত্তিক চাকরির যোগ্যতা তাৎক্ষণিক নির্ভুল হিসাব করুন।"
+        />
+        <meta
+          property="og:title"
+          content="সরকারি চাকরির বয়স ক্যালকুলেটর — Job Age Calculator BD | Utilix.bd"
+        />
+        <meta
+          property="og:description"
+          content="বিজ্ঞপ্তির নির্দিষ্ট তারিখে আপনার সঠিক বয়স (বছর, মাস, দিন) এবং সরকারি ও কোটাভিত্তিক চাকরির যোগ্যতা তাৎক্ষণিক নির্ভুল হিসাব করুন।"
+        />
+        <meta property="og:url" content="https://utilix.bd/age-calculator" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="সরকারি চাকরির বয়স ক্যালকুলেটর | Utilix.bd" />
+        <meta
+          name="twitter:description"
+          content="সরকারি চাকরি ও বিসিএস পরীক্ষার জন্য বিজ্ঞপ্তির তারিখে সঠিক বয়স হিসাব করুন।"
+        />
+      </Helmet>
+
       {/* Top Breadcrumb & Privacy Guarantee */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#d8cfb8]">
         <div className="flex items-center space-x-3">
