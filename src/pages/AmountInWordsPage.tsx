@@ -22,6 +22,7 @@ import {
   toBanglaDigits,
   formatBangladeshiCurrency
 } from '../amountToWords.ts';
+import { useCopyToClipboard } from '../hooks/useCopyToClipboard.ts';
 
 interface PresetItem {
   label: string;
@@ -45,8 +46,8 @@ export const AmountInWordsPage: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>('1550.50');
 
   // Copy notification states
-  const [copiedPrimary, setCopiedPrimary] = useState<boolean>(false);
-  const [copiedColloquial, setCopiedColloquial] = useState<boolean>(false);
+  const { copied: copiedPrimary, copy: copyPrimary } = useCopyToClipboard();
+  const { copied: copiedColloquial, copy: copyColloquial } = useCopyToClipboard();
 
   // Active view style toggle for amounts with colloquial options
   const [useColloquialIfAvailable, setUseColloquialIfAvailable] = useState<boolean>(false);
@@ -58,15 +59,7 @@ export const AmountInWordsPage: React.FC = () => {
 
   // Copy helper
   const handleCopy = (text: string, isColloquial = false) => {
-    if (!text) return;
-    navigator.clipboard.writeText(text);
-    if (isColloquial) {
-      setCopiedColloquial(true);
-      setTimeout(() => setCopiedColloquial(false), 2000);
-    } else {
-      setCopiedPrimary(true);
-      setTimeout(() => setCopiedPrimary(false), 2000);
-    }
+    void (isColloquial ? copyColloquial(text) : copyPrimary(text));
   };
 
   // Reset helper

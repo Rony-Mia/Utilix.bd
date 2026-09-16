@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { useCopyToClipboard } from '../hooks/useCopyToClipboard.ts';
 import {
   ArrowLeft,
   Calendar,
@@ -149,15 +150,15 @@ export const AgeCalculatorPage: React.FC = () => {
   // Default birth date: realistic example candidate
   const [birthDateStr, setBirthDateStr] = useState<string>('1998-05-15');
   
-  // Default target date & today string: stable reference date for SSR, synchronized to local today on client mount
-  const [todayStr, setTodayStr] = useState<string>('2026-09-16');
-  const [targetDateStr, setTargetDateStr] = useState<string>('2026-09-16');
+  // Target date & today string stay empty during SSR and are filled with the
+  // visitor's local date on mount, so prerendered HTML never ships a stale date
+  const [todayStr, setTodayStr] = useState<string>('');
+  const [targetDateStr, setTargetDateStr] = useState<string>('');
 
-  // Synchronize targetDate and todayStr to actual client date on mount without hydration mismatch
   React.useEffect(() => {
     const today = formatDateToInputString(new Date());
     setTodayStr(today);
-    setTargetDateStr((prev) => (prev === '2026-09-16' ? today : prev));
+    setTargetDateStr((prev) => prev || today);
   }, []);
 
   // Quota category state
@@ -166,7 +167,7 @@ export const AgeCalculatorPage: React.FC = () => {
   const [customMinAge, setCustomMinAge] = useState<number>(18);
 
   // Copy notification
-  const [copied, setCopied] = useState<boolean>(false);
+  const { copied, copy } = useCopyToClipboard();
 
   // Parsed dates
   const parsedDates = useMemo(() => {
@@ -337,9 +338,7 @@ export const AgeCalculatorPage: React.FC = () => {
 স্ট্যাটাস: ${eligibility.title}
 মন্তব্য: ${eligibility.detail}`;
 
-    navigator.clipboard.writeText(summary);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    void copy(summary);
   };
 
   // Reset to defaults

@@ -52,7 +52,7 @@ export const BANGLA_ONES_AND_TENS: { [key: number]: string } = {
   47: 'সাতচল্লিশ',
   48: 'আটচল্লিশ',
   49: 'উনপঞ্চাশ',
-  50: ' পঞ্চাশ',
+  50: 'পঞ্চাশ',
   51: 'একান্ন',
   52: 'বায়ান্ন',
   53: 'তিপ্পান্ন',
@@ -104,12 +104,6 @@ export const BANGLA_ONES_AND_TENS: { [key: number]: string } = {
   99: 'নিরানব্বই'
 };
 
-// Fix any accidental leading whitespace in lookup
-Object.keys(BANGLA_ONES_AND_TENS).forEach((k) => {
-  const numKey = Number(k);
-  BANGLA_ONES_AND_TENS[numKey] = BANGLA_ONES_AND_TENS[numKey].trim();
-});
-
 // Bengali Digits array
 export const BANGLA_DIGITS = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
 
@@ -154,7 +148,7 @@ export const BANGLA_HUNDREDS_COLLOQUIAL: { [key: number]: string } = {
 // Maximum allowed input amount: 99,99,99,99,999 (9999 কোটি / ~100 billion)
 export const MAX_CONVERTIBLE_AMOUNT = 99999999999;
 
-// Colloquial prefixes for 1100 to 9900 (e.g. ১৫০০ -> "পনেরশ")
+// Colloquial prefixes for 1100 to 1999 (e.g. ১৫০০ -> "পনেরশ")
 const COLLOQUIAL_HUNDREDS_PREFIX: { [key: number]: string } = {
   11: 'এগারশ',
   12: 'বারশ',
@@ -164,10 +158,7 @@ const COLLOQUIAL_HUNDREDS_PREFIX: { [key: number]: string } = {
   16: 'ষোলশ',
   17: 'সতেরশ',
   18: 'আঠারশ',
-  19: 'উনিশশ',
-  20: 'বিশশ',
-  25: 'পঁচিশশ',
-  50: 'পঞ্চাশশ'
+  19: 'উনিশশ'
 };
 
 export interface ConversionResult {
@@ -347,7 +338,7 @@ export function convertAmountToBengaliWords(input: string): ConversionResult {
     return {
       isValid: false,
       rawInput: input,
-      error: `সর্বোচ্চ সীমা অতিক্রম করেছে (সর্বোচ্চ ${toBanglaDigits('99,99,99,99,999')} বা প্রায় ৯,৯৯৯ কোটি টাকা সমর্থিত)।`
+      error: `সর্বোচ্চ সীমা অতিক্রম করেছে (সর্বোচ্চ ${toBanglaDigits('99,99,99,99,999')} টাকা, অর্থাৎ প্রায় ৯,৯৯৯ কোটি টাকা পর্যন্ত সমর্থিত)।`
     };
   }
 
@@ -403,11 +394,10 @@ export function convertAmountToBengaliWords(input: string): ConversionResult {
 
   // Optional colloquial variant for 1,100 to 9,999 (e.g. 1550 -> "পনেরশ পঞ্চাশ টাকা ...")
   let colloquialWords: string | undefined;
-  if (adjustedInteger >= 1100 && adjustedInteger < 10000 && adjustedInteger % 1000 >= 100) {
+  if (adjustedInteger >= 1100 && adjustedInteger < 2000 && adjustedInteger % 1000 >= 100) {
     const hundredsCount = Math.floor(adjustedInteger / 100);
     const rest = adjustedInteger % 100;
-    const hundredsWord = COLLOQUIAL_HUNDREDS_PREFIX[hundredsCount] ||
-      (BANGLA_ONES_AND_TENS[hundredsCount] ? `${BANGLA_ONES_AND_TENS[hundredsCount]}শ` : '');
+    const hundredsWord = COLLOQUIAL_HUNDREDS_PREFIX[hundredsCount] || '';
     if (hundredsWord) {
       const restWord = rest > 0 ? ` ${BANGLA_ONES_AND_TENS[rest]}` : '';
       const paisaPart = paisa > 0 ? ` ${BANGLA_ONES_AND_TENS[paisa] || paisa} পয়সা` : '';
