@@ -5,7 +5,7 @@ import { createServer as createViteServer } from 'vite';
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.PORT || 3000;
 
   // Body parsing for JSON and urlencoded
   app.use(express.json({ limit: '10mb' }));
@@ -16,26 +16,36 @@ async function startServer() {
     res.json({
       status: 'ok',
       service: 'Utilix.bd',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || 'development'
     });
   });
 
   app.get('/api/capabilities', (req, res) => {
     res.json({
       prerendered: true,
-      routes: ['/', '/converter', '/photo-resizer', '/age-calculator', '/amount-in-words']
+      routes: ['/', '/converter', '/photo-resizer', '/age-calculator', '/amount-in-words'],
+      ssr: true,
+      hydration: true
     });
   });
 
   // 2. Vite middleware in Development OR Static Serving in Production
   if (process.env.NODE_ENV !== 'production') {
+    console.log('[server] Running in development mode with Vite middleware...');
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
     });
     app.use(vite.middlewares);
   } else {
+    console.log('[server] Running in production mode with prerendered static files...');
     const distPath = path.join(process.cwd(), 'dist');
+
+    // Verify dist directory exists
+    if (!fs.existsSync(distPath)) {
+      throw new Error(`Production dist directory not found at ${distPath}`);
+    }
 
     // Serve static assets from dist (css, js, media, fonts)
     app.use(express.static(distPath, {
@@ -61,6 +71,7 @@ async function startServer() {
         : path.join(distPath, 'index.html');
 
       if (fs.existsSync(potentialHtmlPath)) {
+        console.log(`[server] Serving prerendered: ${potentialHtmlPath}`);
         return res.sendFile(potentialHtmlPath);
       }
 
@@ -69,16 +80,18 @@ async function startServer() {
 
     // Fallback for any other client-side SPA routes (Express v5 format)
     app.get('*all', (req, res) => {
+      console.log(`[server] Fallback to SPA: ${req.path}`);
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Utilix.bd server running on http://0.0.0.0:${PORT}`);
+    console.log(`✅ Utilix.bd server running on http://0.0.0.0:${PORT}`);
+    console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
   });
 }
 
 startServer().catch((err) => {
-  console.error('Failed to start server:', err);
+  console.error('❌ Failed to start server:', err);
   process.exit(1);
 });
