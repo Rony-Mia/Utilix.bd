@@ -89,20 +89,37 @@ const GOVERNMENT_QUOTA_CATEGORIES: AgeCategory[] = [
 // Exact difference calculation taking calendar months and leap years into account
 function calculateExactDifference(startDate: Date, endDate: Date) {
   let years = endDate.getFullYear() - startDate.getFullYear();
-  let months = endDate.getMonth() - startDate.getMonth();
-  let days = endDate.getDate() - startDate.getDate();
 
-  if (days < 0) {
-    // Borrow days from the previous month of endDate
-    const prevMonthLastDay = new Date(endDate.getFullYear(), endDate.getMonth(), 0).getDate();
-    days += prevMonthLastDay;
-    months -= 1;
+  // Try advancing by years
+  let testDate = new Date(startDate.getFullYear() + years, startDate.getMonth(), startDate.getDate());
+  if (testDate > endDate) {
+    years--;
   }
 
-  if (months < 0) {
-    years -= 1;
-    months += 12;
+  // Try advancing by months
+  let months = 0;
+  while (true) {
+    let nextMonth = new Date(startDate.getFullYear() + years, startDate.getMonth() + months + 1, startDate.getDate());
+    // handle month end rollover (e.g. Jan 31 -> Feb 28/29)
+    if (nextMonth.getDate() !== startDate.getDate()) {
+      nextMonth = new Date(startDate.getFullYear() + years, startDate.getMonth() + months + 2, 0);
+    }
+    if (nextMonth <= endDate) {
+      months++;
+    } else {
+      break;
+    }
   }
+
+  // Calculate the intermediate anchor date reached by (startDate + years + months)
+  let intermediate = new Date(startDate.getFullYear() + years, startDate.getMonth() + months, startDate.getDate());
+  if (intermediate.getDate() !== startDate.getDate()) {
+    intermediate = new Date(startDate.getFullYear() + years, startDate.getMonth() + months + 1, 0);
+  }
+
+  // Exact difference in remaining days
+  const diffMs = endDate.getTime() - intermediate.getTime();
+  const days = Math.max(0, Math.round(diffMs / (1000 * 60 * 60 * 24)));
 
   return { years, months, days };
 }
@@ -132,9 +149,16 @@ export const AgeCalculatorPage: React.FC = () => {
   // Default birth date: realistic example candidate
   const [birthDateStr, setBirthDateStr] = useState<string>('1998-05-15');
   
-  // Default target date: today's date
-  const todayStr = useMemo(() => formatDateToInputString(new Date()), []);
-  const [targetDateStr, setTargetDateStr] = useState<string>(todayStr);
+  // Default target date & today string: stable reference date for SSR, synchronized to local today on client mount
+  const [todayStr, setTodayStr] = useState<string>('2026-09-16');
+  const [targetDateStr, setTargetDateStr] = useState<string>('2026-09-16');
+
+  // Synchronize targetDate and todayStr to actual client date on mount without hydration mismatch
+  React.useEffect(() => {
+    const today = formatDateToInputString(new Date());
+    setTodayStr(today);
+    setTargetDateStr((prev) => (prev === '2026-09-16' ? today : prev));
+  }, []);
 
   // Quota category state
   const [selectedCategory, setSelectedCategory] = useState<string>('general');

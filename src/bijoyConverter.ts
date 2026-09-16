@@ -32,7 +32,7 @@ export const REFF: Record<string, string> = { "©": "র্" };
 export const POST_SYMBOLS_MAP: Record<string, string> = {
   "&": "্", "ú": "্প", "è": "্ন", "^": "্ব", "‘": "্তু", "’": "্থ", "‹": "্ক", "Œ": "্ক্র", "—": "্ত",
   "Í": "্ত", "œ": "্ন", "Ÿ": "্ব", "¡": "্ব", "¢": "্ভ", "£": "্ভ্র", "¥": "্ম", "¦": "্ব", "§": "্ম",
-  "¨": "্য", "ª": "্র", "«": "্র", "¬": "্ল", "": "্ল", "Ö": "্র"
+  "¨": "্য", "ª": "্র", "«": "্র", "¬": "্ল", "Ö": "্র"
 };
 
 export const KAARS: Record<string, string> = {
@@ -40,9 +40,19 @@ export const KAARS: Record<string, string> = {
   "‚": "ূ", "„": "ৃ", "…": "ৃ", "†": "ে", "‡": "ে", "ˆ": "ৈ", "‰": "ৈ", "Š": "ৗ"
 };
 
-export const KAAR_POST_CONVERSION: Record<string, string> = { "ো": "ো", "ৌ": "ৌ" };
+export const KAAR_POST_CONVERSION: Record<string, string> = {
+  "ো": "ো",
+  "ৌ": "ৌ",
+  "ো": "ো",
+  "ৌ": "ৌ"
+};
 
-export const POST_CONVERSION_MAP: Record<string, string> = { "অা": "আ", "্্": "্" };
+export const POST_CONVERSION_MAP: Record<string, string> = {
+  "অা": "আ",
+  "্্": "্",
+  "ো": "ো",
+  "ৌ": "ৌ"
+};
 
 export const PRE_CONVERSION_MAP: Record<string, string> = {
   " +": " ", "yy": "y", "vv": "v", "„„": "„", "y&": "y", "„&": "„", "‡u": "u‡", "wu": "uw",

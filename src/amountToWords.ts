@@ -300,8 +300,25 @@ export function convertAmountToBengaliWords(input: string): ConversionResult {
   }
 
   // Convert Bengali numerals to ASCII & strip currency symbols and commas
-  const cleaned = banglaToAsciiDigits(trimmed)
+  let cleaned = banglaToAsciiDigits(trimmed)
     .replace(/[৳,\s]/g, '');
+
+  // Handle leading dot e.g. ".50" -> "0.50"
+  if (cleaned.startsWith('.')) {
+    cleaned = '0' + cleaned;
+  }
+  // Handle trailing dot during typing e.g. "100." -> "100"
+  if (cleaned.endsWith('.')) {
+    cleaned = cleaned.slice(0, -1);
+  }
+
+  if (!cleaned) {
+    return {
+      isValid: false,
+      rawInput: input,
+      error: 'অনুগ্রহ করে টাকার পরিমাণ লিখুন।'
+    };
+  }
 
   // Validate number format (allow optional decimal point with digits)
   if (!/^\d+(\.\d+)?$/.test(cleaned)) {
