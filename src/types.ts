@@ -1,4 +1,4 @@
-export type ToolCategory = 'all' | 'text' | 'image';
+export type ToolCategory = 'all' | 'text' | 'image' | 'calculator';
 
 export interface ToolItem {
   id: string;

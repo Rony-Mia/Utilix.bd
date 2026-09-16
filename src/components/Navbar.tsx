@@ -65,6 +65,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeCategory = 'all', onSelect
           >
             পাসপোর্ট ও চাকরি ছবি রিসাইজার
           </Link>
+          <Link
+            to="/age-calculator"
+            className={`px-3 py-1.5 transition-colors font-medium ${
+              location.pathname === '/age-calculator'
+                ? 'text-[#083f2a] border-b-2 border-[#0c5c3d] font-semibold'
+                : 'text-[#6b6255] hover:text-[#083f2a]'
+            }`}
+          >
+            বয়স ক্যালকুলেটর
+          </Link>
         </nav>
 
         {/* Right side: Engine status */}

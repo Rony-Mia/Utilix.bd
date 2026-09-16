@@ -15,7 +15,8 @@ import {
   Trash2,
   FileText,
   Shield,
-  RefreshCw
+  RefreshCw,
+  Clock
 } from 'lucide-react';
 import { ToolCategory, ToolItem, ConversionMode } from '../types.ts';
 import { bijoyToUnicode, unicodeToBijoy, SAMPLE_BIJOY_TEXT, SAMPLE_UNICODE_TEXT } from '../bijoyConverter.ts';
@@ -42,6 +43,17 @@ const TOOLS: ToolItem[] = [
     status: 'active',
     version: 'v1.0',
     link: '/photo-resizer'
+  },
+  {
+    id: 'age-calculator',
+    refCode: 'CALC-AGE-01',
+    title: 'সরকারি চাকরির বয়স ক্যালকুলেটর',
+    description: 'জন্ম তারিখ ও সার্কুলারের হিসাবের তারিখ অনুযায়ী নির্ভুল বছর, মাস ও দিন গণনা, মোট দিন-সপ্তাহ এবং সাধারণ ও কোটাভিত্তিক সরকারি চাকরির বয়সসীমা যাচাই।',
+    feature: 'বছর-মাস-দিন হিসাব • ৩০/৩২ বছর কোটা চেকার • কাস্টম লিমিট',
+    category: 'calculator',
+    status: 'active',
+    version: 'v1.0',
+    link: '/age-calculator'
   }
 ];
 
@@ -169,21 +181,32 @@ export const HomePage: React.FC<HomePageProps> = ({
             >
               গ্রাফিক্স ও ছবি
             </button>
+            <button
+              type="button"
+              onClick={() => onSelectCategory('calculator')}
+              className={`px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors cursor-pointer border ${
+                selectedCategory === 'calculator'
+                  ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                  : 'bg-[#fffdf7] text-[#6b6255] border-[#d8cfb8] hover:text-[#083f2a]'
+              }`}
+            >
+              ক্যালকুলেটর
+            </button>
           </div>
 
           {/* Clean status badge row */}
           <div className="text-[11px] sm:text-xs text-[#6b6255] font-mono flex items-center gap-3">
             <span className="flex items-center text-[#0c5c3d]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#0c5c3d] mr-1"></span>
-              ২টি সক্রিয় টুল
+              {TOOLS.length}টি সক্রিয় টুল
             </span>
             <span className="text-[#d8cfb8]">/</span>
             <span className="text-[#083f2a]">১০০% ক্লায়েন্ট-সাইড নিরাপদ</span>
           </div>
         </div>
 
-        {/* 2-Column Tool Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* 3-Column Responsive Tool Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTools.map((tool) => {
             const isActive = tool.status === 'active';
 
@@ -198,6 +221,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <div className="w-10 h-10 border border-[#d8cfb8] bg-[#f4efe4] flex items-center justify-center text-[#0c5c3d]">
                       {tool.id === 'bijoy-converter' && <ArrowLeftRight className="w-5 h-5" />}
                       {tool.id === 'photo-resizer' && <Crop className="w-5 h-5" />}
+                      {tool.id === 'age-calculator' && <Calculator className="w-5 h-5" />}
                     </div>
 
                     <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-[#0c5c3d] text-[#fffdf7]">
@@ -224,6 +248,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <div className="border border-[#d8cfb8] bg-[#f4efe4]/60 p-2 text-xs text-[#14231c] flex items-center space-x-2 mb-6">
                     {tool.id === 'bijoy-converter' && <Zap className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
                     {tool.id === 'photo-resizer' && <ImageIcon className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
+                    {tool.id === 'age-calculator' && <Clock className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
                     <span className="truncate">{tool.feature}</span>
                   </div>
                 </div>

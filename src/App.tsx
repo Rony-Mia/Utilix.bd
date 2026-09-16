@@ -5,6 +5,7 @@ import { Footer } from './components/Footer.tsx';
 import { HomePage } from './pages/HomePage.tsx';
 import { ConverterPage } from './pages/ConverterPage.tsx';
 import { PhotoResizerPage } from './pages/PhotoResizerPage.tsx';
+import { AgeCalculatorPage } from './pages/AgeCalculatorPage.tsx';
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -34,6 +35,7 @@ export default function App() {
             />
             <Route path="/converter" element={<ConverterPage />} />
             <Route path="/photo-resizer" element={<PhotoResizerPage />} />
+            <Route path="/age-calculator" element={<AgeCalculatorPage />} />
             {/* Fallback route */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
