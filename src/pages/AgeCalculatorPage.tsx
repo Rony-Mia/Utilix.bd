@@ -155,6 +155,9 @@ export const AgeCalculatorPage: React.FC = () => {
   const [todayStr, setTodayStr] = useState<string>('');
   const [targetDateStr, setTargetDateStr] = useState<string>('');
 
+  // Derived from state so the first client render matches the prerendered HTML
+  const currentYear = todayStr ? Number(todayStr.slice(0, 4)) : null;
+
   React.useEffect(() => {
     const today = formatDateToInputString(new Date());
     setTodayStr(today);
@@ -810,7 +813,7 @@ export const AgeCalculatorPage: React.FC = () => {
                 }}
                 className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 px-2.5 py-1 text-[#14231c] transition-colors cursor-pointer"
               >
-                ১ জানুয়ারি ({toBanglaNum(new Date().getFullYear())} খ্রি.)
+                ১ জানুয়ারি{currentYear ? ` (${toBanglaNum(currentYear)} খ্রি.)` : ''}
               </button>
             </div>
           </div>
