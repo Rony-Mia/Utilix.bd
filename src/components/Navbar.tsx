@@ -69,9 +69,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeCategory = 'all', onSelect
 
         {/* Right side: Engine status */}
         <div className="flex items-center text-xs text-[#0c5c3d] font-sans pl-2 border-l border-[#d8cfb8] sm:border-l-0">
-          <span className="w-2 h-2 rounded-full bg-[#0c5c3d] mr-1.5 animate-pulse"></span>
-          <span className="hidden sm:inline">ব্যাকএন্ড ও এপিআই প্রস্তুত</span>
-          <span className="sm:hidden text-[11px] font-medium">এপিআই প্রস্তুত</span>
+          <span className="w-2 h-2 rounded-full bg-[#0c5c3d] mr-1.5"></span>
+          <span className="hidden sm:inline">১০০% ক্লায়েন্ট-সাইড ও নিরাপদ</span>
+          <span className="sm:hidden text-[11px] font-medium">নিরাপদ টুলস</span>
         </div>
       </div>
     </header>

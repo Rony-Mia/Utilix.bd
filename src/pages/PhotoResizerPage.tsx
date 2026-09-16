@@ -12,62 +12,20 @@ import {
   AlertTriangle,
   FileImage,
   Sliders,
-  Maximize2,
-  Trash2,
-  Layers,
-  Server,
-  Cpu,
-  HelpCircle,
-  Scissors
+  ShieldCheck,
+  HelpCircle
 } from 'lucide-react';
 import { PresetProfile } from '../types.ts';
+import { GOVERNMENT_PRESET_PROFILES } from '../constants/presets.ts';
 
-const DEFAULT_PRESETS: PresetProfile[] = [
-  {
-    id: 'bcs_govt_photo',
-    name: 'বিসিএস ও সরকারি চাকরি (ছবি)',
-    org: 'Teletalk / BPSC / Ministry',
-    width: 300,
-    height: 300,
-    maxSizeKb: 100,
-    format: 'jpeg',
-    aspectRatio: '1:1',
-    description: 'টেলিটক ও সরকারি চাকরি আবেদনের নির্ধারিত ৩০০×৩০০ পিক্সেল (অনূর্ধ্ব ১০০ KB)'
-  },
-  {
-    id: 'govt_signature',
-    name: 'চাকরি ও বিসিএস স্বাক্ষর (Signature)',
-    org: 'Teletalk / BPSC',
-    width: 300,
-    height: 80,
-    maxSizeKb: 60,
-    format: 'jpeg',
-    aspectRatio: '300:80',
-    description: 'অনলাইন আবেদনের জন্য অফিশিয়াল ৩০০×৮০ পিক্সেল মাপ (অনূর্ধ্ব ৬০ KB)'
-  },
-  {
-    id: 'bd_passport',
-    name: 'বাংলাদেশ পাসপোর্ট / ভিসা ছবি',
-    org: 'DIP Bangladesh / Visa',
-    width: 413,
-    height: 531,
-    maxSizeKb: 300,
-    format: 'jpeg',
-    aspectRatio: '413:531',
-    description: '৪৫মিমি × ৫৫মিমি মাপের মানসম্মত আন্তর্জাতিক ও বাংলাদেশ পাসপোর্ট ছবি'
-  },
-  {
-    id: 'primary_teacher',
-    name: 'প্রাথমিক সহকারী শিক্ষক নিয়োগ',
-    org: 'DPE Teletalk',
-    width: 300,
-    height: 300,
-    maxSizeKb: 100,
-    format: 'jpeg',
-    aspectRatio: '1:1',
-    description: 'ডিপিই প্রাথমিক শিক্ষক নিয়োগ পরীক্ষার নির্ধারিত ৩০০×৩০০ পিক্সেল'
-  }
-];
+// Helper to calculate exact byte length of a base64 data URL
+function getDataUrlByteLength(dataUrl: string): number {
+  const commaIdx = dataUrl.indexOf(',');
+  if (commaIdx === -1) return 0;
+  const base64Str = dataUrl.slice(commaIdx + 1);
+  const padding = base64Str.endsWith('==') ? 2 : base64Str.endsWith('=') ? 1 : 0;
+  return Math.max(0, Math.floor((base64Str.length * 3) / 4) - padding);
+}
 
 export const PhotoResizerPage: React.FC = () => {
   // Preset selection
@@ -92,12 +50,10 @@ export const PhotoResizerPage: React.FC = () => {
   const [offsetX, setOffsetX] = useState<number>(0);
   const [offsetY, setOffsetY] = useState<number>(0);
   const [fitMode, setFitMode] = useState<'cover' | 'contain' | 'fill'>('cover');
-  const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
+  const [backgroundColor] = useState<string>('#ffffff');
 
-  // Processing Engine: 'browser' or 'server'
-  const [processingEngine, setProcessingEngine] = useState<'server' | 'browser'>('server');
+  // Processing state
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [serverOnline, setServerOnline] = useState<boolean>(true);
 
   // Result state
   const [resultDataUrl, setResultDataUrl] = useState<string | null>(null);
@@ -110,12 +66,11 @@ export const PhotoResizerPage: React.FC = () => {
   } | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const imgElementRef = useRef<HTMLImageElement | null>(null);
 
   // Determine active parameters
   const currentPreset = useMemo(() => {
-    return DEFAULT_PRESETS.find(p => p.id === selectedPreset);
+    return GOVERNMENT_PRESET_PROFILES.find((p) => p.id === selectedPreset);
   }, [selectedPreset]);
 
   const activeWidth = currentPreset ? currentPreset.width : customWidth;
@@ -123,21 +78,7 @@ export const PhotoResizerPage: React.FC = () => {
   const activeMaxKb = currentPreset ? currentPreset.maxSizeKb : customMaxKb;
   const activeFormat = currentPreset ? currentPreset.format : customFormat;
 
-  // Check server health on mount
-  useEffect(() => {
-    fetch('/api/health')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.status === 'ok') {
-          setServerOnline(true);
-        }
-      })
-      .catch(() => {
-        setServerOnline(false);
-      });
-  }, []);
-
-  // Set default sample image on first load if none loaded
+  // Set default sample image on first load
   useEffect(() => {
     loadSampleImage('photo');
   }, []);
@@ -145,7 +86,7 @@ export const PhotoResizerPage: React.FC = () => {
   // Handle Preset change
   const handlePresetSelect = (id: string) => {
     setSelectedPreset(id);
-    const preset = DEFAULT_PRESETS.find(p => p.id === id);
+    const preset = GOVERNMENT_PRESET_PROFILES.find((p) => p.id === id);
     if (preset) {
       if (preset.id === 'govt_signature') {
         loadSampleImage('signature');
@@ -313,17 +254,16 @@ export const PhotoResizerPage: React.FC = () => {
     offsetX,
     offsetY,
     fitMode,
-    backgroundColor,
-    processingEngine
+    backgroundColor
   ]);
 
-  // Main Image Processing Routine
-  const processImage = async () => {
+  // Main 100% Client-Side Image Processing Routine with Binary Search Optimization
+  const processImage = () => {
     if (!imageSrc) return;
     setIsProcessing(true);
 
     try {
-      // 1. First generate a composed canvas representing the user's crop/zoom/rotate
+      // 1. Compose canvas representing the user's crop/zoom/rotate/dimensions
       const offscreenCanvas = document.createElement('canvas');
       offscreenCanvas.width = activeWidth;
       offscreenCanvas.height = activeHeight;
@@ -334,7 +274,7 @@ export const PhotoResizerPage: React.FC = () => {
         return;
       }
 
-      // Background fill
+      // Background fill (white by default for passport/govt guidelines)
       ctx.fillStyle = backgroundColor;
       ctx.fillRect(0, 0, activeWidth, activeHeight);
 
@@ -365,69 +305,79 @@ export const PhotoResizerPage: React.FC = () => {
       ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
       ctx.restore();
 
-      const intermediateDataUrl = offscreenCanvas.toDataURL('image/png');
+      // 2. Binary Search Target Size Matching
+      const outputMime =
+        activeFormat === 'png'
+          ? 'image/png'
+          : activeFormat === 'webp'
+          ? 'image/webp'
+          : 'image/jpeg';
 
-      // 2. If Server Engine selected & Server is online, send to /api/image/resize for Sharp Lanczos3 & exact byte size optimization
-      if (processingEngine === 'server' && serverOnline) {
-        try {
-          const response = await fetch('/api/image/resize', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              imageBase64: intermediateDataUrl,
-              width: activeWidth,
-              height: activeHeight,
-              maxSizeKb: activeMaxKb,
-              format: activeFormat,
-              fit: 'fill'
-            })
-          });
+      let finalDataUrl = '';
+      let finalQuality = 100;
+      let finalBytes = 0;
 
-          if (response.ok) {
-            const data = await response.json();
-            if (data.success && data.imageBase64) {
-              setResultDataUrl(data.imageBase64);
-              setResultMeta({
-                width: data.width,
-                height: data.height,
-                sizeKb: data.sizeKb,
-                format: data.format.toUpperCase(),
-                qualityUsed: data.qualityUsed || 90
-              });
-              setIsProcessing(false);
-              return;
+      if (outputMime === 'image/png') {
+        // PNG is lossless and does not take quality parameter
+        finalDataUrl = offscreenCanvas.toDataURL('image/png');
+        finalBytes = getDataUrlByteLength(finalDataUrl);
+        finalQuality = 100;
+      } else {
+        // JPEG or WebP: Binary search for the highest quality that stays <= activeMaxKb
+        const targetBytes = activeMaxKb > 0 ? activeMaxKb * 1024 : Infinity;
+
+        // Test top quality first (0.98)
+        const highCandidateQuality = 0.98;
+        const highCandidateDataUrl = offscreenCanvas.toDataURL(outputMime, highCandidateQuality);
+        const highCandidateBytes = getDataUrlByteLength(highCandidateDataUrl);
+
+        if (highCandidateBytes <= targetBytes || targetBytes === Infinity) {
+          // Fits within budget with pristine quality
+          finalDataUrl = highCandidateDataUrl;
+          finalQuality = Math.round(highCandidateQuality * 100);
+          finalBytes = highCandidateBytes;
+        } else {
+          // Binary search in range [0.05, 0.98] to hit target size with minimal overshoot/undershoot
+          let low = 0.05;
+          let high = highCandidateQuality;
+          let bestDataUrl = offscreenCanvas.toDataURL(outputMime, low);
+          let bestBytes = getDataUrlByteLength(bestDataUrl);
+          let bestQuality = low;
+
+          // 8 iterations gives 0.36% step precision
+          for (let iter = 0; iter < 8; iter++) {
+            const mid = (low + high) / 2;
+            const testDataUrl = offscreenCanvas.toDataURL(outputMime, mid);
+            const testBytes = getDataUrlByteLength(testDataUrl);
+
+            if (testBytes <= targetBytes) {
+              // Fits within government budget! Try to get even higher quality
+              bestDataUrl = testDataUrl;
+              bestBytes = testBytes;
+              bestQuality = mid;
+              low = mid;
+            } else {
+              // Exceeds limit; reduce quality
+              high = mid;
             }
           }
-        } catch (serverErr) {
-          console.warn('Server processing failed, falling back to browser canvas:', serverErr);
+
+          finalDataUrl = bestDataUrl;
+          finalQuality = Math.round(bestQuality * 100);
+          finalBytes = bestBytes;
         }
       }
 
-      // 3. Fallback or Direct Browser Engine
-      let quality = 0.92;
-      let outputMime = activeFormat === 'png' ? 'image/png' : activeFormat === 'webp' ? 'image/webp' : 'image/jpeg';
-      let currentDataUrl = offscreenCanvas.toDataURL(outputMime, quality);
-      let byteLength = Math.round((currentDataUrl.length * 3) / 4);
-
-      if (outputMime === 'image/jpeg' && activeMaxKb > 0) {
-        // Step down quality if exceeding max KB
-        while (byteLength > activeMaxKb * 1024 && quality > 0.2) {
-          quality -= 0.08;
-          currentDataUrl = offscreenCanvas.toDataURL(outputMime, quality);
-          byteLength = Math.round((currentDataUrl.length * 3) / 4);
-        }
-      }
-
-      setResultDataUrl(currentDataUrl);
+      setResultDataUrl(finalDataUrl);
       setResultMeta({
         width: activeWidth,
         height: activeHeight,
-        sizeKb: Number((byteLength / 1024).toFixed(1)),
+        sizeKb: Number((finalBytes / 1024).toFixed(1)),
         format: activeFormat.toUpperCase(),
-        qualityUsed: Math.round(quality * 100)
+        qualityUsed: finalQuality
       });
     } catch (err) {
-      console.error('Processing error:', err);
+      console.error('Client-side processing error:', err);
     } finally {
       setIsProcessing(false);
     }
@@ -453,7 +403,7 @@ export const PhotoResizerPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Top Breadcrumb & Engine Status */}
+      {/* Top Breadcrumb & Privacy Guarantee */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#d8cfb8]">
         <div className="flex items-center space-x-3">
           <Link
@@ -463,39 +413,13 @@ export const PhotoResizerPage: React.FC = () => {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#6b6255] font-mono">REF: IMG-GOV-03</span>
+          <span className="text-xs text-[#6b6255] font-mono">REF: IMG-GOV-02</span>
         </div>
 
-        {/* Engine Switcher */}
-        <div className="flex items-center space-x-2 text-xs">
-          <span className="text-[#6b6255] hidden sm:inline">ইঞ্জিন:</span>
-          <div className="inline-flex border border-[#d8cfb8] bg-[#fffdf7] p-0.5">
-            <button
-              type="button"
-              onClick={() => setProcessingEngine('server')}
-              className={`px-2.5 py-1 flex items-center space-x-1 transition-colors cursor-pointer ${
-                processingEngine === 'server'
-                  ? 'bg-[#083f2a] text-[#fffdf7] font-medium'
-                  : 'text-[#6b6255] hover:text-[#083f2a]'
-              }`}
-            >
-              <Server className="w-3 h-3" />
-              <span>সার্ভার ইঞ্জিন (Sharp API)</span>
-              {serverOnline && <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] ml-1 animate-pulse"></span>}
-            </button>
-            <button
-              type="button"
-              onClick={() => setProcessingEngine('browser')}
-              className={`px-2.5 py-1 flex items-center space-x-1 transition-colors cursor-pointer ${
-                processingEngine === 'browser'
-                  ? 'bg-[#083f2a] text-[#fffdf7] font-medium'
-                  : 'text-[#6b6255] hover:text-[#083f2a]'
-              }`}
-            >
-              <Cpu className="w-3 h-3" />
-              <span>ব্রাউজার ক্যানভাস</span>
-            </button>
-          </div>
+        {/* 100% Client-Side Privacy Badge */}
+        <div className="flex items-center space-x-2 text-xs font-medium text-[#083f2a] bg-[#fffdf7] border border-[#d8cfb8] px-3 py-1.5 shadow-xs">
+          <ShieldCheck className="w-4 h-4 text-[#0c5c3d]" />
+          <span>১০০% ক্লায়েন্ট-সাইড ব্রাউজার প্রসেসিং (গোপনীয়তা সুরক্ষিত, নো সার্ভার আপলোড)</span>
         </div>
       </div>
 
@@ -505,9 +429,9 @@ export const PhotoResizerPage: React.FC = () => {
           সরকারি ও পাসপোর্ট ছবি রিসাইজার
         </h1>
         <p className="text-sm text-[#4a4237] max-w-3xl leading-relaxed">
-          বাংলাদেশি সরকারি চাকরি (Teletalk / BPSC), বিসিএস, প্রাথমিক শিক্ষক নিয়োগ ও ই-পাসপোর্ট আবেদনের নির্ধারিত
+          বাংলাদেশি সরকারি চাকরি (Teletalk / BPSC), বিসিএস, প্রাথমিক শিক্ষক নিয়োগ, স্মার্ট এনআইডি ও ই-পাসপোর্ট আবেদনের নির্ধারিত
           <strong> ৩০০×৩০০ পিক্সেল (১০০ KB)</strong> এবং <strong>৩০০×৮০ পিক্সেল স্বাক্ষর (৬০ KB)</strong> মাপে
-          তাৎক্ষণিক নিখুঁত ক্রপ, রিসাইজ ও কম্প্রেশন।
+          তাৎক্ষণিক নিখুঁত ক্রপ, রিসাইজ ও বাইনারি সার্চ কম্প্রেশন। সম্পূর্ণ কাজ ব্রাউজারের অভ্যন্তরে সম্পন্ন হয়।
         </p>
       </div>
 
@@ -516,8 +440,8 @@ export const PhotoResizerPage: React.FC = () => {
         <label className="text-xs font-bold text-[#083f2a] uppercase tracking-wider block font-serif">
           ১. নির্ধারিত আবেদনের প্রিসেট নির্বাচন করুন
         </label>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-          {DEFAULT_PRESETS.map((p) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+          {GOVERNMENT_PRESET_PROFILES.map((p) => {
             const isSelected = selectedPreset === p.id;
             return (
               <button
@@ -532,12 +456,15 @@ export const PhotoResizerPage: React.FC = () => {
               >
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className={`text-[10px] font-mono px-1.5 py-0.5 ${
-                      isSelected ? 'bg-[#0c5c3d] text-[#fffdf7]' : 'bg-[#f4efe4] text-[#083f2a]'
-                    }`}>
+                    <span
+                      className={`text-[10px] font-mono px-1.5 py-0.5 truncate max-w-[110px] ${
+                        isSelected ? 'bg-[#0c5c3d] text-[#fffdf7]' : 'bg-[#f4efe4] text-[#083f2a]'
+                      }`}
+                      title={p.org}
+                    >
                       {p.org}
                     </span>
-                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#fffdf7]" />}
+                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#fffdf7] shrink-0" />}
                   </div>
                   <h3 className="font-semibold text-xs leading-snug font-serif mb-1">
                     {p.name}
@@ -563,9 +490,11 @@ export const PhotoResizerPage: React.FC = () => {
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <span className={`text-[10px] font-mono px-1.5 py-0.5 ${
-                  selectedPreset === 'custom' ? 'bg-[#0c5c3d] text-[#fffdf7]' : 'bg-[#f4efe4] text-[#083f2a]'
-                }`}>
+                <span
+                  className={`text-[10px] font-mono px-1.5 py-0.5 ${
+                    selectedPreset === 'custom' ? 'bg-[#0c5c3d] text-[#fffdf7]' : 'bg-[#f4efe4] text-[#083f2a]'
+                  }`}
+                >
                   CUSTOM
                 </span>
                 {selectedPreset === 'custom' && <CheckCircle2 className="w-3.5 h-3.5 text-[#fffdf7]" />}
@@ -674,7 +603,7 @@ export const PhotoResizerPage: React.FC = () => {
                 ছবি নির্বাচন করতে ক্লিক করুন অথবা এখানে টেনে আনুন
               </div>
               <div className="text-[11px] text-[#6b6255] mt-1 font-mono">
-                JPG, PNG, WebP (সর্বোচ্চ ২৫ MB)
+                JPG, PNG, WebP (ব্রাউজার মেমোরিতে নিরাপদে প্রসেস হবে)
               </div>
             </div>
 
@@ -780,7 +709,7 @@ export const PhotoResizerPage: React.FC = () => {
                   <label className="text-[#6b6255]">ফিট মোড:</label>
                   <select
                     value={fitMode}
-                    onChange={(e) => setFitMode(e.target.value as any)}
+                    onChange={(e) => setFitMode(e.target.value as 'cover' | 'contain' | 'fill')}
                     className="border border-[#d8cfb8] bg-[#f4efe4]/30 px-2 py-1 text-xs focus:outline-none"
                   >
                     <option value="cover">ফিল ও ক্রপ (Fill/Cover)</option>
@@ -808,17 +737,20 @@ export const PhotoResizerPage: React.FC = () => {
                 <CheckCircle2 className="w-4 h-4 text-[#0c5c3d]" />
                 <span>৩. চূড়ান্ত আউটপুট ও ভেরিফিকেশন</span>
               </span>
-              <div className="text-[11px] font-mono text-[#6b6255]">
-                {processingEngine === 'server' ? 'Sharp Lanczos3' : 'Browser Canvas'}
+              <div className="text-[11px] font-mono text-[#0c5c3d] flex items-center space-x-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                <span>ক্যানভাস বাইনারি অপ্টিমাইজার</span>
               </div>
             </div>
 
             {/* Compliance Badge Banner */}
-            <div className={`p-3 border flex items-center justify-between text-xs ${
-              isCompliant
-                ? 'bg-[#ecfdf5] border-[#a7f3d0] text-[#065f46]'
-                : 'bg-[#fffbeb] border-[#fde68a] text-[#92400e]'
-            }`}>
+            <div
+              className={`p-3 border flex items-center justify-between text-xs ${
+                isCompliant
+                  ? 'bg-[#ecfdf5] border-[#a7f3d0] text-[#065f46]'
+                  : 'bg-[#fffbeb] border-[#fde68a] text-[#92400e]'
+              }`}
+            >
               <div className="flex items-center space-x-2">
                 {isCompliant ? (
                   <CheckCircle2 className="w-4 h-4 text-[#10b981] shrink-0" />
@@ -848,7 +780,7 @@ export const PhotoResizerPage: React.FC = () => {
               {isProcessing && (
                 <div className="absolute inset-0 bg-[#fffdf7]/80 backdrop-blur-xs flex flex-col items-center justify-center z-10 space-y-2 text-xs text-[#083f2a]">
                   <RefreshCw className="w-6 h-6 animate-spin text-[#0c5c3d]" />
-                  <span>ছবি প্রক্রিয়াকরণ চলছে...</span>
+                  <span>ছবি অপ্টিমাইজেশন চলছে...</span>
                 </div>
               )}
 
@@ -895,7 +827,7 @@ export const PhotoResizerPage: React.FC = () => {
                   </span>
                 </div>
                 <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-2">
-                  <span className="block text-[10px] text-[#6b6255]">ব্যবহৃত কোয়ালিটি</span>
+                  <span className="block text-[10px] text-[#6b6255]">বাইনারি কোয়ালিটি</span>
                   <span className="font-mono font-bold text-[#083f2a]">{resultMeta.qualityUsed}%</span>
                 </div>
               </div>

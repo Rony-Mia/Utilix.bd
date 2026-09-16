@@ -37,7 +37,7 @@ const TOOLS: ToolItem[] = [
     refCode: 'IMG-GOV-02',
     title: 'সরকারি ও পাসপোর্ট ছবি রিসাইজার',
     description: 'বাংলাদেশি সরকারি চাকরি (Teletalk/BPSC), বিসিএস ও পাসপোর্ট আবেদনের নির্ধারিত ৩০০×৩০০ পিক্সেল এবং ১০০KB মাপে ক্রপ, রিসাইজ ও কম্প্রেশন।',
-    feature: '৩০০×৩০০ ছবি • ৩০০×৮০ স্বাক্ষর • শার্প ব্যাকএন্ড ইঞ্জিন',
+    feature: '৩০০×৩০০ ছবি • ৩০০×৮০ স্বাক্ষর • ক্লায়েন্ট-সাইড অপ্টিমাইজার',
     category: 'image',
     status: 'active',
     version: 'v1.0',
@@ -178,7 +178,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               ২টি সক্রিয় টুল
             </span>
             <span className="text-[#d8cfb8]">/</span>
-            <span className="text-[#083f2a]">ব্যাকএন্ড ইঞ্জিন সচল</span>
+            <span className="text-[#083f2a]">১০০% ক্লায়েন্ট-সাইড নিরাপদ</span>
           </div>
         </div>
 
