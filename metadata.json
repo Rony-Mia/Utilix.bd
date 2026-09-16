@@ -1,0 +1,7 @@
+{
+  "name": "Utilix.bd",
+  "description": "বাংলা ডিজিটাল ইউটিলিটি হাব — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস এবং বিজয় ↔ ইউনিকোড কনভার্টার।",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

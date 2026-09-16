@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f4efe4;
+  --color-panel: #fffdf7;
+  --color-primary-green: #0c5c3d;
+  --color-deep-green: #083f2a;
+  --color-accent-red: #c8342a;
+  --color-border-line: #d8cfb8;
+  --color-muted-text: #6b6255;
+  --color-ink: #14231c;
+
+  --font-serif: "Tiro Bangla", serif;
+  --font-sans: "Hind Siliguri", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+body {
+  background-color: #f4efe4;
+  color: #14231c;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-serif);
+}
+
+.font-code {
+  font-family: var(--font-mono);
+}
+

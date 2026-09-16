@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      /* Ensure window.fetch has both a getter and a setter so parent iframe environments or extensions can safely attach/wrap fetch */
+      (function() {
+        try {
+          var originalFetch = window.fetch ? window.fetch.bind(window) : null;
+          var currentFetch = originalFetch;
+          var descriptor = {
+            get: function() {
+              return currentFetch;
+            },
+            set: function(fn) {
+              currentFetch = fn;
+            },
+            configurable: true,
+            enumerable: true
+          };
+          Object.defineProperty(window, 'fetch', descriptor);
+          if (typeof Window !== 'undefined' && Window.prototype) {
+            try {
+              Object.defineProperty(Window.prototype, 'fetch', descriptor);
+            } catch (_) {}
+          }
+        } catch (_) {}
+      })();
+    </script>
+    <title>Utilix.bd — বাংলা ডিজিটাল ইউটিলিটি হাব</title>
+    <meta name="description" content="বাংলা ডিজিটাল ইউটিলিটি হাব — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস এবং বিজয় ↔ ইউনিকোড কনভার্টার।" />
+    <meta property="og:title" content="Utilix.bd — বাংলা ডিজিটাল ইউটিলিটি হাব" />
+    <meta property="og:description" content="বাংলা ডিজিটাল ইউটিলিটি হাব — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস এবং বিজয় ↔ ইউনিকোড কনভার্টার।" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts: Tiro Bangla (Headings), Hind Siliguri (Body/UI), JetBrains Mono (Code/Bijoy ANSI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Tiro+Bangla:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-[#f4efe4] text-[#14231c] font-sans antialiased selection:bg-[#0c5c3d]/20 selection:text-[#083f2a]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
