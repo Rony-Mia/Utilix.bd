@@ -34,88 +34,44 @@ export const Navbar: React.FC<NavbarProps> = ({ activeCategory = 'all', onSelect
 
         {/* Center: Navigation Links */}
         <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm">
-          {isHome ? (
-            <>
-              <button
-                type="button"
-                onClick={() => handleCategoryClick('all')}
-                className={`px-3 py-1.5 transition-colors font-medium cursor-pointer ${
-                  activeCategory === 'all'
-                    ? 'text-[#083f2a] border-b-2 border-[#0c5c3d] font-semibold'
-                    : 'text-[#6b6255] hover:text-[#083f2a]'
-                }`}
-              >
-                সব টুলস
-              </button>
-              <button
-                type="button"
-                onClick={() => handleCategoryClick('text')}
-                className={`px-3 py-1.5 transition-colors font-medium cursor-pointer ${
-                  activeCategory === 'text'
-                    ? 'text-[#083f2a] border-b-2 border-[#0c5c3d] font-semibold'
-                    : 'text-[#6b6255] hover:text-[#083f2a]'
-                }`}
-              >
-                টেক্সট টুলস
-              </button>
-              <button
-                type="button"
-                onClick={() => handleCategoryClick('image')}
-                className={`px-3 py-1.5 transition-colors font-medium cursor-pointer ${
-                  activeCategory === 'image'
-                    ? 'text-[#083f2a] border-b-2 border-[#0c5c3d] font-semibold'
-                    : 'text-[#6b6255] hover:text-[#083f2a]'
-                }`}
-              >
-                ইমেজ টুলস
-              </button>
-              <button
-                type="button"
-                onClick={() => handleCategoryClick('calc')}
-                className={`px-3 py-1.5 transition-colors font-medium cursor-pointer ${
-                  activeCategory === 'calc'
-                    ? 'text-[#083f2a] border-b-2 border-[#0c5c3d] font-semibold'
-                    : 'text-[#6b6255] hover:text-[#083f2a]'
-                }`}
-              >
-                হিসাব ও ক্যালকুলেটর
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/"
-                className="px-3 py-1.5 text-[#6b6255] hover:text-[#083f2a] transition-colors font-medium"
-              >
-                সব টুলস
-              </Link>
-              <Link
-                to="/converter"
-                className="px-3 py-1.5 text-[#083f2a] border-b-2 border-[#0c5c3d] font-semibold transition-colors"
-              >
-                টেক্সট টুলস (কনভার্টার)
-              </Link>
-              <Link
-                to="/"
-                className="px-3 py-1.5 text-[#6b6255] hover:text-[#083f2a] transition-colors font-medium"
-              >
-                ইমেজ টুলস
-              </Link>
-              <Link
-                to="/"
-                className="px-3 py-1.5 text-[#6b6255] hover:text-[#083f2a] transition-colors font-medium"
-              >
-                হিসাব ও ক্যালকুলেটর
-              </Link>
-            </>
-          )}
+          <Link
+            to="/"
+            onClick={() => handleCategoryClick('all')}
+            className={`px-3 py-1.5 transition-colors font-medium ${
+              location.pathname === '/' && activeCategory === 'all'
+                ? 'text-[#083f2a] border-b-2 border-[#0c5c3d] font-semibold'
+                : 'text-[#6b6255] hover:text-[#083f2a]'
+            }`}
+          >
+            হোম / সব টুলস
+          </Link>
+          <Link
+            to="/converter"
+            className={`px-3 py-1.5 transition-colors font-medium ${
+              location.pathname === '/converter'
+                ? 'text-[#083f2a] border-b-2 border-[#0c5c3d] font-semibold'
+                : 'text-[#6b6255] hover:text-[#083f2a]'
+            }`}
+          >
+            বিজয় কনভার্টার
+          </Link>
+          <Link
+            to="/photo-resizer"
+            className={`px-3 py-1.5 transition-colors font-medium ${
+              location.pathname === '/photo-resizer'
+                ? 'text-[#083f2a] border-b-2 border-[#0c5c3d] font-semibold'
+                : 'text-[#6b6255] hover:text-[#083f2a]'
+            }`}
+          >
+            পাসপোর্ট ও চাকরি ছবি রিসাইজার
+          </Link>
         </nav>
 
-        {/* Right side: Browser processing status */}
+        {/* Right side: Engine status */}
         <div className="flex items-center text-xs text-[#0c5c3d] font-sans pl-2 border-l border-[#d8cfb8] sm:border-l-0">
-          <span className="inline-block w-2 h-2 rounded-full bg-[#0c5c3d] mr-2 shrink-0 animate-pulse"></span>
-          <span className="hidden sm:inline">সম্পূর্ণ ব্রাউজার-ভিত্তিক, আপনার ডেটা সার্ভারে যায় না</span>
-          <span className="sm:hidden text-[11px] font-medium">ব্রাউজার-ভিত্তিক প্রসেসিং</span>
+          <span className="w-2 h-2 rounded-full bg-[#0c5c3d] mr-1.5 animate-pulse"></span>
+          <span className="hidden sm:inline">ব্যাকএন্ড ও এপিআই প্রস্তুত</span>
+          <span className="sm:hidden text-[11px] font-medium">এপিআই প্রস্তুত</span>
         </div>
       </div>
     </header>

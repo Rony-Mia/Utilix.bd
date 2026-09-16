@@ -33,22 +33,15 @@ const TOOLS: ToolItem[] = [
     link: '/converter'
   },
   {
-    id: 'tiles-calculator',
-    refCode: 'CALC-CONSTR-02',
-    title: 'টাইলস ও ফ্লোর ক্যালকুলেটর',
-    description: 'ঘরের মেঝে বা দেয়ালের মাপ অনুযায়ী প্রয়োজনীয় টাইলসের সঠিক সংখ্যা, অপচয় (Wastage) এবং আনুমানিক খরচ নির্ণয়।',
-    feature: 'বর্গফুট / বর্গমিটার • ৫% ও ১০% ছাড় অপচয় মার্জিন',
-    category: 'calc',
-    status: 'coming_soon'
-  },
-  {
     id: 'photo-resizer',
-    refCode: 'IMG-GOV-03',
+    refCode: 'IMG-GOV-02',
     title: 'সরকারি ও পাসপোর্ট ছবি রিসাইজার',
-    description: 'বাংলাদেশি সরকারি চাকরি, বিসিএস ও পাসপোর্ট আবেদনের নির্ধারিত ৩০০×৩০০ পিক্সেল এবং ১০০KB মাপে দ্রুত ক্রপ ও কম্প্রেশন।',
-    feature: 'ক্যানভাস এপিআই • নো আপলোড • প্রিসেট প্রোফাইল',
+    description: 'বাংলাদেশি সরকারি চাকরি (Teletalk/BPSC), বিসিএস ও পাসপোর্ট আবেদনের নির্ধারিত ৩০০×৩০০ পিক্সেল এবং ১০০KB মাপে ক্রপ, রিসাইজ ও কম্প্রেশন।',
+    feature: '৩০০×৩০০ ছবি • ৩০০×৮০ স্বাক্ষর • শার্প ব্যাকএন্ড ইঞ্জিন',
     category: 'image',
-    status: 'coming_soon'
+    status: 'active',
+    version: 'v1.0',
+    link: '/photo-resizer'
   }
 ];
 
@@ -176,36 +169,21 @@ export const HomePage: React.FC<HomePageProps> = ({
             >
               গ্রাফিক্স ও ছবি
             </button>
-            <button
-              type="button"
-              onClick={() => onSelectCategory('calc')}
-              className={`px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors cursor-pointer border ${
-                selectedCategory === 'calc'
-                  ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                  : 'bg-[#fffdf7] text-[#6b6255] border-[#d8cfb8] hover:text-[#083f2a]'
-              }`}
-            >
-              হিসাব-নিকাশ
-            </button>
           </div>
 
           {/* Clean status badge row */}
           <div className="text-[11px] sm:text-xs text-[#6b6255] font-mono flex items-center gap-3">
-            <span>ভিউ: ৩×১</span>
-            <span className="text-[#d8cfb8]">/</span>
             <span className="flex items-center text-[#0c5c3d]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#0c5c3d] mr-1"></span>
-              ১টি সক্রিয়
+              ২টি সক্রিয় টুল
             </span>
-            <span className="flex items-center text-[#c8342a]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c8342a] mr-1"></span>
-              ২টি প্রক্রিয়াধীন
-            </span>
+            <span className="text-[#d8cfb8]">/</span>
+            <span className="text-[#083f2a]">ব্যাকএন্ড ইঞ্জিন সচল</span>
           </div>
         </div>
 
-        {/* 3-Column Tool Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* 2-Column Tool Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredTools.map((tool) => {
             const isActive = tool.status === 'active';
 
@@ -219,19 +197,12 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <div className="flex items-start justify-between mb-4">
                     <div className="w-10 h-10 border border-[#d8cfb8] bg-[#f4efe4] flex items-center justify-center text-[#0c5c3d]">
                       {tool.id === 'bijoy-converter' && <ArrowLeftRight className="w-5 h-5" />}
-                      {tool.id === 'tiles-calculator' && <Calculator className="w-5 h-5 text-[#6b6255]" />}
-                      {tool.id === 'photo-resizer' && <Crop className="w-5 h-5 text-[#6b6255]" />}
+                      {tool.id === 'photo-resizer' && <Crop className="w-5 h-5" />}
                     </div>
 
-                    {isActive ? (
-                      <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-[#0c5c3d] text-[#fffdf7]">
-                        সক্রিয় টুল {tool.version && `(${tool.version})`}
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium border border-[#c8342a] text-[#c8342a] bg-transparent">
-                        শীঘ্রই আসছে
-                      </span>
-                    )}
+                    <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-[#0c5c3d] text-[#fffdf7]">
+                      সক্রিয় টুল {tool.version && `(${tool.version})`}
+                    </span>
                   </div>
 
                   {/* Ref code */}
@@ -252,15 +223,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                   {/* Feature line with icon */}
                   <div className="border border-[#d8cfb8] bg-[#f4efe4]/60 p-2 text-xs text-[#14231c] flex items-center space-x-2 mb-6">
                     {tool.id === 'bijoy-converter' && <Zap className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    {tool.id === 'tiles-calculator' && <Ruler className="w-3.5 h-3.5 text-[#6b6255] shrink-0" />}
-                    {tool.id === 'photo-resizer' && <ImageIcon className="w-3.5 h-3.5 text-[#6b6255] shrink-0" />}
+                    {tool.id === 'photo-resizer' && <ImageIcon className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
                     <span className="truncate">{tool.feature}</span>
                   </div>
                 </div>
 
                 {/* Card Action Button */}
                 <div>
-                  {isActive && tool.link ? (
+                  {isActive && tool.link && (
                     <Link
                       to={tool.link}
                       className="w-full inline-flex items-center justify-center px-4 py-2 bg-[#0c5c3d] text-[#fffdf7] text-sm font-medium hover:bg-[#083f2a] transition-colors cursor-pointer group"
@@ -268,18 +238,6 @@ export const HomePage: React.FC<HomePageProps> = ({
                       <span>টুল চালু করুন</span>
                       <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </Link>
-                  ) : (
-                    <div className="flex items-center justify-between pt-1">
-                      <span className="text-[11px] font-mono text-[#6b6255]">STATUS: QUEUED</span>
-                      <button
-                        type="button"
-                        disabled
-                        className="inline-flex items-center px-3 py-1.5 bg-[#d8cfb8]/50 text-[#6b6255] text-xs font-medium cursor-not-allowed border border-[#d8cfb8]"
-                      >
-                        <span>প্রতীক্ষমান</span>
-                        <Lock className="w-3 h-3 ml-1.5 opacity-60" />
-                      </button>
-                    </div>
                   )}
                 </div>
               </div>
