@@ -1,4 +1,5 @@
 import React from 'react';
+import { User, Phone, Mail, MapPin, Globe } from 'lucide-react';
 import { CvData, CvLanguage } from '../../types.ts';
 import { CV_LABELS } from '../../data/cvDefaults.ts';
 
@@ -12,220 +13,282 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ data, language }) => 
   const { personalInfo, education, experience, skills, languages, references } = data;
 
   return (
-    <div className="w-full bg-white text-[#111827] p-8 sm:p-10 font-sans leading-relaxed text-[13px] shadow-sm print:shadow-none print:p-8">
-      {/* Header section: Title and Photo */}
-      <div className="flex items-start justify-between border-b-2 border-[#111827] pb-4 mb-5">
-        <div className="flex-1 pr-4">
-          <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#083f2a] tracking-tight uppercase">
-            {personalInfo.fullName || (language === 'bn' ? 'প্রার্থীর নাম' : 'Full Name')}
-          </h1>
-          {personalInfo.designationOrTitle && (
-            <p className="text-sm font-medium text-[#4b5563] mt-0.5">
-              {personalInfo.designationOrTitle}
-            </p>
-          )}
-          <div className="text-xs text-[#374151] mt-2 space-y-0.5">
-            {personalInfo.phone && <p><span className="font-semibold">{t.phone}:</span> {personalInfo.phone}</p>}
-            {personalInfo.email && <p><span className="font-semibold">{t.email}:</span> {personalInfo.email}</p>}
-            {personalInfo.presentAddress && (
-              <p><span className="font-semibold">{t.presentAddress}:</span> {personalInfo.presentAddress}</p>
+    <div className="w-full bg-white text-slate-800 p-8 sm:p-11 font-serif leading-relaxed text-[13px] shadow-sm print:shadow-none print:p-8">
+      <div>
+        {/* Top Header: Candidate Name, Title, Contact Info & Formal Photo */}
+        <div className="flex items-start justify-between border-b-2 border-slate-800 pb-5 mb-6 break-inside-avoid">
+          <div className="flex-1 pr-6">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 uppercase">
+              {personalInfo.fullName || (language === 'bn' ? 'প্রার্থীর নাম' : 'Full Name')}
+            </h1>
+
+            {personalInfo.designationOrTitle && (
+              <p className="text-sm font-sans font-semibold text-emerald-800 tracking-wide mt-1">
+                {personalInfo.designationOrTitle}
+              </p>
             )}
-            {personalInfo.linkedinOrWebsite && (
-              <p><span className="font-semibold">Web/LinkedIn:</span> {personalInfo.linkedinOrWebsite}</p>
+
+            {/* Clean contact strip with subtle icons */}
+            <div className="font-sans text-xs text-slate-600 mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+              {personalInfo.phone && (
+                <span className="inline-flex items-center gap-1">
+                  <Phone className="w-3 h-3 text-slate-500 shrink-0" />
+                  <span>{personalInfo.phone}</span>
+                </span>
+              )}
+              {personalInfo.email && (
+                <span className="inline-flex items-center gap-1">
+                  <Mail className="w-3 h-3 text-slate-500 shrink-0" />
+                  <span>{personalInfo.email}</span>
+                </span>
+              )}
+              {personalInfo.presentAddress && (
+                <span className="inline-flex items-center gap-1">
+                  <MapPin className="w-3 h-3 text-slate-500 shrink-0" />
+                  <span>{personalInfo.presentAddress}</span>
+                </span>
+              )}
+              {personalInfo.linkedinOrWebsite && (
+                <span className="inline-flex items-center gap-1">
+                  <Globe className="w-3 h-3 text-slate-500 shrink-0" />
+                  <span>{personalInfo.linkedinOrWebsite}</span>
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Photo Frame: Clean bordered formal rectangle with silhouette fallback */}
+          <div className="w-24 h-28 sm:w-28 sm:h-32 border border-slate-300 shadow-xs bg-slate-50 flex items-center justify-center shrink-0 overflow-hidden">
+            {personalInfo.photoUrl ? (
+              <img
+                src={personalInfo.photoUrl}
+                alt={personalInfo.fullName}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center bg-slate-100 text-slate-400">
+                <User className="w-10 h-10 stroke-[1.5]" />
+                <span className="text-[9px] font-sans mt-1 text-slate-500 font-medium">
+                  {language === 'bn' ? 'ছবি' : 'Photo'}
+                </span>
+              </div>
             )}
           </div>
         </div>
 
-        {/* Photo corner */}
-        {personalInfo.photoUrl ? (
-          <div className="w-28 h-32 border border-[#9ca3af] p-1 bg-white flex-shrink-0">
-            <img
-              src={personalInfo.photoUrl}
-              alt={personalInfo.fullName}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        ) : (
-          <div className="w-28 h-32 border border-dashed border-[#9ca3af] flex flex-col items-center justify-center text-[10px] text-[#9ca3af] flex-shrink-0 text-center p-2 bg-gray-50">
-            <span>{language === 'bn' ? 'পাসপোর্ট ছবি' : 'Passport Photo'}</span>
-          </div>
+        {/* Career Objective */}
+        {personalInfo.careerObjective && (
+          <section className="mb-5 break-inside-avoid">
+            <h2 className="text-xs font-sans font-bold uppercase tracking-widest text-slate-900 border-b border-slate-300 pb-1 mb-2">
+              {t.careerObjective}
+            </h2>
+            <p className="text-justify text-slate-700 text-xs sm:text-[13px] leading-relaxed">
+              {personalInfo.careerObjective}
+            </p>
+          </section>
         )}
+
+        {/* Educational Qualifications: Formal clean table */}
+        {education && education.length > 0 && (
+          <section className="mb-5 break-inside-avoid">
+            <h2 className="text-xs font-sans font-bold uppercase tracking-widest text-slate-900 border-b border-slate-300 pb-1 mb-2.5">
+              {t.education}
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse border border-slate-300 font-sans text-xs">
+                <thead>
+                  <tr className="bg-slate-100 text-slate-900 font-semibold break-inside-avoid">
+                    <th className="border border-slate-300 px-3 py-2 text-left">{t.degree}</th>
+                    <th className="border border-slate-300 px-3 py-2 text-left">{t.institution}</th>
+                    <th className="border border-slate-300 px-3 py-2 text-left">{t.board}</th>
+                    <th className="border border-slate-300 px-3 py-2 text-center w-20">{t.passingYear}</th>
+                    <th className="border border-slate-300 px-3 py-2 text-center w-24">{t.result}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {education.map((edu, idx) => (
+                    <tr key={edu.id || idx} className={`break-inside-avoid ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}`}>
+                      <td className="border border-slate-300 px-3 py-1.5 font-semibold text-slate-900">
+                        {edu.degree || '-'}
+                      </td>
+                      <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                        {edu.institution || '-'}
+                      </td>
+                      <td className="border border-slate-300 px-3 py-1.5 text-slate-700">
+                        {edu.boardOrMajor || '-'}
+                      </td>
+                      <td className="border border-slate-300 px-3 py-1.5 text-center text-slate-800">
+                        {edu.passingYear || '-'}
+                      </td>
+                      <td className="border border-slate-300 px-3 py-1.5 text-center font-semibold text-slate-900">
+                        {edu.result || '-'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
+        {/* Work Experience */}
+        {experience && experience.length > 0 && (
+          <section className="mb-5 break-inside-avoid">
+            <h2 className="text-xs font-sans font-bold uppercase tracking-widest text-slate-900 border-b border-slate-300 pb-1 mb-3">
+              {t.experience}
+            </h2>
+            <div className="space-y-3 font-sans">
+              {experience.map((exp, idx) => (
+                <div key={exp.id || idx} className="text-xs break-inside-avoid">
+                  <div className="flex justify-between items-baseline">
+                    <h3 className="font-bold text-slate-900 text-[13px]">{exp.designation}</h3>
+                    <span className="text-slate-500 font-medium text-[11px]">{exp.duration}</span>
+                  </div>
+                  <p className="text-emerald-800 font-semibold text-xs mt-0.5">{exp.company}</p>
+                  {exp.responsibilities && (
+                    <p className="text-slate-700 mt-1 whitespace-pre-line leading-relaxed text-xs">
+                      {exp.responsibilities}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Skills */}
+        {skills && skills.length > 0 && (
+          <section className="mb-5 break-inside-avoid">
+            <h2 className="text-xs font-sans font-bold uppercase tracking-widest text-slate-900 border-b border-slate-300 pb-1 mb-2">
+              {t.skills}
+            </h2>
+            <div className="flex flex-wrap gap-2 font-sans text-xs">
+              {skills.map((skill, idx) => (
+                <span
+                  key={idx}
+                  className="bg-slate-50 text-slate-800 px-2.5 py-1 border border-slate-200 font-medium break-inside-avoid"
+                >
+                  • {skill}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Personal Details in Formal 2-Column Grid */}
+        <section className="mb-5 break-inside-avoid">
+          <h2 className="text-xs font-sans font-bold uppercase tracking-widest text-slate-900 border-b border-slate-300 pb-1 mb-2.5">
+            {t.personalDetails}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5 font-sans text-xs text-slate-700">
+            {personalInfo.fatherName && (
+              <p className="flex justify-between border-b border-slate-100 pb-0.5 break-inside-avoid">
+                <span className="font-medium text-slate-900">{t.fatherName}:</span>
+                <span>{personalInfo.fatherName}</span>
+              </p>
+            )}
+            {personalInfo.motherName && (
+              <p className="flex justify-between border-b border-slate-100 pb-0.5 break-inside-avoid">
+                <span className="font-medium text-slate-900">{t.motherName}:</span>
+                <span>{personalInfo.motherName}</span>
+              </p>
+            )}
+            {personalInfo.dateOfBirth && (
+              <p className="flex justify-between border-b border-slate-100 pb-0.5 break-inside-avoid">
+                <span className="font-medium text-slate-900">{t.dateOfBirth}:</span>
+                <span>{personalInfo.dateOfBirth}</span>
+              </p>
+            )}
+            {personalInfo.gender && (
+              <p className="flex justify-between border-b border-slate-100 pb-0.5 break-inside-avoid">
+                <span className="font-medium text-slate-900">{t.gender}:</span>
+                <span>{personalInfo.gender}</span>
+              </p>
+            )}
+            {personalInfo.maritalStatus && (
+              <p className="flex justify-between border-b border-slate-100 pb-0.5 break-inside-avoid">
+                <span className="font-medium text-slate-900">{t.maritalStatus}:</span>
+                <span>{personalInfo.maritalStatus}</span>
+              </p>
+            )}
+            {personalInfo.nationality && (
+              <p className="flex justify-between border-b border-slate-100 pb-0.5 break-inside-avoid">
+                <span className="font-medium text-slate-900">{t.nationality}:</span>
+                <span>{personalInfo.nationality}</span>
+              </p>
+            )}
+            {personalInfo.religion && (
+              <p className="flex justify-between border-b border-slate-100 pb-0.5 break-inside-avoid">
+                <span className="font-medium text-slate-900">{t.religion}:</span>
+                <span>{personalInfo.religion}</span>
+              </p>
+            )}
+            {personalInfo.bloodGroup && (
+              <p className="flex justify-between border-b border-slate-100 pb-0.5 break-inside-avoid">
+                <span className="font-medium text-slate-900">{t.bloodGroup}:</span>
+                <span>{personalInfo.bloodGroup}</span>
+              </p>
+            )}
+            {personalInfo.nationalId && (
+              <p className="flex justify-between border-b border-slate-100 pb-0.5 break-inside-avoid">
+                <span className="font-medium text-slate-900">{t.nationalId}:</span>
+                <span className="font-mono">{personalInfo.nationalId}</span>
+              </p>
+            )}
+            {personalInfo.permanentAddress && (
+              <p className="sm:col-span-2 flex justify-between border-b border-slate-100 pb-0.5 break-inside-avoid">
+                <span className="font-medium text-slate-900 shrink-0 mr-4">{t.permanentAddress}:</span>
+                <span className="text-right">{personalInfo.permanentAddress}</span>
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* Languages & References */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6 break-inside-avoid">
+          {languages && languages.length > 0 && (
+            <div className="break-inside-avoid">
+              <h2 className="text-xs font-sans font-bold uppercase tracking-widest text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                {t.languages}
+              </h2>
+              <div className="space-y-1 font-sans text-xs">
+                {languages.map((lang, idx) => (
+                  <div key={lang.id || idx} className="flex justify-between break-inside-avoid">
+                    <span className="font-semibold text-slate-800">{lang.name}</span>
+                    <span className="text-slate-600">{lang.proficiency}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {references && references.length > 0 && (
+            <div className="break-inside-avoid">
+              <h2 className="text-xs font-sans font-bold uppercase tracking-widest text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                {t.references}
+              </h2>
+              <div className="space-y-2 font-sans text-xs">
+                {references.map((ref, idx) => (
+                  <div key={ref.id || idx} className="border-l-2 border-slate-800 pl-2.5 break-inside-avoid">
+                    <p className="font-bold text-slate-900">{ref.name}</p>
+                    <p className="text-slate-600 text-[11px]">{ref.designation}, {ref.organization}</p>
+                    <p className="text-slate-500 text-[11px]">{ref.phone} {ref.email && `• ${ref.email}`}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Career Objective */}
-      {personalInfo.careerObjective && (
-        <section className="mb-5">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#d1d5db] pb-1 mb-2">
-            {t.careerObjective}
-          </h2>
-          <p className="text-justify text-[#374151] text-xs sm:text-[13px]">
-            {personalInfo.careerObjective}
-          </p>
-        </section>
-      )}
-
-      {/* Educational Qualifications */}
-      {education && education.length > 0 && (
-        <section className="mb-5">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#d1d5db] pb-1 mb-2">
-            {t.education}
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-[#9ca3af] text-xs">
-              <thead>
-                <tr className="bg-[#f3f4f6] text-[#111827] font-semibold">
-                  <th className="border border-[#9ca3af] px-2 py-1.5 text-left">{t.degree}</th>
-                  <th className="border border-[#9ca3af] px-2 py-1.5 text-left">{t.institution}</th>
-                  <th className="border border-[#9ca3af] px-2 py-1.5 text-left">{t.board}</th>
-                  <th className="border border-[#9ca3af] px-2 py-1.5 text-center w-16">{t.passingYear}</th>
-                  <th className="border border-[#9ca3af] px-2 py-1.5 text-center w-24">{t.result}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {education.map((edu, idx) => (
-                  <tr key={edu.id || idx} className="hover:bg-gray-50">
-                    <td className="border border-[#9ca3af] px-2 py-1 font-medium">{edu.degree || '-'}</td>
-                    <td className="border border-[#9ca3af] px-2 py-1">{edu.institution || '-'}</td>
-                    <td className="border border-[#9ca3af] px-2 py-1">{edu.boardOrMajor || '-'}</td>
-                    <td className="border border-[#9ca3af] px-2 py-1 text-center">{edu.passingYear || '-'}</td>
-                    <td className="border border-[#9ca3af] px-2 py-1 text-center font-semibold">{edu.result || '-'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      )}
-
-      {/* Work Experience */}
-      {experience && experience.length > 0 && (
-        <section className="mb-5">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#d1d5db] pb-1 mb-2">
-            {t.experience}
-          </h2>
-          <div className="space-y-3">
-            {experience.map((exp, idx) => (
-              <div key={exp.id || idx} className="text-xs">
-                <div className="flex justify-between items-baseline">
-                  <h3 className="font-bold text-[#111827] text-[13px]">{exp.designation}</h3>
-                  <span className="text-[#6b7280] font-medium text-[11px]">{exp.duration}</span>
-                </div>
-                <p className="text-[#0c5c3d] font-medium">{exp.company}</p>
-                {exp.responsibilities && (
-                  <p className="text-[#374151] mt-1 whitespace-pre-line leading-relaxed">
-                    {exp.responsibilities}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Skills */}
-      {skills && skills.length > 0 && (
-        <section className="mb-5">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#d1d5db] pb-1 mb-2">
-            {t.skills}
-          </h2>
-          <div className="flex flex-wrap gap-1.5 text-xs">
-            {skills.map((skill, idx) => (
-              <span
-                key={idx}
-                className="bg-[#f3f4f6] text-[#1f2937] px-2 py-1 border border-[#e5e7eb] rounded-none font-medium"
-              >
-                • {skill}
-              </span>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Personal Details Table */}
-      <section className="mb-5">
-        <h2 className="text-sm font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#d1d5db] pb-1 mb-2">
-          {t.personalDetails}
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs text-[#374151]">
-          {personalInfo.fatherName && (
-            <p><span className="font-semibold text-[#111827] inline-block w-28">{t.fatherName}:</span> {personalInfo.fatherName}</p>
-          )}
-          {personalInfo.motherName && (
-            <p><span className="font-semibold text-[#111827] inline-block w-28">{t.motherName}:</span> {personalInfo.motherName}</p>
-          )}
-          {personalInfo.dateOfBirth && (
-            <p><span className="font-semibold text-[#111827] inline-block w-28">{t.dateOfBirth}:</span> {personalInfo.dateOfBirth}</p>
-          )}
-          {personalInfo.gender && (
-            <p><span className="font-semibold text-[#111827] inline-block w-28">{t.gender}:</span> {personalInfo.gender}</p>
-          )}
-          {personalInfo.maritalStatus && (
-            <p><span className="font-semibold text-[#111827] inline-block w-28">{t.maritalStatus}:</span> {personalInfo.maritalStatus}</p>
-          )}
-          {personalInfo.nationality && (
-            <p><span className="font-semibold text-[#111827] inline-block w-28">{t.nationality}:</span> {personalInfo.nationality}</p>
-          )}
-          {personalInfo.religion && (
-            <p><span className="font-semibold text-[#111827] inline-block w-28">{t.religion}:</span> {personalInfo.religion}</p>
-          )}
-          {personalInfo.bloodGroup && (
-            <p><span className="font-semibold text-[#111827] inline-block w-28">{t.bloodGroup}:</span> {personalInfo.bloodGroup}</p>
-          )}
-          {personalInfo.nationalId && (
-            <p><span className="font-semibold text-[#111827] inline-block w-28">{t.nationalId}:</span> {personalInfo.nationalId}</p>
-          )}
-          {personalInfo.permanentAddress && (
-            <p className="sm:col-span-2">
-              <span className="font-semibold text-[#111827] inline-block w-28">{t.permanentAddress}:</span> {personalInfo.permanentAddress}
-            </p>
-          )}
-        </div>
-      </section>
-
-      {/* Languages */}
-      {languages && languages.length > 0 && (
-        <section className="mb-5">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#d1d5db] pb-1 mb-2">
-            {t.languages}
-          </h2>
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            {languages.map((lang, idx) => (
-              <p key={lang.id || idx}>
-                <span className="font-semibold text-[#111827]">{lang.name}:</span> {lang.proficiency}
-              </p>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* References */}
-      {references && references.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#d1d5db] pb-1 mb-2">
-            {t.references}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-            {references.map((ref, idx) => (
-              <div key={ref.id || idx} className="border-l-2 border-[#0c5c3d] pl-3 py-0.5">
-                <h3 className="font-bold text-[#111827]">{ref.name}</h3>
-                <p className="text-[#4b5563]">{ref.designation}</p>
-                <p className="text-[#4b5563]">{ref.organization}</p>
-                {ref.phone && <p className="text-[#374151] mt-0.5"><span className="font-medium">{t.phone}:</span> {ref.phone}</p>}
-                {ref.email && <p className="text-[#374151]"><span className="font-medium">{t.email}:</span> {ref.email}</p>}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Bottom Signature Line */}
-      <div className="pt-8 flex justify-between items-end text-xs">
-        <div className="text-[#6b7280]">
+      {/* Formal Signature and Date Section */}
+      <div className="mt-8 pt-6 border-t border-slate-200 flex justify-between items-end font-sans text-xs break-inside-avoid">
+        <div className="text-slate-500">
           <p>{language === 'bn' ? 'তারিখ: ....................' : 'Date: ....................'}</p>
         </div>
         <div className="text-center">
-          <div className="w-44 border-b border-[#4b5563] mb-1"></div>
-          <p className="font-semibold text-[#111827]">{t.signature}</p>
+          <div className="w-44 border-b border-slate-700 mb-1.5"></div>
+          <p className="font-semibold text-slate-900">{t.signature}</p>
         </div>
       </div>
     </div>

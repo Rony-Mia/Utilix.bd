@@ -272,7 +272,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
                         >
                           <div className="text-sm font-medium">{tool.label}</div>
                           {tool.description && (
-                            <div className="text-[11px] text-[#6b6255] mt-0.5 font-normal">
+                            <div className="text-[11px] text-[#6b6255] mt-0.5 font-medium">
                               {tool.description}
                             </div>
                           )}

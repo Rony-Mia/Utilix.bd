@@ -1,4 +1,5 @@
 import React from 'react';
+import { User, Phone, Mail, MapPin, Globe, Briefcase, GraduationCap, Users } from 'lucide-react';
 import { CvData, CvLanguage } from '../../types.ts';
 import { CV_LABELS } from '../../data/cvDefaults.ts';
 
@@ -12,111 +13,86 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ data, language }) => {
   const { personalInfo, education, experience, skills, languages, references } = data;
 
   return (
-    <div className="w-full bg-white text-[#1f2937] font-sans text-[13px] leading-relaxed shadow-sm print:shadow-none flex flex-col md:flex-row print:flex-row min-h-[297mm]">
-      {/* Left Sidebar: Photo, Contact, Personal Info, Skills, Languages */}
-      <div className="w-full md:w-1/3 print:w-1/3 bg-[#083f2a] text-[#f4efe4] p-6 flex flex-col justify-between">
+    <div className="w-full bg-white text-slate-800 font-sans leading-relaxed text-[13px] shadow-sm print:shadow-none flex flex-col md:flex-row items-stretch">
+      {/* Left Sidebar (32% width) with deep forest green background */}
+      <aside className="w-full md:w-[32%] bg-[#083f2a] text-slate-100 p-6 sm:p-7 flex flex-col justify-between shrink-0">
         <div className="space-y-6">
-          {/* Photo */}
-          <div className="flex flex-col items-center">
-            {personalInfo.photoUrl ? (
-              <div className="w-28 h-32 rounded-sm overflow-hidden border-2 border-[#d8cfb8] shadow">
+          {/* Circular Photo with subtle glow ring and silhouette fallback */}
+          <div className="flex flex-col items-center break-inside-avoid">
+            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full ring-4 ring-emerald-600/40 shadow-lg overflow-hidden bg-emerald-950/80 flex items-center justify-center">
+              {personalInfo.photoUrl ? (
                 <img
                   src={personalInfo.photoUrl}
                   alt={personalInfo.fullName}
                   className="w-full h-full object-cover"
                 />
-              </div>
-            ) : (
-              <div className="w-28 h-32 rounded-sm border-2 border-dashed border-[#d8cfb8]/50 flex items-center justify-center text-xs text-[#d8cfb8] text-center p-2">
-                <span>{language === 'bn' ? 'ছবি যুক্ত করুন' : 'Photo'}</span>
-              </div>
-            )}
+              ) : (
+                <div className="w-full h-full flex flex-col items-center justify-center bg-emerald-950 text-emerald-300/70">
+                  <User className="w-14 h-14 stroke-[1.5]" />
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Contact Details */}
+          {/* Contact Information */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#d8cfb8] border-b border-[#0c5c3d] pb-1 mb-2">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-emerald-300 border-b border-emerald-700/60 pb-1 mb-3">
               {t.contact}
-            </h3>
-            <div className="space-y-1.5 text-xs text-[#e5e7eb]">
+            </h2>
+            <ul className="space-y-2.5 text-xs text-slate-200">
               {personalInfo.phone && (
-                <div>
-                  <span className="block text-[10px] text-[#9ca3af] uppercase">{t.phone}</span>
-                  <span className="font-medium">{personalInfo.phone}</span>
-                </div>
+                <li className="flex items-start gap-2.5">
+                  <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                  <span className="break-all">{personalInfo.phone}</span>
+                </li>
               )}
               {personalInfo.email && (
-                <div>
-                  <span className="block text-[10px] text-[#9ca3af] uppercase">{t.email}</span>
-                  <span className="font-medium break-all">{personalInfo.email}</span>
-                </div>
+                <li className="flex items-start gap-2.5">
+                  <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                  <span className="break-all">{personalInfo.email}</span>
+                </li>
               )}
               {personalInfo.presentAddress && (
-                <div>
-                  <span className="block text-[10px] text-[#9ca3af] uppercase">{t.presentAddress}</span>
+                <li className="flex items-start gap-2.5">
+                  <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                   <span>{personalInfo.presentAddress}</span>
-                </div>
+                </li>
               )}
               {personalInfo.linkedinOrWebsite && (
-                <div>
-                  <span className="block text-[10px] text-[#9ca3af] uppercase">LinkedIn / Web</span>
+                <li className="flex items-start gap-2.5">
+                  <Globe className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                   <span className="break-all">{personalInfo.linkedinOrWebsite}</span>
-                </div>
+                </li>
               )}
-            </div>
+            </ul>
           </div>
 
-          {/* Personal Info */}
-          <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#d8cfb8] border-b border-[#0c5c3d] pb-1 mb-2">
-              {t.personalDetails}
-            </h3>
-            <div className="space-y-1 text-xs text-[#e5e7eb]">
-              {personalInfo.fatherName && (
-                <p><span className="text-[#9ca3af]">{t.fatherName}:</span> {personalInfo.fatherName}</p>
-              )}
-              {personalInfo.motherName && (
-                <p><span className="text-[#9ca3af]">{t.motherName}:</span> {personalInfo.motherName}</p>
-              )}
-              {personalInfo.dateOfBirth && (
-                <p><span className="text-[#9ca3af]">{t.dateOfBirth}:</span> {personalInfo.dateOfBirth}</p>
-              )}
-              {personalInfo.gender && (
-                <p><span className="text-[#9ca3af]">{t.gender}:</span> {personalInfo.gender}</p>
-              )}
-              {personalInfo.maritalStatus && (
-                <p><span className="text-[#9ca3af]">{t.maritalStatus}:</span> {personalInfo.maritalStatus}</p>
-              )}
-              {personalInfo.bloodGroup && (
-                <p><span className="text-[#9ca3af]">{t.bloodGroup}:</span> {personalInfo.bloodGroup}</p>
-              )}
-              {personalInfo.nationality && (
-                <p><span className="text-[#9ca3af]">{t.nationality}:</span> {personalInfo.nationality}</p>
-              )}
-              {personalInfo.religion && (
-                <p><span className="text-[#9ca3af]">{t.religion}:</span> {personalInfo.religion}</p>
-              )}
-              {personalInfo.nationalId && (
-                <p><span className="text-[#9ca3af]">{t.nationalId}:</span> {personalInfo.nationalId}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Skills */}
+          {/* Skills (Rendered as clean strength bars and tags) */}
           {skills && skills.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#d8cfb8] border-b border-[#0c5c3d] pb-1 mb-2">
+              <h2 className="text-xs font-bold uppercase tracking-widest text-emerald-300 border-b border-emerald-700/60 pb-1 mb-3">
                 {t.skills}
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
-                {skills.map((skill, idx) => (
-                  <span
-                    key={idx}
-                    className="bg-[#0c5c3d] text-[#fffdf7] text-[11px] px-2 py-0.5 rounded-sm font-medium border border-[#14532d]"
-                  >
-                    {skill}
-                  </span>
-                ))}
+              </h2>
+              <div className="space-y-2.5">
+                {skills.map((skill, idx) => {
+                  // Varied visual strength indicator width for realistic modern resume look
+                  const widths = ['85%', '92%', '78%', '88%', '80%', '90%', '75%'];
+                  const barWidth = widths[idx % widths.length];
+
+                  return (
+                    <div key={idx} className="space-y-1">
+                      <div className="flex justify-between text-xs text-slate-200 font-medium">
+                        <span>{skill}</span>
+                      </div>
+                      <div className="w-full bg-emerald-950/80 rounded-full h-1.5 overflow-hidden">
+                        <div
+                          className="bg-emerald-400 h-full rounded-full"
+                          style={{ width: barWidth }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -124,65 +100,122 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ data, language }) => {
           {/* Languages */}
           {languages && languages.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#d8cfb8] border-b border-[#0c5c3d] pb-1 mb-2">
+              <h2 className="text-xs font-bold uppercase tracking-widest text-emerald-300 border-b border-emerald-700/60 pb-1 mb-2.5">
                 {t.languages}
-              </h3>
-              <div className="space-y-1 text-xs text-[#e5e7eb]">
+              </h2>
+              <div className="space-y-2 text-xs">
                 {languages.map((lang, idx) => (
-                  <div key={lang.id || idx} className="flex justify-between items-baseline">
-                    <span className="font-medium text-white">{lang.name}</span>
-                    <span className="text-[11px] text-[#9ca3af]">{lang.proficiency}</span>
+                  <div key={lang.id || idx} className="flex justify-between items-center text-slate-200">
+                    <span className="font-medium">{lang.name}</span>
+                    <span className="text-[11px] px-2 py-0.5 rounded bg-emerald-900/80 border border-emerald-700/50 text-emerald-200">
+                      {lang.proficiency}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
           )}
-        </div>
-      </div>
 
-      {/* Right Content Area: Name, Objective, Experience, Education, References */}
-      <div className="w-full md:w-2/3 print:w-2/3 p-6 sm:p-8 flex flex-col justify-between">
+          {/* Personal Details in Sidebar */}
+          <div>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-emerald-300 border-b border-emerald-700/60 pb-1 mb-2.5">
+              {t.personalDetails}
+            </h2>
+            <div className="space-y-1.5 text-xs text-slate-300">
+              {personalInfo.fatherName && (
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-wider text-emerald-400">{t.fatherName}</span>
+                  <span className="font-medium text-slate-100">{personalInfo.fatherName}</span>
+                </div>
+              )}
+              {personalInfo.motherName && (
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-wider text-emerald-400">{t.motherName}</span>
+                  <span className="font-medium text-slate-100">{personalInfo.motherName}</span>
+                </div>
+              )}
+              {personalInfo.dateOfBirth && (
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-wider text-emerald-400">{t.dateOfBirth}</span>
+                  <span className="font-medium text-slate-100">{personalInfo.dateOfBirth}</span>
+                </div>
+              )}
+              {personalInfo.nationality && (
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-wider text-emerald-400">{t.nationality}</span>
+                  <span className="font-medium text-slate-100">{personalInfo.nationality}</span>
+                </div>
+              )}
+              {personalInfo.nationalId && (
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-wider text-emerald-400">{t.nationalId}</span>
+                  <span className="font-mono text-slate-100">{personalInfo.nationalId}</span>
+                </div>
+              )}
+              {personalInfo.bloodGroup && (
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-wider text-emerald-400">{t.bloodGroup}</span>
+                  <span className="font-semibold text-rose-300">{personalInfo.bloodGroup}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Minimal copyright/watermark footer in sidebar */}
+        <div className="pt-6 border-t border-emerald-800/40 text-[10px] text-emerald-400/70 font-mono">
+          <span>Utilix.bd • BioData</span>
+        </div>
+      </aside>
+
+      {/* Right Content Area (68% width) */}
+      <main className="flex-1 p-6 sm:p-9 flex flex-col justify-between space-y-6">
         <div>
           {/* Header Name & Title */}
-          <div className="border-b-2 border-[#083f2a] pb-4 mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#083f2a] uppercase tracking-tight">
+          <div className="border-b-2 border-slate-100 pb-4 mb-5">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
               {personalInfo.fullName || (language === 'bn' ? 'প্রার্থীর নাম' : 'Full Name')}
             </h1>
             {personalInfo.designationOrTitle && (
-              <p className="text-sm font-medium text-[#0c5c3d] mt-1 tracking-wide">
+              <p className="text-sm font-semibold text-emerald-700 tracking-wide uppercase mt-1">
                 {personalInfo.designationOrTitle}
               </p>
             )}
+
+            {personalInfo.careerObjective && (
+              <div className="mt-3 bg-emerald-50/60 border-l-3 border-emerald-600 p-3 rounded-r text-slate-700 text-xs leading-relaxed">
+                {personalInfo.careerObjective}
+              </div>
+            )}
           </div>
 
-          {/* Career Objective */}
-          {personalInfo.careerObjective && (
-            <section className="mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#e5e7eb] pb-1 mb-2">
-                {t.careerObjective}
-              </h2>
-              <p className="text-justify text-[#4b5563] text-xs leading-relaxed">
-                {personalInfo.careerObjective}
-              </p>
-            </section>
-          )}
-
-          {/* Work Experience */}
+          {/* Work Experience Timeline */}
           {experience && experience.length > 0 && (
-            <section className="mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#e5e7eb] pb-1 mb-3">
-                {t.experience}
-              </h2>
-              <div className="space-y-4">
+            <section className="mb-6 break-inside-avoid">
+              <div className="flex items-center gap-2 mb-3">
+                <Briefcase className="w-4 h-4 text-emerald-700" />
+                <h2 className="text-xs font-bold uppercase tracking-widest text-slate-900">
+                  {t.experience}
+                </h2>
+              </div>
+
+              <div className="border-l-2 border-emerald-200 ml-2 pl-4 space-y-4 relative">
                 {experience.map((exp, idx) => (
-                  <div key={exp.id || idx} className="relative pl-3 border-l-2 border-[#0c5c3d]">
-                    <div className="flex justify-between items-baseline">
-                      <h3 className="font-bold text-[#111827] text-sm">{exp.designation}</h3>
-                      <span className="text-xs font-medium text-[#6b7280]">{exp.duration}</span>
+                  <div key={exp.id || idx} className="relative break-inside-avoid">
+                    {/* Timeline Dot Marker */}
+                    <div className="absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full bg-emerald-700 ring-4 ring-white" />
+                    
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                      <h3 className="font-bold text-slate-900 text-[13px]">{exp.designation}</h3>
+                      <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded w-fit">
+                        {exp.duration}
+                      </span>
                     </div>
-                    <p className="text-xs font-semibold text-[#0c5c3d]">{exp.company}</p>
+
+                    <p className="text-xs font-medium text-slate-600 mt-0.5">{exp.company}</p>
+
                     {exp.responsibilities && (
-                      <p className="text-xs text-[#4b5563] mt-1 whitespace-pre-line leading-relaxed">
+                      <p className="text-slate-700 mt-1.5 text-xs whitespace-pre-line leading-relaxed">
                         {exp.responsibilities}
                       </p>
                     )}
@@ -192,24 +225,38 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ data, language }) => {
             </section>
           )}
 
-          {/* Education */}
+          {/* Educational Qualifications Timeline */}
           {education && education.length > 0 && (
-            <section className="mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#e5e7eb] pb-1 mb-3">
-                {t.education}
-              </h2>
-              <div className="space-y-2.5">
+            <section className="mb-6 break-inside-avoid">
+              <div className="flex items-center gap-2 mb-3">
+                <GraduationCap className="w-4 h-4 text-emerald-700" />
+                <h2 className="text-xs font-bold uppercase tracking-widest text-slate-900">
+                  {t.education}
+                </h2>
+              </div>
+
+              <div className="border-l-2 border-emerald-200 ml-2 pl-4 space-y-3.5 relative">
                 {education.map((edu, idx) => (
-                  <div key={edu.id || idx} className="bg-[#f9fafb] p-2.5 border border-[#e5e7eb] rounded-sm text-xs">
-                    <div className="flex justify-between items-baseline">
-                      <h3 className="font-bold text-[#111827]">{edu.degree}</h3>
-                      <span className="font-medium text-[#083f2a]">{edu.passingYear}</span>
+                  <div key={edu.id || idx} className="relative break-inside-avoid">
+                    {/* Timeline Dot Marker */}
+                    <div className="absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full bg-emerald-700 ring-4 ring-white" />
+                    
+                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                      <h3 className="font-bold text-slate-900 text-[13px]">{edu.degree}</h3>
+                      <span className="text-[11px] font-mono text-slate-500 font-medium">
+                        {edu.passingYear}
+                      </span>
                     </div>
-                    <p className="text-[#374151] font-medium">{edu.institution}</p>
-                    <div className="flex justify-between text-[11px] text-[#6b7280] mt-1">
-                      {edu.boardOrMajor && <span>{edu.boardOrMajor}</span>}
-                      {edu.result && <span className="font-semibold text-[#111827]">{t.result}: {edu.result}</span>}
-                    </div>
+
+                    <p className="text-xs text-slate-700 font-medium mt-0.5">
+                      {edu.institution} {edu.boardOrMajor && `• ${edu.boardOrMajor}`}
+                    </p>
+
+                    {edu.result && (
+                      <p className="text-[11px] font-semibold text-emerald-700 mt-0.5">
+                        {t.result}: {edu.result}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
@@ -218,18 +265,21 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ data, language }) => {
 
           {/* References */}
           {references && references.length > 0 && (
-            <section className="mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-[#083f2a] border-b border-[#e5e7eb] pb-1 mb-3">
-                {t.references}
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <section className="mb-4 break-inside-avoid">
+              <div className="flex items-center gap-2 mb-3">
+                <Users className="w-4 h-4 text-emerald-700" />
+                <h2 className="text-xs font-bold uppercase tracking-widest text-slate-900">
+                  {t.references}
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {references.map((ref, idx) => (
-                  <div key={ref.id || idx} className="bg-[#f9fafb] p-2.5 border border-[#e5e7eb] rounded-sm">
-                    <h3 className="font-bold text-[#111827]">{ref.name}</h3>
-                    <p className="text-[#4b5563] text-[11px]">{ref.designation}</p>
-                    <p className="text-[#4b5563] text-[11px]">{ref.organization}</p>
-                    {ref.phone && <p className="text-[#374151] mt-1"><span className="font-medium">{t.phone}:</span> {ref.phone}</p>}
-                    {ref.email && <p className="text-[#374151]"><span className="font-medium">{t.email}:</span> {ref.email}</p>}
+                  <div key={ref.id || idx} className="border border-slate-200 bg-slate-50/50 p-3 rounded-xs border-l-3 border-l-emerald-700 break-inside-avoid">
+                    <p className="font-bold text-slate-900 text-xs">{ref.name}</p>
+                    <p className="text-slate-600 text-[11px] mt-0.5">{ref.designation}, {ref.organization}</p>
+                    <p className="text-slate-500 text-[11px] mt-1 font-mono">{ref.phone}</p>
+                    {ref.email && <p className="text-slate-500 text-[11px] font-mono">{ref.email}</p>}
                   </div>
                 ))}
               </div>
@@ -237,14 +287,17 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ data, language }) => {
           )}
         </div>
 
-        {/* Bottom Signature Line */}
-        <div className="pt-8 flex justify-end">
-          <div className="text-center w-40">
-            <div className="border-b border-[#4b5563] mb-1"></div>
-            <p className="text-xs font-semibold text-[#111827]">{t.signature}</p>
+        {/* Signature Line */}
+        <div className="mt-8 pt-6 border-t border-slate-200 flex justify-between items-end text-xs break-inside-avoid">
+          <div className="text-slate-500 text-[11px]">
+            <p>{language === 'bn' ? 'তারিখ: ....................' : 'Date: ....................'}</p>
+          </div>
+          <div className="text-center">
+            <div className="w-40 border-b border-slate-700 mb-1"></div>
+            <p className="font-semibold text-slate-800 text-[11px]">{t.signature}</p>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

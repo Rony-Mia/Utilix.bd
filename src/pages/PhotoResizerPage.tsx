@@ -782,7 +782,7 @@ export const PhotoResizerPage: React.FC = () => {
           </div>
 
           {/* Guidelines hint */}
-          <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-3 text-[11px] text-[#4a4237] leading-relaxed">
+          <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-3 text-xs font-medium text-[#4a4237] leading-relaxed">
             💡 <strong>টিপস:</strong> সরকারি চাকরি ও বিসিএস আবেদনে ছবির ব্যাকগ্রাউন্ড সাদা বা হালকা একরঙা হতে হবে।
             স্বাক্ষরের জন্য সাদা কাগজে কালো কালির কলম দিয়ে স্বাক্ষর করে ছবি তুলে এখানে ক্রপ করুন।
           </div>
@@ -877,17 +877,17 @@ export const PhotoResizerPage: React.FC = () => {
             {resultMeta && (
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
                 <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-2">
-                  <span className="block text-[10px] text-[#6b6255]">প্রস্থ ও উচ্চতা</span>
+                  <span className="block text-[11px] font-medium text-[#6b6255]">প্রস্থ ও উচ্চতা</span>
                   <span className="font-mono font-bold text-[#083f2a]">{resultMeta.width}×{resultMeta.height}</span>
                 </div>
                 <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-2">
-                  <span className="block text-[10px] text-[#6b6255]">ফাইল সাইজ</span>
+                  <span className="block text-[11px] font-medium text-[#6b6255]">ফাইল সাইজ</span>
                   <span className={`font-mono font-bold ${resultMeta.sizeKb <= activeMaxKb ? 'text-[#0c5c3d]' : 'text-[#c8342a]'}`}>
                     {resultMeta.sizeKb} KB
                   </span>
                 </div>
                 <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-2">
-                  <span className="block text-[10px] text-[#6b6255]">বাইনারি কোয়ালিটি</span>
+                  <span className="block text-[11px] font-medium text-[#6b6255]">বাইনারি কোয়ালিটি</span>
                   <span className="font-mono font-bold text-[#083f2a]">{resultMeta.qualityUsed}%</span>
                 </div>
               </div>

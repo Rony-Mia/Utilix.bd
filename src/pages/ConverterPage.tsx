@@ -185,7 +185,7 @@ export const ConverterPage: React.FC = () => {
             }`}
           >
             <span>ইউনিকোড → বিজয় (ANSI)</span>
-            <span className="text-[10px] px-1 py-0.2 bg-[#d8cfb8] text-[#083f2a] rounded-none">
+            <span className="text-[10px] px-1 py-0.2 bg-[#d8cfb8] text-[#083f2a] rounded-none font-semibold">
               বেটা
             </span>
           </button>
@@ -305,7 +305,7 @@ export const ConverterPage: React.FC = () => {
                       ? 'আউটপুট: আধুনিক ইউনিকোড (বাংলা)'
                       : 'আউটপুট: SUTONNYMJ / ANSI টেক্সট'}
                   </span>
-                  <span className="inline-flex items-center text-[11px] text-[#0c5c3d] font-sans">
+                  <span className="inline-flex items-center text-[11px] text-[#0c5c3d] font-sans font-medium">
                     <span className={`w-1.5 h-1.5 rounded-full bg-[#0c5c3d] mr-1 ${syncPulse ? 'scale-150' : ''}`}></span>
                     স্বয়ংক্রিয় সিঙ্কড
                   </span>

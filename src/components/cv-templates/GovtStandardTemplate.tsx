@@ -1,4 +1,5 @@
 import React from 'react';
+import { User } from 'lucide-react';
 import { CvData, CvLanguage } from '../../types.ts';
 import { CV_LABELS } from '../../data/cvDefaults.ts';
 
@@ -7,287 +8,343 @@ interface TemplateProps {
   language: CvLanguage;
 }
 
+// Helper to format Bengali numbers for serials
+const toBengaliNum = (num: number): string => {
+  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  return num.toString().split('').map(d => bnDigits[parseInt(d, 10)] || d).join('');
+};
+
 export const GovtStandardTemplate: React.FC<TemplateProps> = ({ data, language }) => {
   const t = CV_LABELS[language] || CV_LABELS.bn;
   const { personalInfo, education, experience, skills, languages, references } = data;
 
-  const toBengaliNumber = (n: number | string): string => {
-    if (language !== 'bn') return String(n);
-    const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
-    return String(n).replace(/\d/g, (d) => bengaliDigits[parseInt(d, 10)]);
-  };
+  const isBn = language === 'bn';
+  const getSerial = (n: number) => (isBn ? `${toBengaliNum(n)}.` : `${n}.`);
 
   return (
-    <div className="w-full bg-white text-[#111827] p-8 sm:p-10 font-serif leading-relaxed text-[13px] shadow-sm print:shadow-none print:p-8 min-h-[297mm]">
-      {/* Centered Heading */}
-      <div className="relative mb-6 pb-2 border-b border-[#111827]">
-        <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold uppercase underline underline-offset-4 text-[#111827]">
-            {language === 'bn' ? 'জীবন বৃত্তান্ত' : 'CURRICULUM VITAE'}
-          </h1>
-          {personalInfo.designationOrTitle && (
-            <p className="text-xs sm:text-sm font-sans text-[#4b5563] mt-1 font-medium">
-              ({personalInfo.designationOrTitle})
+    <div className="w-full bg-white text-slate-900 font-serif leading-relaxed text-xs sm:text-[13px] p-6 sm:p-10 shadow-sm print:shadow-none print:p-6">
+      <div>
+        {/* Official Centered Header & Top-Right Photo Box */}
+        <div className="relative mb-6 pb-4 border-b border-slate-300 break-inside-avoid">
+          {/* Passport Photo Box (Top-Right) */}
+          <div className="sm:absolute sm:right-0 sm:top-0 w-24 h-28 sm:w-28 sm:h-32 border border-slate-400 bg-slate-50 flex flex-col items-center justify-center shrink-0 overflow-hidden shadow-2xs mx-auto sm:mx-0 mb-4 sm:mb-0">
+            {personalInfo.photoUrl ? (
+              <img
+                src={personalInfo.photoUrl}
+                alt={personalInfo.fullName}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 p-1 text-center bg-slate-100">
+                <User className="w-10 h-10 stroke-[1.5]" />
+                <span className="text-[9px] mt-1 font-sans text-slate-500 font-medium">
+                  {isBn ? 'পাসপোর্ট সাইজ ছবি' : 'Passport Photo'}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Centered Heading */}
+          <div className="text-center sm:pr-32">
+            <h1 className="text-xl sm:text-2xl font-bold uppercase tracking-wider text-slate-900 inline-block border-b-2 border-slate-800 pb-1">
+              {t.curriculumVitae}
+            </h1>
+            <p className="text-[11px] text-slate-600 mt-1 font-sans italic">
+              {isBn
+                ? '(বাংলাদেশ সরকারি ও আধা-সরকারি চাকরির সার্কুলার ফরম্যাট অনুযায়ী)'
+                : '(Standard Government Bio-data Format for Bangladesh)'}
             </p>
-          )}
+          </div>
         </div>
 
-        {/* Top-Right Passport Photo Box */}
-        <div className="absolute right-0 top-0 w-28 h-32 border border-[#111827] p-1 bg-white">
-          {personalInfo.photoUrl ? (
-            <img
-              src={personalInfo.photoUrl}
-              alt={personalInfo.fullName}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full border border-dashed border-[#9ca3af] flex items-center justify-center text-[10px] text-center text-[#6b7280] p-1 font-sans">
-              <span>{language === 'bn' ? 'সত্যায়িত পাসপোর্ট সাইজ ছবি' : 'Attested Passport Photo'}</span>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Main Table-Based Formatted Rows (১. ২. ৩...) */}
-      <div className="mb-6 border border-[#9ca3af]">
-        <table className="w-full border-collapse text-xs sm:text-[13px]">
+        {/* Official Numbered Table */}
+        <table className="w-full border-collapse border border-slate-300 mb-6 text-xs sm:text-[13px]">
           <tbody>
-            <tr className="border-b border-[#d1d5db]">
-              <td className="w-12 px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                {toBengaliNumber(1)}.
+            {/* 1. Name */}
+            <tr>
+              <td className="w-12 sm:w-14 border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(1)}
               </td>
-              <td className="w-48 px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
-                {language === 'bn' ? 'প্রার্থীর নাম' : "Applicant's Name"}
+              <td className="w-40 sm:w-48 border border-slate-300 px-3 py-1.5 font-bold bg-slate-50/70 text-slate-900">
+                {t.name}
               </td>
-              <td className="px-3 py-2 font-semibold text-[#083f2a]">
-                {personalInfo.fullName || '-'}
+              <td className="border border-slate-300 px-3 py-1.5 font-bold text-slate-900">
+                {personalInfo.fullName}
               </td>
             </tr>
 
-            <tr className="border-b border-[#d1d5db]">
-              <td className="px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                {toBengaliNumber(2)}.
+            {/* 2. Father's Name */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(2)}
               </td>
-              <td className="px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
                 {t.fatherName}
               </td>
-              <td className="px-3 py-2">{personalInfo.fatherName || '-'}</td>
+              <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                {personalInfo.fatherName || '-'}
+              </td>
             </tr>
 
-            <tr className="border-b border-[#d1d5db]">
-              <td className="px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                {toBengaliNumber(3)}.
+            {/* 3. Mother's Name */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(3)}
               </td>
-              <td className="px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
                 {t.motherName}
               </td>
-              <td className="px-3 py-2">{personalInfo.motherName || '-'}</td>
+              <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                {personalInfo.motherName || '-'}
+              </td>
             </tr>
 
-            <tr className="border-b border-[#d1d5db]">
-              <td className="px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                {toBengaliNumber(4)}.
+            {/* 4. Date of Birth */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(4)}
               </td>
-              <td className="px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
                 {t.dateOfBirth}
               </td>
-              <td className="px-3 py-2">{personalInfo.dateOfBirth || '-'}</td>
+              <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                {personalInfo.dateOfBirth || '-'}
+              </td>
             </tr>
 
-            <tr className="border-b border-[#d1d5db]">
-              <td className="px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                {toBengaliNumber(5)}.
+            {/* 5. Gender & Marital Status */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(5)}
               </td>
-              <td className="px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
                 {t.gender} ও {t.maritalStatus}
               </td>
-              <td className="px-3 py-2">
-                {personalInfo.gender || '-'}, {personalInfo.maritalStatus || '-'}
+              <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                {personalInfo.gender || '-'} | {personalInfo.maritalStatus || '-'}
               </td>
             </tr>
 
-            <tr className="border-b border-[#d1d5db]">
-              <td className="px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                {toBengaliNumber(6)}.
+            {/* 6. Nationality & Religion */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(6)}
               </td>
-              <td className="px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
                 {t.nationality} ও {t.religion}
               </td>
-              <td className="px-3 py-2">
-                {personalInfo.nationality || '-'}, {personalInfo.religion || '-'}
+              <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                {personalInfo.nationality || '-'} | {personalInfo.religion || '-'}
               </td>
             </tr>
 
-            <tr className="border-b border-[#d1d5db]">
-              <td className="px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                {toBengaliNumber(7)}.
+            {/* 7. National ID */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(7)}
               </td>
-              <td className="px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
                 {t.nationalId}
               </td>
-              <td className="px-3 py-2 font-mono text-xs">{personalInfo.nationalId || '-'}</td>
+              <td className="border border-slate-300 px-3 py-1.5 font-mono text-slate-900">
+                {personalInfo.nationalId || '-'}
+              </td>
             </tr>
 
-            {personalInfo.bloodGroup && (
-              <tr className="border-b border-[#d1d5db]">
-                <td className="px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                  {toBengaliNumber(8)}.
-                </td>
-                <td className="px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
-                  {t.bloodGroup}
-                </td>
-                <td className="px-3 py-2">{personalInfo.bloodGroup}</td>
-              </tr>
-            )}
-
-            <tr className="border-b border-[#d1d5db]">
-              <td className="px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                {toBengaliNumber(9)}.
+            {/* 8. Blood Group */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(8)}
               </td>
-              <td className="px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
+                {t.bloodGroup}
+              </td>
+              <td className="border border-slate-300 px-3 py-1.5 font-bold text-slate-900">
+                {personalInfo.bloodGroup || '-'}
+              </td>
+            </tr>
+
+            {/* 9. Present Address */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(9)}
+              </td>
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
                 {t.presentAddress}
               </td>
-              <td className="px-3 py-2">{personalInfo.presentAddress || '-'}</td>
+              <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                {personalInfo.presentAddress || '-'}
+              </td>
             </tr>
 
-            <tr className="border-b border-[#d1d5db]">
-              <td className="px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                {toBengaliNumber(10)}.
+            {/* 10. Permanent Address */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(10)}
               </td>
-              <td className="px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
                 {t.permanentAddress}
               </td>
-              <td className="px-3 py-2">{personalInfo.permanentAddress || '-'}</td>
+              <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                {personalInfo.permanentAddress || '-'}
+              </td>
             </tr>
 
+            {/* 11. Contact (Phone & Email) */}
             <tr>
-              <td className="px-3 py-2 font-bold text-center border-r border-[#d1d5db] bg-[#f9fafb]">
-                {toBengaliNumber(11)}.
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(11)}
               </td>
-              <td className="px-3 py-2 font-bold border-r border-[#d1d5db] bg-[#f9fafb]">
-                {language === 'bn' ? 'যোগাযোগ নম্বর ও ইমেইল' : 'Contact No. & Email'}
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
+                {t.phone} ও {t.email}
               </td>
-              <td className="px-3 py-2">
-                <span>{personalInfo.phone || '-'}</span>
-                {personalInfo.email && <span className="ml-4 text-xs font-sans">({personalInfo.email})</span>}
+              <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                {personalInfo.phone || '-'} {personalInfo.email && ` | ${personalInfo.email}`}
               </td>
             </tr>
+
+            {/* 12. Educational Qualifications Table */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-2 text-center font-bold bg-slate-50 text-slate-700 align-top">
+                {getSerial(12)}
+              </td>
+              <td className="border border-slate-300 px-3 py-2 font-bold bg-slate-50/70 text-slate-900 align-top">
+                {t.education}
+              </td>
+              <td className="border border-slate-300 p-0">
+                <table className="w-full border-collapse text-xs font-sans">
+                  <thead>
+                    <tr className="bg-slate-100 text-slate-900 font-bold border-b border-slate-300">
+                      <th className="p-1.5 text-left border-r border-slate-300">{t.degree}</th>
+                      <th className="p-1.5 text-left border-r border-slate-300">{t.institution}</th>
+                      <th className="p-1.5 text-left border-r border-slate-300">{t.board}</th>
+                      <th className="p-1.5 text-center border-r border-slate-300 w-16">{t.passingYear}</th>
+                      <th className="p-1.5 text-center w-20">{t.result}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {education && education.length > 0 ? (
+                      education.map((edu, idx) => (
+                        <tr key={edu.id || idx} className="border-b border-slate-200 last:border-b-0">
+                          <td className="p-1.5 border-r border-slate-300 font-semibold">{edu.degree}</td>
+                          <td className="p-1.5 border-r border-slate-300">{edu.institution}</td>
+                          <td className="p-1.5 border-r border-slate-300">{edu.boardOrMajor || '-'}</td>
+                          <td className="p-1.5 border-r border-slate-300 text-center">{edu.passingYear}</td>
+                          <td className="p-1.5 text-center font-semibold">{edu.result}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={5} className="p-2 text-center text-slate-400">
+                          -
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            {/* 13. Experience */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700 align-top">
+                {getSerial(13)}
+              </td>
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900 align-top">
+                {t.experience}
+              </td>
+              <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                {experience && experience.length > 0 ? (
+                  <div className="space-y-2">
+                    {experience.map((exp, idx) => (
+                      <div key={exp.id || idx} className="border-b border-slate-200 pb-1.5 last:border-b-0 last:pb-0">
+                        <div className="flex justify-between">
+                          <span className="font-bold text-slate-900">{exp.designation}</span>
+                          <span className="text-slate-500 font-mono text-[11px]">{exp.duration}</span>
+                        </div>
+                        <p className="text-slate-700 text-[11px]">{exp.company}</p>
+                        {exp.responsibilities && (
+                          <p className="text-slate-600 text-[11px] mt-0.5 whitespace-pre-line">{exp.responsibilities}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <span>{isBn ? 'প্রযোজ্য নয়' : 'N/A'}</span>
+                )}
+              </td>
+            </tr>
+
+            {/* 14. Skills & Languages */}
+            <tr>
+              <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700">
+                {getSerial(14)}
+              </td>
+              <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900">
+                {t.skills} ও {t.languages}
+              </td>
+              <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                <div className="space-y-1">
+                  {skills && skills.length > 0 && (
+                    <p>
+                      <strong className="font-semibold text-slate-900">{t.skills}:</strong>{' '}
+                      {skills.join(', ')}
+                    </p>
+                  )}
+                  {languages && languages.length > 0 && (
+                    <p>
+                      <strong className="font-semibold text-slate-900">{t.languages}:</strong>{' '}
+                      {languages.map(l => `${l.name} (${l.proficiency})`).join(', ')}
+                    </p>
+                  )}
+                </div>
+              </td>
+            </tr>
+
+            {/* 15. References */}
+            {references && references.length > 0 && (
+              <tr>
+                <td className="border border-slate-300 px-2.5 py-1.5 text-center font-bold bg-slate-50 text-slate-700 align-top">
+                  {getSerial(15)}
+                </td>
+                <td className="border border-slate-300 px-3 py-1.5 font-semibold bg-slate-50/70 text-slate-900 align-top">
+                  {t.references}
+                </td>
+                <td className="border border-slate-300 px-3 py-1.5 text-slate-800">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {references.map((ref, idx) => (
+                      <div key={ref.id || idx} className="text-xs">
+                        <p className="font-bold text-slate-900">{ref.name}</p>
+                        <p className="text-slate-600 text-[11px]">{ref.designation}, {ref.organization}</p>
+                        <p className="text-slate-500 text-[11px] font-mono">{ref.phone}</p>
+                      </div>
+                    ))}
+                  </div>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
-      </div>
 
-      {/* ১২. Educational Qualifications Table */}
-      {education && education.length > 0 && (
-        <div className="mb-6">
-          <h2 className="text-sm font-bold mb-2">
-            {toBengaliNumber(12)}. {t.education}:
-          </h2>
-          <table className="w-full border-collapse border border-[#111827] text-xs">
-            <thead>
-              <tr className="bg-[#f3f4f6] text-[#111827] font-bold">
-                <th className="border border-[#111827] px-2 py-1.5 text-center w-12">ক্র. নং</th>
-                <th className="border border-[#111827] px-2 py-1.5 text-left">{t.degree}</th>
-                <th className="border border-[#111827] px-2 py-1.5 text-left">{t.institution}</th>
-                <th className="border border-[#111827] px-2 py-1.5 text-left">{t.board}</th>
-                <th className="border border-[#111827] px-2 py-1.5 text-center w-16">{t.passingYear}</th>
-                <th className="border border-[#111827] px-2 py-1.5 text-center w-24">{t.result}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {education.map((edu, idx) => (
-                <tr key={edu.id || idx}>
-                  <td className="border border-[#111827] px-2 py-1 text-center font-sans">{toBengaliNumber(idx + 1)}</td>
-                  <td className="border border-[#111827] px-2 py-1 font-semibold">{edu.degree}</td>
-                  <td className="border border-[#111827] px-2 py-1">{edu.institution}</td>
-                  <td className="border border-[#111827] px-2 py-1">{edu.boardOrMajor}</td>
-                  <td className="border border-[#111827] px-2 py-1 text-center">{edu.passingYear}</td>
-                  <td className="border border-[#111827] px-2 py-1 text-center font-bold">{edu.result}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {/* ১৩. Experience */}
-      {experience && experience.length > 0 && (
-        <div className="mb-6">
-          <h2 className="text-sm font-bold mb-2">
-            {toBengaliNumber(13)}. {t.experience}:
-          </h2>
-          <div className="border border-[#9ca3af] p-3 space-y-2 text-xs">
-            {experience.map((exp, idx) => (
-              <div key={exp.id || idx} className="border-b border-[#e5e7eb] last:border-b-0 pb-2 last:pb-0">
-                <div className="flex justify-between font-bold text-[13px]">
-                  <span>{exp.designation} — {exp.company}</span>
-                  <span className="font-normal text-[#4b5563]">{exp.duration}</span>
-                </div>
-                {exp.responsibilities && (
-                  <p className="text-[#374151] mt-1 font-sans text-xs">{exp.responsibilities}</p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* ১৪. Skills & Languages */}
-      <div className="mb-6">
-        <h2 className="text-sm font-bold mb-2">
-          {toBengaliNumber(14)}. {language === 'bn' ? 'অতিরিক্ত যোগ্যতা ও ভাষাগত দক্ষতা' : 'Additional Skills & Languages'}:
-        </h2>
-        <div className="border border-[#9ca3af] p-3 text-xs space-y-2">
-          {skills && skills.length > 0 && (
-            <div>
-              <span className="font-bold text-[#111827]">{t.skills}: </span>
-              <span className="font-sans">{skills.join(', ')}</span>
-            </div>
-          )}
-          {languages && languages.length > 0 && (
-            <div>
-              <span className="font-bold text-[#111827]">{t.languages}: </span>
-              <span className="font-sans">
-                {languages.map((l) => `${l.name} (${l.proficiency})`).join('; ')}
-              </span>
-            </div>
-          )}
+        {/* Official Declaration (অঙ্গীকারনামা) */}
+        <div className="mb-6 border border-slate-300 bg-slate-50/50 p-3 text-justify text-xs text-slate-800 leading-relaxed break-inside-avoid">
+          <p>
+            {isBn
+              ? 'অঙ্গীকারনামা: আমি এই মর্মে দৃঢ় অঙ্গীকার করছি যে, উপরে বর্ণিত যাবতীয় তথ্যাবলি সম্পূর্ণ সত্য ও নির্ভুল। ভবিষ্যতে কোনো তথ্য ভুল বা অসত্য প্রমাণিত হলে কর্তৃপক্ষ আমার আবেদনপত্র বা নিয়োগ বাতিল করার সম্পূর্ণ অধিকার সংরক্ষণ করিবেন।'
+              : 'Declaration: I hereby declare that the information provided above is true, complete and accurate to the best of my knowledge and belief. If any information is proven to be false or incorrect, the authority reserves the right to reject my application or terminate my appointment.'}
+          </p>
         </div>
       </div>
 
-      {/* ১৫. References */}
-      {references && references.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-sm font-bold mb-2">
-            {toBengaliNumber(15)}. {t.references}:
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs border border-[#9ca3af] p-3">
-            {references.map((ref, idx) => (
-              <div key={ref.id || idx}>
-                <p className="font-bold text-[13px]">{ref.name}</p>
-                <p>{ref.designation}, {ref.organization}</p>
-                <p className="font-sans text-[11px]">মোবাইল: {ref.phone} {ref.email && `| ইমেইল: ${ref.email}`}</p>
-              </div>
-            ))}
-          </div>
+      {/* Date & Signature Row */}
+      <div className="mt-8 pt-6 flex justify-between items-end text-xs font-serif break-inside-avoid">
+        <div>
+          <p>{isBn ? 'স্থান: ..............................' : 'Place: ..............................'}</p>
+          <p className="mt-1">{isBn ? 'তারিখ: ..............................' : 'Date: ..............................'}</p>
         </div>
-      )}
-
-      {/* Declaration & Signature */}
-      <div className="pt-4 text-xs">
-        <p className="text-justify leading-relaxed mb-10 text-[#374151]">
-          {language === 'bn'
-            ? 'আমি এই মর্মে অঙ্গীকার করছি যে, উপরে বর্ণিত যাবতীয় তথ্যাবলি সম্পূর্ণ সত্য ও নির্ভুল।'
-            : 'I hereby declare that all the information provided above is true and correct to the best of my knowledge.'}
-        </p>
-
-        <div className="flex justify-between items-end">
-          <div className="text-[#4b5563]">
-            <p>{language === 'bn' ? 'তারিখ:' : 'Date:'} .................................</p>
-          </div>
-          <div className="text-center">
-            <div className="w-48 border-b border-[#111827] mb-1"></div>
-            <p className="font-bold text-[#111827]">{t.signature}</p>
-          </div>
+        <div className="text-center">
+          <div className="w-48 border-b border-slate-800 mb-1.5"></div>
+          <p className="font-bold text-slate-900">{t.signature}</p>
         </div>
       </div>
     </div>

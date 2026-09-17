@@ -17,6 +17,11 @@ import {
   Eye,
   Edit3,
   CheckCircle2,
+  AlertTriangle,
+  X,
+  Download,
+  Loader2,
+  ExternalLink,
 } from 'lucide-react';
 import { CvData, CvLanguage } from '../types.ts';
 import { SAMPLE_CV_DATA_BN, EMPTY_CV_DATA } from '../data/cvDefaults.ts';
@@ -88,6 +93,9 @@ export const CvBuilderPage: React.FC = () => {
   const [mobileView, setMobileView] = useState<'form' | 'preview'>('form');
   const [newSkillInput, setNewSkillInput] = useState<string>('');
   const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [isResetModalOpen, setIsResetModalOpen] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -353,22 +361,260 @@ export const CvBuilderPage: React.FC = () => {
   // Sample data & reset handlers
   const handleLoadSample = () => {
     setCvData(SAMPLE_CV_DATA_BN);
+    setToastMessage('নমুনা ডেটা সফলভাবে লোড করা হয়েছে');
+    setTimeout(() => setToastMessage(null), 2500);
   };
 
-  const handleResetForm = () => {
-    if (
-      window.confirm(
-        'আপনি কি নিশ্চিত যে সকল তথ্য মুছে ফেলে নতুন ফর্ম শুরু করতে চান?'
-      )
-    ) {
-      setCvData(EMPTY_CV_DATA);
-      if (fileInputRef.current) fileInputRef.current.value = '';
+  const handleOpenResetModal = () => {
+    setIsResetModalOpen(true);
+  };
+
+  const handleConfirmReset = () => {
+    setCvData(EMPTY_CV_DATA);
+    setNewSkillInput('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+    try {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(EMPTY_CV_DATA));
+    } catch {
+      // ignore
+    }
+    setIsResetModalOpen(false);
+    setActiveFormTab('personal');
+    setToastMessage('ফর্মের সকল তথ্য সফলভাবে মুছে ফেলা হয়েছে');
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  // Direct A4 PDF download using html2canvas-pro and jspdf (supports oklch, lab, etc.)
+  const handleDownloadPdf = async () => {
+    if (isGeneratingPdf) return;
+
+    // If currently on mobile form view, toggle to preview so DOM element has active layout dimensions
+    if (mobileView === 'form') {
+      setMobileView('preview');
+      await new Promise((resolve) => setTimeout(resolve, 150));
+    }
+
+    const element = document.getElementById('cv-print-area');
+    if (!element) {
+      setToastMessage('সিভি প্রিভিউ পাওয়া যায়নি। দয়া করে আবার চেষ্টা করুন।');
+      setTimeout(() => setToastMessage(null), 3000);
+      return;
+    }
+
+    setIsGeneratingPdf(true);
+    setToastMessage('A4 PDF তৈরি হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...');
+
+    try {
+      // Lazy load html2canvas-pro and jspdf
+      // html2canvas-pro natively parses modern CSS color functions like oklch(), lab(), lch()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const html2canvasModule: any = await import('html2canvas-pro');
+      const html2canvas = html2canvasModule.default || html2canvasModule;
+      const { jsPDF } = await import('jspdf');
+
+      const rawName = cvData.personalInfo.fullName?.trim() || 'Curriculum_Vitae';
+      const safeName = rawName.replace(/[^a-zA-Z0-9\u0980-\u09FF_-]/g, '_');
+      const filename = `CV_${safeName}.pdf`;
+
+      // Render the CV container into high-resolution canvas (scale: 2 for crisp Bangla typography)
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+        scrollY: 0,
+        onclone: (clonedDoc: Document) => {
+          const clonedEl = clonedDoc.getElementById('cv-print-area');
+          if (clonedEl) {
+            clonedEl.style.boxShadow = 'none';
+            clonedEl.style.border = 'none';
+          }
+        },
+      });
+
+      // A4 dimensions in millimeters
+      const pdfWidth = 210;
+      const pdfHeight = 297;
+
+      // Full A4 page height in canvas pixels based on standard A4 aspect ratio (210 x 297)
+      const maxPageHeightCanvasPx = Math.floor((canvas.width * pdfHeight) / pdfWidth);
+
+      // Collect all DOM split candidates (bottom positions of sections, rows, paragraphs)
+      const containerRect = element.getBoundingClientRect();
+      const scale = canvas.width / element.offsetWidth;
+      const candidateNodes = element.querySelectorAll(
+        'section, tr, header, footer, .break-inside-avoid, [data-break-inside], h1, h2, h3, p, table, ul, ol, .grid > *, .space-y-3 > *, .space-y-4 > *'
+      );
+
+      const breakPoints: number[] = [];
+      candidateNodes.forEach((node) => {
+        const rect = node.getBoundingClientRect();
+        const bottomRelative = (rect.bottom - containerRect.top) * scale;
+        if (bottomRelative > 0 && bottomRelative < canvas.height) {
+          breakPoints.push(Math.round(bottomRelative));
+        }
+      });
+
+      // Canvas context for whitespace verification
+      const canvasCtx = canvas.getContext('2d', { willReadFrequently: true });
+
+      // Helper function to test if a horizontal row on canvas contains clean whitespace
+      const isRowWhite = (y: number): boolean => {
+        if (!canvasCtx || y < 0 || y >= canvas.height) return true;
+        try {
+          // Sample across canvas width (with 5% margin on each side)
+          const margin = Math.floor(canvas.width * 0.05);
+          const sampleStep = Math.max(1, Math.floor((canvas.width - 2 * margin) / 40));
+          const rowData = canvasCtx.getImageData(margin, y, canvas.width - 2 * margin, 1).data;
+
+          for (let x = 0; x < canvas.width - 2 * margin; x += sampleStep) {
+            const idx = x * 4;
+            const r = rowData[idx];
+            const g = rowData[idx + 1];
+            const b = rowData[idx + 2];
+            const a = rowData[idx + 3];
+            // If pixel contains dark/colored text stroke on white background
+            if (a > 30 && (r < 240 || g < 240 || b < 240)) {
+              return false;
+            }
+          }
+          return true;
+        } catch {
+          return true;
+        }
+      };
+
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4',
+        compress: true,
+      });
+
+      let currentY = 0;
+      let pageIndex = 0;
+
+      while (currentY < canvas.height) {
+        if (pageIndex > 0) {
+          pdf.addPage();
+        }
+
+        const remainingHeight = canvas.height - currentY;
+        let sliceHeight = Math.min(maxPageHeightCanvasPx, remainingHeight);
+
+        // If content exceeds one A4 page, find a smart break point between sections/paragraphs
+        if (currentY + maxPageHeightCanvasPx < canvas.height) {
+          const maxCutY = currentY + maxPageHeightCanvasPx;
+          const minCutY = currentY + Math.floor(maxPageHeightCanvasPx * 0.65);
+
+          // Find DOM break points within the allowable range
+          const validBreaks = breakPoints.filter((bp) => bp >= minCutY && bp <= maxCutY - 8);
+
+          let bestCutY = -1;
+
+          if (validBreaks.length > 0) {
+            // Check candidates starting from the lowest break point
+            for (let bIdx = validBreaks.length - 1; bIdx >= 0; bIdx--) {
+              const candidate = validBreaks[bIdx];
+              // Search around candidate for pure white row
+              for (let offset = 0; offset <= 25; offset++) {
+                if (candidate + offset <= maxCutY && isRowWhite(candidate + offset)) {
+                  bestCutY = candidate + offset;
+                  break;
+                }
+                if (candidate - offset >= minCutY && isRowWhite(candidate - offset)) {
+                  bestCutY = candidate - offset;
+                  break;
+                }
+              }
+              if (bestCutY !== -1) break;
+            }
+          }
+
+          // Fallback: If no DOM break point matched, scan upward from maxCutY for the first clean white row
+          if (bestCutY === -1) {
+            for (let testY = maxCutY - 8; testY >= minCutY; testY--) {
+              if (isRowWhite(testY)) {
+                bestCutY = testY;
+                break;
+              }
+            }
+          }
+
+          if (bestCutY > currentY) {
+            sliceHeight = bestCutY - currentY;
+          }
+        }
+
+        // Sub-canvas to draw this page slice precisely without bleeding or text-clipping
+        const pageCanvas = document.createElement('canvas');
+        pageCanvas.width = canvas.width;
+        pageCanvas.height = maxPageHeightCanvasPx;
+        const ctx = pageCanvas.getContext('2d');
+
+        if (ctx) {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+          ctx.drawImage(
+            canvas,
+            0,
+            currentY,
+            canvas.width,
+            sliceHeight,
+            0,
+            0,
+            canvas.width,
+            sliceHeight
+          );
+        }
+
+        const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.98);
+        pdf.addImage(pageImgData, 'JPEG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+
+        currentY += sliceHeight;
+        pageIndex++;
+      }
+
+      pdf.save(filename);
+      setToastMessage(`A4 PDF ডাউনলোড সম্পন্ন হয়েছে (${pageIndex} পৃষ্ঠা)`);
+      setTimeout(() => setToastMessage(null), 3500);
+    } catch (error) {
+      console.error('PDF generation error:', error);
+      // Fallback to print
+      setToastMessage('সরাসরি প্রিন্ট ডায়ালগ খোলা হচ্ছে...');
+      try {
+        window.print();
+      } catch (printErr) {
+        console.error('Print fallback error:', printErr);
+        setToastMessage('প্রিন্ট ব্রাউজার কর্তৃক সীমাবদ্ধ। নতুন ট্যাবে অ্যাপটি খুলুন।');
+      }
+      setTimeout(() => setToastMessage(null), 4000);
+    } finally {
+      setIsGeneratingPdf(false);
     }
   };
 
-  // Print/PDF export action
-  const handlePrint = () => {
-    window.print();
+  // Print action
+  const handlePrint = async () => {
+    if (mobileView === 'form') {
+      setMobileView('preview');
+      await new Promise((resolve) => setTimeout(resolve, 200));
+    }
+
+    setToastMessage('প্রিন্ট ডায়ালগ খোলা হচ্ছে...');
+
+    setTimeout(() => {
+      try {
+        window.print();
+        setTimeout(() => setToastMessage(null), 2500);
+      } catch (err) {
+        console.warn('Direct window.print() error:', err);
+        setToastMessage('ব্রাউজার প্রিন্ট বাধাগ্রস্ত হয়েছে। নতুন ট্যাবে খুলে প্রিন্ট করুন বা PDF ডাউনলোড করুন।');
+        setTimeout(() => setToastMessage(null), 4000);
+      }
+    }, 150);
   };
 
   // Render chosen template
@@ -401,28 +647,65 @@ export const CvBuilderPage: React.FC = () => {
       {/* Print-only CSS rules */}
       <style>{`
         @media print {
-          body * {
-            visibility: hidden;
+          /* Hide non-printable interface */
+          header, footer, nav, aside, .no-print, button, a, [data-no-print] {
+            display: none !important;
           }
-          #cv-print-area, #cv-print-area * {
-            visibility: visible;
-          }
-          #cv-print-area {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100% !important;
+
+          /* Reset layout containers for natural multi-page printing */
+          html, body, #root, main {
+            background: white !important;
+            color: #0f172a !important;
             margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: auto !important;
+            overflow: visible !important;
+          }
+
+          /* Hide left form column during print */
+          .lg\\:col-span-5 {
+            display: none !important;
+          }
+
+          /* Expand right preview column to 100% width */
+          .lg\\:col-span-7 {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: block !important;
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+
+          .overflow-x-auto {
+            overflow: visible !important;
+            padding: 0 !important;
+            background: white !important;
+            border: none !important;
+          }
+
+          #cv-print-area {
+            display: block !important;
+            position: static !important;
+            width: 100% !important;
+            max-width: 210mm !important;
+            margin: 0 auto !important;
             padding: 0 !important;
             box-shadow: none !important;
             border: none !important;
+            background: white !important;
           }
+
+          /* Critical for multi-page printing: prevent mid-element cutting */
+          section, tr, .break-inside-avoid {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+          }
+
           @page {
             size: A4 portrait;
-            margin: 8mm;
-          }
-          header, footer, nav {
-            display: none !important;
+            margin: 10mm 8mm;
           }
         }
       `}</style>
@@ -489,23 +772,52 @@ export const CvBuilderPage: React.FC = () => {
             {/* Reset Form */}
             <button
               type="button"
-              onClick={handleResetForm}
-              title="ফর্ম পরিষ্কার করুন"
-              className="flex items-center gap-1.5 px-3 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs font-medium text-[#c8342a] hover:bg-red-50 transition-colors cursor-pointer"
+              onClick={handleOpenResetModal}
+              title="ফর্মের সকল তথ্য মুছে ফেলুন"
+              className="flex items-center gap-1.5 px-3 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs font-medium text-[#c8342a] hover:bg-red-50 hover:border-red-300 transition-colors cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>রিসেট</span>
             </button>
 
-            {/* Print / Save as PDF Button */}
+            {/* PDF Download Button */}
+            <button
+              type="button"
+              onClick={handleDownloadPdf}
+              disabled={isGeneratingPdf}
+              title="সরাসরি A4 PDF ডাউনলোড করুন"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#0c5c3d] text-[#fffdf7] text-xs sm:text-sm font-semibold hover:bg-[#083f2a] transition-colors shadow-xs cursor-pointer disabled:opacity-60"
+            >
+              {isGeneratingPdf ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Download className="w-4 h-4" />
+              )}
+              <span>{isGeneratingPdf ? 'তৈরি হচ্ছে...' : 'PDF ডাউনলোড'}</span>
+            </button>
+
+            {/* Print Button */}
             <button
               type="button"
               onClick={handlePrint}
-              className="flex items-center gap-2 px-4 py-1.5 bg-[#0c5c3d] text-[#fffdf7] text-xs sm:text-sm font-semibold hover:bg-[#083f2a] transition-colors shadow-sm cursor-pointer"
+              title="সিভি প্রিন্ট করুন (অথবা নতুন ট্যাবে খুলুন)"
+              className="flex items-center gap-1.5 px-3 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs sm:text-sm font-medium text-[#083f2a] hover:bg-[#e8e0cc] transition-colors cursor-pointer"
             >
-              <Printer className="w-4 h-4" />
-              <span>PDF / প্রিন্ট করুন</span>
+              <Printer className="w-4 h-4 text-[#0c5c3d]" />
+              <span>প্রিন্ট</span>
             </button>
+
+            {/* Open in New Tab for native browser print */}
+            <a
+              href="/tools/cv-builder"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="ব্রাউজারে নতুন ট্যাবে খুলুন (ফুলস্ক্রিন ও সিস্টেম প্রিন্ট)"
+              className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs text-[#6b6255] hover:text-[#083f2a] hover:bg-[#f4efe4] transition-colors"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>নতুন ট্যাব</span>
+            </a>
           </div>
         </div>
 
@@ -952,7 +1264,20 @@ export const CvBuilderPage: React.FC = () => {
                     </button>
                   </div>
 
-                  {cvData.education.map((edu, idx) => (
+                  {cvData.education.length === 0 ? (
+                    <div className="p-4 text-center text-[#6b6255] border border-dashed border-[#d8cfb8] bg-[#fcfaf5] space-y-2">
+                      <p>কোনো শিক্ষাগত যোগ্যতা যোগ করা হয়নি।</p>
+                      <button
+                        type="button"
+                        onClick={addEducation}
+                        className="px-3 py-1.5 bg-[#0c5c3d] text-white text-xs font-medium inline-flex items-center gap-1 hover:bg-[#083f2a] transition-colors cursor-pointer"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>প্রথম ডিগ্রি যোগ করুন</span>
+                      </button>
+                    </div>
+                  ) : (
+                    cvData.education.map((edu, idx) => (
                     <div
                       key={edu.id}
                       className="p-3 bg-[#fcfaf5] border border-[#d8cfb8] relative space-y-2.5"
@@ -1029,7 +1354,7 @@ export const CvBuilderPage: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  ))}
+                  )))}
                 </div>
               )}
 
@@ -1156,22 +1481,28 @@ export const CvBuilderPage: React.FC = () => {
                       </button>
                     </div>
 
-                    <div className="flex flex-wrap gap-1.5 p-2 bg-[#fcfaf5] border border-[#d8cfb8] min-h-[48px]">
-                      {cvData.skills.map((skill, idx) => (
-                        <span
-                          key={idx}
-                          className="bg-white text-[#083f2a] px-2 py-1 border border-[#d8cfb8] flex items-center gap-1.5"
-                        >
-                          <span>{skill}</span>
-                          <button
-                            type="button"
-                            onClick={() => removeSkill(idx)}
-                            className="text-[#c8342a] hover:text-red-800 cursor-pointer text-xs font-bold"
-                          >
-                            ×
-                          </button>
+                    <div className="flex flex-wrap gap-1.5 p-2 bg-[#fcfaf5] border border-[#d8cfb8] min-h-[48px] items-center">
+                      {cvData.skills.length === 0 ? (
+                        <span className="text-[#8c8275] text-[11px] italic">
+                          কোনো স্কিল যোগ করা হয়নি (উপরে লিখে &apos;যোগ করুন&apos; চাপুন)
                         </span>
-                      ))}
+                      ) : (
+                        cvData.skills.map((skill, idx) => (
+                          <span
+                            key={idx}
+                            className="bg-white text-[#083f2a] px-2 py-1 border border-[#d8cfb8] flex items-center gap-1.5"
+                          >
+                            <span>{skill}</span>
+                            <button
+                              type="button"
+                              onClick={() => removeSkill(idx)}
+                              className="text-[#c8342a] hover:text-red-800 cursor-pointer text-xs font-bold"
+                            >
+                              ×
+                            </button>
+                          </span>
+                        ))
+                      )}
                     </div>
                   </div>
 
@@ -1191,6 +1522,18 @@ export const CvBuilderPage: React.FC = () => {
                     </div>
 
                     <div className="space-y-2">
+                      {cvData.languages.length === 0 && (
+                        <div className="p-3 text-center text-[#6b6255] border border-dashed border-[#d8cfb8] bg-[#fcfaf5]">
+                          <p>কোনো ভাষা যোগ করা হয়নি।</p>
+                          <button
+                            type="button"
+                            onClick={addLanguage}
+                            className="mt-1 text-xs text-[#0c5c3d] font-bold hover:underline cursor-pointer"
+                          >
+                            + ভাষা যোগ করুন
+                          </button>
+                        </div>
+                      )}
                       {cvData.languages.map((lang) => (
                         <div
                           key={lang.id}
@@ -1240,6 +1583,12 @@ export const CvBuilderPage: React.FC = () => {
                       <span>রেফারেন্স যোগ করুন</span>
                     </button>
                   </div>
+
+                  {cvData.references.length === 0 && (
+                    <div className="p-4 text-center text-[#6b6255] border border-dashed border-[#d8cfb8] bg-[#fcfaf5]">
+                      কোনো রেফারেন্স যোগ করা হয়নি (প্রয়োজন না হলে এটি খালি রাখতে পারেন)।
+                    </div>
+                  )}
 
                   {cvData.references.map((ref, idx) => (
                     <div
@@ -1330,29 +1679,47 @@ export const CvBuilderPage: React.FC = () => {
             }`}
           >
             {/* Live Preview Bar */}
-            <div className="flex items-center justify-between px-3 py-2 bg-[#f4efe4] border border-[#d8cfb8] mb-2 text-xs">
+            <div className="flex flex-wrap items-center justify-between px-3 py-2 bg-[#f4efe4] border border-[#d8cfb8] mb-2 text-xs gap-2">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#0c5c3d]"></span>
                 <span className="font-bold text-[#083f2a]">লাইভ A4 প্রিভিউ</span>
                 <span className="text-[#6b6255]">
                   ({language === 'bn' ? 'বাংলা সংস্করণ' : 'English Edition'})
                 </span>
+                <span className="hidden sm:inline-block text-[10px] text-[#0c5c3d] font-semibold bg-[#e8f5e9] px-2 py-0.5 rounded border border-[#c8e6c9]">
+                  মাল্টি-পেজ A4
+                </span>
               </div>
-              <button
-                type="button"
-                onClick={handlePrint}
-                className="px-2.5 py-1 bg-[#0c5c3d] text-white hover:bg-[#083f2a] transition-colors font-medium flex items-center gap-1 cursor-pointer"
-              >
-                <Printer className="w-3.5 h-3.5" />
-                <span>PDF সেভ করুন</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleDownloadPdf}
+                  disabled={isGeneratingPdf}
+                  className="px-2.5 py-1 bg-[#0c5c3d] text-white hover:bg-[#083f2a] transition-colors font-medium flex items-center gap-1 cursor-pointer disabled:opacity-60"
+                >
+                  {isGeneratingPdf ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <Download className="w-3.5 h-3.5" />
+                  )}
+                  <span>PDF ডাউনলোড</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handlePrint}
+                  className="px-2.5 py-1 border border-[#d8cfb8] bg-[#fffdf7] text-[#083f2a] hover:bg-[#e8e0cc] transition-colors font-medium flex items-center gap-1 cursor-pointer"
+                >
+                  <Printer className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                  <span>প্রিন্ট</span>
+                </button>
+              </div>
             </div>
 
             {/* A4 Document Container */}
             <div className="overflow-x-auto bg-[#e5e0d3] p-2 sm:p-4 border border-[#d8cfb8] flex justify-center">
               <div
                 id="cv-print-area"
-                className="w-full max-w-[210mm] bg-white shadow-md border border-[#d1d5db]"
+                className="w-full max-w-[210mm] bg-white shadow-md border border-[#d1d5db] min-h-[297mm] print:border-none print:shadow-none"
               >
                 {renderTemplate()}
               </div>
@@ -1375,7 +1742,7 @@ export const CvBuilderPage: React.FC = () => {
               প্রিন্ট ও PDF নির্দেশিকা
             </h3>
             <p className="leading-relaxed">
-              "PDF / প্রিন্ট করুন" বাটনে ক্লিক করে প্রিন্ট ডায়ালগ থেকে 'Destination' অপশনে <strong>"Save as PDF"</strong> এবং পেপার সাইজে <strong>"A4"</strong> সিলেক্ট করুন।
+              <strong>"PDF ডাউনলোড"</strong> বাটনে ক্লিক করে সরাসরি রেডি A4 PDF ফাইল ডাউনলোড করতে পারেন। অথবা <strong>"প্রিন্ট"</strong> ক্লিক করে ব্রাউজারের প্রিন্ট ডায়ালগ থেকে 'Save as PDF' নির্বাচন করতে পারেন।
             </p>
           </div>
           <div className="bg-[#fffdf7] p-4 border border-[#d8cfb8]">
@@ -1388,6 +1755,66 @@ export const CvBuilderPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* In-App Iframe-Safe Reset Confirmation Modal */}
+      {isResetModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="bg-[#fffdf7] border border-[#d8cfb8] max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 bg-red-50 text-[#c8342a] border border-red-200 shrink-0">
+                <AlertTriangle className="w-5 h-5" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base font-bold text-[#083f2a]">
+                    সিভির সকল তথ্য রিসেট করবেন?
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => setIsResetModalOpen(false)}
+                    className="text-[#6b6255] hover:text-[#083f2a] p-1 cursor-pointer"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <p className="text-xs text-[#6b6255] mt-1.5 leading-relaxed">
+                  আপনি কি নিশ্চিত যে বর্তমান সিভির সকল তথ্য মুছে ফেলে নতুন ফাঁকা ফর্ম শুরু করতে চান? ব্রাউজারে সংরক্ষিত ড্রাফটও ক্লিয়ার হয়ে যাবে।
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[#d8cfb8]">
+              <button
+                type="button"
+                onClick={() => setIsResetModalOpen(false)}
+                className="px-4 py-2 border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#e8e0cc] text-xs font-semibold text-[#083f2a] transition-colors cursor-pointer"
+              >
+                বাতিল করুন
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmReset}
+                className="px-4 py-2 bg-[#c8342a] hover:bg-red-700 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>হ্যাঁ, সম্পূর্ণ রিসেট করুন</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Feedback Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 bg-[#083f2a] text-[#fffdf7] px-4 py-2.5 shadow-lg border border-[#0c5c3d] flex items-center gap-2 text-xs font-semibold">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
     </>
   );
 };

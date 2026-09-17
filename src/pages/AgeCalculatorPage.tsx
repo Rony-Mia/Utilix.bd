@@ -445,7 +445,7 @@ export const AgeCalculatorPage: React.FC = () => {
                   className="w-full p-2.5 bg-[#f4efe4]/30 border border-[#d8cfb8] text-sm text-[#14231c] font-mono focus:outline-none focus:border-[#0c5c3d] focus:bg-[#fffdf7]"
                 />
               </div>
-              <div className="text-[11px] text-[#6b6255] flex items-center justify-between">
+              <div className="text-[11px] font-medium text-[#6b6255] flex items-center justify-between">
                 <span>প্রদর্শিত: {formatBengaliDate(birthDateStr)}</span>
                 {ageResult && (
                   <span className="font-mono text-[#0c5c3d]">জন্মবার: {ageResult.birthDayOfWeek.split(' ')[0]}</span>
@@ -462,7 +462,7 @@ export const AgeCalculatorPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setTargetDateStr(todayStr)}
-                  className="text-[10px] bg-[#f4efe4] hover:bg-[#d8cfb8]/60 border border-[#d8cfb8] px-2 py-0.5 text-[#083f2a] transition-colors cursor-pointer"
+                  className="text-[11px] font-medium bg-[#f4efe4] hover:bg-[#d8cfb8]/60 border border-[#d8cfb8] px-2 py-0.5 text-[#083f2a] transition-colors cursor-pointer"
                 >
                   আজকের তারিখ
                 </button>
@@ -473,7 +473,7 @@ export const AgeCalculatorPage: React.FC = () => {
                 onChange={(e) => setTargetDateStr(e.target.value)}
                 className="w-full p-2.5 bg-[#f4efe4]/30 border border-[#d8cfb8] text-sm text-[#14231c] font-mono focus:outline-none focus:border-[#0c5c3d] focus:bg-[#fffdf7]"
               />
-              <div className="text-[11px] text-[#6b6255]">
+              <div className="text-[11px] font-medium text-[#6b6255]">
                 প্রদর্শিত: {formatBengaliDate(targetDateStr)}
               </div>
             </div>
@@ -711,29 +711,29 @@ export const AgeCalculatorPage: React.FC = () => {
                 {/* Granular Total Stats: Days, Weeks, Birthday Countdown */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-3 space-y-1">
-                    <span className="text-[11px] text-[#6b6255] block">মোট অতিক্রান্ত দিন:</span>
+                    <span className="text-[11px] font-medium text-[#6b6255] block">মোট অতিক্রান্ত দিন:</span>
                     <span className="text-lg font-bold font-mono text-[#083f2a]">
                       {toBanglaNum(ageResult.totalDays.toLocaleString('en-US'))}
                     </span>
-                    <span className="text-[10px] text-[#6b6255] block">দিন (Total Days)</span>
+                    <span className="text-[11px] font-medium text-[#6b6255] block">দিন (Total Days)</span>
                   </div>
 
                   <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-3 space-y-1">
-                    <span className="text-[11px] text-[#6b6255] block">মোট সপ্তাহ ও দিন:</span>
+                    <span className="text-[11px] font-medium text-[#6b6255] block">মোট সপ্তাহ ও দিন:</span>
                     <span className="text-lg font-bold font-mono text-[#083f2a]">
                       {toBanglaNum(ageResult.totalWeeks)} সপ্তাহ
                     </span>
-                    <span className="text-[10px] text-[#6b6255] block">
+                    <span className="text-[11px] font-medium text-[#6b6255] block">
                       + {toBanglaNum(ageResult.remainingDaysInWeek)} দিন
                     </span>
                   </div>
 
                   <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-3 space-y-1">
-                    <span className="text-[11px] text-[#6b6255] block">পরবর্তী জন্মদিন বাকি:</span>
+                    <span className="text-[11px] font-medium text-[#6b6255] block">পরবর্তী জন্মদিন বাকি:</span>
                     <span className="text-lg font-bold font-mono text-[#0c5c3d]">
                       {toBanglaNum(ageResult.nextBdayDays)} দিন
                     </span>
-                    <span className="text-[10px] text-[#6b6255] block">
+                    <span className="text-[11px] font-medium text-[#6b6255] block">
                       ({toBanglaNum(ageResult.nextBdayDiff.months)} মাস {toBanglaNum(ageResult.nextBdayDiff.days)} দিন)
                     </span>
                   </div>

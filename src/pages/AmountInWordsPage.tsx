@@ -201,7 +201,7 @@ export const AmountInWordsPage: React.FC = () => {
                 <Sparkles className="w-4 h-4 text-[#0c5c3d]" />
                 <span>কুইক প্রিসেট (Quick Presets)</span>
               </span>
-              <span className="text-[10px] text-[#6b6255]">ক্লিক করে বসান</span>
+              <span className="text-[11px] font-medium text-[#6b6255]">ক্লিক করে বসান</span>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2 pt-1">
@@ -218,7 +218,7 @@ export const AmountInWordsPage: React.FC = () => {
                 >
                   <div className="font-mono font-bold text-xs">{item.label}</div>
                   <div
-                    className={`text-[10px] truncate ${
+                    className={`text-[11px] font-medium truncate ${
                       inputValue === item.value ? 'text-[#fffdf7]/80' : 'text-[#6b6255]'
                     }`}
                   >
@@ -268,7 +268,7 @@ export const AmountInWordsPage: React.FC = () => {
                 <div className="p-5 sm:p-6 bg-[#f4efe4]/50 border-2 border-[#0c5c3d]/40 relative">
                   <div className="text-xs font-semibold text-[#0c5c3d] uppercase tracking-wider mb-2 font-mono flex items-center justify-between">
                     <span>প্রমিত ব্যাংক ও সরকারি রূপ:</span>
-                    <span className="text-[10px] bg-[#0c5c3d] text-[#fffdf7] px-2 py-0.5 font-sans">
+                    <span className="text-[10px] bg-[#0c5c3d] text-[#fffdf7] px-2 py-0.5 font-sans font-medium">
                       অফিশিয়াল
                     </span>
                   </div>
@@ -287,7 +287,7 @@ export const AmountInWordsPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleCopy(result.colloquialWords || '', true)}
-                        className="text-[11px] border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 px-2 py-0.5 text-[#083f2a] flex items-center space-x-1 transition-colors cursor-pointer"
+                        className="text-[11px] border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 px-2 py-0.5 text-[#083f2a] flex items-center space-x-1 transition-colors cursor-pointer font-medium"
                       >
                         {copiedColloquial ? (
                           <>
@@ -311,21 +311,21 @@ export const AmountInWordsPage: React.FC = () => {
                 {/* Numbers Comparison Breakdown Bar */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
                   <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-3 space-y-1">
-                    <span className="text-[11px] text-[#6b6255] block">বাংলাদেশি সংখ্যা পদ্ধতি:</span>
+                    <span className="text-[11px] font-medium text-[#6b6255] block">বাংলাদেশি সংখ্যা পদ্ধতি:</span>
                     <span className="text-base font-bold font-mono text-[#083f2a]">
                       {result.formattedBengaliNumber} ৳
                     </span>
-                    <span className="text-[10px] text-[#6b6255] block">
+                    <span className="text-[11px] font-medium text-[#6b6255] block">
                       (কমা ফরম্যাট: হাজার, লক্ষ, কোটি)
                     </span>
                   </div>
 
                   <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-3 space-y-1">
-                    <span className="text-[11px] text-[#6b6255] block">আন্তর্জাতিক ইংরেজি সংখ্যা:</span>
+                    <span className="text-[11px] font-medium text-[#6b6255] block">আন্তর্জাতিক ইংরেজি সংখ্যা:</span>
                     <span className="text-base font-bold font-mono text-[#083f2a]">
                       {result.formattedEnglishNumber} BDT
                     </span>
-                    <span className="text-[10px] text-[#6b6255] block">
+                    <span className="text-[11px] font-medium text-[#6b6255] block">
                       (English Numeric Equivalent)
                     </span>
                   </div>
