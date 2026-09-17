@@ -62,6 +62,18 @@ const CATEGORIES: NavCategory[] = [
       },
     ],
   },
+  {
+    id: 'document-tools',
+    label: 'সিভি ও ডকুমেন্ট',
+    categoryKey: 'document',
+    items: [
+      {
+        to: '/cv-builder',
+        label: 'সিভি ও জীবনবৃত্তান্ত মেকার',
+        description: 'সরকারি ও কর্পোরেট চাকরির ৫টি ফরম্যাটে CV তৈরি',
+      },
+    ],
+  },
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
@@ -72,6 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
     'text-tools': true,
     'image-tools': true,
     'calculator-tools': true,
+    'document-tools': true,
   });
 
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);

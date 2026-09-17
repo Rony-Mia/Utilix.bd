@@ -1,4 +1,4 @@
-export type ToolCategory = 'all' | 'text' | 'image' | 'calculator';
+export type ToolCategory = 'all' | 'text' | 'image' | 'calculator' | 'document';
 
 export interface ToolItem {
   id: string;
@@ -25,3 +25,68 @@ export interface PresetProfile {
   aspectRatio: string;
   description: string;
 }
+
+export type CvLanguage = 'bn' | 'en';
+
+export interface PersonalInfo {
+  fullName: string;
+  designationOrTitle?: string;
+  photoUrl?: string;
+  fatherName: string;
+  motherName: string;
+  dateOfBirth: string;
+  gender: string;
+  maritalStatus: string;
+  nationality: string;
+  religion: string;
+  nationalId?: string;
+  bloodGroup?: string;
+  phone: string;
+  email: string;
+  presentAddress: string;
+  permanentAddress: string;
+  linkedinOrWebsite?: string;
+  careerObjective?: string;
+}
+
+export interface EducationItem {
+  id: string;
+  degree: string;
+  institution: string;
+  passingYear: string;
+  result: string;
+  boardOrMajor?: string;
+}
+
+export interface ExperienceItem {
+  id: string;
+  designation: string;
+  company: string;
+  duration: string;
+  responsibilities: string;
+}
+
+export interface LanguageItem {
+  id: string;
+  name: string;
+  proficiency: string;
+}
+
+export interface ReferenceItem {
+  id: string;
+  name: string;
+  designation: string;
+  organization: string;
+  phone: string;
+  email: string;
+}
+
+export interface CvData {
+  personalInfo: PersonalInfo;
+  education: EducationItem[];
+  experience: ExperienceItem[];
+  skills: string[];
+  languages: LanguageItem[];
+  references: ReferenceItem[];
+}
+

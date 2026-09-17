@@ -5,6 +5,7 @@ import { ConverterPage } from './pages/ConverterPage.tsx';
 import { PhotoResizerPage } from './pages/PhotoResizerPage.tsx';
 import { AgeCalculatorPage } from './pages/AgeCalculatorPage.tsx';
 import { AmountInWordsPage } from './pages/AmountInWordsPage.tsx';
+import { CvBuilderPage } from './pages/CvBuilderPage.tsx';
 
 export const PRERENDER_ROUTES = [
   '/',
@@ -12,6 +13,7 @@ export const PRERENDER_ROUTES = [
   '/photo-resizer',
   '/age-calculator',
   '/amount-in-words',
+  '/cv-builder',
 ] as const;
 
 export interface AppRoutesProps {
@@ -41,7 +43,9 @@ export function AppRoutes({
       <Route path="/photo-resizer" element={<PhotoResizerPage />} />
       <Route path="/age-calculator" element={<AgeCalculatorPage />} />
       <Route path="/amount-in-words" element={<AmountInWordsPage />} />
+      <Route path="/cv-builder" element={<CvBuilderPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
+
