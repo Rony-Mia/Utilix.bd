@@ -1,26 +1,45 @@
 import React from 'react';
 import { User, Phone, Mail, MapPin, Globe, Award, GraduationCap, Briefcase, Sparkles, BookOpen } from 'lucide-react';
-import { CvData, CvLanguage } from '../../types.ts';
+import { TemplateProps } from '../../types.ts';
 import { CV_LABELS } from '../../data/cvDefaults.ts';
 
-interface TemplateProps {
-  data: CvData;
-  language: CvLanguage;
-}
+const toBanglaDigits = (num: number | string): string => {
+  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  return num.toString().split('').map((d) => bnDigits[parseInt(d, 10)] || d).join('');
+};
 
-export const CompactTemplate: React.FC<TemplateProps> = ({ data, language }) => {
+export const CompactTemplate: React.FC<TemplateProps> = ({
+  data,
+  language,
+  pageNumber,
+  totalPages = 2,
+}) => {
   const t = CV_LABELS[language] || CV_LABELS.bn;
   const { personalInfo, education, experience, skills, languages, references } = data;
+  const isBn = language === 'bn';
 
-  return (
-    <div className="w-full bg-white text-slate-800 font-sans leading-normal text-xs shadow-sm print:shadow-none">
-      <div>
+  const formatPageNum = (p: number, total: number) => {
+    if (isBn) {
+      return `পৃষ্ঠা ${toBanglaDigits(p)} / ${toBanglaDigits(total)}`;
+    }
+    return `Page ${p} of ${total}`;
+  };
+
+  // Render Page 1
+  const renderPage1 = () => (
+    <div
+      id="cv-page-1"
+      data-page-number="1"
+      className="cv-page-sheet w-[794px] h-[1123px] min-h-[1123px] max-h-[1123px] bg-white text-slate-800 font-sans leading-normal text-xs shadow-sm relative flex flex-col justify-between overflow-hidden box-border"
+      style={{ width: '794px', height: '1123px' }}
+    >
+      <div className="flex-1 flex flex-col">
         {/* Strong Top Header Band */}
-        <header className="bg-[#1e293b] text-white p-5 sm:p-6 border-b-4 border-emerald-600 break-inside-avoid">
+        <header className="bg-[#1e293b] text-white p-6 border-b-4 border-emerald-600">
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1">
-              <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white uppercase">
-                {personalInfo.fullName || (language === 'bn' ? 'প্রার্থীর নাম' : 'Full Name')}
+              <h1 className="text-2xl font-extrabold tracking-tight text-white uppercase">
+                {personalInfo.fullName || (isBn ? 'প্রার্থীর নাম' : 'Full Name')}
               </h1>
 
               {personalInfo.designationOrTitle && (
@@ -58,8 +77,8 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ data, language }) => 
               </div>
             </div>
 
-            {/* Photo in Header Band with Silhouette Fallback */}
-            <div className="w-20 h-24 sm:w-24 sm:h-28 rounded border-2 border-white/80 shadow-md bg-slate-800 shrink-0 overflow-hidden flex items-center justify-center">
+            {/* Photo in Header Band */}
+            <div className="w-22 h-26 rounded border-2 border-white/80 shadow-md bg-slate-800 shrink-0 overflow-hidden flex items-center justify-center">
               {personalInfo.photoUrl ? (
                 <img
                   src={personalInfo.photoUrl}
@@ -70,7 +89,7 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ data, language }) => 
                 <div className="w-full h-full flex flex-col items-center justify-center bg-slate-800 text-slate-400">
                   <User className="w-10 h-10 stroke-[1.5]" />
                   <span className="text-[9px] mt-1 text-slate-400">
-                    {language === 'bn' ? 'ছবি' : 'Photo'}
+                    {isBn ? 'ছবি' : 'Photo'}
                   </span>
                 </div>
               )}
@@ -78,11 +97,11 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ data, language }) => 
           </div>
         </header>
 
-        {/* 2-Column Compact Body Layout */}
-        <div className="flex flex-col sm:flex-row items-stretch">
-          {/* Left Column (35% width, light tinted background) */}
-          <div className="w-full sm:w-[36%] bg-slate-50/80 border-r border-slate-200 p-4 sm:p-5 space-y-4 shrink-0">
-            {/* Education in Left Column */}
+        {/* 2-Column Page 1 Body */}
+        <div className="flex-1 flex flex-row items-stretch">
+          {/* Left Column (36%) */}
+          <div className="w-[36%] bg-slate-50/80 border-r border-slate-200 p-5 space-y-4 shrink-0">
+            {/* Education */}
             {education && education.length > 0 && (
               <div>
                 <div className="flex items-center gap-1.5 border-b border-slate-300 pb-1 mb-2.5">
@@ -114,7 +133,7 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ data, language }) => 
               </div>
             )}
 
-            {/* Skills in Left Column */}
+            {/* Skills */}
             {skills && skills.length > 0 && (
               <div>
                 <div className="flex items-center gap-1.5 border-b border-slate-300 pb-1 mb-2">
@@ -136,80 +155,10 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ data, language }) => 
                 </div>
               </div>
             )}
-
-            {/* Languages in Left Column */}
-            {languages && languages.length > 0 && (
-              <div>
-                <div className="flex items-center gap-1.5 border-b border-slate-300 pb-1 mb-2">
-                  <BookOpen className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-                  <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-900">
-                    {t.languages}
-                  </h2>
-                </div>
-
-                <div className="space-y-1 text-[11px]">
-                  {languages.map((lang, idx) => (
-                    <div key={lang.id || idx} className="flex justify-between items-center py-0.5 border-b border-slate-200/60">
-                      <span className="font-medium text-slate-800">{lang.name}</span>
-                      <span className="text-slate-600 text-[10px] font-semibold">{lang.proficiency}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Personal Details in Left Column */}
-            <div>
-              <div className="flex items-center gap-1.5 border-b border-slate-300 pb-1 mb-2">
-                <User className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-                <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-900">
-                  {t.personalDetails}
-                </h2>
-              </div>
-
-              <div className="space-y-1 text-[11px] text-slate-700">
-                {personalInfo.fatherName && (
-                  <div>
-                    <span className="text-[10px] text-slate-500 block">{t.fatherName}:</span>
-                    <span className="font-medium text-slate-900">{personalInfo.fatherName}</span>
-                  </div>
-                )}
-                {personalInfo.motherName && (
-                  <div>
-                    <span className="text-[10px] text-slate-500 block">{t.motherName}:</span>
-                    <span className="font-medium text-slate-900">{personalInfo.motherName}</span>
-                  </div>
-                )}
-                {personalInfo.dateOfBirth && (
-                  <div>
-                    <span className="text-[10px] text-slate-500 block">{t.dateOfBirth}:</span>
-                    <span className="font-medium text-slate-900">{personalInfo.dateOfBirth}</span>
-                  </div>
-                )}
-                {personalInfo.nationality && (
-                  <div>
-                    <span className="text-[10px] text-slate-500 block">{t.nationality}:</span>
-                    <span className="font-medium text-slate-900">{personalInfo.nationality}</span>
-                  </div>
-                )}
-                {personalInfo.bloodGroup && (
-                  <div>
-                    <span className="text-[10px] text-slate-500 block">{t.bloodGroup}:</span>
-                    <span className="font-semibold text-rose-700">{personalInfo.bloodGroup}</span>
-                  </div>
-                )}
-                {personalInfo.nationalId && (
-                  <div>
-                    <span className="text-[10px] text-slate-500 block">{t.nationalId}:</span>
-                    <span className="font-mono text-slate-900">{personalInfo.nationalId}</span>
-                  </div>
-                )}
-              </div>
-            </div>
           </div>
 
-          {/* Right Column (64% width, White Background) */}
-          <div className="flex-1 p-4 sm:p-5 space-y-4">
+          {/* Right Column (64%) */}
+          <div className="flex-1 p-5 space-y-4">
             {/* Career Objective */}
             {personalInfo.careerObjective && (
               <div>
@@ -255,7 +204,113 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ data, language }) => 
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      </div>
 
+      {/* Page 1 Bottom Margin & Footer */}
+      <footer className="p-4 border-t border-slate-200 bg-white flex justify-between items-center text-[11px] text-slate-400">
+        <span>{personalInfo.fullName} • {isBn ? 'জীবনবৃত্তান্ত' : 'Curriculum Vitae'}</span>
+        <span className="font-mono font-medium">{formatPageNum(1, totalPages)}</span>
+      </footer>
+    </div>
+  );
+
+  // Render Page 2
+  const renderPage2 = () => (
+    <div
+      id="cv-page-2"
+      data-page-number="2"
+      className="cv-page-sheet w-[794px] h-[1123px] min-h-[1123px] max-h-[1123px] bg-white text-slate-800 font-sans leading-normal text-xs shadow-sm relative flex flex-col justify-between overflow-hidden box-border"
+      style={{ width: '794px', height: '1123px' }}
+    >
+      <div className="flex-1 flex flex-col">
+        {/* Page 2 Header Band */}
+        <header className="bg-[#1e293b] text-white px-6 py-4 border-b-4 border-emerald-600 flex justify-between items-center">
+          <div>
+            <h2 className="text-base font-bold text-white uppercase">{personalInfo.fullName}</h2>
+            <p className="text-[11px] text-emerald-400">{personalInfo.designationOrTitle || (isBn ? 'জীবনবৃত্তান্ত' : 'Curriculum Vitae')}</p>
+          </div>
+          <span className="text-xs font-mono text-slate-300 font-medium">{formatPageNum(2, totalPages)}</span>
+        </header>
+
+        {/* 2-Column Page 2 Body */}
+        <div className="flex-1 flex flex-row items-stretch">
+          {/* Left Column (36%) */}
+          <div className="w-[36%] bg-slate-50/80 border-r border-slate-200 p-5 space-y-4 shrink-0">
+            {/* Languages */}
+            {languages && languages.length > 0 && (
+              <div>
+                <div className="flex items-center gap-1.5 border-b border-slate-300 pb-1 mb-2">
+                  <BookOpen className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                  <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-900">
+                    {t.languages}
+                  </h2>
+                </div>
+
+                <div className="space-y-1.5 text-[11px]">
+                  {languages.map((lang, idx) => (
+                    <div key={lang.id || idx} className="flex justify-between items-center py-0.5 border-b border-slate-200/60">
+                      <span className="font-medium text-slate-800">{lang.name}</span>
+                      <span className="text-slate-600 text-[10px] font-semibold">{lang.proficiency}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Personal Details */}
+            <div>
+              <div className="flex items-center gap-1.5 border-b border-slate-300 pb-1 mb-2">
+                <User className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-900">
+                  {t.personalDetails}
+                </h2>
+              </div>
+
+              <div className="space-y-1.5 text-[11px] text-slate-700">
+                {personalInfo.fatherName && (
+                  <div>
+                    <span className="text-[10px] text-slate-500 block">{t.fatherName}:</span>
+                    <span className="font-medium text-slate-900">{personalInfo.fatherName}</span>
+                  </div>
+                )}
+                {personalInfo.motherName && (
+                  <div>
+                    <span className="text-[10px] text-slate-500 block">{t.motherName}:</span>
+                    <span className="font-medium text-slate-900">{personalInfo.motherName}</span>
+                  </div>
+                )}
+                {personalInfo.dateOfBirth && (
+                  <div>
+                    <span className="text-[10px] text-slate-500 block">{t.dateOfBirth}:</span>
+                    <span className="font-medium text-slate-900">{personalInfo.dateOfBirth}</span>
+                  </div>
+                )}
+                {personalInfo.nationality && (
+                  <div>
+                    <span className="text-[10px] text-slate-500 block">{t.nationality}:</span>
+                    <span className="font-medium text-slate-900">{personalInfo.nationality}</span>
+                  </div>
+                )}
+                {personalInfo.bloodGroup && (
+                  <div>
+                    <span className="text-[10px] text-slate-500 block">{t.bloodGroup}:</span>
+                    <span className="font-semibold text-rose-700">{personalInfo.bloodGroup}</span>
+                  </div>
+                )}
+                {personalInfo.nationalId && (
+                  <div>
+                    <span className="text-[10px] text-slate-500 block">{t.nationalId}:</span>
+                    <span className="font-mono text-slate-900">{personalInfo.nationalId}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column (64%) */}
+          <div className="flex-1 p-5 space-y-4">
             {/* Permanent Address */}
             {personalInfo.permanentAddress && (
               <div>
@@ -281,10 +336,10 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ data, language }) => 
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {references.map((ref, idx) => (
-                    <div key={ref.id || idx} className="bg-slate-50 p-2 rounded border border-slate-200">
+                    <div key={ref.id || idx} className="bg-slate-50 p-2.5 rounded border border-slate-200">
                       <p className="font-bold text-slate-900 text-xs">{ref.name}</p>
                       <p className="text-slate-600 text-[10px]">{ref.designation}, {ref.organization}</p>
-                      <p className="text-slate-500 text-[10px] font-mono mt-0.5">{ref.phone}</p>
+                      <p className="text-slate-500 text-[10px] font-mono mt-0.5">{ref.phone} {ref.email && `• ${ref.email}`}</p>
                     </div>
                   ))}
                 </div>
@@ -295,15 +350,29 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ data, language }) => 
       </div>
 
       {/* Footer Declaration & Signature */}
-      <footer className="mt-8 p-4 sm:p-5 border-t border-slate-200 bg-white flex justify-between items-end text-xs break-inside-avoid">
+      <footer className="p-5 border-t border-slate-200 bg-white flex justify-between items-end text-xs">
         <div className="text-slate-500 text-[11px]">
-          <p>{language === 'bn' ? 'তারিখ: ....................' : 'Date: ....................'}</p>
+          <p>{isBn ? 'তারিখ: ....................' : 'Date: ....................'}</p>
         </div>
         <div className="text-center">
           <div className="w-36 border-b border-slate-700 mb-1"></div>
           <p className="font-semibold text-slate-800 text-[11px]">{t.signature}</p>
         </div>
       </footer>
+    </div>
+  );
+
+  if (pageNumber === 1) {
+    return renderPage1();
+  }
+  if (pageNumber === 2 && totalPages > 1) {
+    return renderPage2();
+  }
+
+  return (
+    <div className="cv-document flex flex-col gap-6 items-center">
+      {renderPage1()}
+      {totalPages > 1 && renderPage2()}
     </div>
   );
 };

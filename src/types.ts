@@ -90,3 +90,10 @@ export interface CvData {
   references: ReferenceItem[];
 }
 
+export interface TemplateProps {
+  data: CvData;
+  language: CvLanguage;
+  pageNumber?: number;
+  totalPages?: number;
+}
+

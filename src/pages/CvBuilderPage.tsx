@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   FileText,
@@ -22,6 +22,8 @@ import {
   Download,
   Loader2,
   ExternalLink,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { CvData, CvLanguage } from '../types.ts';
 import { SAMPLE_CV_DATA_BN, EMPTY_CV_DATA } from '../data/cvDefaults.ts';
@@ -79,6 +81,15 @@ const TEMPLATES: TemplateOption[] = [
   },
 ];
 
+// True A4 pixel dimensions at standard 96 DPI: 210mm x 297mm
+const A4_WIDTH_PX = 794;
+const A4_HEIGHT_PX = 1123;
+
+function toBanglaNum(num: number | string): string {
+  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  return String(num).replace(/\d/g, (d) => bnDigits[parseInt(d, 10)]);
+}
+
 const LOCAL_STORAGE_KEY = 'utilix_cv_builder_data_v1';
 const LOCAL_STORAGE_LANG_KEY = 'utilix_cv_builder_lang_v1';
 const LOCAL_STORAGE_TEMPLATE_KEY = 'utilix_cv_builder_template_v1';
@@ -96,6 +107,13 @@ export const CvBuilderPage: React.FC = () => {
   const [isResetModalOpen, setIsResetModalOpen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState<boolean>(false);
+
+  // A4 Preview Sizing & Discrete Multi-page Navigation
+  const previewDeskRef = useRef<HTMLDivElement | null>(null);
+  const [scaleFactor, setScaleFactor] = useState<number>(1);
+  const [activePage, setActivePage] = useState<number>(1);
+  const [pageCount, setPageCount] = useState<number>(2);
+  const [previewViewMode, setPreviewViewMode] = useState<'single' | 'all'>('single');
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -132,6 +150,43 @@ export const CvBuilderPage: React.FC = () => {
       // ignore quota error
     }
   }, [cvData, language, selectedTemplate]);
+
+  // Measure desk width to compute responsive A4 scale
+  const updateDimensions = useCallback(() => {
+    if (previewDeskRef.current) {
+      const computed = window.getComputedStyle(previewDeskRef.current);
+      const paddingLeft = parseFloat(computed.paddingLeft) || 0;
+      const paddingRight = parseFloat(computed.paddingRight) || 0;
+      const availableWidth = previewDeskRef.current.clientWidth - paddingLeft - paddingRight;
+
+      if (availableWidth > 0) {
+        const factor = Math.min(1, availableWidth / A4_WIDTH_PX);
+        setScaleFactor(factor);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    updateDimensions();
+
+    const deskEl = previewDeskRef.current;
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined' && deskEl) {
+      resizeObserver = new ResizeObserver(() => {
+        updateDimensions();
+      });
+      resizeObserver.observe(deskEl);
+    }
+
+    window.addEventListener('resize', updateDimensions);
+
+    return () => {
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+      window.removeEventListener('resize', updateDimensions);
+    };
+  }, [updateDimensions, mobileView]);
 
   // Handlers for Personal Info
   const updatePersonalInfo = (field: keyof CvData['personalInfo'], value: string) => {
@@ -390,25 +445,11 @@ export const CvBuilderPage: React.FC = () => {
   const handleDownloadPdf = async () => {
     if (isGeneratingPdf) return;
 
-    // If currently on mobile form view, toggle to preview so DOM element has active layout dimensions
-    if (mobileView === 'form') {
-      setMobileView('preview');
-      await new Promise((resolve) => setTimeout(resolve, 150));
-    }
-
-    const element = document.getElementById('cv-print-area');
-    if (!element) {
-      setToastMessage('সিভি প্রিভিউ পাওয়া যায়নি। দয়া করে আবার চেষ্টা করুন।');
-      setTimeout(() => setToastMessage(null), 3000);
-      return;
-    }
-
     setIsGeneratingPdf(true);
     setToastMessage('A4 PDF তৈরি হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...');
 
     try {
       // Lazy load html2canvas-pro and jspdf
-      // html2canvas-pro natively parses modern CSS color functions like oklch(), lab(), lch()
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const html2canvasModule: any = await import('html2canvas-pro');
       const html2canvas = html2canvasModule.default || html2canvasModule;
@@ -418,74 +459,6 @@ export const CvBuilderPage: React.FC = () => {
       const safeName = rawName.replace(/[^a-zA-Z0-9\u0980-\u09FF_-]/g, '_');
       const filename = `CV_${safeName}.pdf`;
 
-      // Render the CV container into high-resolution canvas (scale: 2 for crisp Bangla typography)
-      const canvas = await html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
-        scrollY: 0,
-        onclone: (clonedDoc: Document) => {
-          const clonedEl = clonedDoc.getElementById('cv-print-area');
-          if (clonedEl) {
-            clonedEl.style.boxShadow = 'none';
-            clonedEl.style.border = 'none';
-          }
-        },
-      });
-
-      // A4 dimensions in millimeters
-      const pdfWidth = 210;
-      const pdfHeight = 297;
-
-      // Full A4 page height in canvas pixels based on standard A4 aspect ratio (210 x 297)
-      const maxPageHeightCanvasPx = Math.floor((canvas.width * pdfHeight) / pdfWidth);
-
-      // Collect all DOM split candidates (bottom positions of sections, rows, paragraphs)
-      const containerRect = element.getBoundingClientRect();
-      const scale = canvas.width / element.offsetWidth;
-      const candidateNodes = element.querySelectorAll(
-        'section, tr, header, footer, .break-inside-avoid, [data-break-inside], h1, h2, h3, p, table, ul, ol, .grid > *, .space-y-3 > *, .space-y-4 > *'
-      );
-
-      const breakPoints: number[] = [];
-      candidateNodes.forEach((node) => {
-        const rect = node.getBoundingClientRect();
-        const bottomRelative = (rect.bottom - containerRect.top) * scale;
-        if (bottomRelative > 0 && bottomRelative < canvas.height) {
-          breakPoints.push(Math.round(bottomRelative));
-        }
-      });
-
-      // Canvas context for whitespace verification
-      const canvasCtx = canvas.getContext('2d', { willReadFrequently: true });
-
-      // Helper function to test if a horizontal row on canvas contains clean whitespace
-      const isRowWhite = (y: number): boolean => {
-        if (!canvasCtx || y < 0 || y >= canvas.height) return true;
-        try {
-          // Sample across canvas width (with 5% margin on each side)
-          const margin = Math.floor(canvas.width * 0.05);
-          const sampleStep = Math.max(1, Math.floor((canvas.width - 2 * margin) / 40));
-          const rowData = canvasCtx.getImageData(margin, y, canvas.width - 2 * margin, 1).data;
-
-          for (let x = 0; x < canvas.width - 2 * margin; x += sampleStep) {
-            const idx = x * 4;
-            const r = rowData[idx];
-            const g = rowData[idx + 1];
-            const b = rowData[idx + 2];
-            const a = rowData[idx + 3];
-            // If pixel contains dark/colored text stroke on white background
-            if (a > 30 && (r < 240 || g < 240 || b < 240)) {
-              return false;
-            }
-          }
-          return true;
-        } catch {
-          return true;
-        }
-      };
-
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
@@ -493,144 +466,64 @@ export const CvBuilderPage: React.FC = () => {
         compress: true,
       });
 
-      let currentY = 0;
-      let pageIndex = 0;
+      // Capture each discrete page sheet from the unscaled export container
+      let renderedPages = 0;
+      for (let p = 1; p <= pageCount; p++) {
+        const pageEl = document.getElementById(`cv-export-page-${p}`);
+        if (!pageEl) continue;
 
-      while (currentY < canvas.height) {
-        if (pageIndex > 0) {
+        if (renderedPages > 0) {
           pdf.addPage();
         }
 
-        const remainingHeight = canvas.height - currentY;
-        let sliceHeight = Math.min(maxPageHeightCanvasPx, remainingHeight);
+        const canvas = await html2canvas(pageEl, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff',
+          scrollY: 0,
+          windowWidth: A4_WIDTH_PX,
+          windowHeight: A4_HEIGHT_PX,
+        });
 
-        // If content exceeds one A4 page, find a smart break point between sections/paragraphs
-        if (currentY + maxPageHeightCanvasPx < canvas.height) {
-          const maxCutY = currentY + maxPageHeightCanvasPx;
-          const minCutY = currentY + Math.floor(maxPageHeightCanvasPx * 0.65);
-
-          // Find DOM break points within the allowable range
-          const validBreaks = breakPoints.filter((bp) => bp >= minCutY && bp <= maxCutY - 8);
-
-          let bestCutY = -1;
-
-          if (validBreaks.length > 0) {
-            // Check candidates starting from the lowest break point
-            for (let bIdx = validBreaks.length - 1; bIdx >= 0; bIdx--) {
-              const candidate = validBreaks[bIdx];
-              // Search around candidate for pure white row
-              for (let offset = 0; offset <= 25; offset++) {
-                if (candidate + offset <= maxCutY && isRowWhite(candidate + offset)) {
-                  bestCutY = candidate + offset;
-                  break;
-                }
-                if (candidate - offset >= minCutY && isRowWhite(candidate - offset)) {
-                  bestCutY = candidate - offset;
-                  break;
-                }
-              }
-              if (bestCutY !== -1) break;
-            }
-          }
-
-          // Fallback: If no DOM break point matched, scan upward from maxCutY for the first clean white row
-          if (bestCutY === -1) {
-            for (let testY = maxCutY - 8; testY >= minCutY; testY--) {
-              if (isRowWhite(testY)) {
-                bestCutY = testY;
-                break;
-              }
-            }
-          }
-
-          if (bestCutY > currentY) {
-            sliceHeight = bestCutY - currentY;
-          }
-        }
-
-        // Sub-canvas to draw this page slice precisely without bleeding or text-clipping
-        const pageCanvas = document.createElement('canvas');
-        pageCanvas.width = canvas.width;
-        pageCanvas.height = maxPageHeightCanvasPx;
-        const ctx = pageCanvas.getContext('2d');
-
-        if (ctx) {
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
-          ctx.drawImage(
-            canvas,
-            0,
-            currentY,
-            canvas.width,
-            sliceHeight,
-            0,
-            0,
-            canvas.width,
-            sliceHeight
-          );
-        }
-
-        const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.98);
-        pdf.addImage(pageImgData, 'JPEG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
-
-        currentY += sliceHeight;
-        pageIndex++;
+        const pageImgData = canvas.toDataURL('image/jpeg', 0.98);
+        pdf.addImage(pageImgData, 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+        renderedPages++;
       }
 
       pdf.save(filename);
-      setToastMessage(`A4 PDF ডাউনলোড সম্পন্ন হয়েছে (${pageIndex} পৃষ্ঠা)`);
+      setToastMessage(`A4 PDF ডাউনলোড সম্পন্ন হয়েছে (${renderedPages} পৃষ্ঠা)`);
       setTimeout(() => setToastMessage(null), 3500);
     } catch (error) {
       console.error('PDF generation error:', error);
-      // Fallback to print
-      setToastMessage('সরাসরি প্রিন্ট ডায়ালগ খোলা হচ্ছে...');
-      try {
-        window.print();
-      } catch (printErr) {
-        console.error('Print fallback error:', printErr);
-        setToastMessage('প্রিন্ট ব্রাউজার কর্তৃক সীমাবদ্ধ। নতুন ট্যাবে অ্যাপটি খুলুন।');
-      }
+      setToastMessage('PDF তৈরিতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
       setTimeout(() => setToastMessage(null), 4000);
     } finally {
       setIsGeneratingPdf(false);
     }
   };
 
-  // Print action
-  const handlePrint = async () => {
-    if (mobileView === 'form') {
-      setMobileView('preview');
-      await new Promise((resolve) => setTimeout(resolve, 200));
-    }
+  // Render chosen template for a specific page or full document
+  const renderTemplate = (targetPage?: number) => {
+    const props = {
+      data: cvData,
+      language,
+      pageNumber: targetPage,
+      totalPages: pageCount,
+    };
 
-    setToastMessage('প্রিন্ট ডায়ালগ খোলা হচ্ছে...');
-
-    setTimeout(() => {
-      try {
-        window.print();
-        setTimeout(() => setToastMessage(null), 2500);
-      } catch (err) {
-        console.warn('Direct window.print() error:', err);
-        setToastMessage('ব্রাউজার প্রিন্ট বাধাগ্রস্ত হয়েছে। নতুন ট্যাবে খুলে প্রিন্ট করুন বা PDF ডাউনলোড করুন।');
-        setTimeout(() => setToastMessage(null), 4000);
-      }
-    }, 150);
-  };
-
-  // Render chosen template
-  const renderTemplate = () => {
     switch (selectedTemplate) {
       case 'modern':
-        return <ModernTemplate data={cvData} language={language} />;
+        return <ModernTemplate {...props} />;
       case 'compact':
-        return <CompactTemplate data={cvData} language={language} />;
+        return <CompactTemplate {...props} />;
       case 'govt':
-        return <GovtStandardTemplate data={cvData} language={language} />;
+        return <GovtStandardTemplate {...props} />;
       case 'creative':
-        return <CreativeTemplate data={cvData} language={language} />;
+        return <CreativeTemplate {...props} />;
       case 'classic':
       default:
-        return <ClassicTemplate data={cvData} language={language} />;
+        return <ClassicTemplate {...props} />;
     }
   };
 
@@ -643,72 +536,6 @@ export const CvBuilderPage: React.FC = () => {
           content="বাংলাদেশি সরকারি চাকরি ও বেসরকারি পদের জন্য ১০০% ক্লায়েন্ট-সাইড ফ্রি জীবনবৃত্তান্ত (CV/Resume) মেকার। ৫টি প্রফেশনাল টেমপ্লেট, বাংলা ও ইংরেজি সাপোর্ট, ইনস্ট্যান্ট A4 PDF প্রিন্ট ও ডাউনলোড।"
         />
       </Helmet>
-
-      {/* Print-only CSS rules */}
-      <style>{`
-        @media print {
-          /* Hide non-printable interface */
-          header, footer, nav, aside, .no-print, button, a, [data-no-print] {
-            display: none !important;
-          }
-
-          /* Reset layout containers for natural multi-page printing */
-          html, body, #root, main {
-            background: white !important;
-            color: #0f172a !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100% !important;
-            height: auto !important;
-            min-height: auto !important;
-            overflow: visible !important;
-          }
-
-          /* Hide left form column during print */
-          .lg\\:col-span-5 {
-            display: none !important;
-          }
-
-          /* Expand right preview column to 100% width */
-          .lg\\:col-span-7 {
-            width: 100% !important;
-            max-width: 100% !important;
-            display: block !important;
-            margin: 0 !important;
-            padding: 0 !important;
-          }
-
-          .overflow-x-auto {
-            overflow: visible !important;
-            padding: 0 !important;
-            background: white !important;
-            border: none !important;
-          }
-
-          #cv-print-area {
-            display: block !important;
-            position: static !important;
-            width: 100% !important;
-            max-width: 210mm !important;
-            margin: 0 auto !important;
-            padding: 0 !important;
-            box-shadow: none !important;
-            border: none !important;
-            background: white !important;
-          }
-
-          /* Critical for multi-page printing: prevent mid-element cutting */
-          section, tr, .break-inside-avoid {
-            break-inside: avoid !important;
-            page-break-inside: avoid !important;
-          }
-
-          @page {
-            size: A4 portrait;
-            margin: 10mm 8mm;
-          }
-        }
-      `}</style>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Top Header: Title, Actions & Language toggle */}
@@ -796,23 +623,24 @@ export const CvBuilderPage: React.FC = () => {
               <span>{isGeneratingPdf ? 'তৈরি হচ্ছে...' : 'PDF ডাউনলোড'}</span>
             </button>
 
-            {/* Print Button */}
+            {/* Print Button - triggers the exact same reliable handleDownloadPdf */}
             <button
               type="button"
-              onClick={handlePrint}
-              title="সিভি প্রিন্ট করুন (অথবা নতুন ট্যাবে খুলুন)"
-              className="flex items-center gap-1.5 px-3 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs sm:text-sm font-medium text-[#083f2a] hover:bg-[#e8e0cc] transition-colors cursor-pointer"
+              onClick={handleDownloadPdf}
+              disabled={isGeneratingPdf}
+              title="সিভি A4 PDF প্রিন্ট / ডাউনলোড করুন"
+              className="flex items-center gap-1.5 px-3 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs sm:text-sm font-medium text-[#083f2a] hover:bg-[#e8e0cc] transition-colors cursor-pointer disabled:opacity-60"
             >
               <Printer className="w-4 h-4 text-[#0c5c3d]" />
               <span>প্রিন্ট</span>
             </button>
 
-            {/* Open in New Tab for native browser print */}
+            {/* Open in New Tab */}
             <a
               href="/tools/cv-builder"
               target="_blank"
               rel="noopener noreferrer"
-              title="ব্রাউজারে নতুন ট্যাবে খুলুন (ফুলস্ক্রিন ও সিস্টেম প্রিন্ট)"
+              title="ব্রাউজারে নতুন ট্যাবে খুলুন"
               className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs text-[#6b6255] hover:text-[#083f2a] hover:bg-[#f4efe4] transition-colors"
             >
               <ExternalLink className="w-3.5 h-3.5" />
@@ -1678,23 +1506,127 @@ export const CvBuilderPage: React.FC = () => {
               mobileView === 'form' ? 'hidden lg:block' : 'block'
             }`}
           >
-            {/* Live Preview Bar */}
+            {/* Live Preview Bar & Pagination Controls */}
             <div className="flex flex-wrap items-center justify-between px-3 py-2 bg-[#f4efe4] border border-[#d8cfb8] mb-2 text-xs gap-2">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#0c5c3d]"></span>
-                <span className="font-bold text-[#083f2a]">লাইভ A4 প্রিভিউ</span>
-                <span className="text-[#6b6255]">
-                  ({language === 'bn' ? 'বাংলা সংস্করণ' : 'English Edition'})
-                </span>
-                <span className="hidden sm:inline-block text-[10px] text-[#0c5c3d] font-semibold bg-[#e8f5e9] px-2 py-0.5 rounded border border-[#c8e6c9]">
-                  মাল্টি-পেজ A4
+                <span className="font-bold text-[#083f2a]">A4 প্রিভিউ</span>
+
+                {/* Discrete Page Switcher Buttons */}
+                <div className="flex items-center bg-[#fffdf7] border border-[#d8cfb8] p-0.5">
+                  <button
+                    type="button"
+                    onClick={() => setActivePage((prev) => Math.max(1, prev - 1))}
+                    disabled={activePage === 1}
+                    title="পূর্ববর্তী পৃষ্ঠা"
+                    className="px-2 py-1 text-[#083f2a] hover:bg-[#e8e0cc] disabled:opacity-40 disabled:hover:bg-transparent font-medium flex items-center gap-1 cursor-pointer"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">পূর্ববর্তী</span>
+                  </button>
+
+                  <span className="px-2.5 py-1 font-bold text-[#083f2a] bg-[#f4efe4] border-x border-[#d8cfb8] select-none text-[11px]">
+                    {language === 'bn'
+                      ? `পৃষ্ঠা ${toBanglaNum(activePage)} / ${toBanglaNum(pageCount)}`
+                      : `Page ${activePage} of ${pageCount}`}
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => setActivePage((prev) => Math.min(pageCount, prev + 1))}
+                    disabled={activePage === pageCount}
+                    title="পরবর্তী পৃষ্ঠা"
+                    className="px-2 py-1 text-[#083f2a] hover:bg-[#e8e0cc] disabled:opacity-40 disabled:hover:bg-transparent font-medium flex items-center gap-1 cursor-pointer"
+                  >
+                    <span className="hidden sm:inline">পরবর্তী</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                {/* Quick Page Number Pills */}
+                <div className="hidden sm:flex items-center gap-1">
+                  {Array.from({ length: pageCount }, (_, i) => i + 1).map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => setActivePage(p)}
+                      className={`w-6 h-6 flex items-center justify-center font-bold text-[11px] border transition-colors cursor-pointer ${
+                        activePage === p
+                          ? 'bg-[#0c5c3d] text-white border-[#0c5c3d]'
+                          : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#e8e0cc]'
+                      }`}
+                    >
+                      {language === 'bn' ? toBanglaNum(p) : p}
+                    </button>
+                  ))}
+                </div>
+
+                {/* View Mode Toggle: Single Page vs All Pages */}
+                <div className="flex items-center border border-[#d8cfb8] bg-[#fffdf7] p-0.5">
+                  <button
+                    type="button"
+                    onClick={() => setPreviewViewMode('single')}
+                    className={`px-2 py-0.5 text-[11px] font-medium transition-colors cursor-pointer ${
+                      previewViewMode === 'single'
+                        ? 'bg-[#0c5c3d] text-white'
+                        : 'text-[#6b6255] hover:text-[#083f2a]'
+                    }`}
+                  >
+                    একক পাতা
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPreviewViewMode('all')}
+                    className={`px-2 py-0.5 text-[11px] font-medium transition-colors cursor-pointer ${
+                      previewViewMode === 'all'
+                        ? 'bg-[#0c5c3d] text-white'
+                        : 'text-[#6b6255] hover:text-[#083f2a]'
+                    }`}
+                  >
+                    সব পাতা
+                  </button>
+                </div>
+
+                {/* Total Pages Toggle (1 page vs 2 pages) */}
+                <div className="hidden xl:flex items-center border border-[#d8cfb8] bg-[#fffdf7] p-0.5 text-[10px]">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPageCount(1);
+                      setActivePage(1);
+                    }}
+                    className={`px-1.5 py-0.5 font-medium transition-colors cursor-pointer ${
+                      pageCount === 1
+                        ? 'bg-[#0c5c3d] text-white'
+                        : 'text-[#6b6255] hover:text-[#083f2a]'
+                    }`}
+                  >
+                    ১ পাতা
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPageCount(2)}
+                    className={`px-1.5 py-0.5 font-medium transition-colors cursor-pointer ${
+                      pageCount === 2
+                        ? 'bg-[#0c5c3d] text-white'
+                        : 'text-[#6b6255] hover:text-[#083f2a]'
+                    }`}
+                  >
+                    ২ পাতা
+                  </button>
+                </div>
+
+                <span className="text-[11px] font-mono text-[#6b6255] bg-[#e8e0cc] px-1.5 py-0.5">
+                  {Math.round(scaleFactor * 100)}%
                 </span>
               </div>
+
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={handleDownloadPdf}
                   disabled={isGeneratingPdf}
+                  title="সরাসরি A4 PDF ডাউনলোড করুন"
                   className="px-2.5 py-1 bg-[#0c5c3d] text-white hover:bg-[#083f2a] transition-colors font-medium flex items-center gap-1 cursor-pointer disabled:opacity-60"
                 >
                   {isGeneratingPdf ? (
@@ -1706,8 +1638,10 @@ export const CvBuilderPage: React.FC = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={handlePrint}
-                  className="px-2.5 py-1 border border-[#d8cfb8] bg-[#fffdf7] text-[#083f2a] hover:bg-[#e8e0cc] transition-colors font-medium flex items-center gap-1 cursor-pointer"
+                  onClick={handleDownloadPdf}
+                  disabled={isGeneratingPdf}
+                  title="সিভি A4 PDF প্রিন্ট / ডাউনলোড করুন"
+                  className="px-2.5 py-1 border border-[#d8cfb8] bg-[#fffdf7] text-[#083f2a] hover:bg-[#e8e0cc] transition-colors font-medium flex items-center gap-1 cursor-pointer disabled:opacity-60"
                 >
                   <Printer className="w-3.5 h-3.5 text-[#0c5c3d]" />
                   <span>প্রিন্ট</span>
@@ -1715,14 +1649,141 @@ export const CvBuilderPage: React.FC = () => {
               </div>
             </div>
 
-            {/* A4 Document Container */}
-            <div className="overflow-x-auto bg-[#e5e0d3] p-2 sm:p-4 border border-[#d8cfb8] flex justify-center">
-              <div
-                id="cv-print-area"
-                className="w-full max-w-[210mm] bg-white shadow-md border border-[#d1d5db] min-h-[297mm] print:border-none print:shadow-none"
-              >
-                {renderTemplate()}
-              </div>
+            {/* A4 Document Desk Container */}
+            <div
+              ref={previewDeskRef}
+              className="bg-[#e5e0d3] p-2 sm:p-4 border border-[#d8cfb8] flex flex-col items-center justify-center overflow-hidden"
+            >
+              {previewViewMode === 'single' ? (
+                <div className="flex flex-col items-center w-full">
+                  {/* Single Page Scaled Wrapper */}
+                  <div
+                    className="relative"
+                    style={{
+                      width: `${Math.round(A4_WIDTH_PX * scaleFactor)}px`,
+                      height: `${Math.round(A4_HEIGHT_PX * scaleFactor)}px`,
+                      transition: 'width 0.1s ease-out, height 0.1s ease-out',
+                    }}
+                  >
+                    <div
+                      id="cv-print-area"
+                      className="bg-white shadow-md border border-[#d1d5db] relative"
+                      style={{
+                        width: `${A4_WIDTH_PX}px`,
+                        height: `${A4_HEIGHT_PX}px`,
+                        transform: `scale(${scaleFactor})`,
+                        transformOrigin: 'top left',
+                      }}
+                    >
+                      {renderTemplate(activePage)}
+                    </div>
+                  </div>
+
+                  {/* Below-Paper Quick Page Navigation Bar */}
+                  {pageCount > 1 && (
+                    <div className="mt-4 flex items-center justify-between gap-3 bg-[#fffdf7] px-4 py-2 border border-[#d8cfb8] shadow-sm max-w-sm w-full">
+                      <button
+                        type="button"
+                        onClick={() => setActivePage((prev) => Math.max(1, prev - 1))}
+                        disabled={activePage === 1}
+                        className="px-3 py-1.5 bg-[#f4efe4] hover:bg-[#e8e0cc] text-xs font-semibold text-[#083f2a] border border-[#d8cfb8] disabled:opacity-40 flex items-center gap-1 cursor-pointer transition-colors"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                        <span>পাতা ১</span>
+                      </button>
+
+                      <div className="text-center">
+                        <span className="text-xs font-bold text-[#083f2a] block">
+                          {language === 'bn'
+                            ? `পৃষ্ঠা ${toBanglaNum(activePage)} এর ${toBanglaNum(pageCount)}`
+                            : `Page ${activePage} of ${pageCount}`}
+                        </span>
+                        <span className="text-[10px] text-[#6b6255]">
+                          {activePage === 1 ? 'মূল তথ্য ও শিক্ষা' : 'অভিজ্ঞতা ও রেফারেন্স'}
+                        </span>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => setActivePage((prev) => Math.min(pageCount, prev + 1))}
+                        disabled={activePage === pageCount}
+                        className="px-3 py-1.5 bg-[#0c5c3d] hover:bg-[#083f2a] text-xs font-semibold text-white disabled:opacity-40 flex items-center gap-1 cursor-pointer transition-colors shadow-2xs"
+                      >
+                        <span>পাতা ২</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                /* All Pages Stacked View */
+                <div className="flex flex-col items-center gap-6 w-full">
+                  {Array.from({ length: pageCount }, (_, i) => i + 1).map((p) => (
+                    <div key={p} className="flex flex-col items-center">
+                      <div
+                        className="flex items-center justify-between text-xs font-medium text-[#6b6255] mb-1.5 px-1"
+                        style={{ width: `${Math.round(A4_WIDTH_PX * scaleFactor)}px` }}
+                      >
+                        <span className="font-bold text-[#083f2a]">
+                          {language === 'bn' ? `পৃষ্ঠা ${toBanglaNum(p)}` : `Page ${p}`}
+                        </span>
+                        <span className="text-[11px] text-[#6b6255] bg-[#fffdf7] px-2 py-0.5 border border-[#d8cfb8]">
+                          A4 (২১০ × ২৯৭ মিমি)
+                        </span>
+                      </div>
+                      <div
+                        className="relative"
+                        style={{
+                          width: `${Math.round(A4_WIDTH_PX * scaleFactor)}px`,
+                          height: `${Math.round(A4_HEIGHT_PX * scaleFactor)}px`,
+                        }}
+                      >
+                        <div
+                          className="bg-white shadow-md border border-[#d1d5db]"
+                          style={{
+                            width: `${A4_WIDTH_PX}px`,
+                            height: `${A4_HEIGHT_PX}px`,
+                            transform: `scale(${scaleFactor})`,
+                            transformOrigin: 'top left',
+                          }}
+                        >
+                          {renderTemplate(p)}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Hidden Export Container: Always rendered unscaled (794x1123px) for clean multi-page PDF generation */}
+            <div
+              id="cv-export-container"
+              aria-hidden="true"
+              className="pointer-events-none select-none fixed"
+              style={{
+                position: 'fixed',
+                left: '-99999px',
+                top: 0,
+                width: `${A4_WIDTH_PX}px`,
+                opacity: 0,
+                zIndex: -100,
+              }}
+            >
+              {Array.from({ length: pageCount }, (_, i) => i + 1).map((p) => (
+                <div
+                  key={p}
+                  id={`cv-export-page-${p}`}
+                  style={{
+                    width: `${A4_WIDTH_PX}px`,
+                    height: `${A4_HEIGHT_PX}px`,
+                    backgroundColor: '#ffffff',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {renderTemplate(p)}
+                </div>
+              ))}
             </div>
           </div>
         </div>
