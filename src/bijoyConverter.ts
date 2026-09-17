@@ -129,6 +129,15 @@ Object.entries(CONVERSION_MAP).forEach(([bijoy, unicode]) => {
   }
 });
 
+// Explicit common conjunct/phala overrides
+UNICODE_TO_BIJOY_MAP["্র"] = "Ö";
+UNICODE_TO_BIJOY_MAP["্য"] = "¨";
+
+// Pre-sort multi-character conjuncts by descending string length
+const SORTED_CONJUNCTS = Object.keys(UNICODE_TO_BIJOY_MAP)
+  .filter((k) => k.length > 1)
+  .sort((a, b) => b.length - a.length);
+
 const UNICODE_VOWELS: Record<string, string> = {
   "অ": "A", "আ": "Av", "ই": "B", "ঈ": "C", "উ": "D", "ঊ": "E",
   "ঋ": "F", "এ": "G", "ঐ": "H", "ও": "I", "ঔ": "J"
@@ -150,8 +159,9 @@ const UNICODE_DIGITS: Record<string, string> = {
 };
 
 /**
- * Best-effort reverse conversion (Unicode -> Bijoy ANSI).
- * Marked as Beta in UI for complex conjunct nuances.
+ * High-accuracy reverse conversion (Unicode -> Bijoy ANSI / SutonnyMJ).
+ * Accurately places pre-kaars (ি, ে, ৈ, ো, ৌ) before consonant clusters,
+ * handles conjuncts, Reff (র্), and links hasanta (্) to SutonnyMJ '&'.
  */
 export function unicodeToBijoy(str: string): string {
   if (!str) return "";
@@ -161,69 +171,132 @@ export function unicodeToBijoy(str: string): string {
   let i = 0;
 
   while (i < chars.length) {
-    // Check two-char combinations (like conjuncts or ref)
-    const two = chars.slice(i, i + 3).join("");
-    if (two.startsWith("র্") && chars[i + 2]) {
-      // Reff: consonant + ©
-      const cons = chars[i + 2];
-      const bijoyCons = UNICODE_CONSONANTS[cons] || cons;
-      result += bijoyCons + "©";
-      i += 3;
-      continue;
+    // 1. Check for Reff (র্ = \u09B0\u09CD)
+    let hasReph = false;
+    if (chars[i] === "র" && chars[i + 1] === "্") {
+      if (
+        i + 2 < chars.length &&
+        (UNICODE_CONSONANTS[chars[i + 2]] || UNICODE_TO_BIJOY_MAP[chars[i + 2]])
+      ) {
+        hasReph = true;
+        i += 2;
+      }
     }
 
-    // Check multi-character conjuncts in conversion map
-    let matchedConjunct = false;
-    for (let len = 4; len >= 2; len--) {
-      const sub = chars.slice(i, i + len).join("");
-      if (UNICODE_TO_BIJOY_MAP[sub]) {
-        result += UNICODE_TO_BIJOY_MAP[sub];
-        i += len;
-        matchedConjunct = true;
+    // 2. Consume consonant / conjunct cluster
+    let cluster = "";
+    let matchedCluster = false;
+
+    // Check multi-character conjunct in SORTED_CONJUNCTS
+    for (const conjKey of SORTED_CONJUNCTS) {
+      const sub = chars.slice(i, i + conjKey.length).join("");
+      if (sub === conjKey) {
+        cluster = UNICODE_TO_BIJOY_MAP[conjKey];
+        i += conjKey.length;
+        matchedCluster = true;
         break;
       }
     }
-    if (matchedConjunct) continue;
 
-    const char = chars[i];
+    if (!matchedCluster) {
+      const char = chars[i];
+      if (UNICODE_CONSONANTS[char]) {
+        cluster = UNICODE_CONSONANTS[char];
+        i++;
 
-    // Handle pre-kaars (ি, ে, ৈ) which in Bijoy ANSI appear BEFORE the consonant
-    if (i + 1 < chars.length) {
-      const nextChar = chars[i + 1];
-      const isConsonant = Boolean(UNICODE_CONSONANTS[char] || UNICODE_TO_BIJOY_MAP[char]);
-
-      if (isConsonant) {
-        if (nextChar === "ি") {
-          const bijoyChar = UNICODE_CONSONANTS[char] || UNICODE_TO_BIJOY_MAP[char] || char;
-          result += "w" + bijoyChar;
-          i += 2;
-          continue;
-        } else if (nextChar === "ে") {
-          const bijoyChar = UNICODE_CONSONANTS[char] || UNICODE_TO_BIJOY_MAP[char] || char;
-          result += "†" + bijoyChar;
-          i += 2;
-          continue;
-        } else if (nextChar === "ৈ") {
-          const bijoyChar = UNICODE_CONSONANTS[char] || UNICODE_TO_BIJOY_MAP[char] || char;
-          result += "ˆ" + bijoyChar;
-          i += 2;
-          continue;
-        } else if (nextChar === "ো") {
-          const bijoyChar = UNICODE_CONSONANTS[char] || UNICODE_TO_BIJOY_MAP[char] || char;
-          result += "†" + bijoyChar + "v";
-          i += 2;
-          continue;
-        } else if (nextChar === "ৌ") {
-          const bijoyChar = UNICODE_CONSONANTS[char] || UNICODE_TO_BIJOY_MAP[char] || char;
-          result += "†" + bijoyChar + "Š";
-          i += 2;
-          continue;
+        // Consume any following hasanta + consonant/phala
+        while (i + 1 < chars.length && chars[i] === "্") {
+          const next = chars[i + 1];
+          if (next === "য") {
+            cluster += "¨"; // ya-phala
+            i += 2;
+          } else if (next === "র") {
+            cluster += "Ö"; // ra-phala
+            i += 2;
+          } else if (next === "ব") {
+            cluster += "^"; // ba-phala
+            i += 2;
+          } else if (next === "ম") {
+            cluster += "§"; // ma-phala
+            i += 2;
+          } else if (UNICODE_CONSONANTS[next]) {
+            // Check if remainder matches a known conjunct
+            let subConj = false;
+            for (const conjKey of SORTED_CONJUNCTS) {
+              const sub = chars.slice(i + 1, i + 1 + conjKey.length).join("");
+              if (sub === conjKey) {
+                cluster += "&" + UNICODE_TO_BIJOY_MAP[conjKey];
+                i += 1 + conjKey.length;
+                subConj = true;
+                break;
+              }
+            }
+            if (!subConj) {
+              cluster += "&" + UNICODE_CONSONANTS[next];
+              i += 2;
+            }
+          } else {
+            break;
+          }
         }
+        matchedCluster = true;
       }
     }
 
-    // Post-kaars
-    if (char === "া") {
+    if (matchedCluster) {
+      const rephPart = hasReph ? "©" : "";
+      const nextChar = chars[i];
+
+      // Handle pre-kaars (ি, ে, ৈ) and split-kaars (ো, ৌ)
+      if (nextChar === "ি") {
+        result += "w" + cluster + rephPart;
+        i++;
+      } else if (nextChar === "ে") {
+        result += "†" + cluster + rephPart;
+        i++;
+      } else if (nextChar === "ৈ") {
+        result += "ˆ" + cluster + rephPart;
+        i++;
+      } else if (nextChar === "ো") {
+        result += "†" + cluster + rephPart + "v";
+        i++;
+      } else if (nextChar === "ৌ") {
+        result += "†" + cluster + rephPart + "Š";
+        i++;
+      } else if (nextChar === "া") {
+        result += cluster + rephPart + "v";
+        i++;
+      } else if (nextChar === "ী") {
+        result += cluster + rephPart + "x";
+        i++;
+      } else if (nextChar === "ু") {
+        result += cluster + rephPart + "y";
+        i++;
+      } else if (nextChar === "ূ") {
+        result += cluster + rephPart + "~";
+        i++;
+      } else if (nextChar === "ৃ") {
+        result += cluster + rephPart + "„";
+        i++;
+      } else {
+        result += cluster + rephPart;
+      }
+      continue;
+    }
+
+    // Standalone reph without following cluster
+    if (hasReph) {
+      result += "i&";
+    }
+
+    const char = chars[i];
+    if (UNICODE_VOWELS[char]) {
+      result += UNICODE_VOWELS[char];
+    } else if (UNICODE_DIGITS[char]) {
+      result += UNICODE_DIGITS[char];
+    } else if (char === "্") {
+      result += "&";
+    } else if (char === "া") {
       result += "v";
     } else if (char === "ী") {
       result += "x";
@@ -233,12 +306,14 @@ export function unicodeToBijoy(str: string): string {
       result += "~";
     } else if (char === "ৃ") {
       result += "„";
-    } else if (UNICODE_VOWELS[char]) {
-      result += UNICODE_VOWELS[char];
-    } else if (UNICODE_CONSONANTS[char]) {
-      result += UNICODE_CONSONANTS[char];
-    } else if (UNICODE_DIGITS[char]) {
-      result += UNICODE_DIGITS[char];
+    } else if (char === "ে") {
+      result += "†";
+    } else if (char === "ৈ") {
+      result += "ˆ";
+    } else if (char === "ো") {
+      result += "†v";
+    } else if (char === "ৌ") {
+      result += "†Š";
     } else {
       result += char;
     }
