@@ -951,6 +951,80 @@ export const PhotoResizerPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Org-wise Size Reference Table */}
+      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-4">
+        <h3 className="text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-2">
+          <HelpCircle className="w-4 h-4 text-[#0c5c3d]" />
+          <span>কোন প্রতিষ্ঠানে কোন সাইজ লাগে — দ্রুত রেফারেন্স টেবিল</span>
+        </h3>
+
+        <div className="overflow-x-auto border border-[#d8cfb8]">
+          <table className="w-full text-xs text-left">
+            <thead className="bg-[#f4efe4] text-[#083f2a] border-b border-[#d8cfb8]">
+              <tr>
+                <th className="p-2.5">প্রতিষ্ঠান / ক্ষেত্র</th>
+                <th className="p-2.5">মাপ (পিক্সেল)</th>
+                <th className="p-2.5">সর্বোচ্চ সাইজ</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#d8cfb8]">
+              {GOVERNMENT_PRESET_PROFILES.map((profile) => (
+                <tr key={profile.id} className="hover:bg-[#f4efe4]/50">
+                  <td className="p-2.5 text-[#14231c]">
+                    <div className="font-medium">{profile.name}</div>
+                    <div className="text-[11px] text-[#6b6255]">{profile.org}</div>
+                  </td>
+                  <td className="p-2.5 font-mono text-[#083f2a]">
+                    {profile.width} × {profile.height}
+                  </td>
+                  <td className="p-2.5 font-mono text-[#083f2a]">
+                    {profile.maxSizeKb} KB
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* FAQ / Common Mistakes Section */}
+      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-5">
+        <h3 className="text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-2">
+          <HelpCircle className="w-4 h-4 text-[#0c5c3d]" />
+          <span>সাধারণ ভুল যা আবেদন বাতিল করে দেয়</span>
+        </h3>
+
+        <div className="space-y-4 text-xs sm:text-sm text-[#14231c] leading-relaxed">
+          <div className="space-y-1">
+            <h4 className="font-bold text-[#083f2a]">ভুল ব্যাকগ্রাউন্ড কালার</h4>
+            <p className="text-[#4a4237]">
+              রঙিন, প্যাটার্নযুক্ত বা ছায়াময় ব্যাকগ্রাউন্ডে তোলা ছবি অনেক পোর্টালে সরাসরি রিজেক্ট হয়। সবসময় <strong>সাদা বা হালকা ধূসর একরঙা ব্যাকগ্রাউন্ডে</strong> তোলা ছবি ব্যবহার করুন — পাসপোর্টের ক্ষেত্রে সাদা ব্যাকগ্রাউন্ড বাধ্যতামূলক।
+            </p>
+          </div>
+
+          <div className="space-y-1">
+            <h4 className="font-bold text-[#083f2a]">"এক্স্যাক্ট" সাইজ না মেলা</h4>
+            <p className="text-[#4a4237]">
+              অনেকে ছবি ছোট করেন কিন্তু <strong>অনুপাত (aspect ratio)</strong> ঠিক রাখেন না, ফলে ছবি টেনে বিকৃত (stretched) দেখায়। এই টুলে প্রিসেট সিলেক্ট করলে অনুপাত স্বয়ংক্রিয়ভাবে ঠিক থাকে, তাই ম্যানুয়াল ক্রপের বদলে প্রিসেট ব্যবহার করাই নিরাপদ।
+            </p>
+          </div>
+
+          <div className="space-y-1">
+            <h4 className="font-bold text-[#083f2a]">কম্প্রেস করে সাইজ কমাতে গিয়ে ছবি অস্পষ্ট হয়ে যাওয়া</h4>
+            <p className="text-[#4a4237]">
+              KB লিমিট মেলাতে অতিরিক্ত কম্প্রেশন করলে ছবির মুখ ঝাপসা/পিক্সেলেটেড দেখাতে পারে, যা যাচাইকারী কর্মকর্তার কাছে সন্দেহজনক মনে হতে পারে। ভালো রেজোলিউশনের মূল ছবি দিয়ে শুরু করলে কম্প্রেশনের পরও কোয়ালিটি ভালো থাকে।
+            </p>
+          </div>
+
+          <div className="space-y-1">
+            <h4 className="font-bold text-[#083f2a]">স্বাক্ষরের ক্ষেত্রে ভুল কালির রঙ বা ঝাপসা স্ক্যান</h4>
+            <p className="text-[#4a4237]">
+              নীল বা হালকা রঙের কালি, অথবা কম আলোয় তোলা স্বাক্ষরের ছবি স্পষ্টভাবে বোঝা যায় না। সবসময় <strong>কালো কালির বলপেন/সাইনপেন</strong> দিয়ে স্বাক্ষর করে ভালো আলোয় ছবি তুলুন বা স্ক্যান করুন।
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
