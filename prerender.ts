@@ -1,14 +1,26 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { PRERENDER_ROUTES } from './src/routes.tsx';
 
-const ROUTES = [
-  '/',
-  '/converter',
-  '/photo-resizer',
-  '/age-calculator',
-  '/amount-in-words',
-];
+// Single source of truth: routes come from src/routes.tsx.
+// Add a new tool's path there once and it is automatically
+// prerendered here AND included in the generated sitemap.xml below.
+const ROUTES: readonly string[] = PRERENDER_ROUTES;
+
+const SITE_ORIGIN = 'https://utilix.bd';
+
+function generateSitemap(routes: readonly string[]): string {
+  const urlEntries = routes
+    .map((route) => {
+      const loc = `${SITE_ORIGIN}${route === '/' ? '/' : route}`;
+      const priority = route === '/' ? '1.0' : '0.8';
+      return `  <url>\n    <loc>${loc}</loc>\n    <changefreq>${route === '/' ? 'weekly' : 'monthly'}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+    })
+    .join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlEntries}\n</urlset>\n`;
+}
 
 async function prerender() {
   const distDir = path.resolve(process.cwd(), 'dist');
@@ -94,6 +106,15 @@ async function prerender() {
       }
     }
 
+    // 2b. Inject a page-specific canonical link (drop any leftover one
+    // from the template first so repeated builds don't duplicate it).
+    pageHtml = pageHtml.replace(/<link\s+rel="canonical"[^>]*\/?>\s*/gi, '');
+    const canonicalHref = `${SITE_ORIGIN}${url === '/' ? '/' : url}`;
+    pageHtml = pageHtml.replace(
+      '</head>',
+      `  <link rel="canonical" href="${canonicalHref}"/>\n</head>`
+    );
+
     // 3. Inject body content into <div id="root">
     pageHtml = pageHtml.replace(
       '<div id="root"></div>',
@@ -116,6 +137,12 @@ async function prerender() {
     fs.rmSync(serverDir, { recursive: true, force: true });
     console.log('[prerender] Cleaned up temporary dist/server directory.');
   }
+
+  // 6. Auto-generate sitemap.xml from the same ROUTES list used above,
+  // so a new tool's route only needs to be added once (in src/routes.tsx).
+  const sitemapXml = generateSitemap(ROUTES);
+  fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXml, 'utf-8');
+  console.log(`[prerender] Wrote: ${path.join(distDir, 'sitemap.xml')} (${ROUTES.length} routes)`);
 
   console.log('[prerender] All routes successfully prerendered!');
 }
