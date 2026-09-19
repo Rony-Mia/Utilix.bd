@@ -31,15 +31,6 @@ export const CompactTemplate: React.FC<TemplateProps> = ({
   return (
     <div className="w-full bg-white text-slate-800 font-sans leading-normal text-xs shadow-sm print:shadow-none min-h-[1123px] flex flex-col justify-between">
       <div>
-        {/* Page 2+ Running Header - Only Page Number */}
-        {pageNumber > 1 && !hasSection('header') && (
-          <header className="bg-[#1e293b] text-white px-5 py-2 flex justify-end items-center break-inside-avoid">
-            <span className="text-[11px] font-mono text-emerald-400">
-              {language === 'bn' ? `পৃষ্ঠা ${toBengaliNum(pageNumber)}` : `Page ${pageNumber}`} /{' '}
-              {language === 'bn' ? toBengaliNum(totalPages) : totalPages}
-            </span>
-          </header>
-        )}
 
         {/* Strong Top Header Band on Page 1 */}
         {hasSection('header') && (
