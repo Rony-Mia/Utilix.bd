@@ -73,6 +73,26 @@ const CATEGORIES: NavCategory[] = [
     categoryKey: 'document',
     items: [
       {
+        to: '/pdf-merger',
+        label: 'পিডিএফ মার্জার',
+        description: 'একাধিক PDF ফাইল একত্র ও ফ্রি মার্জ',
+      },
+      {
+        to: '/pdf-split',
+        label: 'পিডিএফ স্প্লিটার',
+        description: 'পেজ রেঞ্জ বা একক পেজে ভাগ ও ZIP ডাউনলোড',
+      },
+      {
+        to: '/pdf-delete-pages',
+        label: 'পিডিএফ পেজ ডিলিট',
+        description: 'অপ্রয়োজনীয় বা অতিরিক্ত পৃষ্ঠা বাদ দিন',
+      },
+      {
+        to: '/pdf-rotate',
+        label: 'পিডিএফ রোটেট',
+        description: 'উল্টো বা বাঁকা পৃষ্ঠা ৯০° বা ১৮০° ঘোরান',
+      },
+      {
         to: '/cv-builder',
         label: 'সিভি ও জীবনবৃত্তান্ত মেকার',
         description: 'সরকারি ও কর্পোরেট চাকরির ৫টি ফরম্যাটে CV তৈরি',

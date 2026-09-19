@@ -18,7 +18,11 @@ import {
   Sparkles,
   HelpCircle,
   ChevronDown,
-  Calendar
+  Calendar,
+  Layers,
+  Scissors,
+  Trash2,
+  RotateCw
 } from 'lucide-react';
 import { TOOLS } from '../data/tools.ts';
 import { SITE_UPDATES } from '../data/updates.ts';
@@ -43,7 +47,7 @@ const FAQS = [
   {
     question: 'Utilix.bd-তে বর্তমানে কী কী টুল পাওয়া যায়?',
     answer:
-      'বর্তমানে আমাদের প্ল্যাটফর্মে ৬টি সক্রিয় টুল রয়েছে: বিজয় ↔ ইউনিকোড টেক্সট কনভার্টার, সরকারি চাকরি ও পাসপোর্ট সাইজ ছবি রিসাইজার (৩০০×৩০০ ও ৩০০×৮০), চাকরির বয়স ক্যালকুলেটর ও কোটা পরীক্ষক, টাকা কথায় কনভার্টার (Amount in Words), এসএসসি/এইচএসসি ও বিশ্ববিদ্যালয় জিপিএ/সিজিপিএ ক্যালকুলেটর এবং পেশাদার সিভি ও জীবনবৃত্তান্ত মেকার।'
+      'বর্তমানে আমাদের প্ল্যাটফর্মে ১০টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, সিভি মেকার এবং ৪টি শক্তিশালী পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট ও পিডিএফ রোটেট)।'
   },
   {
     question: 'ইন্টারনেট সংযোগ ছাড়া অফলাইনে কি এই টুলগুলো কাজ করে?',
@@ -270,6 +274,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                       {tool.id === 'amount-in-words' && <Coins className="w-5 h-5" />}
                       {tool.id === 'gpa-calculator' && <GraduationCap className="w-5 h-5" />}
                       {tool.id === 'cv-builder' && <FileText className="w-5 h-5" />}
+                      {tool.id === 'pdf-merger' && <Layers className="w-5 h-5" />}
+                      {tool.id === 'pdf-split' && <Scissors className="w-5 h-5" />}
+                      {tool.id === 'pdf-delete-pages' && <Trash2 className="w-5 h-5" />}
+                      {tool.id === 'pdf-rotate' && <RotateCw className="w-5 h-5" />}
                     </div>
 
                     <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-[#0c5c3d] text-[#fffdf7]">
@@ -300,6 +308,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                     {tool.id === 'amount-in-words' && <Coins className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
                     {tool.id === 'gpa-calculator' && <GraduationCap className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
                     {tool.id === 'cv-builder' && <FileText className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
+                    {tool.id === 'pdf-merger' && <Layers className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
+                    {tool.id === 'pdf-split' && <Scissors className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
+                    {tool.id === 'pdf-delete-pages' && <Trash2 className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
+                    {tool.id === 'pdf-rotate' && <RotateCw className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
                     <span className="truncate">{tool.feature}</span>
                   </div>
                 </div>

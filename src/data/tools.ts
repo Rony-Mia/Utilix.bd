@@ -66,5 +66,49 @@ export const TOOLS: ToolItem[] = [
     status: 'active',
     version: 'v1.0',
     link: '/cv-builder'
+  },
+  {
+    id: 'pdf-merger',
+    refCode: 'DOC-PDF-01',
+    title: 'পিডিএফ মার্জার (PDF Merger)',
+    description: 'একাধিক পিডিএফ ফাইলকে একটি ফাইলে রূপান্তর ও একত্রীকরণ। ফাইল রি-অর্ডার, আনলিমিটেড পেজ এবং সম্পূর্ণ ব্রাউজারেই ১০০% নিরাপদ প্রসেসিং।',
+    feature: 'আনলিমিটেড মার্জ • ড্র্যাগ-রিঅর্ডার • নো সার্ভার আপলোড',
+    category: 'document',
+    status: 'active',
+    version: 'v1.0',
+    link: '/pdf-merger'
+  },
+  {
+    id: 'pdf-split',
+    refCode: 'DOC-PDF-02',
+    title: 'পিডিএফ স্প্লিটার (PDF Splitter)',
+    description: 'বড় পিডিএফ ফাইল থেকে নির্দিষ্ট পেজ রেঞ্জ আলাদা করুন অথবা প্রতি পেজকে পৃথক ফাইলে ভাগ করে এক ক্লিকে জিপ (ZIP) ডাউনলোড করুন।',
+    feature: 'পেজ রেঞ্জ স্প্লিট • প্রতি পেজ আলাদা • ZIP ডাউনলোড',
+    category: 'document',
+    status: 'active',
+    version: 'v1.0',
+    link: '/pdf-split'
+  },
+  {
+    id: 'pdf-delete-pages',
+    refCode: 'DOC-PDF-03',
+    title: 'পিডিএফ পেজ ডিলিট (Delete Pages)',
+    description: 'পিডিএফ ফাইল থেকে অপ্রয়োজনীয় বা অতিরিক্ত ফাঁকা পৃষ্ঠা নির্বাচন করে এক ক্লিকে মুছে ফেলুন। সম্পূর্ণ অফলাইন ও কোয়ালিটি অক্ষুণ্ণ।',
+    feature: 'ভিজ্যুয়াল সিলেকশন • জোড়/বিজোড় সিলেক্টর • দ্রুত ছাঁটাই',
+    category: 'document',
+    status: 'active',
+    version: 'v1.0',
+    link: '/pdf-delete-pages'
+  },
+  {
+    id: 'pdf-rotate',
+    refCode: 'DOC-PDF-04',
+    title: 'পিডিএফ রোটেট (PDF Rotate)',
+    description: 'স্ক্যান করা উল্টো বা বাঁকা পিডিএফ পৃষ্ঠাসমূহ ৯০°, ১৮০° বা ২৭০° ঘুরিয়ে সোজা করুন। একক পেজ বা সকল পেজ একসাথে রোটেশনের সুবিধা।',
+    feature: 'একক বা অল-পেজ • ৯০°/১৮০° রোটেশন • নিখুঁত সোজা ওরিয়েন্টেশন',
+    category: 'document',
+    status: 'active',
+    version: 'v1.0',
+    link: '/pdf-rotate'
   }
 ];
