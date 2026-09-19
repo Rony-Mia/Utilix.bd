@@ -44,15 +44,6 @@ export const CreativeTemplate: React.FC<TemplateProps> = ({
   return (
     <div className="w-full bg-white text-slate-800 font-sans leading-relaxed text-[13px] shadow-sm print:shadow-none min-h-[1123px] flex flex-col justify-between">
       <div>
-        {/* Page 2+ Running Header - Only Page Number */}
-        {pageNumber > 1 && !hasSection('header') && (
-          <header className="relative bg-[#0f172a] text-white px-6 py-2.5 flex justify-end items-center break-inside-avoid border-b-2 border-amber-500">
-            <span className="text-[11px] font-mono text-amber-400">
-              {language === 'bn' ? `পৃষ্ঠা ${toBengaliNum(pageNumber)}` : `Page ${pageNumber}`} /{' '}
-              {language === 'bn' ? toBengaliNum(totalPages) : totalPages}
-            </span>
-          </header>
-        )}
 
         {/* Creative Angled Color-Blocked Header Band */}
         {hasSection('header') && (
