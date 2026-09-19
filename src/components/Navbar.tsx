@@ -93,6 +93,11 @@ const CATEGORIES: NavCategory[] = [
         description: 'উল্টো বা বাঁকা পৃষ্ঠা ৯০° বা ১৮০° ঘোরান',
       },
       {
+        to: '/pdf-watermark-page-number',
+        label: 'পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর',
+        description: 'কাস্টম টেক্সট/লোগো স্ট্যাম্প ও পৃষ্ঠা নম্বর যোগ',
+      },
+      {
         to: '/cv-builder',
         label: 'সিভি ও জীবনবৃত্তান্ত মেকার',
         description: 'সরকারি ও কর্পোরেট চাকরির ৫টি ফরম্যাটে CV তৈরি',

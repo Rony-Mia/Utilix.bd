@@ -22,7 +22,8 @@ import {
   Layers,
   Scissors,
   Trash2,
-  RotateCw
+  RotateCw,
+  Stamp
 } from 'lucide-react';
 import { TOOLS } from '../data/tools.ts';
 import { SITE_UPDATES } from '../data/updates.ts';
@@ -47,7 +48,7 @@ const FAQS = [
   {
     question: 'Utilix.bd-তে বর্তমানে কী কী টুল পাওয়া যায়?',
     answer:
-      'বর্তমানে আমাদের প্ল্যাটফর্মে ১০টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, সিভি মেকার এবং ৪টি শক্তিশালী পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট ও পিডিএফ রোটেট)।'
+      'বর্তমানে আমাদের প্ল্যাটফর্মে ১১টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, সিভি মেকার এবং ৫টি শক্তিশালী পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট, পিডিএফ রোটেট ও পিডিএফ ওয়াটারমার্ক/পেজ নম্বর)।'
   },
   {
     question: 'ইন্টারনেট সংযোগ ছাড়া অফলাইনে কি এই টুলগুলো কাজ করে?',
@@ -278,6 +279,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       {tool.id === 'pdf-split' && <Scissors className="w-5 h-5" />}
                       {tool.id === 'pdf-delete-pages' && <Trash2 className="w-5 h-5" />}
                       {tool.id === 'pdf-rotate' && <RotateCw className="w-5 h-5" />}
+                      {tool.id === 'pdf-watermark-page-number' && <Stamp className="w-5 h-5" />}
                     </div>
 
                     <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-[#0c5c3d] text-[#fffdf7]">

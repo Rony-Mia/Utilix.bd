@@ -11,6 +11,7 @@ import { PdfMergerPage } from './pages/PdfMergerPage.tsx';
 import { PdfSplitPage } from './pages/PdfSplitPage.tsx';
 import { PdfDeletePagesPage } from './pages/PdfDeletePagesPage.tsx';
 import { PdfRotatePage } from './pages/PdfRotatePage.tsx';
+import { PdfWatermarkPage } from './pages/PdfWatermarkPage.tsx';
 import { AboutPage } from './pages/AboutPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage.tsx';
@@ -27,6 +28,7 @@ export const PRERENDER_ROUTES = [
   '/pdf-split',
   '/pdf-delete-pages',
   '/pdf-rotate',
+  '/pdf-watermark-page-number',
   '/about',
   '/contact',
   '/privacy-policy',
@@ -65,6 +67,7 @@ export function AppRoutes({
       <Route path="/pdf-split" element={<PdfSplitPage />} />
       <Route path="/pdf-delete-pages" element={<PdfDeletePagesPage />} />
       <Route path="/pdf-rotate" element={<PdfRotatePage />} />
+      <Route path="/pdf-watermark-page-number" element={<PdfWatermarkPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />

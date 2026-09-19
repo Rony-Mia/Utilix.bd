@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
 import { AppRoutes } from './routes.tsx';
+import { ScrollToTop } from './components/ScrollToTop.tsx';
 
 interface AppProps {
   helmetContext?: Record<string, unknown>;
@@ -14,6 +15,7 @@ export default function App({ helmetContext }: AppProps) {
 
   return (
     <HelmetProvider context={helmetContext}>
+      <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-[#f4efe4] text-[#14231c]">
         {/* Top Navbar */}
         <Navbar

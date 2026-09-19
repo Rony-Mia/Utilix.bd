@@ -110,5 +110,16 @@ export const TOOLS: ToolItem[] = [
     status: 'active',
     version: 'v1.0',
     link: '/pdf-rotate'
+  },
+  {
+    id: 'pdf-watermark-page-number',
+    refCode: 'DOC-PDF-05',
+    title: 'পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর',
+    description: 'পিডিএফ নথিতে কাস্টম টেক্সট বা লোগো ওয়াটারমার্ক এবং পৃষ্ঠা নম্বর (বাংলা/ইংরেজি) বসিয়ে ফাইলকে নিরাপদ ও আনুষ্ঠানিক করুন।',
+    feature: 'টেক্সট/লোগো স্ট্যাম্প • ৬ পজিশনে পেজ নম্বর • বাংলা সংখ্যা • টাইল্ড সিকিউরিটি',
+    category: 'document',
+    status: 'active',
+    version: 'v1.0',
+    link: '/pdf-watermark-page-number'
   }
 ];

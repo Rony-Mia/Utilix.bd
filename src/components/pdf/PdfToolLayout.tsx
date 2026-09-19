@@ -12,7 +12,8 @@ import {
   RotateCw,
   Trash2,
   Crop,
-  FileText
+  FileText,
+  Stamp
 } from 'lucide-react';
 
 export interface FaqItem {
@@ -46,7 +47,7 @@ export interface PdfToolLayoutProps {
   howToSteps?: Array<{ stepNum: string; title: string; desc: string }>;
   faqs?: FaqItem[];
   customFaqContent?: ReactNode;
-  currentToolId: 'pdf-merger' | 'pdf-split' | 'pdf-delete-pages' | 'pdf-rotate';
+  currentToolId: 'pdf-merger' | 'pdf-split' | 'pdf-delete-pages' | 'pdf-rotate' | 'pdf-watermark-page-number';
 }
 
 export const PdfToolLayout: React.FC<PdfToolLayoutProps> = ({
@@ -328,6 +329,33 @@ export const PdfToolLayout: React.FC<PdfToolLayoutProps> = ({
               >
                 <RotateCw className="w-3.5 h-3.5 mr-1.5 text-[#0c5c3d]" />
                 <span>রোটেটরে যান</span>
+              </Link>
+            </div>
+          )}
+
+          {/* Tool 5: PDF Watermark & Page Number */}
+          {currentToolId !== 'pdf-watermark-page-number' && (
+            <div className="border border-[#d8cfb8] bg-[#fffdf7] p-4 flex flex-col justify-between space-y-3">
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono bg-[#f4efe4] text-[#083f2a] px-2 py-0.5">
+                    ডকুমেন্ট
+                  </span>
+                  <span className="text-[11px] font-mono text-[#6b6255]">DOC-PDF-05</span>
+                </div>
+                <h3 className="font-bold text-[#083f2a] font-serif text-sm">
+                  পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর
+                </h3>
+                <p className="text-[#4a4237] leading-relaxed">
+                  ডকুমেন্টে টেক্সট বা লোগো ওয়াটারমার্ক এবং পৃষ্ঠা নম্বর (বাংলা/ইংরেজি) বসিয়ে ফাইল সুরক্ষিত করুন।
+                </p>
+              </div>
+              <Link
+                to="/pdf-watermark-page-number"
+                className="inline-flex items-center justify-center px-3 py-2 bg-[#f4efe4] text-[#083f2a] font-medium hover:bg-[#d8cfb8] transition-colors border border-[#d8cfb8]"
+              >
+                <Stamp className="w-3.5 h-3.5 mr-1.5 text-[#0c5c3d]" />
+                <span>ওয়াটারমার্ক টুলে যান</span>
               </Link>
             </div>
           )}
