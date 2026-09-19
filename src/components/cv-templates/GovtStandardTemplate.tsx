@@ -41,15 +41,6 @@ export const GovtStandardTemplate: React.FC<TemplateProps> = ({
   return (
     <div className="w-full bg-white text-slate-900 font-serif leading-relaxed text-xs sm:text-[13px] p-6 sm:p-10 shadow-sm print:shadow-none print:p-6">
       <div>
-        {/* Page 2+ Running Header - Only Page Number */}
-        {pageNumber > 1 && !hasSection('header') && (
-          <div className="border-b border-slate-300 pb-1.5 mb-4 text-right text-[11px] font-mono text-slate-700 break-inside-avoid">
-            <span>
-              {isBn ? `পৃষ্ঠা ${toBengaliNum(pageNumber)}` : `Page ${pageNumber}`} /{' '}
-              {isBn ? toBengaliNum(totalPages) : totalPages}
-            </span>
-          </div>
-        )}
 
         {/* Official Centered Header & Top-Right Photo Box */}
         {hasSection('header') && (
