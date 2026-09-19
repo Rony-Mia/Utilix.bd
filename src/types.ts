@@ -28,6 +28,17 @@ export interface PresetProfile {
 
 export type CvLanguage = 'bn' | 'en';
 
+export type CvSectionId =
+  | 'header'
+  | 'objective'
+  | 'education'
+  | 'experience'
+  | 'skills'
+  | 'personalDetails'
+  | 'languages'
+  | 'references'
+  | 'declaration';
+
 export interface PersonalInfo {
   fullName: string;
   designationOrTitle?: string;
@@ -88,12 +99,5 @@ export interface CvData {
   skills: string[];
   languages: LanguageItem[];
   references: ReferenceItem[];
-}
-
-export interface TemplateProps {
-  data: CvData;
-  language: CvLanguage;
-  pageNumber?: number;
-  totalPages?: number;
 }
 
