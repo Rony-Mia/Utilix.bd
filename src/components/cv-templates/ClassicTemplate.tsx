@@ -31,15 +31,6 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({
   return (
     <div className="w-full bg-white text-slate-800 p-8 sm:p-11 font-serif leading-relaxed text-[13px] shadow-sm print:shadow-none print:p-8">
       <div>
-        {/* Running page number header for page 2+ when main header is not on this page */}
-        {pageNumber > 1 && !hasSection('header') && (
-          <div className="border-b border-slate-200 pb-1.5 mb-5 flex justify-end items-center text-[11px] font-mono text-slate-500 break-inside-avoid">
-            <span>
-              {language === 'bn' ? `পৃষ্ঠা ${toBengaliNum(pageNumber)}` : `Page ${pageNumber}`} /{' '}
-              {language === 'bn' ? toBengaliNum(totalPages) : totalPages}
-            </span>
-          </div>
-        )}
 
         {/* Top Header: Candidate Name, Title, Contact Info & Formal Photo */}
         {hasSection('header') && (
