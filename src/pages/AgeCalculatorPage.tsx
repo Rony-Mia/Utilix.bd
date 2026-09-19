@@ -371,12 +371,14 @@ export const AgeCalculatorPage: React.FC = () => {
         />
         <meta property="og:url" content="https://utilix.bd/age-calculator" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://utilix.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="সরকারি চাকরির বয়স ক্যালকুলেটর | Utilix.bd" />
         <meta
           name="twitter:description"
           content="সরকারি চাকরি ও বিসিএস পরীক্ষার জন্য বিজ্ঞপ্তির তারিখে সঠিক বয়স হিসাব করুন।"
         />
+        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
       </Helmet>
 
       {/* Top Breadcrumb & Privacy Guarantee */}

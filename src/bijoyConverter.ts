@@ -60,6 +60,9 @@ export const PRE_CONVERSION_MAP: Record<string, string> = {
   "\n\n\n\n\n": "\n\n", "\n\n\n\n": "\n\n", "\n\n\n": "\n\n"
 };
 
+export const POST_PHALAS_MAP: Record<string, string> = { ...POST_SYMBOLS_MAP };
+delete POST_PHALAS_MAP["&"];
+
 export const ALL_SYMBOLS: Record<string, string> = Object.assign({}, CONVERSION_MAP, PRE_SYMBOLS_MAP, POST_SYMBOLS_MAP);
 
 function escapeRegExp(s: string): string {
@@ -73,9 +76,23 @@ function pattern(symbols: Record<string, string>, delim?: string): string {
 
 const SYMBOLS_CONVERSION_PATTERN = new RegExp("([" + pattern(ALL_SYMBOLS) + "])", "g");
 
+// Base consonant sub-unit:
+// Allows pre-symbols (e.g. ®, ¯, ”), base consonant/ligature, and attached phalas (excluding hasanta &)
+const C_BASE_PATTERN = "(?:[" + pattern(PRE_SYMBOLS_MAP) + "]*[" +
+  pattern(CONVERSION_MAP) + pattern(PRE_SYMBOLS_MAP) + "][" +
+  pattern(POST_PHALAS_MAP) + "]*)";
+
+// Conjunct cluster:
+// Captures full hasanta-joined conjuncts (consonant1 + hasanta + consonant2 + ...) as ONE unit
+// so preKaar (ি, ে, ৈ) attaches AFTER the entire conjunct cluster (e.g. n†P&Q -> হচ্ছে, cvwP&Q -> পাচ্ছি)
+const CONJUNCT_CLUSTER_PATTERN = "(?:" +
+  C_BASE_PATTERN + "(?:&+" + C_BASE_PATTERN + ")*&*(?:[" + pattern(POST_PHALAS_MAP) + "])*" +
+  "|[" + pattern(PRE_SYMBOLS_MAP) + "]+[" + pattern(POST_PHALAS_MAP) + "]*" +
+  "|[" + pattern(POST_SYMBOLS_MAP) + "]+" +
+  ")";
+
 const MAIN_CONVERSION_PATTERN = new RegExp(
-  "([w\u2020\u2021\u02C6\u2030\u0160]?)(([" + pattern(PRE_SYMBOLS_MAP) + "])*([" +
-  pattern(CONVERSION_MAP) + "])?([" + pattern(POST_SYMBOLS_MAP) + "])*)([" +
+  "([w\u2020\u2021\u02C6\u2030\u0160]?)(" + CONJUNCT_CLUSTER_PATTERN + ")([" +
   pattern(REFF) + "])?([\u00E6vxyz\u201C\u2013~\u0192\u201A\u201E\u2026]?)([" +
   pattern(POST_SYMBOLS_MAP) + "])*", "g"
 );
@@ -83,6 +100,158 @@ const MAIN_CONVERSION_PATTERN = new RegExp(
 const HASAANT_PATTERN = new RegExp("(্)+", "g");
 const PRE_CONVERSION_PATTERN = new RegExp("(" + pattern(PRE_CONVERSION_MAP, "|") + ")", "g");
 const POST_CONVERSION_PATTERN = new RegExp("(" + pattern(POST_CONVERSION_MAP, "|") + ")", "g");
+
+/**
+ * Common English words often appearing in Bangladeshi business, government,
+ * education, or technical mixed-language documents that should pass through untouched.
+ */
+export const COMMON_ENGLISH_WORDS = new Set([
+  "the", "and", "of", "for", "in", "to", "with", "at", "by", "from", "on", "into", "over",
+  "price", "rate", "lead", "cutting", "down", "project", "protection", "management",
+  "field", "representatives", "representative", "manager", "officer", "executive",
+  "assistant", "director", "coordinator", "supervisor", "specialist", "consultant",
+  "division", "department", "section", "unit", "branch", "office", "zone", "region",
+  "total", "net", "gross", "amount", "taka", "date", "time", "year", "month", "day",
+  "name", "address", "phone", "mobile", "email", "mail", "web", "website",
+  "bill", "invoice", "receipt", "voucher", "account", "bank", "cheque", "cash",
+  "report", "summary", "status", "active", "pending", "approved", "rejected",
+  "service", "services", "system", "systems", "software", "hardware", "network",
+  "national", "international", "ltd", "limited", "pvt", "corp", "corporation",
+  "company", "group", "holdings", "enterprise", "enterprises", "associates",
+  "school", "college", "university", "institute", "center", "centre", "academy",
+  "board", "grade", "class", "roll", "registration", "session", "result", "gpa", "cgpa",
+  "page", "pages", "no", "number", "serial", "item", "items", "qty", "quantity",
+  "note", "notes", "remark", "remarks", "signature", "signed", "verified", "checked",
+  "male", "female", "gender", "age", "dob", "nid", "bcs", "ssc", "hsc", "jsc", "psc",
+  "tso", "ceo", "coo", "cto", "cfo", "hrm", "it", "hr", "admin", "iso"
+]);
+
+/**
+ * Common 2-letter English acronyms that frequently appear in mixed documents.
+ */
+export const COMMON_2_LETTER_ACRONYMS = new Set([
+  "AM", "PM", "IT", "HR", "CV", "ID", "AI", "PR", "MD", "PO", "TO", "DO",
+  "LC", "QC", "QA", "IP", "UI", "UX", "TV", "FM", "AC", "DC", "PC", "OK",
+  "EU", "UN", "US", "UK", "HQ", "BD"
+]);
+
+/**
+ * Common 2-letter uppercase Bijoy combinations that form real Bengali words
+ * and should NOT be treated as English acronyms.
+ * e.g. GB = এই, KZ = কত, MZ = গত.
+ */
+const BIJOY_2_LETTER_WORDS = new Set([
+  "GB", // এই
+  "KZ", // কত
+  "MZ", // গত
+  "BZ", // ইত
+  "DZ", // উত
+  "AZ", // অত
+]);
+
+/**
+ * Plain ASCII punctuation allow-list that should be safely preserved.
+ */
+export const PUNCTUATION_ALLOW_LIST = new Set(["-", ",", ".", "'", "\"", "/"]);
+
+/**
+ * Checks if enclosed content represents genuine Latin/English text that should pass through untouched.
+ */
+function isBracketedEnglish(inner: string): boolean {
+  const trimmed = inner.trim();
+  if (!trimmed) return false;
+
+  // Single Bijoy bullet markers like (K)=(ক), (L)=(খ), (M)=(গ), (N)=(ঘ) or (1)=(১)
+  if (trimmed.length === 1 && /[0-9KLMNOklmno]/.test(trimmed)) {
+    return false;
+  }
+
+  // Must consist solely of printable ASCII characters
+  if (!/^[\x20-\x7E]+$/.test(inner)) {
+    return false;
+  }
+
+  // Must contain at least one Latin letter
+  if (!/[A-Za-z]/.test(inner)) {
+    return false;
+  }
+
+  return true;
+}
+
+// Private Use Area Unicode offset for safe token placeholders
+const PUA_START = 0xE000;
+
+/**
+ * Pre-processing heuristic pass that protects genuine English content (bracketed phrases,
+ * ALL-CAPS acronyms, common mixed English words) and plain punctuation before Bijoy conversion.
+ */
+function protectEnglishAndPunctuation(text: string): { protectedText: string; tokens: string[] } {
+  const tokens: string[] = [];
+
+  const saveToken = (str: string): string => {
+    const placeholder = String.fromCharCode(PUA_START + tokens.length);
+    tokens.push(str);
+    return placeholder;
+  };
+
+  // 1. Bracketed or quoted Latin/English text: (...), [...], {...}, "...", '...'
+  let current = text.replace(/(\([^\(\)]*\)|\[[^\[\]]*\]|\{[^\{\}]*\}|"[^"]*"|'[^']*')/g, (match) => {
+    const open = match[0];
+    const close = match[match.length - 1];
+    const inner = match.slice(1, -1);
+
+    if (isBracketedEnglish(inner)) {
+      return saveToken(open + inner + close);
+    }
+    return match;
+  });
+
+  // 2. Web domains or emails (e.g. Utilix.bd, info@utilix.bd)
+  current = current.replace(/\b([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})\b/g, (match) => {
+    return saveToken(match);
+  });
+  current = current.replace(/\b([A-Za-z0-9-]+\.[A-Za-z]{2,})\b/g, (match) => {
+    return saveToken(match);
+  });
+
+  // 3. Outside brackets: Match word-like tokens and check for:
+  // - 3+ letter ALL CAPS acronyms (e.g. TSO, NID, CEO, BPSC, HSC)
+  // - Verified 2-letter ALL CAPS acronyms (e.g. AM, PM, IT, HR)
+  // - Known common English words (case-insensitively, e.g. project, total, price, rate)
+  current = current.replace(/\b([A-Za-z][A-Za-z0-9\-_/.]*)\b/g, (match, word) => {
+    // 3+ letters ALL CAPS (e.g. TSO, NID, CEO, BPSC, HSC) -> always English acronym
+    if (/^[A-Z]{3,}$/.test(word)) {
+      return saveToken(match);
+    }
+
+    // 2-letter ALL CAPS: check if it is a known English acronym and not a Bijoy word (like GB=এই, KZ=কত)
+    if (/^[A-Z]{2}$/.test(word)) {
+      if (COMMON_2_LETTER_ACRONYMS.has(word) && !BIJOY_2_LETTER_WORDS.has(word)) {
+        return saveToken(match);
+      }
+      return match;
+    }
+
+    // Check against common English words list
+    const cleanWord = word.toLowerCase();
+    if (COMMON_ENGLISH_WORDS.has(cleanWord) && !BIJOY_2_LETTER_WORDS.has(word)) {
+      return saveToken(match);
+    }
+
+    return match;
+  });
+
+  return { protectedText: current, tokens };
+}
+
+function restoreProtectedTokens(text: string, tokens: string[]): string {
+  if (tokens.length === 0) return text;
+  return text.replace(/[\uE000-\uF8FF]/g, (ch) => {
+    const idx = ch.charCodeAt(0) - PUA_START;
+    return tokens[idx] !== undefined ? tokens[idx] : ch;
+  });
+}
 
 function replaceSymbol(m: string): string {
   return ALL_SYMBOLS[m] || "";
@@ -92,9 +261,6 @@ function mainConverter(
   _match: string,
   preKaar: string,
   mUnit: string,
-  _g3: string,
-  _g4: string,
-  _g5: string,
   reff: string,
   postKaar: string,
   postPhala: string
@@ -113,10 +279,16 @@ function mainConverter(
  */
 export function bijoyToUnicode(str: string): string {
   if (!str) return "";
-  let t = str.replace(PRE_CONVERSION_PATTERN, (m) => PRE_CONVERSION_MAP[m] || m);
+
+  // Pre-processing heuristic pass for English terms, acronyms, and bracketed content
+  const { protectedText, tokens } = protectEnglishAndPunctuation(str);
+
+  let t = protectedText.replace(PRE_CONVERSION_PATTERN, (m) => PRE_CONVERSION_MAP[m] || m);
   t = t.replace(MAIN_CONVERSION_PATTERN, mainConverter);
   t = t.replace(POST_CONVERSION_PATTERN, (m) => POST_CONVERSION_MAP[m] || m);
-  return t;
+
+  // Restore protected tokens
+  return restoreProtectedTokens(t, tokens);
 }
 
 // Reverse mapping dictionary (Unicode -> Bijoy ANSI)

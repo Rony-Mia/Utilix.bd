@@ -131,12 +131,14 @@ export const ConverterPage: React.FC = () => {
         />
         <meta property="og:url" content="https://utilix.bd/converter" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://utilix.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="বিজয় ↔ ইউনিকোড কনভার্টার | Utilix.bd" />
         <meta
           name="twitter:description"
           content="সুতন্বীএমজে এবং ইউনিকোডের মধ্যে দ্রুত ও নির্ভুল দ্বিমুখী বাংলা টেক্সট রূপান্তর।"
         />
+        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
       </Helmet>
 
       {/* Breadcrumb */}

@@ -90,12 +90,14 @@ export const AmountInWordsPage: React.FC = () => {
         />
         <meta property="og:url" content="https://utilix.bd/amount-in-words" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://utilix.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="টাকা কথায় রূপান্তর | Utilix.bd" />
         <meta
           name="twitter:description"
           content="যেকোনো সংখ্যা বা টাকার পরিমাণ শুদ্ধ বাংলা ও ইংরেজিতে কথায় লেখার অনলাইন টুল।"
         />
+        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
       </Helmet>
 
       {/* Top Breadcrumb & Privacy Guarantee */}

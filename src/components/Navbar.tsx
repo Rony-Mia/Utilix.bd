@@ -60,6 +60,11 @@ const CATEGORIES: NavCategory[] = [
         label: 'টাকা কথায় রূপান্তরক',
         description: 'চেক ও দলিলের টাকার কথায় রূপান্তর',
       },
+      {
+        to: '/gpa-calculator',
+        label: 'জিপিএ ও সিজিপিএ ক্যালকুলেটর',
+        description: 'এসএসসি, এইচএসসি ও ভার্সিটি সিজিপিএ হিসাব',
+      },
     ],
   },
   {

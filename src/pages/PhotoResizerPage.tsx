@@ -448,12 +448,14 @@ export const PhotoResizerPage: React.FC = () => {
         />
         <meta property="og:url" content="https://utilix.bd/photo-resizer" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://utilix.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="ছবি ও স্বাক্ষর রিসাইজার | Utilix.bd" />
         <meta
           name="twitter:description"
           content="সরকারি চাকরি ও পাসপোর্টের নির্ধারিত মাপে ছবি এবং স্বাক্ষর রিসাইজার।"
         />
+        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
       </Helmet>
 
       {/* Top Breadcrumb & Privacy Guarantee */}
