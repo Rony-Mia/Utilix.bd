@@ -467,15 +467,15 @@ export const HeicConverterPage: React.FC = () => {
       </Helmet>
 
       {/* Top Breadcrumb & Navigation */}
-      <div className="flex items-center justify-between border-b border-[#d8cfb8] pb-4">
+      <div className="flex items-center justify-between border-b border-[#D5E4DB] pb-4">
         <Link
           to="/"
-          className="inline-flex items-center space-x-2 text-xs font-semibold text-[#083f2a] hover:text-[#0c5c3d] transition-colors"
+          className="inline-flex items-center space-x-2 text-xs font-semibold text-[#084A2E] hover:text-[#0B5D3B] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>টুলবক্সে ফিরে যান</span>
         </Link>
-        <div className="flex items-center space-x-2 text-xs text-[#0c5c3d] font-medium bg-[#f9f6ef] border border-[#d8cfb8] px-3 py-1">
+        <div className="flex items-center space-x-2 text-xs text-[#0B5D3B] font-medium bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-1 rounded-lg">
           <ShieldCheck className="w-3.5 h-3.5" />
           <span>১০০% অন-ডিভাইস কনভার্শন • প্রাইভেসি সুরক্ষিত</span>
         </div>
@@ -484,24 +484,24 @@ export const HeicConverterPage: React.FC = () => {
       {/* Hero Header */}
       <div className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 bg-[#0c5c3d] text-[#fffdf7] font-bold rounded-none">
+          <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 bg-[#0B5D3B] text-[#FFFFFF] font-bold rounded-md">
             আইফোন ফটো টুল
           </span>
-          <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 bg-[#e5dec9] text-[#083f2a] font-bold rounded-none border border-[#d8cfb8]">
+          <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 bg-[#D9E6DE] text-[#084A2E] font-bold rounded-md border border-[#D5E4DB]">
             ব্যাচ প্রসেসিং ও জিপ
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#083f2a] font-serif leading-tight">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#084A2E] font-serif leading-tight">
           HEIC থেকে JPG/PNG কনভার্টার — আইফোনের ছবি সহজে রূপান্তর করুন
         </h1>
-        <p className="text-sm text-[#4a4237] max-w-3xl leading-relaxed">
+        <p className="text-sm text-[#34443B] max-w-3xl leading-relaxed">
           আইফোনে তোলা ছবি ডিফল্টভাবে উচ্চ প্রযুক্তির <strong>HEIC</strong> ফরম্যাটে সেভ হয়, যেটা অনেক ওয়েবসাইট, সরকারি চাকরি পোর্টাল বা সাধারণ অ্যান্ড্রয়েড ডিভাইসে সরাসরি প্রদর্শিত হয় না। এখানে কোনো অ্যাপ ইনস্টল ছাড়াই আপনার আইফোনের একাধিক ছবি একসাথে <strong>JPG, PNG বা WebP</strong> ফরম্যাটে রূপান্তর করুন।
         </p>
       </div>
 
       {/* Skipped / Non-HEIC Notice Banner */}
       {skippedMessages.length > 0 && (
-        <div className="bg-amber-50 border border-amber-300 p-4 space-y-2">
+        <div className="bg-amber-50 border border-amber-300 p-4 space-y-2 rounded-2xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 text-amber-900 font-semibold text-xs sm:text-sm">
               <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
@@ -525,15 +525,15 @@ export const HeicConverterPage: React.FC = () => {
       )}
 
       {/* Settings & Configuration Card */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-6">
-        <div className="flex items-center justify-between border-b border-[#d8cfb8] pb-3">
-          <div className="flex items-center space-x-2 text-[#083f2a]">
-            <Settings className="w-4 h-4 text-[#0c5c3d]" />
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-6 rounded-2xl">
+        <div className="flex items-center justify-between border-b border-[#D5E4DB] pb-3">
+          <div className="flex items-center space-x-2 text-[#084A2E]">
+            <Settings className="w-4 h-4 text-[#0B5D3B]" />
             <h2 className="text-sm font-bold uppercase tracking-wider font-serif">
               কনভার্শন সেটিংস (Output Settings)
             </h2>
           </div>
-          <span className="text-xs text-[#6b6255] font-mono">
+          <span className="text-xs text-[#4A5A52] font-mono">
             ডিফল্ট: JPG (৮৫% কোয়ালিটি)
           </span>
         </div>
@@ -541,7 +541,7 @@ export const HeicConverterPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Format Selector */}
           <div className="space-y-2.5">
-            <label className="text-xs font-bold text-[#083f2a] block">
+            <label className="text-xs font-bold text-[#084A2E] block">
               আউটপুট ফরম্যাট নির্বাচন করুন:
             </label>
             <div className="grid grid-cols-3 gap-2.5">
@@ -550,12 +550,12 @@ export const HeicConverterPage: React.FC = () => {
                 onClick={() => setOutputFormat('jpeg')}
                 className={`py-2.5 px-3 border text-xs font-semibold flex flex-col items-center justify-center space-y-1 transition-all cursor-pointer ${
                   outputFormat === 'jpeg'
-                    ? 'border-[#0c5c3d] bg-[#0c5c3d] text-[#fffdf7] shadow-sm'
-                    : 'border-[#d8cfb8] bg-[#f9f6ef] text-[#4a4237] hover:border-[#0c5c3d]/60'
+                    ? 'border-[#0B5D3B] bg-[#0B5D3B] text-[#FFFFFF] shadow-sm'
+                    : 'border-[#D5E4DB] bg-[#F8FAF9] text-[#34443B] hover:border-[#0B5D3B]/60'
                 }`}
               >
                 <span className="font-bold text-sm">JPG</span>
-                <span className={`text-[10px] ${outputFormat === 'jpeg' ? 'text-white/80' : 'text-[#6b6255]'}`}>
+                <span className={`text-[10px] ${outputFormat === 'jpeg' ? 'text-white/80' : 'text-[#4A5A52]'}`}>
                   সর্বাধিক সামঞ্জস্যপূর্ণ
                 </span>
               </button>
@@ -565,12 +565,12 @@ export const HeicConverterPage: React.FC = () => {
                 onClick={() => setOutputFormat('png')}
                 className={`py-2.5 px-3 border text-xs font-semibold flex flex-col items-center justify-center space-y-1 transition-all cursor-pointer ${
                   outputFormat === 'png'
-                    ? 'border-[#0c5c3d] bg-[#0c5c3d] text-[#fffdf7] shadow-sm'
-                    : 'border-[#d8cfb8] bg-[#f9f6ef] text-[#4a4237] hover:border-[#0c5c3d]/60'
+                    ? 'border-[#0B5D3B] bg-[#0B5D3B] text-[#FFFFFF] shadow-sm'
+                    : 'border-[#D5E4DB] bg-[#F8FAF9] text-[#34443B] hover:border-[#0B5D3B]/60'
                 }`}
               >
                 <span className="font-bold text-sm">PNG</span>
-                <span className={`text-[10px] ${outputFormat === 'png' ? 'text-white/80' : 'text-[#6b6255]'}`}>
+                <span className={`text-[10px] ${outputFormat === 'png' ? 'text-white/80' : 'text-[#4A5A52]'}`}>
                   লসলেস কোয়ালিটি
                 </span>
               </button>
@@ -580,17 +580,17 @@ export const HeicConverterPage: React.FC = () => {
                 onClick={() => setOutputFormat('webp')}
                 className={`py-2.5 px-3 border text-xs font-semibold flex flex-col items-center justify-center space-y-1 transition-all cursor-pointer ${
                   outputFormat === 'webp'
-                    ? 'border-[#0c5c3d] bg-[#0c5c3d] text-[#fffdf7] shadow-sm'
-                    : 'border-[#d8cfb8] bg-[#f9f6ef] text-[#4a4237] hover:border-[#0c5c3d]/60'
+                    ? 'border-[#0B5D3B] bg-[#0B5D3B] text-[#FFFFFF] shadow-sm'
+                    : 'border-[#D5E4DB] bg-[#F8FAF9] text-[#34443B] hover:border-[#0B5D3B]/60'
                 }`}
               >
                 <span className="font-bold text-sm">WebP</span>
-                <span className={`text-[10px] ${outputFormat === 'webp' ? 'text-white/80' : 'text-[#6b6255]'}`}>
+                <span className={`text-[10px] ${outputFormat === 'webp' ? 'text-white/80' : 'text-[#4A5A52]'}`}>
                   আধুনিক হালকা ওয়েব
                 </span>
               </button>
             </div>
-            <p className="text-[11px] text-[#6b6255] pt-0.5">
+            <p className="text-[11px] text-[#4A5A52] pt-0.5">
               {outputFormat === 'jpeg' &&
                 'পাসপোর্ট, সরকারি আবেদন বা যেকোনো প্ল্যাটফর্মে আপলোডের জন্য JPG সবচেয়ে নিরাপদ পছন্দ।'}
               {outputFormat === 'png' &&
@@ -603,17 +603,17 @@ export const HeicConverterPage: React.FC = () => {
           {/* Quality Slider (JPG & WebP) */}
           <div className="space-y-2.5">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-[#083f2a]">
+              <label className="text-xs font-bold text-[#084A2E]">
                 ছবির কোয়ালিটি (Image Quality):
               </label>
-              <span className="text-xs font-mono font-bold text-[#0c5c3d] bg-[#f9f6ef] border border-[#d8cfb8] px-2 py-0.5">
+              <span className="text-xs font-mono font-bold text-[#0B5D3B] bg-[#F8FAF9] border border-[#D5E4DB] px-2 py-0.5">
                 {outputFormat === 'png' ? '১০০% (Lossless)' : `${toBanglaNum(quality)}%`}
               </span>
             </div>
 
             {outputFormat === 'png' ? (
-              <div className="p-3 bg-[#f9f6ef] border border-[#d8cfb8] text-xs text-[#6b6255] flex items-center space-x-2">
-                <Check className="w-4 h-4 text-[#0c5c3d] shrink-0" />
+              <div className="p-3 bg-[#F8FAF9] border border-[#D5E4DB] text-xs text-[#4A5A52] flex items-center space-x-2 rounded-2xl">
+                <Check className="w-4 h-4 text-[#0B5D3B] shrink-0" />
                 <span>পিএনজি একটি লসলেস ফরম্যাট, তাই এখানে ছবির সম্পূর্ণ কোয়ালিটি ১০০% সংরক্ষিত থাকে।</span>
               </div>
             ) : (
@@ -625,17 +625,17 @@ export const HeicConverterPage: React.FC = () => {
                   step="5"
                   value={quality}
                   onChange={(e) => setQuality(Number(e.target.value))}
-                  className="w-full accent-[#0c5c3d] cursor-pointer"
+                  className="w-full accent-[#0B5D3B] cursor-pointer"
                 />
-                <div className="flex items-center justify-between text-[11px] text-[#6b6255]">
+                <div className="flex items-center justify-between text-[11px] text-[#4A5A52]">
                   <span>ছোট সাইজ (৩০%)</span>
-                  <span className="font-semibold text-[#083f2a]">সুপারিশকৃত: ৮৫%</span>
+                  <span className="font-semibold text-[#084A2E]">সুপারিশকৃত: ৮৫%</span>
                   <span>সর্বোচ্চ ডিটেইল (১০০%)</span>
                 </div>
               </div>
             )}
 
-            <p className="text-[11px] text-[#6b6255]">
+            <p className="text-[11px] text-[#4A5A52]">
               ৮৫% কোয়ালিটিতে ফাইলের সাইজ অনেক কমে আসে অথচ খালি চোখে ছবির স্পষ্টতায় কোনো পার্থক্য বোঝা যায় না।
             </p>
           </div>
@@ -648,10 +648,10 @@ export const HeicConverterPage: React.FC = () => {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onClick={() => fileInputRef.current?.click()}
-        className={`border-2 border-dashed p-8 sm:p-10 text-center transition-all cursor-pointer ${
+        className={`border-2 border-dashed p-8 sm:p-10 text-center transition-all cursor-pointer  rounded-2xl ${
           isDragOver
-            ? 'border-[#0c5c3d] bg-[#0c5c3d]/5 scale-[0.99]'
-            : 'border-[#d8cfb8] bg-[#fffdf7] hover:border-[#0c5c3d]/70'
+            ? 'border-[#0B5D3B] bg-[#0B5D3B]/5 scale-[0.99]'
+            : 'border-[#D5E4DB] bg-[#FFFFFF] hover:border-[#0B5D3B]/70'
         }`}
       >
         <input
@@ -664,30 +664,30 @@ export const HeicConverterPage: React.FC = () => {
         />
 
         <div className="max-w-md mx-auto space-y-4">
-          <div className="w-14 h-14 mx-auto rounded-none bg-[#f4efe4] border border-[#d8cfb8] flex items-center justify-center text-[#0c5c3d]">
+          <div className="w-14 h-14 mx-auto rounded-md bg-[#F0F4F2] border border-[#D5E4DB] flex items-center justify-center text-[#0B5D3B]">
             <Upload className="w-6 h-6" />
           </div>
 
           <div className="space-y-1.5">
-            <h2 className="text-base font-bold text-[#083f2a] font-serif">
+            <h2 className="text-base font-bold text-[#084A2E] font-serif">
               আইফোনের HEIC বা HEIF ছবি এখানে টেনে আনুন বা ক্লিক করুন
             </h2>
-            <p className="text-xs text-[#6b6255]">
+            <p className="text-xs text-[#4A5A52]">
               একসাথে একাধিক (Multi-select) ছবি নির্বাচন করতে পারেন। কোনো লিমিট নেই।
             </p>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-            <span className="inline-flex items-center space-x-1 text-[11px] bg-[#f9f6ef] border border-[#d8cfb8] px-2.5 py-1 text-[#4a4237]">
-              <Smartphone className="w-3 h-3 text-[#0c5c3d]" />
+            <span className="inline-flex items-center space-x-1 text-[11px] bg-[#F8FAF9] border border-[#D5E4DB] px-2.5 py-1 text-[#34443B]">
+              <Smartphone className="w-3 h-3 text-[#0B5D3B]" />
               <span>আইফোন .heic / .heif</span>
             </span>
-            <span className="inline-flex items-center space-x-1 text-[11px] bg-[#f9f6ef] border border-[#d8cfb8] px-2.5 py-1 text-[#4a4237]">
-              <Layers className="w-3 h-3 text-[#0c5c3d]" />
+            <span className="inline-flex items-center space-x-1 text-[11px] bg-[#F8FAF9] border border-[#D5E4DB] px-2.5 py-1 text-[#34443B]">
+              <Layers className="w-3 h-3 text-[#0B5D3B]" />
               <span>আনলিমিটেড ফাইল ব্যাচ</span>
             </span>
-            <span className="inline-flex items-center space-x-1 text-[11px] bg-[#f9f6ef] border border-[#d8cfb8] px-2.5 py-1 text-[#4a4237]">
-              <ShieldCheck className="w-3 h-3 text-[#0c5c3d]" />
+            <span className="inline-flex items-center space-x-1 text-[11px] bg-[#F8FAF9] border border-[#D5E4DB] px-2.5 py-1 text-[#34443B]">
+              <ShieldCheck className="w-3 h-3 text-[#0B5D3B]" />
               <span>১০০% প্রাইভেট ও অফলাইন</span>
             </span>
           </div>
@@ -700,7 +700,7 @@ export const HeicConverterPage: React.FC = () => {
                 e.stopPropagation();
                 handleLoadSample();
               }}
-              className="inline-flex items-center space-x-1.5 text-xs text-[#0c5c3d] hover:text-[#083f2a] font-medium underline underline-offset-4 cursor-pointer"
+              className="inline-flex items-center space-x-1.5 text-xs text-[#0B5D3B] hover:text-[#084A2E] font-medium underline underline-offset-4 cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>আইফোন ফাইল নেই? নমুনা HEIC ছবি দিয়ে পরীক্ষা করুন</span>
@@ -711,22 +711,22 @@ export const HeicConverterPage: React.FC = () => {
 
       {/* Batch Action Toolbar & Stats */}
       {items.length > 0 && (
-        <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-5 space-y-4">
+        <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 sm:p-5 space-y-4 rounded-2xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             {/* Stats */}
             <div className="flex flex-wrap items-center gap-3 text-xs">
-              <span className="font-bold text-[#083f2a] font-serif text-sm">
+              <span className="font-bold text-[#084A2E] font-serif text-sm">
                 মোট ছবি: {toBanglaNum(totalCount)}টি
               </span>
-              <span className="text-[#d8cfb8]">|</span>
+              <span className="text-[#D5E4DB]">|</span>
               <span className="text-emerald-700 font-medium">
                 সম্পন্ন: {toBanglaNum(completedCount)}
               </span>
-              <span className="text-[#6b6255]">
+              <span className="text-[#4A5A52]">
                 অপেক্ষমান: {toBanglaNum(pendingCount)}
               </span>
               {convertingCount > 0 && (
-                <span className="text-[#0c5c3d] font-bold animate-pulse">
+                <span className="text-[#0B5D3B] font-bold animate-pulse">
                   কনভার্ট হচ্ছে: {toBanglaNum(convertingCount)}
                 </span>
               )}
@@ -745,7 +745,7 @@ export const HeicConverterPage: React.FC = () => {
                   type="button"
                   onClick={handleConvertAll}
                   disabled={isConvertingAll}
-                  className="bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] px-4 py-2 text-xs font-bold flex items-center space-x-1.5 transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+                  className="bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] px-4 py-2 text-xs font-bold flex items-center space-x-1.5 transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
                 >
                   {isConvertingAll ? (
                     <>
@@ -767,7 +767,7 @@ export const HeicConverterPage: React.FC = () => {
                   type="button"
                   onClick={handleDownloadZip}
                   disabled={isZipping}
-                  className="bg-[#083f2a] hover:bg-[#0c5c3d] text-[#fffdf7] px-4 py-2 text-xs font-bold flex items-center space-x-1.5 transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+                  className="bg-[#084A2E] hover:bg-[#0B5D3B] text-[#FFFFFF] px-4 py-2 text-xs font-bold flex items-center space-x-1.5 transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
                 >
                   {isZipping ? (
                     <>
@@ -787,7 +787,7 @@ export const HeicConverterPage: React.FC = () => {
               <button
                 type="button"
                 onClick={handleClearAll}
-                className="border border-[#d8cfb8] bg-[#f9f6ef] hover:bg-red-50 hover:border-red-300 hover:text-red-700 text-[#6b6255] px-3 py-2 text-xs font-medium flex items-center space-x-1 transition-colors cursor-pointer"
+                className="border border-[#D5E4DB] bg-[#F8FAF9] hover:bg-red-50 hover:border-red-300 hover:text-red-700 text-[#4A5A52] px-3 py-2 text-xs font-medium flex items-center space-x-1 transition-colors cursor-pointer rounded-lg"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>সব মুছুন</span>
@@ -798,15 +798,15 @@ export const HeicConverterPage: React.FC = () => {
           {/* Progress Bar */}
           {totalCount > 0 && (
             <div className="space-y-1.5">
-              <div className="flex justify-between text-[11px] text-[#6b6255]">
+              <div className="flex justify-between text-[11px] text-[#4A5A52]">
                 <span>কনভার্শন অগ্রগতি</span>
-                <span className="font-mono font-semibold text-[#083f2a]">
+                <span className="font-mono font-semibold text-[#084A2E]">
                   {toBanglaNum(completedCount)} / {toBanglaNum(totalCount)} টি সম্পন্ন ({toBanglaNum(progressPercent)}%)
                 </span>
               </div>
-              <div className="w-full bg-[#f4efe4] h-2 border border-[#d8cfb8] overflow-hidden">
+              <div className="w-full bg-[#F0F4F2] h-2 border border-[#D5E4DB] overflow-hidden rounded-lg">
                 <div
-                  className="bg-[#0c5c3d] h-full transition-all duration-300"
+                  className="bg-[#0B5D3B] h-full transition-all duration-300"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
@@ -819,11 +819,11 @@ export const HeicConverterPage: React.FC = () => {
       {items.length > 0 && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider">
+            <h2 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider">
               ছবির তালিকা ({toBanglaNum(items.length)}টি ফাইল)
             </h2>
-            <span className="text-xs text-[#6b6255]">
-              আউটপুট: <strong className="text-[#083f2a] uppercase">{outputFormat}</strong>
+            <span className="text-xs text-[#4A5A52]">
+              আউটপুট: <strong className="text-[#084A2E] uppercase">{outputFormat}</strong>
             </span>
           </div>
 
@@ -832,18 +832,18 @@ export const HeicConverterPage: React.FC = () => {
               return (
                 <div
                   key={item.id}
-                  className={`bg-[#fffdf7] border p-3 flex flex-col justify-between space-y-3 transition-all ${
+                  className={`bg-[#FFFFFF] border p-3 flex flex-col justify-between space-y-3 transition-all  rounded-2xl ${
                     item.status === 'completed'
-                      ? 'border-[#0c5c3d]/60 shadow-sm'
+                      ? 'border-[#0B5D3B]/60 shadow-sm'
                       : item.status === 'error'
                       ? 'border-red-400 bg-red-50/20'
                       : item.status === 'converting'
-                      ? 'border-[#0c5c3d] ring-1 ring-[#0c5c3d]/30'
-                      : 'border-[#d8cfb8]'
+                      ? 'border-[#0B5D3B] ring-1 ring-[#0B5D3B]/30'
+                      : 'border-[#D5E4DB]'
                   }`}
                 >
                   {/* Thumbnail & Preview */}
-                  <div className="relative aspect-[4/3] bg-[#f4efe4] border border-[#d8cfb8]/70 flex items-center justify-center overflow-hidden group">
+                  <div className="relative aspect-[4/3] bg-[#F0F4F2] border border-[#D5E4DB]/70 flex items-center justify-center overflow-hidden group rounded-lg">
                     {item.status === 'completed' && item.convertedUrl ? (
                       <>
                         <img
@@ -865,11 +865,11 @@ export const HeicConverterPage: React.FC = () => {
                       </>
                     ) : (
                       <div className="flex flex-col items-center justify-center space-y-1.5 p-3 text-center">
-                        <Smartphone className="w-7 h-7 text-[#0c5c3d]/70" />
-                        <span className="text-[10px] uppercase font-mono tracking-wider font-bold bg-[#e5dec9] text-[#083f2a] px-1.5 py-0.5 border border-[#d8cfb8]">
+                        <Smartphone className="w-7 h-7 text-[#0B5D3B]/70" />
+                        <span className="text-[10px] uppercase font-mono tracking-wider font-bold bg-[#D9E6DE] text-[#084A2E] px-1.5 py-0.5 border border-[#D5E4DB]">
                           আইফোন HEIC
                         </span>
-                        <span className="text-[10px] text-[#6b6255]">
+                        <span className="text-[10px] text-[#4A5A52]">
                           কনভার্ট হলে থাম্বনেইল দেখা যাবে
                         </span>
                       </div>
@@ -878,19 +878,19 @@ export const HeicConverterPage: React.FC = () => {
                     {/* Status Badge */}
                     <div className="absolute top-2 left-2">
                       {item.status === 'pending' && (
-                        <span className="inline-flex items-center space-x-1 text-[10px] bg-[#f9f6ef]/90 backdrop-blur-xs text-[#6b6255] border border-[#d8cfb8] px-1.5 py-0.5 font-medium">
+                        <span className="inline-flex items-center space-x-1 text-[10px] bg-[#F8FAF9]/90 backdrop-blur-xs text-[#4A5A52] border border-[#D5E4DB] px-1.5 py-0.5 font-medium">
                           <Clock className="w-3 h-3" />
                           <span>অপেক্ষমান</span>
                         </span>
                       )}
                       {item.status === 'converting' && (
-                        <span className="inline-flex items-center space-x-1 text-[10px] bg-[#0c5c3d] text-[#fffdf7] px-2 py-0.5 font-bold shadow-xs">
+                        <span className="inline-flex items-center space-x-1 text-[10px] bg-[#0B5D3B] text-[#FFFFFF] px-2 py-0.5 font-bold shadow-xs">
                           <RefreshCw className="w-3 h-3 animate-spin" />
                           <span>কনভার্ট হচ্ছে...</span>
                         </span>
                       )}
                       {item.status === 'completed' && (
-                        <span className="inline-flex items-center space-x-1 text-[10px] bg-emerald-700 text-[#fffdf7] px-1.5 py-0.5 font-bold shadow-xs">
+                        <span className="inline-flex items-center space-x-1 text-[10px] bg-emerald-700 text-[#FFFFFF] px-1.5 py-0.5 font-bold shadow-xs">
                           <CheckCircle2 className="w-3 h-3" />
                           <span>সম্পন্ন</span>
                         </span>
@@ -917,26 +917,26 @@ export const HeicConverterPage: React.FC = () => {
                   {/* Metadata & Status */}
                   <div className="space-y-1.5 text-xs">
                     <div
-                      className="font-semibold text-[#083f2a] truncate"
+                      className="font-semibold text-[#084A2E] truncate"
                       title={item.name}
                     >
                       {item.name}
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] text-[#6b6255] font-mono">
+                    <div className="flex items-center justify-between text-[11px] text-[#4A5A52] font-mono">
                       <span>আসল: {formatSize(item.originalSizeBytes)}</span>
-                      <span className="uppercase text-[10px] px-1 bg-[#f4efe4] border border-[#d8cfb8]">
+                      <span className="uppercase text-[10px] px-1 bg-[#F0F4F2] border border-[#D5E4DB]">
                         HEIC
                       </span>
                     </div>
 
                     {/* Converted Stats */}
                     {item.status === 'completed' && item.convertedSizeBytes && (
-                      <div className="pt-1.5 border-t border-[#d8cfb8]/60 flex items-center justify-between text-[11px] font-mono">
-                        <span className="text-[#0c5c3d] font-bold">
+                      <div className="pt-1.5 border-t border-[#D5E4DB]/60 flex items-center justify-between text-[11px] font-mono">
+                        <span className="text-[#0B5D3B] font-bold">
                           নতুন: {formatSize(item.convertedSizeBytes)}
                         </span>
-                        <span className="uppercase text-[10px] font-bold text-[#083f2a]">
+                        <span className="uppercase text-[10px] font-bold text-[#084A2E]">
                           {outputFormat}
                         </span>
                       </div>
@@ -951,7 +951,7 @@ export const HeicConverterPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleRetrySingle(index)}
-                          className="mt-1 text-[11px] text-[#0c5c3d] hover:underline font-medium flex items-center space-x-1 cursor-pointer"
+                          className="mt-1 text-[11px] text-[#0B5D3B] hover:underline font-medium flex items-center space-x-1 cursor-pointer"
                         >
                           <RefreshCw className="w-3 h-3" />
                           <span>আবার চেষ্টা করুন</span>
@@ -965,7 +965,7 @@ export const HeicConverterPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleDownloadSingle(item)}
-                      className="w-full mt-1 border border-[#0c5c3d] bg-[#f4efe4] hover:bg-[#0c5c3d] hover:text-[#fffdf7] text-[#083f2a] py-1.5 text-xs font-bold flex items-center justify-center space-x-1.5 transition-colors cursor-pointer"
+                      className="w-full mt-1 border border-[#0B5D3B] bg-[#F0F4F2] hover:bg-[#0B5D3B] hover:text-[#FFFFFF] text-[#084A2E] py-1.5 text-xs font-bold flex items-center justify-center space-x-1.5 transition-colors cursor-pointer rounded-lg"
                     >
                       <Download className="w-3.5 h-3.5" />
                       <span>ডাউনলোড ({outputFormat.toUpperCase()})</span>
@@ -986,22 +986,22 @@ export const HeicConverterPage: React.FC = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#fffdf7] border border-[#d8cfb8] max-w-3xl w-full p-4 relative space-y-3"
+            className="bg-[#FFFFFF] border border-[#D5E4DB] max-w-3xl w-full p-4 relative space-y-3 rounded-2xl"
           >
-            <div className="flex items-center justify-between border-b border-[#d8cfb8] pb-2">
-              <span className="text-xs font-bold text-[#083f2a] truncate max-w-md">
+            <div className="flex items-center justify-between border-b border-[#D5E4DB] pb-2">
+              <span className="text-xs font-bold text-[#084A2E] truncate max-w-md">
                 {activePreviewName}
               </span>
               <button
                 type="button"
                 onClick={() => setActivePreviewUrl(null)}
-                className="text-[#6b6255] hover:text-[#083f2a] p-1 cursor-pointer"
+                className="text-[#4A5A52] hover:text-[#084A2E] p-1 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="max-h-[70vh] flex items-center justify-center overflow-auto bg-[#f4efe4] p-2">
+            <div className="max-h-[70vh] flex items-center justify-center overflow-auto bg-[#F0F4F2] p-2">
               <img
                 src={activePreviewUrl}
                 alt={activePreviewName}
@@ -1013,7 +1013,7 @@ export const HeicConverterPage: React.FC = () => {
               <a
                 href={activePreviewUrl}
                 download={activePreviewName}
-                className="bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] px-4 py-1.5 text-xs font-bold inline-flex items-center space-x-1.5"
+                className="bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] px-4 py-1.5 text-xs font-bold inline-flex items-center space-x-1.5"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>ডাউনলোড করুন</span>
@@ -1025,85 +1025,85 @@ export const HeicConverterPage: React.FC = () => {
 
       {/* Instructions & Features Information */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-          <div className="flex items-center space-x-2 text-[#0c5c3d]">
+        <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+          <div className="flex items-center space-x-2 text-[#0B5D3B]">
             <Smartphone className="w-5 h-5" />
-            <h3 className="font-bold text-xs sm:text-sm font-serif text-[#083f2a]">
+            <h3 className="font-bold text-xs sm:text-sm font-serif text-[#084A2E]">
               আইফোনের আসল রেজোলিউশন
             </h3>
           </div>
-          <p className="text-xs text-[#6b6255] leading-relaxed">
+          <p className="text-xs text-[#4A5A52] leading-relaxed">
             ক্যামেরার উচ্চ মান এবং কালার প্রোফাইল অক্ষুণ্ণ রেখে ছবিগুলো কনভার্ট করা হয়। কোনো ব্লার বা অপ্রয়োজনীয় ক্রপ হয় না।
           </p>
         </div>
 
-        <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-          <div className="flex items-center space-x-2 text-[#0c5c3d]">
+        <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+          <div className="flex items-center space-x-2 text-[#0B5D3B]">
             <FileArchive className="w-5 h-5" />
-            <h3 className="font-bold text-xs sm:text-sm font-serif text-[#083f2a]">
+            <h3 className="font-bold text-xs sm:text-sm font-serif text-[#084A2E]">
               এক ক্লিকে ZIP ডাউনলোড
             </h3>
           </div>
-          <p className="text-xs text-[#6b6255] leading-relaxed">
+          <p className="text-xs text-[#4A5A52] leading-relaxed">
             একাধিক ছবি থাকলে প্রতিটি আলাদা ডাউনলোড করার ঝামেলা ছাড়াই সবগুলো ছবি একসাথে গোছানো জিপ প্যাকেজে নামিয়ে নিতে পারবেন।
           </p>
         </div>
 
-        <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-          <div className="flex items-center space-x-2 text-[#0c5c3d]">
+        <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+          <div className="flex items-center space-x-2 text-[#0B5D3B]">
             <ShieldCheck className="w-5 h-5" />
-            <h3 className="font-bold text-xs sm:text-sm font-serif text-[#083f2a]">
+            <h3 className="font-bold text-xs sm:text-sm font-serif text-[#084A2E]">
               গোপনীয়তা ও অফলাইন সুবিধা
             </h3>
           </div>
-          <p className="text-xs text-[#6b6255] leading-relaxed">
+          <p className="text-xs text-[#4A5A52] leading-relaxed">
             কোনো ফাইল ইন্টারনেটে আপলোড হয় না। সম্পূর্ণ কনভার্শন আপনার ব্রাউজারের ভেতর মেমোরিতে নিরাপদে সম্পন্ন হয়।
           </p>
         </div>
       </div>
 
       {/* FAQ Section */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-6 space-y-4">
-        <div className="flex items-center space-x-2 border-b border-[#d8cfb8] pb-3">
-          <HelpCircle className="w-4 h-4 text-[#0c5c3d]" />
-          <h2 className="text-base font-bold text-[#083f2a] font-serif">
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-6 space-y-4 rounded-2xl">
+        <div className="flex items-center space-x-2 border-b border-[#D5E4DB] pb-3">
+          <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
+          <h2 className="text-base font-bold text-[#084A2E] font-serif">
             সাধারণ জিজ্ঞাসা (FAQ)
           </h2>
         </div>
 
-        <div className="divide-y divide-[#d8cfb8] text-xs sm:text-sm text-[#4a4237]">
+        <div className="divide-y divide-[#D5E4DB] text-xs sm:text-sm text-[#34443B]">
           <div className="py-3.5 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               HEIC ফরম্যাট কী, কেন আইফোনে এটা ব্যবহার হয়?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               HEIC (High Efficiency Image Container) হলো অ্যাপল কর্তৃক আইফোনে ব্যবহৃত একটি আধুনিক ইমেজ কম্প্রেশন ফরম্যাট। এটি প্রচলিত JPEG ছবির তুলনায় প্রায় অর্ধেক ফাইল সাইজে একই বা উন্নত ছবির মান প্রদান করে। ফলে আইফোনের মূল্যবান স্টোরেজ সাশ্রয় হয়। তবে অনেক উইন্ডোজ পিসি, পুরনো অ্যান্ড্রয়েড ফোন বা সরকারি অনলাইন পোর্টালে HEIC সরাসরি সমর্থন করে না বিধায় এটিকে JPG/PNG-তে রূপান্তর করার প্রয়োজন হয়।
             </p>
           </div>
 
           <div className="py-3.5 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               একসাথে কতগুলো ছবি কনভার্ট করা যায়?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               একসাথে যতগুলো ইচ্ছে ছবি আপলোড ও রূপান্তর করতে পারবেন। এখানে কোনো ফাইলের সংখ্যা বা সাইজের কৃত্রিম সীমাবদ্ধতা নেই। এটি সম্পূর্ণ আনলিমিটেড এবং ফ্রি।
             </p>
           </div>
 
           <div className="py-3.5 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               ছবির কোয়ালিটি কি কমে যায়?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               না। আপনার আইফোনে তোলা ছবির মূল রেজোলিউশন সম্পূর্ণ অক্ষুণ্ণ রাখা হয়। এছাড়া আপনি নিজের ইচ্ছামতো কোয়ালিটি স্লাইডার দিয়ে ৮০% থেকে ১০০% কোয়ালিটি নির্ধারণ করতে পারেন। আর PNG ফরম্যাট নির্বাচন করলে এটি সম্পূর্ণ লসলেসভাবে (Lossless) রূপান্তরিত হয়।
             </p>
           </div>
 
           <div className="py-3.5 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               ছবি কি কোথাও আপলোড বা সংরক্ষণ হয়?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               একদমই না! সম্পূর্ণ কনভার্শন প্রসেস আপনার ডিভাইসের ব্রাউজারে WebAssembly প্রযুক্তিতে সম্পন্ন হয়। আপনার কোনো ছবি বা ব্যক্তিগত ফাইল ইন্টারনেটে বা কোনো রিমোট সার্ভারে আপলোড হয় না। ফলে আপনার ব্যক্তিগত ও পারিবারিক ছবির গোপনীয়তা ১০০% সুরক্ষিত থাকে।
             </p>
           </div>

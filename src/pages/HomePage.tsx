@@ -1,33 +1,28 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
   ArrowRight,
-  ArrowLeftRight,
-  Calculator,
-  Crop,
-  CheckCircle2,
-  Lock,
-  Zap,
-  Image as ImageIcon,
-  FileText,
-  Shield,
-  Clock,
-  Coins,
-  GraduationCap,
-  Sparkles,
-  HelpCircle,
-  ChevronDown,
   Calendar,
-  Layers,
-  Scissors,
-  Trash2,
-  RotateCw,
-  Stamp,
-  Grid
+  CheckCircle2,
+  ChevronDown,
+  Download,
+  Gift,
+  HelpCircle,
+  Lock,
+  MousePointerClick,
+  ShieldCheck,
+  Upload,
+  User,
+  UserX,
+  WifiOff,
+  Zap,
 } from 'lucide-react';
 import { TOOLS } from '../data/tools.ts';
 import { SITE_UPDATES } from '../data/updates.ts';
+import { getToolIcon } from '../data/toolIcons.tsx';
+import { toBn } from '../utils/bnDigits.ts';
+import type { ToolItem } from '../types.ts';
 
 interface HomePageProps {
   selectedCategory: string;
@@ -49,7 +44,7 @@ const FAQS = [
   {
     question: 'Utilix.bd-তে বর্তমানে কী কী টুল পাওয়া যায়?',
     answer:
-      'বর্তমানে আমাদের প্ল্যাটফর্মে ১২টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, ইমেজ মার্জার ও কোলাজ মেকার, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, সিভি মেকার এবং ৫টি শক্তিশালী পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট, পিডিএফ রোটেট ও পিডিএফ ওয়াটারমার্ক/পেজ নম্বর)।'
+      `বর্তমানে আমাদের প্ল্যাটফর্মে ${toBn(TOOLS.length)}টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, বাল্ক ফটো রিসাইজার, HEIC থেকে JPG/PNG কনভার্টার, AI ব্যাকগ্রাউন্ড রিমুভার, ইমেজ মার্জার ও কোলাজ মেকার, কাস্টম QR কোড জেনারেটর, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, সিভি মেকার এবং ৫টি পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট, পিডিএফ রোটেট ও পিডিএফ ওয়াটারমার্ক/পেজ নম্বর)।`
   },
   {
     question: 'ইন্টারনেট সংযোগ ছাড়া অফলাইনে কি এই টুলগুলো কাজ করে?',
@@ -63,19 +58,760 @@ const FAQS = [
   }
 ];
 
-export const HomePage: React.FC<HomePageProps> = ({
+
+// ── Static content ───────────────────────────────────────────────────────────
+
+const CATEGORY_TABS: Array<{ key: string; label: string }> = [
+  { key: 'all', label: 'সকল টুলস' },
+  { key: 'text', label: 'টেক্সট রূপান্তর' },
+  { key: 'image', label: 'গ্রাফিক্স ও ছবি' },
+  { key: 'calculator', label: 'ক্যালকুলেটর' },
+  { key: 'document', label: 'সিভি ও ডকুমেন্ট' },
+];
+
+const CATEGORY_GRADIENT: Record<string, string> = {
+  text: 'linear-gradient(135deg, #FEF3D0, #FDE68A)',
+  image: 'linear-gradient(135deg, #E6F4EC, #A7D9BE)',
+  calculator: 'linear-gradient(135deg, #EDE9FE, #DDD6FE)',
+  document: 'linear-gradient(135deg, #FEE2E2, #FECACA)',
+};
+
+/** Tools added most recently — shown with a "নতুন" badge. */
+const NEW_TOOL_IDS = new Set(['heic-converter', 'background-remover', 'bulk-photo-resizer', 'qr-generator']);
+
+/** Featured tools in the bento section (first one gets the large card). */
+const FEATURED_IDS = [
+  'photo-resizer',
+  'bijoy-converter',
+  'cv-builder',
+  'pdf-merger',
+  'gpa-calculator',
+  'age-calculator',
+  'background-remover',
+];
+
+const FEATURED_SHORT: Record<string, string> = {
+  'bijoy-converter': 'বিজয় ANSI লেখা ইউনিকোডে, ইউনিকোড বিজয়ে',
+  'cv-builder': '৫টি টেমপ্লেটে বাংলা ও ইংরেজি সিভি',
+  'pdf-merger': 'একাধিক PDF এক ফাইলে জোড়া লাগান',
+  'gpa-calculator': 'SSC/HSC ও ভার্সিটি CGPA হিসাব',
+  'age-calculator': 'সরকারি চাকরির বয়স ও কোটা যাচাই',
+  'background-remover': 'AI দিয়ে ছবির ব্যাকগ্রাউন্ড মুছুন',
+};
+
+const STEPS = [
+  { icon: MousePointerClick, title: 'টুল বেছে নিন', desc: 'আপনার প্রয়োজন অনুযায়ী ক্যাটাগরি থেকে টুল বেছে নিন' },
+  { icon: Upload, title: 'ফাইল বা তথ্য দিন', desc: 'ছবি, পিডিএফ বা যেকোনো তথ্য আপলোড বা টাইপ করুন' },
+  { icon: Download, title: 'সাথে সাথে ফলাফল পান', desc: 'সেকেন্ডের মধ্যে ফলাফল ডাউনলোড করুন' },
+];
+
+const PRIVACY_POINTS = [
+  { icon: Zap, title: 'ক্লায়েন্ট-সাইড প্রসেসিং', desc: 'সব কাজ আপনার ব্রাউজারে হয়, সার্ভারে কিছু যায় না' },
+  { icon: UserX, title: 'কোনো সাইনআপ নেই', desc: 'অ্যাকাউন্ট বা ইমেইল ছাড়াই ব্যবহার করুন' },
+  { icon: WifiOff, title: 'অফলাইনে কাজ করে', desc: 'একবার পেজ লোড হলে অধিকাংশ টুল ইন্টারনেট ছাড়াও চলে' },
+  { icon: Gift, title: 'সম্পূর্ণ বিনামূল্যে', desc: 'কোনো প্রিমিয়াম প্ল্যান নেই, সব টুল ফ্রি' },
+];
+
+const JAMDANI_PATTERN =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 60 32 32 60 4 32Z M32 18 46 32 32 46 18 32Z' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='1'/%3E%3C/svg%3E\")";
+
+// ── Parallax (decorative layers only; disabled for reduced motion) ───────────
+
+function useParallax<T extends HTMLElement>(speed = 0.25) {
+  const ref = useRef<T>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const layer = el.querySelector<HTMLElement>('.parallax-bg');
+    if (!layer) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let raf = 0;
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
+      layer.style.transform = `translate3d(0, ${offset}px, 0)`;
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [speed]);
+
+  return ref;
+}
+
+// ── Small shared pieces ──────────────────────────────────────────────────────
+
+const SectionHeading: React.FC<{
+  badge?: string;
+  title: string;
+  subtitle?: string;
+  center?: boolean;
+  id?: string;
+}> = ({ badge, title, subtitle, center, id }) => (
+  <div className={`mb-10 md:mb-12 ${center ? 'text-center' : ''}`}>
+    {badge && (
+      <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-4 bg-[#E6F4EC] text-[#0B5D3B]">
+        {badge}
+      </span>
+    )}
+    <h2 id={id} className="text-3xl lg:text-4xl font-bold text-[#0F1F17] tracking-tight">
+      {title}
+    </h2>
+    {subtitle && <p className="mt-3 text-lg text-[#4A5A52]">{subtitle}</p>}
+  </div>
+);
+
+const NewBadge: React.FC = () => (
+  <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-[#F5A524] text-[#0F1F17]">নতুন</span>
+);
+
+function findTool(id: string): ToolItem | undefined {
+  return TOOLS.find((t) => t.id === id);
+}
+
+// ── Hero ─────────────────────────────────────────────────────────────────────
+
+const Hero: React.FC = () => (
+  <section className="relative overflow-hidden">
+    <div className="absolute inset-0 dot-grid opacity-40" aria-hidden="true" />
+    <div className="glow-blob w-96 h-96 top-10 -left-24 opacity-50 bg-[#E6F4EC]" aria-hidden="true" />
+    <div className="glow-blob w-72 h-72 top-32 right-10 opacity-30 bg-[#FEF3D0]" aria-hidden="true" />
+
+    <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 bg-[#E6F4EC]/90 text-[#0B5D3B] border border-[#0B5D3B]/25">
+          <span aria-hidden="true">🇧🇩</span>
+          <span>১০০% ফ্রি • কোনো লগইন নেই</span>
+        </div>
+
+        <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-[#0F1F17] tracking-tight leading-[1.2] mb-6">
+          দ্রুত, <span className="squiggle-underline text-[#0B5D3B]">নিরাপদ</span> ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস।
+        </h1>
+
+        <p className="text-lg leading-relaxed mb-10 max-w-xl text-[#4A5A52]">
+          আপনার কোনো ডেটা বা ফাইল সার্ভারে জমা হয় না; সমস্ত রূপান্তর এবং গণনা সরাসরি আপনার কম্পিউটারে সম্পন্ন হয় — নিখরচায় ও তাৎক্ষণিকভাবে।
+        </p>
+
+        <div className="flex flex-wrap gap-4 mb-10">
+          <a
+            href="#tools"
+            className="btn-shine inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white text-base"
+            style={{ background: 'linear-gradient(135deg, #0B5D3B, #0D7048)', boxShadow: '0 8px 24px rgba(11,93,59,0.4)' }}
+          >
+            টুলস দেখুন <ArrowRight className="w-4 h-4" />
+          </a>
+          <a
+            href="#how"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-base bg-white/85 text-[#0B5D3B] border-[1.5px] border-[#0B5D3B]/25 hover:bg-[#E6F4EC] transition-colors"
+          >
+            কীভাবে কাজ করে
+          </a>
+        </div>
+
+        <ul className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-[#4A5A52]">
+          <li className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-[#0B5D3B] shrink-0" />
+            কোনো লগইন প্রয়োজন নেই
+          </li>
+          <li className="flex items-center gap-2">
+            <Lock className="w-4 h-4 text-[#0B5D3B] shrink-0" />
+            সম্পূর্ণ ব্যক্তিগত ও ব্রাউজার-ভিত্তিক প্রসেসিং
+          </li>
+        </ul>
+      </div>
+
+      {/* Decorative collage of real tools (hidden on small screens) */}
+      <div className="relative hidden lg:flex items-center justify-center h-[540px]" aria-hidden="true">
+        <div className="float-1 absolute left-4 top-12 w-56 rounded-2xl bg-white/95 border border-[#0B5D3B]/10 shadow-[0_20px_60px_rgba(11,93,59,0.18)] p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#E6F4EC] text-[#0B5D3B]">
+              {React.createElement(getToolIcon('pdf-merger'), { className: 'w-4 h-4' })}
+            </span>
+            <span className="text-xs font-semibold text-[#0F1F17]">পিডিএফ মার্জার</span>
+          </div>
+          <div className="space-y-2 mb-3">
+            {['আবেদনপত্র.pdf', 'সনদ.pdf', 'ছবি.pdf'].map((f, i) => (
+              <div
+                key={f}
+                className={`flex items-center gap-2 px-2 py-1.5 rounded-lg border border-[#0B5D3B]/10 ${i === 0 ? 'bg-[#E6F4EC]' : 'bg-[#F8FAF9]'}`}
+              >
+                <span className="text-xs text-[#4A5A52]">{f}</span>
+              </div>
+            ))}
+          </div>
+          <div className="py-2 rounded-lg text-center text-xs font-semibold text-white bg-[#0B5D3B]">একত্রিত করুন</div>
+        </div>
+
+        <div className="float-2 absolute right-0 top-8 w-56 rounded-2xl bg-white/95 border border-[#0B5D3B]/10 shadow-[0_20px_60px_rgba(11,93,59,0.18)] p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#FEF3D0] text-[#92400E]">
+              {React.createElement(getToolIcon('photo-resizer'), { className: 'w-4 h-4' })}
+            </span>
+            <span className="text-xs font-semibold text-[#0F1F17]">ছবি রিসাইজার</span>
+          </div>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="flex-1 h-[72px] rounded-xl flex items-center justify-center bg-[#E6F4EC] text-[#0B5D3B]">
+              <User className="w-8 h-8" />
+            </div>
+            <ArrowRight className="w-4 h-4 text-[#F5A524] shrink-0" />
+            <div className="w-12 h-[60px] rounded-xl flex items-center justify-center bg-[#E6F4EC] text-[#0B5D3B]">
+              <User className="w-5 h-5" />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <div className="flex-1 text-center px-2 py-1 rounded-lg text-xs font-medium bg-[#E6F4EC] text-[#0B5D3B]">সরকারি</div>
+            <div className="flex-1 text-center px-2 py-1 rounded-lg text-xs font-medium bg-[#F0F4F2] text-[#4A5A52]">পাসপোর্ট</div>
+          </div>
+        </div>
+
+        <div className="float-3 absolute left-12 bottom-12 w-56 rounded-2xl bg-white/95 border border-[#0B5D3B]/10 shadow-[0_20px_60px_rgba(11,93,59,0.18)] p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#EDE9FE] text-[#5B21B6]">
+              {React.createElement(getToolIcon('gpa-calculator'), { className: 'w-4 h-4' })}
+            </span>
+            <span className="text-xs font-semibold text-[#0F1F17]">জিপিএ ক্যালকুলেটর</span>
+          </div>
+          <div className="space-y-1.5 mb-3">
+            {[['বাংলা', 'A+'], ['ইংরেজি', 'A'], ['গণিত', 'A+']].map(([sub, grade]) => (
+              <div key={sub} className="flex items-center justify-between">
+                <span className="text-xs text-[#4A5A52]">{sub}</span>
+                <span
+                  className={`text-xs font-bold px-2 py-0.5 rounded-md font-latin ${grade === 'A+' ? 'bg-[#E6F4EC] text-[#0B5D3B]' : 'bg-[#FEF3D0] text-[#B45309]'}`}
+                >
+                  {grade}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-between px-3 py-2 rounded-xl" style={{ background: 'linear-gradient(135deg, #0B5D3B, #0D7048)' }}>
+            <span className="text-xs text-white font-medium">জিপিএ</span>
+            <span className="text-lg font-bold text-white font-latin">5.00</span>
+          </div>
+        </div>
+
+        <span className="absolute right-8 bottom-32 px-3 py-1.5 rounded-full text-xs font-bold bg-[#F5A524] text-[#0F1F17] shadow-[0_4px_12px_rgba(245,165,36,0.4)]">
+          নতুন
+        </span>
+        <span className="absolute left-28 top-44 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#E6F4EC]/90 text-[#0B5D3B] border border-[#0B5D3B]/20">
+          ✓ ডাউনলোড রেডি
+        </span>
+      </div>
+    </div>
+  </section>
+);
+
+// ── Stats (all figures are real / derived from the tool list) ───────────────
+
+const Stats: React.FC = () => {
+  const stats = [
+    { value: `${toBn(TOOLS.length)}টি`, label: 'ফ্রি টুলস' },
+    { value: '১০০%', label: 'ক্লায়েন্ট-সাইড প্রসেসিং' },
+    { value: '০ টাকা', label: 'সম্পূর্ণ বিনামূল্যে' },
+    { value: 'লগইন ছাড়াই', label: 'সরাসরি ব্যবহার' },
+  ];
+  return (
+    <div className="max-w-[1000px] mx-auto px-4 sm:px-6 relative z-20 -mt-2 lg:-mt-6">
+      <dl className="grid grid-cols-2 lg:grid-cols-4 rounded-2xl bg-white border border-[#0B5D3B]/10 shadow-[0_20px_60px_rgba(11,93,59,0.12)] overflow-hidden">
+        {stats.map((stat, i) => (
+          <div key={stat.label} className="p-6 lg:p-8 text-center relative">
+            {i < stats.length - 1 && (
+              <span className="hidden lg:block absolute right-0 top-6 bottom-6 w-px bg-[#0B5D3B]/10" aria-hidden="true" />
+            )}
+            <dd className="text-2xl lg:text-3xl font-bold mb-1 text-[#0B5D3B] order-first">{stat.value}</dd>
+            <dt className="text-sm text-[#4A5A52]">{stat.label}</dt>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+};
+
+// ── Featured tools (bento) ──────────────────────────────────────────────────
+
+const FeaturedTools: React.FC = () => {
+  const [lead, ...rest] = FEATURED_IDS.map(findTool).filter((t): t is ToolItem => Boolean(t));
+  if (!lead) return null;
+  const LeadIcon = getToolIcon(lead.id);
+
+  return (
+    <section className="py-20 lg:py-24" aria-labelledby="featured-heading">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <SectionHeading
+          id="featured-heading"
+          badge="প্রয়োজনীয়"
+          title="সবচেয়ে প্রয়োজনীয় টুলস"
+          subtitle="চাকরির আবেদন, পড়াশোনা ও দাপ্তরিক কাজে সবচেয়ে বেশি লাগে যেগুলো"
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {/* Large lead card */}
+          <Link
+            to={lead.link ?? '/'}
+            className="tool-card card-hover md:col-span-3 lg:col-span-2 rounded-2xl p-6 relative overflow-hidden bg-white border border-[#0B5D3B]/10 shadow-[0_4px_16px_rgba(11,93,59,0.06)] flex flex-col"
+          >
+            <span className="absolute top-4 right-4 px-2.5 py-1 rounded-full text-xs font-bold bg-[#F5A524] text-[#0F1F17]">
+              সরকারি চাকরি
+            </span>
+            <span
+              className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-[#0B5D3B]"
+              style={{ background: CATEGORY_GRADIENT.image }}
+            >
+              <LeadIcon className="w-6 h-6" />
+            </span>
+            <h3 className="text-xl font-bold mb-2 text-[#0F1F17]">{lead.title}</h3>
+            <p className="text-sm mb-6 text-[#4A5A52] leading-relaxed">{lead.description}</p>
+
+            <div className="flex items-center gap-4 p-4 rounded-xl bg-[#F8FAF9] mt-auto" aria-hidden="true">
+              <div className="flex-1 text-center">
+                <div className="w-16 h-20 mx-auto rounded-lg flex items-center justify-center mb-2 bg-[#E6F4EC] border-2 border-dashed border-[#0B5D3B]/20 text-[#0B5D3B]">
+                  <User className="w-8 h-8" />
+                </div>
+                <p className="text-xs text-[#4A5A52]">আসল ছবি</p>
+              </div>
+              <span className="w-8 h-8 rounded-full flex items-center justify-center bg-[#0B5D3B] text-white shrink-0">
+                <ArrowRight className="w-4 h-4" />
+              </span>
+              <div className="flex-1 text-center">
+                <div className="w-10 h-12 mx-auto rounded-lg flex items-center justify-center mb-2 bg-[#0B5D3B] text-white">
+                  <User className="w-5 h-5" />
+                </div>
+                <p className="text-xs font-semibold text-[#0B5D3B]">৩০০×৩০০ • ১০০ KB</p>
+              </div>
+            </div>
+
+            <span className="tool-arrow flex items-center gap-1 mt-4 text-sm font-semibold text-[#0B5D3B]">
+              টুল চালু করুন <ArrowRight className="w-4 h-4" />
+            </span>
+          </Link>
+
+          {rest.map((tool) => {
+            const Icon = getToolIcon(tool.id);
+            return (
+              <Link
+                key={tool.id}
+                to={tool.link ?? '/'}
+                className="tool-card card-hover rounded-2xl p-5 bg-white border border-[#0B5D3B]/10 shadow-[0_4px_16px_rgba(11,93,59,0.06)] flex flex-col"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <span
+                    className="w-10 h-10 rounded-xl flex items-center justify-center text-[#0B5D3B]"
+                    style={{ background: CATEGORY_GRADIENT[tool.category] ?? CATEGORY_GRADIENT.image }}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </span>
+                  {NEW_TOOL_IDS.has(tool.id) && <NewBadge />}
+                </div>
+                <h3 className="text-sm font-bold mb-1 text-[#0F1F17] leading-snug">{tool.title}</h3>
+                <p className="text-xs text-[#4A5A52] leading-relaxed">{FEATURED_SHORT[tool.id] ?? tool.feature}</p>
+                <span className="tool-arrow flex items-center gap-1 mt-3 text-xs font-semibold text-[#0B5D3B]">
+                  চালু করুন <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── All tools with category filter (state is owned by App so the navbar can drive it) ─
+
+const AllTools: React.FC<{ selectedCategory: string; onSelectCategory: (c: string) => void }> = ({
   selectedCategory,
   onSelectCategory,
-  onOpenTerms
 }) => {
-  const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(null);
+  const filtered = useMemo(
+    () => (selectedCategory === 'all' ? TOOLS : TOOLS.filter((t) => t.category === selectedCategory)),
+    [selectedCategory],
+  );
 
-  // Filtered tools
-  const filteredTools = useMemo(() => {
-    if (selectedCategory === 'all') return TOOLS;
-    return TOOLS.filter((t) => t.category === selectedCategory);
-  }, [selectedCategory]);
+  return (
+    <section id="tools" className="py-20 lg:py-24 bg-white" aria-labelledby="tools-heading">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <SectionHeading id="tools-heading" title="সব টুলস" subtitle="ক্যাটাগরি অনুযায়ী ফিল্টার করুন" />
 
+        <div className="flex flex-wrap gap-2 mb-10" role="group" aria-label="টুলস ক্যাটাগরি">
+          {CATEGORY_TABS.map((tab) => {
+            const active = selectedCategory === tab.key;
+            const count = tab.key === 'all' ? TOOLS.length : TOOLS.filter((t) => t.category === tab.key).length;
+            return (
+              <button
+                key={tab.key}
+                type="button"
+                aria-pressed={active}
+                onClick={() => onSelectCategory(tab.key)}
+                className={`px-5 py-2 rounded-full text-sm font-semibold border-[1.5px] transition-colors cursor-pointer ${
+                  active
+                    ? 'bg-[#0B5D3B] text-white border-[#0B5D3B]'
+                    : 'bg-white text-[#4A5A52] border-[#0B5D3B]/20 hover:text-[#0B5D3B] hover:border-[#0B5D3B]/50'
+                }`}
+              >
+                {tab.label} ({toBn(count)})
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filtered.map((tool) => {
+            const Icon = getToolIcon(tool.id);
+            const tags = tool.feature.split('•').map((t) => t.trim()).filter(Boolean).slice(0, 3);
+            const card = (
+              <>
+                <div className="flex items-start gap-4">
+                  <span
+                    className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 text-[#0B5D3B]"
+                    style={{ background: CATEGORY_GRADIENT[tool.category] ?? '#E6F4EC' }}
+                  >
+                    <Icon className="w-6 h-6" />
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="font-bold text-base mb-1 text-[#0F1F17] leading-snug">{tool.title}</h3>
+                      {NEW_TOOL_IDS.has(tool.id) && <NewBadge />}
+                    </div>
+                    <p className="text-sm mb-3 text-[#4A5A52] leading-relaxed line-clamp-3">{tool.description}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {tags.map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 rounded-md text-xs font-medium bg-[#E6F4EC] text-[#0B5D3B]">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <span className="tool-arrow flex items-center justify-end gap-1 mt-4 text-sm font-semibold text-[#0B5D3B]">
+                  টুল চালু করুন <ArrowRight className="w-4 h-4" />
+                </span>
+              </>
+            );
+            const cls =
+              'tool-card card-hover rounded-2xl p-5 bg-[#FAFAF7] border border-[#0B5D3B]/10 flex flex-col justify-between';
+            return tool.status === 'active' && tool.link ? (
+              <Link key={tool.id} to={tool.link} className={cls}>
+                {card}
+              </Link>
+            ) : (
+              <div key={tool.id} className={`${cls} opacity-70`}>
+                {card}
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+// ── About text (existing SEO copy, kept) ────────────────────────────────────
+
+const AboutBand: React.FC = () => (
+  <section className="py-16">
+    <div className="max-w-[1000px] mx-auto px-4 sm:px-6">
+      <div className="rounded-2xl bg-white border border-[#0B5D3B]/10 p-6 sm:p-8 shadow-[0_4px_16px_rgba(11,93,59,0.05)]">
+        <h2 className="text-xl font-bold text-[#0F1F17] mb-3">একটি ঠিকানায় আপনার সব প্রয়োজনীয় বাংলা টুলস</h2>
+        <p className="text-sm sm:text-base text-[#4A5A52] leading-relaxed">
+          Utilix.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত একটি উন্মুক্ত ও নিরাপদ প্ল্যাটফর্ম। সরকারি চাকরির টেলিটক পোর্টালে (Teletalk/BPSC) ৩০০×৩০০ ছবি ও স্বাক্ষর রিসাইজ, সার্কুলারের বয়স ও কোটা গণনা, পুরোনো বিজয় (SutonnyMJ) লেখা থেকে ইউনিকোডে রূপান্তর, ব্যাংক চেক ও দলিলের টাকার কথায় রূপান্তর, শিক্ষা বোর্ডের এসএসসি/এইচএসসি ও বিশ্ববিদ্যালয়ের সিজিপিএ হিসাব এবং মানসম্মত সিভি তৈরি—দৈনন্দিন সব জটিল কাজ এখন ঝামেলাহীনভাবে সম্পন্ন করুন কোনো সার্ভার আপলোড ছাড়াই।
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
+// ── How it works ────────────────────────────────────────────────────────────
+
+const HowItWorks: React.FC = () => (
+  <section id="how" className="py-20 lg:py-24 bg-white" aria-labelledby="how-heading">
+    <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+      <SectionHeading id="how-heading" center badge="কীভাবে কাজ করে" title="মাত্র ৩ ধাপে কাজ করুন" />
+      <ol className="relative grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+        <span
+          className="hidden md:block absolute top-12 left-[20%] right-[20%] border-t-2 border-dashed border-[#0B5D3B]/20"
+          aria-hidden="true"
+        />
+        {STEPS.map((step, i) => {
+          const Icon = step.icon;
+          return (
+            <li key={step.title} className="text-center relative">
+              <div className="relative inline-block mb-6">
+                <span className="w-24 h-24 rounded-2xl flex items-center justify-center mx-auto relative z-10 bg-white border border-[#0B5D3B]/10 shadow-[0_8px_32px_rgba(11,93,59,0.1)] text-[#0B5D3B]">
+                  <Icon className="w-9 h-9" />
+                </span>
+                <span
+                  className="absolute -top-2 -right-2 z-20 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white font-latin"
+                  style={{ background: i === 0 ? '#0B5D3B' : i === 1 ? '#D98E0B' : '#0D7048' }}
+                >
+                  {i + 1}
+                </span>
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-[#0F1F17]">{step.title}</h3>
+              <p className="text-base leading-relaxed text-[#4A5A52] max-w-xs mx-auto">{step.desc}</p>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  </section>
+);
+
+// ── Privacy (dark) ──────────────────────────────────────────────────────────
+
+const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => {
+  const ref = useParallax<HTMLElement>(0.2);
+  return (
+    <section ref={ref} className="relative overflow-hidden py-20 lg:py-24 bg-[#052D1C]" aria-labelledby="privacy-heading">
+      <div
+        className="parallax-bg absolute will-change-transform"
+        style={{ top: '-20%', bottom: '-20%', left: 0, right: 0, backgroundImage: JAMDANI_PATTERN, backgroundSize: '64px 64px' }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: 'radial-gradient(ellipse at 20% 0%, rgba(13,112,72,0.55), transparent 60%)' }}
+        aria-hidden="true"
+      />
+      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+        <div>
+          <span className="inline-flex w-16 h-16 rounded-2xl items-center justify-center mb-8 bg-white/10 text-[#F5A524]">
+            <ShieldCheck className="w-9 h-9" />
+          </span>
+          <h2 id="privacy-heading" className="text-3xl lg:text-4xl font-bold mb-6 text-white tracking-tight">
+            কেন ইউটিলিক্স সম্পূর্ণ নিরাপদ?
+          </h2>
+          <p className="text-lg leading-relaxed text-white/75 mb-8">
+            আমাদের প্রতিটি টুল ক্লায়েন্ট-সাইড জাভাস্ক্রিপ্টে নির্মিত। আপনি যা লিখবেন বা আপলোড করবেন তা কখনোই কোনো রিমোট সার্ভার বা ডেটাবেজে স্থানান্তরিত হয় না।
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to="/privacy-policy"
+              className="px-5 py-2.5 rounded-full text-sm font-semibold bg-[#F5A524] text-[#0F1F17] hover:bg-[#FFB83D] transition-colors"
+            >
+              গোপনীয়তা নীতি
+            </Link>
+            <Link
+              to="/about"
+              className="px-5 py-2.5 rounded-full text-sm font-semibold text-white border border-white/30 hover:bg-white/10 transition-colors"
+            >
+              আমাদের সম্পর্কে
+            </Link>
+            <button
+              type="button"
+              onClick={onOpenTerms}
+              className="px-5 py-2.5 rounded-full text-sm font-semibold text-white border border-white/30 hover:bg-white/10 transition-colors cursor-pointer"
+            >
+              ব্যবহারের নিয়ম
+            </button>
+          </div>
+        </div>
+
+        <ul className="grid grid-cols-1 gap-4">
+          {PRIVACY_POINTS.map((p) => {
+            const Icon = p.icon;
+            return (
+              <li key={p.title} className="flex items-start gap-4 p-5 rounded-2xl bg-white/[0.07] border border-white/10">
+                <span className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-white/10 text-[#F5A524]">
+                  <Icon className="w-5 h-5" />
+                </span>
+                <div className="flex-1">
+                  <h3 className="font-bold text-white mb-1">{p.title}</h3>
+                  <p className="text-sm text-white/65">{p.desc}</p>
+                </div>
+                <CheckCircle2 className="w-5 h-5 text-[#F5A524] shrink-0 mt-1" aria-hidden="true" />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+};
+
+// ── Release log (existing content, restyled) ────────────────────────────────
+
+const Updates: React.FC = () => (
+  <section className="py-20 lg:py-24" aria-labelledby="updates-heading">
+    <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-10">
+        <div>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4 bg-[#E6F4EC] text-[#0B5D3B]">
+            <Calendar className="w-3.5 h-3.5" /> রিলিজ লগ
+          </span>
+          <h2 id="updates-heading" className="text-3xl font-bold text-[#0F1F17] tracking-tight">
+            সাম্প্রতিক আপডেট ও রিলিজ লগ
+          </h2>
+        </div>
+        <p className="text-sm text-[#4A5A52]">নিয়মিত হালনাগাদ ও নতুন ফিচার সংযোজন</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {SITE_UPDATES.map((update) => (
+          <article
+            key={update.id}
+            className="rounded-2xl bg-white border border-[#0B5D3B]/10 p-5 flex flex-col justify-between hover:border-[#0B5D3B]/40 transition-colors"
+          >
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-mono text-[#4A5A52]">{update.date}</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-mono text-[11px] font-medium px-1.5 py-0.5 rounded-md bg-[#F0F4F2] text-[#084A2E] border border-[#D5E4DB]">
+                    {update.version}
+                  </span>
+                  <span
+                    className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+                      update.badgeType === 'new'
+                        ? 'bg-[#0B5D3B] text-white'
+                        : update.badgeType === 'update'
+                        ? 'bg-[#084A2E] text-white'
+                        : 'bg-[#E6F4EC] text-[#084A2E]'
+                    }`}
+                  >
+                    {update.badge}
+                  </span>
+                </div>
+              </div>
+              <h3 className="text-base font-bold text-[#0F1F17]">{update.title}</h3>
+              <p className="text-sm text-[#4A5A52] leading-relaxed">{update.description}</p>
+            </div>
+
+            {update.toolLink && (
+              <div className="pt-3">
+                <Link
+                  to={update.toolLink}
+                  className="inline-flex items-center text-sm font-semibold text-[#0B5D3B] hover:text-[#084A2E] hover:underline"
+                >
+                  <span>{update.toolName || 'টুল দেখুন'}</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                </Link>
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+// ── FAQ ─────────────────────────────────────────────────────────────────────
+
+const FaqSection: React.FC = () => {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  return (
+    <section className="py-20 lg:py-24 bg-white" aria-labelledby="faq-heading">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-5 gap-12">
+        <div className="lg:col-span-2">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4 bg-[#E6F4EC] text-[#0B5D3B]">
+            <HelpCircle className="w-3.5 h-3.5" /> সাধারণ প্রশ্ন
+          </span>
+          <h2 id="faq-heading" className="text-3xl font-bold mb-4 text-[#0F1F17] tracking-tight">
+            সাধারণ প্রশ্নোত্তর
+          </h2>
+          <p className="text-base leading-relaxed mb-8 text-[#4A5A52]">
+            আপনার যেকোনো প্রশ্নের উত্তর না পেলে আমাদের সাথে যোগাযোগ করুন।
+          </p>
+          <div className="p-5 rounded-2xl bg-[#FAFAF7] border border-[#0B5D3B]/10">
+            <p className="font-semibold mb-1 text-[#0F1F17]">আমাদের জানান</p>
+            <p className="text-sm mb-4 text-[#4A5A52]">টুল প্রস্তাব বা মতামত জানাতে যোগাযোগ পেজে যান</p>
+            <Link
+              to="/contact"
+              className="block text-center py-2.5 px-4 rounded-xl text-sm font-semibold text-white bg-[#0B5D3B] hover:bg-[#084A2E] transition-colors"
+            >
+              যোগাযোগ করুন
+            </Link>
+          </div>
+        </div>
+
+        <div className="lg:col-span-3 space-y-3">
+          {FAQS.map((faq, i) => {
+            const isOpen = openIdx === i;
+            return (
+              <div
+                key={faq.question}
+                className={`rounded-2xl overflow-hidden bg-[#FAFAF7] border transition-colors ${
+                  isOpen ? 'border-[#0B5D3B]/30' : 'border-[#0B5D3B]/10'
+                }`}
+              >
+                <h3>
+                  <button
+                    type="button"
+                    id={`faq-q-${i}`}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-a-${i}`}
+                    onClick={() => setOpenIdx(isOpen ? null : i)}
+                    className="w-full flex items-center justify-between p-5 text-left cursor-pointer"
+                  >
+                    <span className="font-semibold text-base pr-4 text-[#0F1F17]">{faq.question}</span>
+                    <ChevronDown
+                      className={`w-4 h-4 shrink-0 text-[#4A5A52] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                </h3>
+                {isOpen && (
+                  <div id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`} className="px-5 pb-5">
+                    <p className="text-sm leading-relaxed text-[#4A5A52]">{faq.answer}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Final CTA ───────────────────────────────────────────────────────────────
+
+const FinalCta: React.FC = () => {
+  const ref = useParallax<HTMLDivElement>(0.25);
+  return (
+    <section className="py-16 px-4 sm:px-6">
+      <div className="max-w-[1200px] mx-auto">
+        <div ref={ref} className="relative overflow-hidden rounded-3xl bg-[#052D1C]">
+          <div
+            className="parallax-bg absolute will-change-transform"
+            style={{ top: '-20%', bottom: '-20%', left: 0, right: 0, backgroundImage: JAMDANI_PATTERN, backgroundSize: '64px 64px' }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'radial-gradient(ellipse at 80% 0%, rgba(245,165,36,0.22), transparent 55%)' }}
+            aria-hidden="true"
+          />
+          <div className="relative z-10 py-16 lg:py-20 px-8 lg:px-16 text-center">
+            <h2 className="text-3xl lg:text-5xl font-bold text-white mb-5 tracking-tight">আজই আপনার কাজ সহজ করুন</h2>
+            <p className="text-lg mb-10 mx-auto text-white/75 max-w-md">
+              কোনো রেজিস্ট্রেশন নেই, কোনো পেমেন্ট নেই। এখনই শুরু করুন।
+            </p>
+            <a
+              href="#tools"
+              className="btn-shine inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-lg bg-[#F5A524] text-[#0B2D1E] shadow-[0_8px_32px_rgba(245,165,36,0.45)]"
+            >
+              সব টুলস দেখুন <ArrowRight className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Page ────────────────────────────────────────────────────────────────────
+
+export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCategory, onOpenTerms }) => {
   // Schema.org Structured Data
   const siteAndOrgSchema = {
     '@context': 'https://schema.org',
@@ -116,8 +852,9 @@ export const HomePage: React.FC<HomePageProps> = ({
     }))
   };
 
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-14">
+    <div>
       <Helmet>
         <title>Utilix.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব</title>
         <meta
@@ -144,338 +881,16 @@ export const HomePage: React.FC<HomePageProps> = ({
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="space-y-4">
-        <div className="inline-block bg-[#fffdf7] border border-[#d8cfb8] px-3 py-1 text-xs text-[#083f2a] font-medium tracking-wide">
-          বাংলা ডিজিটাল ইউটিলিটি হাব
-        </div>
-
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#083f2a] font-serif leading-tight">
-          দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস।
-        </h1>
-
-        <p className="text-base sm:text-lg text-[#6b6255] max-w-3xl leading-relaxed font-sans">
-          আপনার কোনো ডেটা বা ফাইল সার্ভারে জমা হয় না; সমস্ত রূপান্তর এবং গণনা সরাসরি আপনার কম্পিউটারে সম্পন্ন হয় — নিখরচায় ও তাৎক্ষণিকভাবে।
-        </p>
-
-        {/* Two Trust Badges */}
-        <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2 text-xs sm:text-sm text-[#14231c]">
-          <div className="flex items-center space-x-2">
-            <CheckCircle2 className="w-4 h-4 text-[#0c5c3d] shrink-0" />
-            <span>কোনো লগইন প্রয়োজন নেই</span>
-          </div>
-          <span className="text-[#d8cfb8] hidden sm:inline">•</span>
-          <div className="flex items-center space-x-2">
-            <Lock className="w-4 h-4 text-[#0c5c3d] shrink-0" />
-            <span>সম্পূর্ণ ব্যক্তিগত ও ব্রাউজার-ভিত্তিক প্রসেসিং</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Introductory Paragraph */}
-      <section className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 text-xs sm:text-sm text-[#4a4237] leading-relaxed space-y-2">
-        <div className="flex items-center space-x-2 text-[#083f2a] font-bold font-serif text-sm sm:text-base">
-          <Sparkles className="w-4 h-4 text-[#0c5c3d]" />
-          <span>একটি ঠিকানায় আপনার সব প্রয়োজনীয় বাংলা টুলস</span>
-        </div>
-        <p>
-          Utilix.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত একটি উন্মুক্ত ও নিরাপদ প্ল্যাটফর্ম। সরকারি চাকরির টেলিটক পোর্টালে (Teletalk/BPSC) ৩oo×৩oo ছবি ও স্বাক্ষর রিসাইজ, সার্কুলারের বয়স ও কোটা গণনা, পুরোনো বিজয় (SutonnyMJ) লেখা থেকে ইউনিকোডে রূপান্তর, ব্যাংক চেক ও দলিলের টাকার কথায় রূপান্তর, শিক্ষা বোর্ডের এসএসসি/এইচএসসি ও বিশ্ববিদ্যালয়ের সিজিপিএ হিসাব এবং মানসম্মত সিভি তৈরি—দৈনন্দিন সব জটিল কাজ এখন ঝামেলাহীনভাবে সম্পন্ন করুন কোনো সার্ভার আপলোড ছাড়াই।
-        </p>
-      </section>
-
-      {/* Filter Tabs & Grid Counters */}
-      <section className="space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#d8cfb8] pb-3 gap-4">
-          {/* Tabs */}
-          <div className="flex flex-wrap items-center gap-1 sm:gap-2">
-            <button
-              type="button"
-              onClick={() => onSelectCategory('all')}
-              className={`px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors cursor-pointer border ${
-                selectedCategory === 'all'
-                  ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                  : 'bg-[#fffdf7] text-[#6b6255] border-[#d8cfb8] hover:text-[#083f2a]'
-              }`}
-            >
-              সকল টুলস ({TOOLS.length})
-            </button>
-            <button
-              type="button"
-              onClick={() => onSelectCategory('text')}
-              className={`px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors cursor-pointer border ${
-                selectedCategory === 'text'
-                  ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                  : 'bg-[#fffdf7] text-[#6b6255] border-[#d8cfb8] hover:text-[#083f2a]'
-              }`}
-            >
-              টেক্সট রূপান্তর
-            </button>
-            <button
-              type="button"
-              onClick={() => onSelectCategory('image')}
-              className={`px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors cursor-pointer border ${
-                selectedCategory === 'image'
-                  ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                  : 'bg-[#fffdf7] text-[#6b6255] border-[#d8cfb8] hover:text-[#083f2a]'
-              }`}
-            >
-              গ্রাফিক্স ও ছবি
-            </button>
-            <button
-              type="button"
-              onClick={() => onSelectCategory('calculator')}
-              className={`px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors cursor-pointer border ${
-                selectedCategory === 'calculator'
-                  ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                  : 'bg-[#fffdf7] text-[#6b6255] border-[#d8cfb8] hover:text-[#083f2a]'
-              }`}
-            >
-              ক্যালকুলেটর
-            </button>
-            <button
-              type="button"
-              onClick={() => onSelectCategory('document')}
-              className={`px-3 py-1.5 text-xs sm:text-sm font-medium transition-colors cursor-pointer border ${
-                selectedCategory === 'document'
-                  ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                  : 'bg-[#fffdf7] text-[#6b6255] border-[#d8cfb8] hover:text-[#083f2a]'
-              }`}
-            >
-              সিভি ও ডকুমেন্ট
-            </button>
-          </div>
-
-          {/* Status badge row */}
-          <div className="text-[11px] sm:text-xs text-[#6b6255] font-mono flex items-center gap-3">
-            <span className="flex items-center text-[#0c5c3d]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0c5c3d] mr-1"></span>
-              {TOOLS.length}টি সক্রিয় টুল
-            </span>
-            <span className="text-[#d8cfb8]">/</span>
-            <span className="text-[#083f2a]">১০০% ক্লায়েন্ট-সাইড নিরাপদ</span>
-          </div>
-        </div>
-
-        {/* 3-Column Responsive Tool Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTools.map((tool) => {
-            const isActive = tool.status === 'active';
-
-            return (
-              <div
-                key={tool.id}
-                className="bg-[#fffdf7] border border-[#d8cfb8] p-5 flex flex-col justify-between transition-colors hover:border-[#0c5c3d]/50"
-              >
-                <div>
-                  {/* Top row: Icon & Status Badge */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-10 h-10 border border-[#d8cfb8] bg-[#f4efe4] flex items-center justify-center text-[#0c5c3d]">
-                      {tool.id === 'bijoy-converter' && <ArrowLeftRight className="w-5 h-5" />}
-                      {tool.id === 'photo-resizer' && <Crop className="w-5 h-5" />}
-                      {tool.id === 'image-merger' && <Grid className="w-5 h-5" />}
-                      {tool.id === 'age-calculator' && <Calculator className="w-5 h-5" />}
-                      {tool.id === 'amount-in-words' && <Coins className="w-5 h-5" />}
-                      {tool.id === 'gpa-calculator' && <GraduationCap className="w-5 h-5" />}
-                      {tool.id === 'cv-builder' && <FileText className="w-5 h-5" />}
-                      {tool.id === 'pdf-merger' && <Layers className="w-5 h-5" />}
-                      {tool.id === 'pdf-split' && <Scissors className="w-5 h-5" />}
-                      {tool.id === 'pdf-delete-pages' && <Trash2 className="w-5 h-5" />}
-                      {tool.id === 'pdf-rotate' && <RotateCw className="w-5 h-5" />}
-                      {tool.id === 'pdf-watermark-page-number' && <Stamp className="w-5 h-5" />}
-                    </div>
-
-                    <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-[#0c5c3d] text-[#fffdf7]">
-                      সক্রিয় টুল {tool.version && `(${tool.version})`}
-                    </span>
-                  </div>
-
-                  {/* Ref code */}
-                  <div className="text-[11px] font-mono text-[#6b6255] tracking-wider mb-1">
-                    REF: {tool.refCode}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-lg font-bold text-[#083f2a] font-serif mb-2">
-                    {tool.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-sm text-[#6b6255] leading-relaxed mb-4">
-                    {tool.description}
-                  </p>
-
-                  {/* Feature line with icon */}
-                  <div className="border border-[#d8cfb8] bg-[#f4efe4]/60 p-2 text-xs text-[#14231c] flex items-center space-x-2 mb-6">
-                    {tool.id === 'bijoy-converter' && <Zap className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    {tool.id === 'photo-resizer' && <ImageIcon className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    {tool.id === 'age-calculator' && <Clock className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    {tool.id === 'amount-in-words' && <Coins className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    {tool.id === 'gpa-calculator' && <GraduationCap className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    {tool.id === 'cv-builder' && <FileText className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    {tool.id === 'pdf-merger' && <Layers className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    {tool.id === 'pdf-split' && <Scissors className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    {tool.id === 'pdf-delete-pages' && <Trash2 className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    {tool.id === 'pdf-rotate' && <RotateCw className="w-3.5 h-3.5 text-[#0c5c3d] shrink-0" />}
-                    <span className="truncate">{tool.feature}</span>
-                  </div>
-                </div>
-
-                {/* Card Action Button */}
-                <div>
-                  {isActive && tool.link && (
-                    <Link
-                      to={tool.link}
-                      className="w-full inline-flex items-center justify-center px-4 py-2 bg-[#0c5c3d] text-[#fffdf7] text-sm font-medium hover:bg-[#083f2a] transition-colors cursor-pointer group"
-                    >
-                      <span>টুল চালু করুন</span>
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Recent Updates & Release Log Section */}
-      <section className="bg-[#fffdf7] border border-[#d8cfb8] p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#d8cfb8] pb-4">
-          <div className="flex items-center space-x-2">
-            <Calendar className="w-4 h-4 text-[#0c5c3d]" />
-            <h2 className="text-lg sm:text-xl font-bold text-[#083f2a] font-serif">
-              সাম্প্রতিক আপডেট ও রিলিজ লগ
-            </h2>
-          </div>
-          <span className="text-xs text-[#6b6255]">
-            নিয়মিত হালনাগাদ ও নতুন ফিচার সংযোজন
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {SITE_UPDATES.map((update) => (
-            <div
-              key={update.id}
-              className="border border-[#d8cfb8] bg-[#f4efe4]/40 p-4 space-y-2 flex flex-col justify-between hover:border-[#0c5c3d]/60 transition-colors"
-            >
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-mono text-[#6b6255]">{update.date}</span>
-                  <div className="flex items-center space-x-1.5">
-                    <span className="font-mono text-[11px] text-[#083f2a] font-medium bg-[#fffdf7] px-1.5 py-0.5 border border-[#d8cfb8]">
-                      {update.version}
-                    </span>
-                    <span
-                      className={`text-[10px] font-semibold px-2 py-0.5 ${
-                        update.badgeType === 'new'
-                          ? 'bg-[#0c5c3d] text-[#fffdf7]'
-                          : update.badgeType === 'update'
-                          ? 'bg-[#083f2a] text-[#fffdf7]'
-                          : 'bg-[#f4efe4] border border-[#d8cfb8] text-[#083f2a]'
-                      }`}
-                    >
-                      {update.badge}
-                    </span>
-                  </div>
-                </div>
-
-                <h3 className="text-sm font-bold text-[#083f2a] font-serif">
-                  {update.title}
-                </h3>
-                <p className="text-xs text-[#4a4237] leading-relaxed">
-                  {update.description}
-                </p>
-              </div>
-
-              {update.toolLink && (
-                <div className="pt-2">
-                  <Link
-                    to={update.toolLink}
-                    className="inline-flex items-center text-xs font-semibold text-[#0c5c3d] hover:text-[#083f2a] hover:underline"
-                  >
-                    <span>{update.toolName || 'টুল দেখুন'}</span>
-                    <ArrowRight className="w-3 h-3 ml-1" />
-                  </Link>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Trust & Safety Section */}
-      <section className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="flex items-start space-x-4">
-          <div className="w-12 h-12 border border-[#d8cfb8] bg-[#f4efe4] flex items-center justify-center text-[#0c5c3d] shrink-0">
-            <Shield className="w-6 h-6" />
-          </div>
-
-          <div className="space-y-1">
-            <h3 className="text-lg font-bold text-[#083f2a] font-serif">
-              কেন ইউটিলিক্স সম্পূর্ণ নিরাপদ?
-            </h3>
-            <p className="text-xs sm:text-sm text-[#6b6255] max-w-3xl leading-relaxed">
-              আমাদের প্রতিটি টুল ক্লায়েন্ট-সাইড জাভাস্ক্রিপ্টে নির্মিত। আপনি যা লিখবেন বা আপলোড করবেন তা কখনোই কোনো রিমোট সার্ভার বা ডেটাবেজে স্থানান্তরিত হয় না। ইন্টারনেট সংযোগ বিচ্ছিন্ন করলেও পাতাটি সমান দক্ষতায় কার্যকর থাকে।
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3 shrink-0 self-stretch md:self-auto">
-          <Link
-            to="/about"
-            className="border border-[#0c5c3d] text-[#083f2a] hover:bg-[#0c5c3d] hover:text-[#fffdf7] px-3.5 py-2 text-xs sm:text-sm font-medium transition-colors text-center"
-          >
-            আমাদের সম্পর্কে
-          </Link>
-          <Link
-            to="/privacy-policy"
-            className="bg-[#0c5c3d] text-[#fffdf7] hover:bg-[#083f2a] px-3.5 py-2 text-xs sm:text-sm font-medium transition-colors text-center"
-          >
-            গোপনীয়তা নীতি
-          </Link>
-        </div>
-      </section>
-
-      {/* Site-Wide FAQ Section */}
-      <section className="bg-[#fffdf7] border border-[#d8cfb8] p-6 space-y-6">
-        <div className="border-b border-[#d8cfb8] pb-3 flex items-center space-x-2">
-          <HelpCircle className="w-5 h-5 text-[#0c5c3d]" />
-          <h2 className="text-lg sm:text-xl font-bold text-[#083f2a] font-serif">
-            সাধারণ প্রশ্নোত্তর (Frequently Asked Questions)
-          </h2>
-        </div>
-
-        <div className="space-y-3">
-          {FAQS.map((faq, index) => {
-            const isOpen = activeFaqIndex === index;
-            return (
-              <div
-                key={faq.question}
-                className="border border-[#d8cfb8] bg-[#f4efe4]/40 overflow-hidden transition-colors"
-              >
-                <button
-                  type="button"
-                  onClick={() => setActiveFaqIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between p-4 text-left font-bold text-xs sm:text-sm text-[#083f2a] hover:text-[#0c5c3d] cursor-pointer"
-                >
-                  <span>{faq.question}</span>
-                  <ChevronDown
-                    className={`w-4 h-4 text-[#6b6255] transition-transform duration-200 shrink-0 ml-2 ${
-                      isOpen ? 'rotate-180 text-[#0c5c3d]' : ''
-                    }`}
-                  />
-                </button>
-
-                {isOpen && (
-                  <div className="px-4 pb-4 text-xs sm:text-sm text-[#4a4237] leading-relaxed border-t border-[#d8cfb8]/60 pt-3 bg-[#fffdf7]">
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <Hero />
+      <Stats />
+      <FeaturedTools />
+      <AllTools selectedCategory={selectedCategory} onSelectCategory={onSelectCategory} />
+      <AboutBand />
+      <HowItWorks />
+      <Privacy onOpenTerms={onOpenTerms} />
+      <Updates />
+      <FaqSection />
+      <FinalCta />
     </div>
   );
 };

@@ -363,74 +363,74 @@ export const PdfDeletePagesPage: React.FC = () => {
       featuresTitle="পিডিএফ পেজ রিমুভারের মূল সুবিধাসমূহ"
       featuresGrid={
         <>
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <Trash2 className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               ভিজ্যুয়াল পেজ সিলেকশন
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               প্রতিটি পৃষ্ঠার নম্বরসহ গ্রিড থেকে ক্লিক করে লাল বর্ডার ও ট্র্যাশ আইকন দিয়ে চিহ্নিত করার সুবিধা।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <CheckSquare className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               দ্রুত সিলেক্টর টুলবার
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               এক ক্লিকে জোড় (Even) বা বিজোড় (Odd) পেজ নির্বাচন এবং ক্লিয়ার করার স্মার্ট শর্টকাট।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               ১০০% ক্লায়েন্ট-সাইড নিরাপত্তা
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               কোনো সার্ভার আপলোড নেই। সম্পূর্ণ প্রক্রিয়া ব্রাউজার মেমোরিতে সম্পন্ন হওয়ায় তথ্য থাকে সুরক্ষিত।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <Zap className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               বিদ্যুৎগতির প্রসেসিং
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               লোকাল ডিভাইসের ক্ষমতা ব্যবহার করে সেকেন্ডের ভগ্নাংশে পৃষ্ঠা ছাঁটাই করে ফাইল তৈরি করে।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <Lock className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               সম্পূর্ণ ফ্রি ও নো সাইন-আপ
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               কোনো প্রকার সাবস্ক্রিপশন ফি বা অ্যাকাউন্ট খোলার ঝামেলা ছাড়াই যত খুশি পেজ রিমুভ করুন।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <FileCheck className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               অক্ষুণ্ণ ফাইল কোয়ালিটি
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               বাকি পেজগুলোর ভেক্টর ফন্ট, ফরম্যাটিং ও ছবির রেজোলিউশনে কোনো হ্রাস ঘটে না।
             </p>
           </div>
@@ -442,7 +442,7 @@ export const PdfDeletePagesPage: React.FC = () => {
       }))}
     >
       {/* Interactive Tool Console */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-7 space-y-6 shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-7 space-y-6 shadow-xs rounded-2xl">
         {!loadedPdf ? (
           <PdfFileDropzone
             multiple={false}
@@ -456,17 +456,17 @@ export const PdfDeletePagesPage: React.FC = () => {
         ) : (
           <div className="space-y-6">
             {/* Loaded File Meta Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-[#f4efe4]/60 border border-[#d8cfb8]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-[#F0F4F2]/60 border border-[#D5E4DB] rounded-2xl">
               <div className="flex items-center space-x-3 min-w-0">
-                <div className="w-10 h-10 bg-[#0c5c3d]/10 text-[#0c5c3d] flex items-center justify-center shrink-0 border border-[#0c5c3d]/20">
+                <div className="w-10 h-10 bg-[#0B5D3B]/10 text-[#0B5D3B] flex items-center justify-center shrink-0 border border-[#0B5D3B]/20 rounded-lg">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-sm sm:text-base font-bold text-[#14231c] truncate font-sans">
+                  <h3 className="text-sm sm:text-base font-bold text-[#0F1F17] truncate font-sans">
                     {loadedPdf.name}
                   </h3>
-                  <div className="text-xs text-[#6b6255] font-mono flex items-center space-x-2 mt-0.5">
-                    <span className="text-[#0c5c3d] font-bold">
+                  <div className="text-xs text-[#4A5A52] font-mono flex items-center space-x-2 mt-0.5">
+                    <span className="text-[#0B5D3B] font-bold">
                       সর্বমোট পেজ: {toBanglaNum(loadedPdf.pageCount)}টি
                     </span>
                     <span>•</span>
@@ -478,7 +478,7 @@ export const PdfDeletePagesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={handleReset}
-                className="px-3 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] text-[#6b6255] hover:text-[#083f2a] text-xs font-medium flex items-center space-x-1.5 transition-colors cursor-pointer self-start sm:self-center"
+                className="px-3 py-1.5 border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] text-[#4A5A52] hover:text-[#084A2E] text-xs font-medium flex items-center space-x-1.5 transition-colors cursor-pointer self-start sm:self-center rounded-lg"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>অন্য ফাইল দিন</span>
@@ -487,16 +487,16 @@ export const PdfDeletePagesPage: React.FC = () => {
 
             {/* Error Message if any */}
             {errorMessage && (
-              <div className="bg-red-50 border border-red-200 p-3.5 text-xs text-red-800 flex items-start space-x-2">
+              <div className="bg-red-50 border border-red-200 p-3.5 text-xs text-red-800 flex items-start space-x-2 rounded-lg">
                 <AlertTriangle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
                 <span>{errorMessage}</span>
               </div>
             )}
 
             {/* Step 2: Selection Toolbar & Input */}
-            <div className="space-y-4 border-t border-[#d8cfb8] pt-5">
+            <div className="space-y-4 border-t border-[#D5E4DB] pt-5">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <h3 className="text-sm font-bold text-[#083f2a] font-serif flex items-center space-x-2">
+                <h3 className="text-sm font-bold text-[#084A2E] font-serif flex items-center space-x-2">
                   <Trash2 className="w-4 h-4 text-[#c8342a]" />
                   <span>যে পেজগুলো বাদ দিতে চান তা সিলেক্ট করুন</span>
                 </h3>
@@ -506,21 +506,21 @@ export const PdfDeletePagesPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleSelectOdd}
-                    className="px-2.5 py-1 bg-[#fffdf7] hover:bg-[#f4efe4] border border-[#d8cfb8] text-[#083f2a] font-medium cursor-pointer"
+                    className="px-2.5 py-1 bg-[#FFFFFF] hover:bg-[#F0F4F2] border border-[#D5E4DB] text-[#084A2E] font-medium cursor-pointer rounded-lg"
                   >
                     বিজোড় পেজ
                   </button>
                   <button
                     type="button"
                     onClick={handleSelectEven}
-                    className="px-2.5 py-1 bg-[#fffdf7] hover:bg-[#f4efe4] border border-[#d8cfb8] text-[#083f2a] font-medium cursor-pointer"
+                    className="px-2.5 py-1 bg-[#FFFFFF] hover:bg-[#F0F4F2] border border-[#D5E4DB] text-[#084A2E] font-medium cursor-pointer rounded-lg"
                   >
                     জোড় পেজ
                   </button>
                   <button
                     type="button"
                     onClick={handleClearSelection}
-                    className="px-2.5 py-1 bg-[#fffdf7] hover:bg-[#f4efe4] border border-[#d8cfb8] text-[#6b6255] cursor-pointer"
+                    className="px-2.5 py-1 bg-[#FFFFFF] hover:bg-[#F0F4F2] border border-[#D5E4DB] text-[#4A5A52] cursor-pointer rounded-lg"
                   >
                     সব আনসিলেক্ট
                   </button>
@@ -528,8 +528,8 @@ export const PdfDeletePagesPage: React.FC = () => {
               </div>
 
               {/* Manual Input Field */}
-              <div className="bg-[#f4efe4]/30 border border-[#d8cfb8] p-3.5 space-y-2 text-xs">
-                <label htmlFor="delete-page-input" className="block font-bold text-[#083f2a]">
+              <div className="bg-[#F0F4F2]/30 border border-[#D5E4DB] p-3.5 space-y-2 text-xs rounded-lg">
+                <label htmlFor="delete-page-input" className="block font-bold text-[#084A2E]">
                   নির্দিষ্ট পেজ নম্বর বা রেঞ্জ লিখে বাদ দিন (যেমন: 2, 4-6):
                 </label>
                 <input
@@ -538,19 +538,19 @@ export const PdfDeletePagesPage: React.FC = () => {
                   value={rangeInput}
                   onChange={(e) => handleRangeInputChange(e.target.value)}
                   placeholder="যেমন: 2, 4, 7-9"
-                  className="w-full px-3 py-2 text-sm bg-[#fffdf7] border border-[#d8cfb8] focus:border-[#0c5c3d] focus:outline-hidden font-mono text-[#083f2a]"
+                  className="w-full px-3 py-2 text-sm bg-[#FFFFFF] border border-[#D5E4DB] focus:border-[#0B5D3B] focus:outline-hidden font-mono text-[#084A2E] rounded-lg"
                 />
-                <div className="text-[11px] text-[#6b6255] flex items-center space-x-1.5">
-                  <Info className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                <div className="text-[11px] text-[#4A5A52] flex items-center space-x-1.5">
+                  <Info className="w-3.5 h-3.5 text-[#0B5D3B]" />
                   <span>নিচের কার্ডগুলোতে ক্লিক করলেও এই ঘরে পেজ নম্বর যুক্ত হয়ে যাবে।</span>
                 </div>
               </div>
 
               {/* Realtime Live Counter */}
-              <div className="grid grid-cols-3 gap-2 text-center text-xs p-3 bg-[#fffdf7] border border-[#d8cfb8]">
+              <div className="grid grid-cols-3 gap-2 text-center text-xs p-3 bg-[#FFFFFF] border border-[#D5E4DB] rounded-2xl">
                 <div>
-                  <span className="text-[#6b6255] block text-[11px]">মূল ডকুমেন্টের পেজ</span>
-                  <span className="font-mono font-bold text-sm text-[#083f2a]">
+                  <span className="text-[#4A5A52] block text-[11px]">মূল ডকুমেন্টের পেজ</span>
+                  <span className="font-mono font-bold text-sm text-[#084A2E]">
                     {toBanglaNum(loadedPdf.pageCount)}টি
                   </span>
                 </div>
@@ -561,8 +561,8 @@ export const PdfDeletePagesPage: React.FC = () => {
                   </span>
                 </div>
                 <div>
-                  <span className="text-[#0c5c3d] block text-[11px]">নতুন ফাইলে অবশিষ্ট থাকবে</span>
-                  <span className="font-mono font-bold text-sm text-[#0c5c3d]">
+                  <span className="text-[#0B5D3B] block text-[11px]">নতুন ফাইলে অবশিষ্ট থাকবে</span>
+                  <span className="font-mono font-bold text-sm text-[#0B5D3B]">
                     {toBanglaNum(Math.max(0, loadedPdf.pageCount - pagesToDelete.size))}টি
                   </span>
                 </div>
@@ -570,14 +570,14 @@ export const PdfDeletePagesPage: React.FC = () => {
 
               {/* Visual Page Grid */}
               <div className="space-y-2">
-                <div className="text-xs text-[#6b6255] flex items-center justify-between">
+                <div className="text-xs text-[#4A5A52] flex items-center justify-between">
                   <span>পেজ তালিকা (ক্লিক করে বাদ দেওয়ার জন্য চিহ্নিত করুন):</span>
                   <span className="font-mono text-[11px]">
                     {toBanglaNum(pagesToDelete.size)}টি পেজ সিলেক্টেড
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 max-h-80 overflow-y-auto p-1 border border-[#d8cfb8] bg-[#f4efe4]/20">
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 max-h-80 overflow-y-auto p-1 border border-[#D5E4DB] bg-[#F0F4F2]/20 rounded-lg">
                   {Array.from({ length: loadedPdf.pageCount }, (_, idx) => {
                     const isSelectedForDeletion = pagesToDelete.has(idx);
                     return (
@@ -595,7 +595,7 @@ export const PdfDeletePagesPage: React.FC = () => {
                         className={`border p-3 flex flex-col items-center justify-between gap-2 transition-all cursor-pointer select-none text-center ${
                           isSelectedForDeletion
                             ? 'bg-red-50/70 border-red-400 text-red-800 shadow-xs'
-                            : 'bg-[#fffdf7] border-[#d8cfb8] hover:border-[#0c5c3d] text-[#14231c]'
+                            : 'bg-[#FFFFFF] border-[#D5E4DB] hover:border-[#0B5D3B] text-[#0F1F17]'
                         }`}
                       >
                         <div className="flex items-center justify-between w-full text-[11px]">
@@ -605,7 +605,7 @@ export const PdfDeletePagesPage: React.FC = () => {
                           {isSelectedForDeletion ? (
                             <Trash2 className="w-3.5 h-3.5 text-red-600" />
                           ) : (
-                            <Square className="w-3.5 h-3.5 text-[#d8cfb8]" />
+                            <Square className="w-3.5 h-3.5 text-[#D5E4DB]" />
                           )}
                         </div>
 
@@ -614,7 +614,7 @@ export const PdfDeletePagesPage: React.FC = () => {
                           className={`w-12 h-16 border flex flex-col items-center justify-center text-[10px] font-mono transition-colors ${
                             isSelectedForDeletion
                               ? 'border-red-300 bg-red-100/50 line-through text-red-600'
-                              : 'border-[#d8cfb8] bg-[#f4efe4]/60 text-[#6b6255]'
+                              : 'border-[#D5E4DB] bg-[#F0F4F2]/60 text-[#4A5A52]'
                           }`}
                         >
                           <FileText className="w-4 h-4 mb-0.5 opacity-60" />
@@ -625,7 +625,7 @@ export const PdfDeletePagesPage: React.FC = () => {
                           className={`text-[10px] px-1 py-0.2 w-full font-medium truncate ${
                             isSelectedForDeletion
                               ? 'bg-red-200/60 text-red-900 font-bold'
-                              : 'text-[#6b6255]'
+                              : 'text-[#4A5A52]'
                           }`}
                         >
                           {isSelectedForDeletion ? 'বাদ যাবে' : 'থাকবে'}
@@ -650,13 +650,13 @@ export const PdfDeletePagesPage: React.FC = () => {
                     pagesToDelete.size === 0 ||
                     pagesToDelete.size >= loadedPdf.pageCount ||
                     isProcessing
-                      ? 'bg-[#d8cfb8] text-[#6b6255] cursor-not-allowed'
-                      : 'bg-[#c8342a] hover:bg-red-800 text-[#fffdf7] cursor-pointer active:scale-[0.99]'
+                      ? 'bg-[#D5E4DB] text-[#4A5A52] cursor-not-allowed'
+                      : 'bg-[#c8342a] hover:bg-red-800 text-[#FFFFFF] cursor-pointer active:scale-[0.99]'
                   }`}
                 >
                   {isProcessing ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin text-[#fffdf7]" />
+                      <Loader2 className="w-4 h-4 animate-spin text-[#FFFFFF]" />
                       <span>পেজ মুছে ফেলা হচ্ছে...</span>
                     </>
                   ) : (
@@ -673,41 +673,41 @@ export const PdfDeletePagesPage: React.FC = () => {
 
             {/* Step 3: Success Result & Download Banner */}
             {deleteResult && (
-              <div className="border-2 border-[#0c5c3d] bg-[#f4efe4]/50 p-5 sm:p-6 space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#0c5c3d]/20 pb-3">
-                  <div className="flex items-center space-x-2 text-[#0c5c3d]">
+              <div className="border-2 border-[#0B5D3B] bg-[#F0F4F2]/50 p-5 sm:p-6 space-y-4 rounded-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#0B5D3B]/20 pb-3">
+                  <div className="flex items-center space-x-2 text-[#0B5D3B]">
                     <CheckCircle2 className="w-5 h-5" />
-                    <h3 className="font-bold text-[#083f2a] font-serif text-base sm:text-lg">
+                    <h3 className="font-bold text-[#084A2E] font-serif text-base sm:text-lg">
                       পেজ মুছে নতুন পিডিএফ প্রস্তুত করা হয়েছে!
                     </h3>
                   </div>
-                  <span className="text-xs text-[#6b6255] font-mono bg-[#fffdf7] border border-[#d8cfb8] px-2 py-0.5">
+                  <span className="text-xs text-[#4A5A52] font-mono bg-[#FFFFFF] border border-[#D5E4DB] px-2 py-0.5">
                     {deleteResult.name}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
-                  <div className="bg-[#fffdf7] border border-[#d8cfb8] p-3">
-                    <span className="block text-[11px] font-medium text-[#6b6255]">আগের পেজ</span>
-                    <span className="font-mono font-bold text-sm text-[#083f2a]">
+                  <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-3 rounded-2xl">
+                    <span className="block text-[11px] font-medium text-[#4A5A52]">আগের পেজ</span>
+                    <span className="font-mono font-bold text-sm text-[#084A2E]">
                       {toBanglaNum(deleteResult.originalPageCount)}টি
                     </span>
                   </div>
-                  <div className="bg-[#fffdf7] border border-[#d8cfb8] p-3">
+                  <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-3 rounded-2xl">
                     <span className="block text-[11px] font-medium text-[#c8342a]">মুছে ফেলা পেজ</span>
                     <span className="font-mono font-bold text-sm text-[#c8342a]">
                       {toBanglaNum(deleteResult.removedPageCount)}টি
                     </span>
                   </div>
-                  <div className="bg-[#fffdf7] border border-[#d8cfb8] p-3">
-                    <span className="block text-[11px] font-medium text-[#0c5c3d]">বর্তমান পেজ</span>
-                    <span className="font-mono font-bold text-sm text-[#0c5c3d]">
+                  <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-3 rounded-2xl">
+                    <span className="block text-[11px] font-medium text-[#0B5D3B]">বর্তমান পেজ</span>
+                    <span className="font-mono font-bold text-sm text-[#0B5D3B]">
                       {toBanglaNum(deleteResult.remainingPageCount)}টি
                     </span>
                   </div>
-                  <div className="bg-[#fffdf7] border border-[#d8cfb8] p-3">
-                    <span className="block text-[11px] font-medium text-[#6b6255]">নতুন ফাইলের সাইজ</span>
-                    <span className="font-mono font-bold text-sm text-[#083f2a]">
+                  <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-3 rounded-2xl">
+                    <span className="block text-[11px] font-medium text-[#4A5A52]">নতুন ফাইলের সাইজ</span>
+                    <span className="font-mono font-bold text-sm text-[#084A2E]">
                       {formatBytesBengali(deleteResult.bytes.byteLength)}
                     </span>
                   </div>
@@ -718,7 +718,7 @@ export const PdfDeletePagesPage: React.FC = () => {
                     href={deleteResult.blobUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="px-3.5 py-2 text-xs font-medium border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] text-[#083f2a] flex items-center space-x-1.5 transition-colors cursor-pointer"
+                    className="px-3.5 py-2 text-xs font-medium border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] text-[#084A2E] flex items-center space-x-1.5 transition-colors cursor-pointer rounded-lg"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>প্রিভিউ দেখুন</span>
@@ -727,7 +727,7 @@ export const PdfDeletePagesPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleDownload}
-                    className="px-6 py-2.5 bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] font-semibold text-sm flex items-center space-x-2 transition-all shadow-sm cursor-pointer"
+                    className="px-6 py-2.5 bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] font-semibold text-sm flex items-center space-x-2 transition-all shadow-sm cursor-pointer"
                   >
                     <Download className="w-4 h-4" />
                     <span>নতুন পিডিএফ ডাউনলোড করুন</span>

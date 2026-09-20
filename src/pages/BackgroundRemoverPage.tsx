@@ -435,21 +435,21 @@ export const BackgroundRemoverPage: React.FC = () => {
       </Helmet>
 
       {/* Top Breadcrumb & Privacy Guarantee */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#d8cfb8]">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#D5E4DB]">
         <div className="flex items-center space-x-3">
           <Link
             to="/"
-            className="border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] px-3 py-1.5 text-xs text-[#083f2a] flex items-center space-x-1.5 transition-colors"
+            className="border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] px-3 py-1.5 text-xs text-[#084A2E] flex items-center space-x-1.5 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#6b6255] font-mono">REF: IMG-AI-01</span>
+          <span className="text-xs text-[#4A5A52] font-mono">REF: IMG-AI-01</span>
         </div>
 
         {/* 100% Client-Side Privacy Badge */}
-        <div className="flex items-center space-x-2 text-xs font-medium text-[#083f2a] bg-[#fffdf7] border border-[#d8cfb8] px-3 py-1.5 shadow-xs">
-          <ShieldCheck className="w-4 h-4 text-[#0c5c3d]" />
+        <div className="flex items-center space-x-2 text-xs font-medium text-[#084A2E] bg-[#FFFFFF] border border-[#D5E4DB] px-3 py-1.5 shadow-xs rounded-lg">
+          <ShieldCheck className="w-4 h-4 text-[#0B5D3B]" />
           <span>১০০% ক্লায়েন্ট-সাইড অন-ডিভাইস AI (কোনো ছবি সার্ভারে যায় না)</span>
         </div>
       </div>
@@ -457,30 +457,30 @@ export const BackgroundRemoverPage: React.FC = () => {
       {/* Hero Header */}
       <div className="space-y-3">
         <div className="flex items-center space-x-2">
-          <span className="bg-[#0c5c3d]/10 text-[#0c5c3d] text-xs px-2.5 py-0.5 border border-[#0c5c3d]/20 font-medium">
+          <span className="bg-[#0B5D3B]/10 text-[#0B5D3B] text-xs px-2.5 py-0.5 border border-[#0B5D3B]/20 font-medium">
             ব্রাউজার AI • WebAssembly
           </span>
-          <span className="text-xs text-[#6b6255]">অফলাইন সমর্থিত</span>
+          <span className="text-xs text-[#4A5A52]">অফলাইন সমর্থিত</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#083f2a] font-serif tracking-tight">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084A2E] font-serif tracking-tight">
           ছবির ব্যাকগ্রাউন্ড রিমুভার — ফ্রি ও আনলিমিটেড
         </h1>
-        <p className="text-xs sm:text-sm text-[#6b6255] max-w-3xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-[#4A5A52] max-w-3xl leading-relaxed">
           কোনো সার্ভার কল ছাড়াই সরাসরি আপনার ব্রাউজারে অন-ডিভাইস ডিপ লার্নিং মডেল চালিয়ে যেকোনো ছবির ব্যাকগ্রাউন্ড নিখুঁতভাবে অপসারণ করুন। পাসপোর্ট ছবির জন্য এক ক্লিকে সাদা বা কাস্টম ব্যাকগ্রাউন্ড যোগ করার পূর্ণ সুবিধা।
         </p>
       </div>
 
       {/* Positioning / Competitive Advantage Box */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 rounded-2xl">
         <div className="flex items-start space-x-3">
-          <div className="w-8 h-8 rounded-none bg-[#0c5c3d]/10 border border-[#0c5c3d]/30 flex items-center justify-center shrink-0 text-[#0c5c3d] mt-0.5">
+          <div className="w-8 h-8 rounded-md bg-[#0B5D3B]/10 border border-[#0B5D3B]/30 flex items-center justify-center shrink-0 text-[#0B5D3B] mt-0.5">
             <Sparkles className="w-4 h-4" />
           </div>
-          <div className="text-xs sm:text-sm text-[#14231c]">
-            <strong className="text-[#083f2a] block font-serif">
+          <div className="text-xs sm:text-sm text-[#0F1F17]">
+            <strong className="text-[#084A2E] block font-serif">
               কেন এটি সাধারণ অনলাইন ব্যাকগ্রাউন্ড রিমুভারের চেয়ে আলাদা?
             </strong>
-            <span className="text-[#4a4237] leading-relaxed">
+            <span className="text-[#34443B] leading-relaxed">
               remove.bg বা অন্যান্য জনপ্রিয় সাইটে ফ্রি ভার্সনে রেজোলিউশন কমিয়ে দেয় (লো-রেজ) এবং মাত্র কয়েকটি ছবি করার পর পেমেন্ট চায়। Utilix.bd-তে এটি <strong>সম্পূর্ণ ফ্রি, ফুল রেজোলিউশন এবং আনলিমিটেড ব্যবহার</strong> — কারণ প্রসেসিং আপনার ব্রাউজারেই ঘটে!
             </span>
           </div>
@@ -488,10 +488,10 @@ export const BackgroundRemoverPage: React.FC = () => {
       </div>
 
       {/* First-time Model Download Notice */}
-      <div className="bg-[#fcfaf5] border border-[#d8cfb8] p-3 text-xs text-[#6b6255] flex items-start gap-2.5">
-        <AlertCircle className="w-4 h-4 text-[#0c5c3d] shrink-0 mt-0.5" />
+      <div className="bg-[#F8FAF9] border border-[#D5E4DB] p-3 text-xs text-[#4A5A52] flex items-start gap-2.5 rounded-2xl">
+        <AlertCircle className="w-4 h-4 text-[#0B5D3B] shrink-0 mt-0.5" />
         <p className="leading-relaxed">
-          <strong className="text-[#083f2a]">গুরুত্বপূর্ণ তথ্য:</strong> প্রথমবার ব্যবহারের সময় AI মডেল ও WebAssembly ফাইল ব্রাউজারে ডাউনলোড হতে কয়েক সেকেন্ড সময় লাগতে পারে (~কয়েক মেগাবাইট)। একবার ডাউনলোড হয়ে গেলে ব্রাউজার ক্যাশ (Cache) থেকে পরের বার মুহূর্তেই কাজ করবে।
+          <strong className="text-[#084A2E]">গুরুত্বপূর্ণ তথ্য:</strong> প্রথমবার ব্যবহারের সময় AI মডেল ও WebAssembly ফাইল ব্রাউজারে ডাউনলোড হতে কয়েক সেকেন্ড সময় লাগতে পারে (~কয়েক মেগাবাইট)। একবার ডাউনলোড হয়ে গেলে ব্রাউজার ক্যাশ (Cache) থেকে পরের বার মুহূর্তেই কাজ করবে।
         </p>
       </div>
 
@@ -507,10 +507,10 @@ export const BackgroundRemoverPage: React.FC = () => {
             onDragLeave={() => setIsDragOver(false)}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed p-8 sm:p-12 text-center transition-all cursor-pointer bg-[#fffdf7] ${
+            className={`border-2 border-dashed p-8 sm:p-12 text-center transition-all cursor-pointer bg-[#FFFFFF]  rounded-2xl ${
               isDragOver
-                ? 'border-[#0c5c3d] bg-[#f4efe4]'
-                : 'border-[#d8cfb8] hover:border-[#0c5c3d]'
+                ? 'border-[#0B5D3B] bg-[#F0F4F2]'
+                : 'border-[#D5E4DB] hover:border-[#0B5D3B]'
             }`}
           >
             <input
@@ -521,14 +521,14 @@ export const BackgroundRemoverPage: React.FC = () => {
               className="hidden"
             />
             <div className="max-w-md mx-auto space-y-4">
-              <div className="w-14 h-14 mx-auto bg-[#f4efe4] border border-[#d8cfb8] flex items-center justify-center text-[#083f2a]">
-                <Upload className="w-7 h-7 text-[#0c5c3d]" />
+              <div className="w-14 h-14 mx-auto bg-[#F0F4F2] border border-[#D5E4DB] flex items-center justify-center text-[#084A2E] rounded-lg">
+                <Upload className="w-7 h-7 text-[#0B5D3B]" />
               </div>
               <div className="space-y-1">
-                <p className="text-sm font-semibold text-[#083f2a]">
+                <p className="text-sm font-semibold text-[#084A2E]">
                   ছবি ড্র্যাগ করে এখানে ছাড়ুন অথবা ফাইল বাছাই করতে ক্লিক করুন
                 </p>
-                <p className="text-xs text-[#6b6255]">
+                <p className="text-xs text-[#4A5A52]">
                   সাপোর্টেড ফরম্যাট: JPG, PNG, WebP (সর্বোচ্চ {MAX_FILE_SIZE_MB} MB)
                 </p>
               </div>
@@ -540,7 +540,7 @@ export const BackgroundRemoverPage: React.FC = () => {
                     e.stopPropagation();
                     fileInputRef.current?.click();
                   }}
-                  className="bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] px-4 py-2 text-xs font-semibold transition-colors cursor-pointer"
+                  className="bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] px-4 py-2 text-xs font-semibold transition-colors cursor-pointer"
                 >
                   ছবি আপলোড করুন
                 </button>
@@ -550,7 +550,7 @@ export const BackgroundRemoverPage: React.FC = () => {
                     e.stopPropagation();
                     handleLoadSample();
                   }}
-                  className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 text-[#14231c] px-4 py-2 text-xs font-medium transition-colors cursor-pointer"
+                  className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 text-[#0F1F17] px-4 py-2 text-xs font-medium transition-colors cursor-pointer rounded-lg"
                 >
                   নমুনা ছবি দিয়ে দেখুন
                 </button>
@@ -559,9 +559,9 @@ export const BackgroundRemoverPage: React.FC = () => {
           </div>
         ) : (
           /* Workspace Controls when image is loaded */
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4 rounded-2xl">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 border border-[#d8cfb8] bg-[#f4efe4] overflow-hidden flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 border border-[#D5E4DB] bg-[#F0F4F2] overflow-hidden flex items-center justify-center shrink-0 rounded-lg">
                 <img
                   src={originalImageSrc}
                   alt="থাম্বনেইল"
@@ -569,11 +569,11 @@ export const BackgroundRemoverPage: React.FC = () => {
                 />
               </div>
               <div className="text-xs">
-                <div className="font-semibold text-[#083f2a] truncate max-w-xs sm:max-w-sm">
+                <div className="font-semibold text-[#084A2E] truncate max-w-xs sm:max-w-sm">
                   {originalFileName}
                 </div>
                 {originalDimensions && (
-                  <div className="text-[#6b6255] font-mono mt-0.5">
+                  <div className="text-[#4A5A52] font-mono mt-0.5">
                     রেজোলিউশন: {originalDimensions.width} × {originalDimensions.height} পিক্সেল
                   </div>
                 )}
@@ -592,9 +592,9 @@ export const BackgroundRemoverPage: React.FC = () => {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isProcessing}
-                className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 px-3 py-2 text-xs text-[#14231c] flex items-center space-x-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 px-3 py-2 text-xs text-[#0F1F17] flex items-center space-x-1.5 transition-colors cursor-pointer disabled:opacity-50 rounded-lg"
               >
-                <Upload className="w-3.5 h-3.5 text-[#083f2a]" />
+                <Upload className="w-3.5 h-3.5 text-[#084A2E]" />
                 <span>অন্য ছবি দিন</span>
               </button>
 
@@ -602,7 +602,7 @@ export const BackgroundRemoverPage: React.FC = () => {
                 type="button"
                 onClick={handleLoadSample}
                 disabled={isProcessing}
-                className="border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] px-3 py-2 text-xs text-[#6b6255] transition-colors cursor-pointer disabled:opacity-50 hidden sm:inline-block"
+                className="border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] px-3 py-2 text-xs text-[#4A5A52] transition-colors cursor-pointer disabled:opacity-50 hidden sm:inline-block rounded-lg"
               >
                 নমুনা ছবি
               </button>
@@ -612,7 +612,7 @@ export const BackgroundRemoverPage: React.FC = () => {
 
         {/* Error Alert */}
         {errorMessage && (
-          <div className="bg-[#fff5f5] border border-[#fecaca] p-4 text-xs text-[#b91c1c] flex items-start space-x-2.5">
+          <div className="bg-[#fff5f5] border border-[#fecaca] p-4 text-xs text-[#b91c1c] flex items-start space-x-2.5 rounded-2xl">
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
             <div className="space-y-1">
               <p className="font-semibold">ত্রুটি ঘটেছে:</p>
@@ -623,24 +623,24 @@ export const BackgroundRemoverPage: React.FC = () => {
 
         {/* Processing State with Live Progress Callback */}
         {isProcessing && (
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-8 sm:p-12 text-center space-y-5">
-            <div className="w-16 h-16 mx-auto border-4 border-[#0c5c3d]/20 border-t-[#0c5c3d] rounded-full animate-spin"></div>
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-8 sm:p-12 text-center space-y-5 rounded-2xl">
+            <div className="w-16 h-16 mx-auto border-4 border-[#0B5D3B]/20 border-t-[#0B5D3B] rounded-full animate-spin"></div>
             <div className="space-y-2 max-w-md mx-auto">
-              <h3 className="text-sm sm:text-base font-bold text-[#083f2a] font-serif">
+              <h3 className="text-sm sm:text-base font-bold text-[#084A2E] font-serif">
                 {progressStatus || 'AI মডেল দিয়ে ছবির ব্যাকগ্রাউন্ড প্রক্রিয়াকরণ হচ্ছে...'}
               </h3>
-              <p className="text-xs text-[#6b6255]">
+              <p className="text-xs text-[#4A5A52]">
                 ছবি ব্রাউজারেই লোকালি প্রসেস হচ্ছে, কোনো ছবি ইন্টারনেটে বা সার্ভারে আপলোড হচ্ছে না।
               </p>
               {progressPercent > 0 && (
                 <div className="pt-2 space-y-1">
-                  <div className="w-full bg-[#f4efe4] h-2.5 border border-[#d8cfb8] overflow-hidden">
+                  <div className="w-full bg-[#F0F4F2] h-2.5 border border-[#D5E4DB] overflow-hidden rounded-lg">
                     <div
-                      className="bg-[#0c5c3d] h-full transition-all duration-300"
+                      className="bg-[#0B5D3B] h-full transition-all duration-300"
                       style={{ width: `${progressPercent}%` }}
                     ></div>
                   </div>
-                  <div className="text-[11px] font-mono text-[#6b6255] text-right">
+                  <div className="text-[11px] font-mono text-[#4A5A52] text-right">
                     {progressPercent}%
                   </div>
                 </div>
@@ -653,20 +653,20 @@ export const BackgroundRemoverPage: React.FC = () => {
         {removedImageUrl && originalImageSrc && !isProcessing && (
           <div className="space-y-6">
             {/* View Mode Switcher Header */}
-            <div className="bg-[#fffdf7] border border-[#d8cfb8] p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center space-x-2 text-xs font-semibold text-[#083f2a] font-serif">
-                <SlidersHorizontal className="w-4 h-4 text-[#0c5c3d]" />
+            <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl">
+              <div className="flex items-center space-x-2 text-xs font-semibold text-[#084A2E] font-serif">
+                <SlidersHorizontal className="w-4 h-4 text-[#0B5D3B]" />
                 <span>তুলনা ও প্রিভিউ মোড:</span>
               </div>
 
-              <div className="flex items-center space-x-1 border border-[#d8cfb8] p-0.5 bg-[#f4efe4]">
+              <div className="flex items-center space-x-1 border border-[#D5E4DB] p-0.5 bg-[#F0F4F2] rounded-lg">
                 <button
                   type="button"
                   onClick={() => setViewMode('slider')}
                   className={`px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer flex items-center space-x-1.5 ${
                     viewMode === 'slider'
-                      ? 'bg-[#fffdf7] text-[#083f2a] shadow-xs font-semibold'
-                      : 'text-[#6b6255] hover:text-[#083f2a]'
+                      ? 'bg-[#FFFFFF] text-[#084A2E] shadow-xs font-semibold'
+                      : 'text-[#4A5A52] hover:text-[#084A2E]'
                   }`}
                 >
                   <Sliders className="w-3.5 h-3.5" />
@@ -677,8 +677,8 @@ export const BackgroundRemoverPage: React.FC = () => {
                   onClick={() => setViewMode('side-by-side')}
                   className={`px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer flex items-center space-x-1.5 ${
                     viewMode === 'side-by-side'
-                      ? 'bg-[#fffdf7] text-[#083f2a] shadow-xs font-semibold'
-                      : 'text-[#6b6255] hover:text-[#083f2a]'
+                      ? 'bg-[#FFFFFF] text-[#084A2E] shadow-xs font-semibold'
+                      : 'text-[#4A5A52] hover:text-[#084A2E]'
                   }`}
                 >
                   <Maximize2 className="w-3.5 h-3.5" />
@@ -689,8 +689,8 @@ export const BackgroundRemoverPage: React.FC = () => {
                   onClick={() => setViewMode('result')}
                   className={`px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer flex items-center space-x-1.5 ${
                     viewMode === 'result'
-                      ? 'bg-[#fffdf7] text-[#083f2a] shadow-xs font-semibold'
-                      : 'text-[#6b6255] hover:text-[#083f2a]'
+                      ? 'bg-[#FFFFFF] text-[#084A2E] shadow-xs font-semibold'
+                      : 'text-[#4A5A52] hover:text-[#084A2E]'
                   }`}
                 >
                   <Eye className="w-3.5 h-3.5" />
@@ -700,7 +700,7 @@ export const BackgroundRemoverPage: React.FC = () => {
             </div>
 
             {/* Visual Canvas Area */}
-            <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-6 overflow-hidden">
+            <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 sm:p-6 overflow-hidden rounded-2xl">
               {/* 1. Interactive Slider View */}
               {viewMode === 'slider' && (
                 <div className="space-y-3">
@@ -708,7 +708,7 @@ export const BackgroundRemoverPage: React.FC = () => {
                     ref={sliderContainerRef}
                     onMouseDown={() => setIsDraggingSlider(true)}
                     onTouchStart={() => setIsDraggingSlider(true)}
-                    className="relative w-full max-w-3xl mx-auto h-[380px] sm:h-[480px] select-none cursor-ew-resize overflow-hidden border border-[#d8cfb8] shadow-inner"
+                    className="relative w-full max-w-3xl mx-auto h-[380px] sm:h-[480px] select-none cursor-ew-resize overflow-hidden border border-[#D5E4DB] shadow-inner"
                     style={{
                       backgroundColor:
                         backgroundColor === 'transparent' ? undefined : backgroundColor,
@@ -728,7 +728,7 @@ export const BackgroundRemoverPage: React.FC = () => {
 
                     {/* Layer 2 (Top): Original image clipped by slider position */}
                     <div
-                      className="absolute inset-0 overflow-hidden pointer-events-none border-r-2 border-[#0c5c3d]"
+                      className="absolute inset-0 overflow-hidden pointer-events-none border-r-2 border-[#0B5D3B]"
                       style={{ width: `${sliderPosition}%` }}
                     >
                       <img
@@ -744,24 +744,24 @@ export const BackgroundRemoverPage: React.FC = () => {
 
                     {/* Slider Handle Knob */}
                     <div
-                      className="absolute top-0 bottom-0 w-1 bg-[#0c5c3d] -ml-0.5 pointer-events-none flex items-center justify-center"
+                      className="absolute top-0 bottom-0 w-1 bg-[#0B5D3B] -ml-0.5 pointer-events-none flex items-center justify-center"
                       style={{ left: `${sliderPosition}%` }}
                     >
-                      <div className="w-7 h-7 bg-[#fffdf7] border-2 border-[#0c5c3d] shadow-md flex items-center justify-center text-[#083f2a] pointer-events-auto cursor-ew-resize">
-                        <SlidersHorizontal className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                      <div className="w-7 h-7 bg-[#FFFFFF] border-2 border-[#0B5D3B] shadow-md flex items-center justify-center text-[#084A2E] pointer-events-auto cursor-ew-resize rounded-lg">
+                        <SlidersHorizontal className="w-3.5 h-3.5 text-[#0B5D3B]" />
                       </div>
                     </div>
 
                     {/* Badges on preview */}
-                    <div className="absolute top-3 left-3 bg-[#083f2a]/80 text-[#fffdf7] text-[11px] px-2 py-0.5 pointer-events-none">
+                    <div className="absolute top-3 left-3 bg-[#084A2E]/80 text-[#FFFFFF] text-[11px] px-2 py-0.5 pointer-events-none">
                       আগে (মূল ছবি)
                     </div>
-                    <div className="absolute top-3 right-3 bg-[#0c5c3d]/90 text-[#fffdf7] text-[11px] px-2 py-0.5 pointer-events-none">
+                    <div className="absolute top-3 right-3 bg-[#0B5D3B]/90 text-[#FFFFFF] text-[11px] px-2 py-0.5 pointer-events-none">
                       পরে (রিমুভড)
                     </div>
                   </div>
 
-                  <p className="text-center text-[11px] text-[#6b6255]">
+                  <p className="text-center text-[11px] text-[#4A5A52]">
                     ↔️ স্লাইডারটি ডানে বা বামে টেনে মূল ছবি বনাম রিমুভড ছবির নিখুঁত পার্থক্য তুলনা করুন
                   </p>
                 </div>
@@ -771,14 +771,14 @@ export const BackgroundRemoverPage: React.FC = () => {
               {viewMode === 'side-by-side' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
                   {/* Left: Original */}
-                  <div className="border border-[#d8cfb8] bg-[#f4efe4]/40 p-2 space-y-2">
-                    <div className="text-xs font-semibold text-[#083f2a] flex items-center justify-between px-1">
+                  <div className="border border-[#D5E4DB] bg-[#F0F4F2]/40 p-2 space-y-2 rounded-lg">
+                    <div className="text-xs font-semibold text-[#084A2E] flex items-center justify-between px-1">
                       <span>আসল ছবি (Original)</span>
-                      <span className="text-[11px] font-mono text-[#6b6255]">
+                      <span className="text-[11px] font-mono text-[#4A5A52]">
                         {originalDimensions?.width} × {originalDimensions?.height}
                       </span>
                     </div>
-                    <div className="h-72 sm:h-96 flex items-center justify-center bg-[#fffdf7] border border-[#d8cfb8] p-1 overflow-hidden">
+                    <div className="h-72 sm:h-96 flex items-center justify-center bg-[#FFFFFF] border border-[#D5E4DB] p-1 overflow-hidden rounded-lg">
                       <img
                         src={originalImageSrc}
                         alt="মূল ছবি"
@@ -788,13 +788,13 @@ export const BackgroundRemoverPage: React.FC = () => {
                   </div>
 
                   {/* Right: Cutout */}
-                  <div className="border border-[#d8cfb8] bg-[#f4efe4]/40 p-2 space-y-2">
-                    <div className="text-xs font-semibold text-[#0c5c3d] flex items-center justify-between px-1">
+                  <div className="border border-[#D5E4DB] bg-[#F0F4F2]/40 p-2 space-y-2 rounded-lg">
+                    <div className="text-xs font-semibold text-[#0B5D3B] flex items-center justify-between px-1">
                       <span>ব্যাকগ্রাউন্ড রিমুভড (AI Cutout)</span>
-                      <span className="text-[11px] text-[#0c5c3d] font-medium">১০০% ফুল কোয়ালিটি</span>
+                      <span className="text-[11px] text-[#0B5D3B] font-medium">১০০% ফুল কোয়ালিটি</span>
                     </div>
                     <div
-                      className="h-72 sm:h-96 flex items-center justify-center border border-[#d8cfb8] p-1 overflow-hidden"
+                      className="h-72 sm:h-96 flex items-center justify-center border border-[#D5E4DB] p-1 overflow-hidden"
                       style={{
                         backgroundColor:
                           backgroundColor === 'transparent' ? undefined : backgroundColor,
@@ -819,7 +819,7 @@ export const BackgroundRemoverPage: React.FC = () => {
               {viewMode === 'result' && (
                 <div className="max-w-2xl mx-auto space-y-2">
                   <div
-                    className="h-80 sm:h-[440px] flex items-center justify-center border border-[#d8cfb8] p-2 overflow-hidden shadow-inner"
+                    className="h-80 sm:h-[440px] flex items-center justify-center border border-[#D5E4DB] p-2 overflow-hidden shadow-inner"
                     style={{
                       backgroundColor:
                         backgroundColor === 'transparent' ? undefined : backgroundColor,
@@ -841,14 +841,14 @@ export const BackgroundRemoverPage: React.FC = () => {
             </div>
 
             {/* Custom Background Color Bar (Key Synergy Feature) */}
-            <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-6 space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#d8cfb8]">
+            <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 sm:p-6 space-y-4 rounded-2xl">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#D5E4DB]">
                 <div className="space-y-0.5">
-                  <h3 className="text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-2">
-                    <Palette className="w-4 h-4 text-[#0c5c3d]" />
+                  <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
+                    <Palette className="w-4 h-4 text-[#0B5D3B]" />
                     <span>নতুন ব্যাকগ্রাউন্ড রঙ বসান (Background Color)</span>
                   </h3>
-                  <p className="text-xs text-[#6b6255]">
+                  <p className="text-xs text-[#4A5A52]">
                     ট্রান্সপারেন্ট রাখুন অথবা সরকারি চাকরি/পাসপোর্টের জন্য এক ক্লিকে সাদা/নীল ব্যাকগ্রাউন্ড বসান।
                   </p>
                 </div>
@@ -859,11 +859,11 @@ export const BackgroundRemoverPage: React.FC = () => {
                   onClick={() => setBackgroundColor('#ffffff')}
                   className={`px-3.5 py-1.5 text-xs font-semibold flex items-center space-x-1.5 border transition-all cursor-pointer ${
                     backgroundColor === '#ffffff'
-                      ? 'bg-[#083f2a] text-[#fffdf7] border-[#083f2a]'
-                      : 'bg-[#fffdf7] text-[#083f2a] border-[#0c5c3d] hover:bg-[#f4efe4]'
+                      ? 'bg-[#084A2E] text-[#FFFFFF] border-[#084A2E]'
+                      : 'bg-[#FFFFFF] text-[#084A2E] border-[#0B5D3B] hover:bg-[#F0F4F2]'
                   }`}
                 >
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0B5D3B]" />
                   <span>সাদা ব্যাকগ্রাউন্ড (পাসপোর্ট স্ট্যান্ডার্ড)</span>
                 </button>
               </div>
@@ -879,8 +879,8 @@ export const BackgroundRemoverPage: React.FC = () => {
                       onClick={() => setBackgroundColor(preset.value)}
                       className={`flex items-center space-x-2 px-3 py-1.5 text-xs border transition-all cursor-pointer ${
                         isSelected
-                          ? 'border-[#083f2a] bg-[#f4efe4] font-semibold text-[#083f2a] ring-1 ring-[#083f2a]'
-                          : 'border-[#d8cfb8] bg-[#fffdf7] text-[#14231c] hover:bg-[#f4efe4]'
+                          ? 'border-[#084A2E] bg-[#F0F4F2] font-semibold text-[#084A2E] ring-1 ring-[#084A2E]'
+                          : 'border-[#D5E4DB] bg-[#FFFFFF] text-[#0F1F17] hover:bg-[#F0F4F2]'
                       }`}
                     >
                       <span
@@ -900,7 +900,7 @@ export const BackgroundRemoverPage: React.FC = () => {
                 })}
 
                 {/* Custom Color Input */}
-                <div className="flex items-center space-x-2 border border-[#d8cfb8] bg-[#fffdf7] px-2 py-1">
+                <div className="flex items-center space-x-2 border border-[#D5E4DB] bg-[#FFFFFF] px-2 py-1 rounded-lg">
                   <input
                     type="color"
                     id="custom-bg-color-picker"
@@ -914,7 +914,7 @@ export const BackgroundRemoverPage: React.FC = () => {
                   />
                   <label
                     htmlFor="custom-bg-color-picker"
-                    className="text-xs text-[#6b6255] cursor-pointer font-mono"
+                    className="text-xs text-[#4A5A52] cursor-pointer font-mono"
                   >
                     {customColor.toUpperCase()}
                   </label>
@@ -923,29 +923,29 @@ export const BackgroundRemoverPage: React.FC = () => {
             </div>
 
             {/* Download & Export Card */}
-            <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-6 space-y-4">
+            <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 sm:p-6 space-y-4 rounded-2xl">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="space-y-1">
-                  <h3 className="text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-2">
-                    <Download className="w-4 h-4 text-[#0c5c3d]" />
+                  <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
+                    <Download className="w-4 h-4 text-[#0B5D3B]" />
                     <span>ছবি ডাউনলোড করুন (Download HD Cutout)</span>
                   </h3>
-                  <p className="text-xs text-[#6b6255]">
+                  <p className="text-xs text-[#4A5A52]">
                     ফুল এইচডি রেজোলিউশনে সেভ হবে — কোনো ওয়াটারমার্ক নেই।
                   </p>
                 </div>
 
                 {/* Export Format Selector */}
                 <div className="flex items-center space-x-2 text-xs">
-                  <span className="text-[#6b6255]">ফরম্যাট:</span>
-                  <div className="flex border border-[#d8cfb8] bg-[#f4efe4] p-0.5">
+                  <span className="text-[#4A5A52]">ফরম্যাট:</span>
+                  <div className="flex border border-[#D5E4DB] bg-[#F0F4F2] p-0.5 rounded-lg">
                     <button
                       type="button"
                       onClick={() => setExportFormat('png')}
                       className={`px-3 py-1 font-medium transition-colors cursor-pointer ${
                         exportFormat === 'png'
-                          ? 'bg-[#fffdf7] text-[#083f2a] font-bold shadow-xs'
-                          : 'text-[#6b6255] hover:text-[#083f2a]'
+                          ? 'bg-[#FFFFFF] text-[#084A2E] font-bold shadow-xs'
+                          : 'text-[#4A5A52] hover:text-[#084A2E]'
                       }`}
                     >
                       PNG {backgroundColor === 'transparent' ? '(স্বচ্ছ)' : ''}
@@ -955,8 +955,8 @@ export const BackgroundRemoverPage: React.FC = () => {
                       onClick={() => setExportFormat('jpeg')}
                       className={`px-3 py-1 font-medium transition-colors cursor-pointer ${
                         exportFormat === 'jpeg'
-                          ? 'bg-[#fffdf7] text-[#083f2a] font-bold shadow-xs'
-                          : 'text-[#6b6255] hover:text-[#083f2a]'
+                          ? 'bg-[#FFFFFF] text-[#084A2E] font-bold shadow-xs'
+                          : 'text-[#4A5A52] hover:text-[#084A2E]'
                       }`}
                     >
                       JPG
@@ -966,7 +966,7 @@ export const BackgroundRemoverPage: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-[#d8cfb8]">
+              <div className="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-[#D5E4DB]">
                 <button
                   type="button"
                   onClick={() => {
@@ -987,9 +987,9 @@ export const BackgroundRemoverPage: React.FC = () => {
                       img.src = originalImageSrc;
                     }
                   }}
-                  className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 px-3.5 py-2.5 text-xs text-[#14231c] flex items-center space-x-1.5 transition-colors cursor-pointer"
+                  className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 px-3.5 py-2.5 text-xs text-[#0F1F17] flex items-center space-x-1.5 transition-colors cursor-pointer rounded-lg"
                 >
-                  <RefreshCw className="w-3.5 h-3.5 text-[#083f2a]" />
+                  <RefreshCw className="w-3.5 h-3.5 text-[#084A2E]" />
                   <span>পুনরায় প্রসেস করুন</span>
                 </button>
 
@@ -997,7 +997,7 @@ export const BackgroundRemoverPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleDownload}
-                    className="bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] px-6 py-2.5 text-xs font-semibold flex items-center space-x-2 transition-all shadow-sm cursor-pointer"
+                    className="bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] px-6 py-2.5 text-xs font-semibold flex items-center space-x-2 transition-all shadow-sm cursor-pointer"
                   >
                     <Download className="w-4 h-4" />
                     <span>ডাউনলোড করুন ({exportFormat.toUpperCase()})</span>
@@ -1007,20 +1007,20 @@ export const BackgroundRemoverPage: React.FC = () => {
             </div>
 
             {/* Synergy Link to Government Photo Resizer */}
-            <div className="bg-[#fcfaf5] border border-[#d8cfb8] p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="bg-[#F8FAF9] border border-[#D5E4DB] p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl">
               <div className="space-y-1">
-                <div className="text-xs font-bold text-[#083f2a] flex items-center space-x-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#0c5c3d]" />
+                <div className="text-xs font-bold text-[#084A2E] flex items-center space-x-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-[#0B5D3B]" />
                   <span>সরকারি চাকরি বা পাসপোর্টের ৩০০×৩০০ মাপে রিসাইজ করবেন?</span>
                 </div>
-                <p className="text-xs text-[#4a4237]">
+                <p className="text-xs text-[#34443B]">
                   সাদা ব্যাকগ্রাউন্ড দেওয়া ছবিটি সরাসরি আমাদের "সরকারি ও পাসপোর্ট ছবি রিসাইজার" টুলে নিয়ে ৩০০×৩০০ পিক্সেল ও ১০০KB লিমিটে কনভার্ট করতে পারেন।
                 </p>
               </div>
 
               <Link
                 to="/photo-resizer"
-                className="border border-[#0c5c3d] bg-[#fffdf7] hover:bg-[#0c5c3d] hover:text-[#fffdf7] text-[#083f2a] px-4 py-2 text-xs font-semibold flex items-center space-x-1.5 transition-colors shrink-0"
+                className="border border-[#0B5D3B] bg-[#FFFFFF] hover:bg-[#0B5D3B] hover:text-[#FFFFFF] text-[#084A2E] px-4 py-2 text-xs font-semibold flex items-center space-x-1.5 transition-colors shrink-0"
               >
                 <span>পাসপোর্ট রিসাইজারে যান</span>
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -1031,38 +1031,38 @@ export const BackgroundRemoverPage: React.FC = () => {
       </div>
 
       {/* Feature & Benefits Bento Grid */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-5">
-        <h3 className="text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-2">
-          <Layers className="w-4 h-4 text-[#0c5c3d]" />
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-5 rounded-2xl">
+        <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
+          <Layers className="w-4 h-4 text-[#0B5D3B]" />
           <span>অন-ডিভাইস AI ব্যাকগ্রাউন্ড রিমুভারের বিশেষ সুবিধাসমূহ</span>
         </h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-xs text-[#4a4237] leading-relaxed">
-          <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-4 space-y-2">
-            <div className="w-8 h-8 bg-[#0c5c3d]/10 border border-[#0c5c3d]/30 flex items-center justify-center text-[#0c5c3d]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-xs text-[#34443B] leading-relaxed">
+          <div className="bg-[#F0F4F2]/40 border border-[#D5E4DB] p-4 space-y-2 rounded-2xl">
+            <div className="w-8 h-8 bg-[#0B5D3B]/10 border border-[#0B5D3B]/30 flex items-center justify-center text-[#0B5D3B] rounded-lg">
               <ShieldCheck className="w-4 h-4" />
             </div>
-            <h4 className="font-bold text-[#083f2a] text-sm font-serif">১. ১০০% গোপনীয়তা ও নিরাপদ</h4>
+            <h4 className="font-bold text-[#084A2E] text-sm font-serif">১. ১০০% গোপনীয়তা ও নিরাপদ</h4>
             <p>
               আপনার ছবি কোনো দূরবর্তী সার্ভারে আপলোড হয় না। পুরো এআই ইনফারেন্স রান করে আপনার নিজস্ব ব্রাউজারে WebAssembly-এর শক্তিতে।
             </p>
           </div>
 
-          <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-4 space-y-2">
-            <div className="w-8 h-8 bg-[#0c5c3d]/10 border border-[#0c5c3d]/30 flex items-center justify-center text-[#0c5c3d]">
+          <div className="bg-[#F0F4F2]/40 border border-[#D5E4DB] p-4 space-y-2 rounded-2xl">
+            <div className="w-8 h-8 bg-[#0B5D3B]/10 border border-[#0B5D3B]/30 flex items-center justify-center text-[#0B5D3B] rounded-lg">
               <Maximize2 className="w-4 h-4" />
             </div>
-            <h4 className="font-bold text-[#083f2a] text-sm font-serif">২. আসল রেজোলিউশন ও আনলিমিটেড</h4>
+            <h4 className="font-bold text-[#084A2E] text-sm font-serif">২. আসল রেজোলিউশন ও আনলিমিটেড</h4>
             <p>
               অন্যান্য সাইটের মতো ছবির রেজোলিউশন কমিয়ে দেয় না। আপনি যে সাইজের ছবি আপলোড করবেন, ঠিক সেই ফুল রেজোলিউশনেই কাটআউট পাবেন।
             </p>
           </div>
 
-          <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-4 space-y-2">
-            <div className="w-8 h-8 bg-[#0c5c3d]/10 border border-[#0c5c3d]/30 flex items-center justify-center text-[#0c5c3d]">
+          <div className="bg-[#F0F4F2]/40 border border-[#D5E4DB] p-4 space-y-2 rounded-2xl">
+            <div className="w-8 h-8 bg-[#0B5D3B]/10 border border-[#0B5D3B]/30 flex items-center justify-center text-[#0B5D3B] rounded-lg">
               <Palette className="w-4 h-4" />
             </div>
-            <h4 className="font-bold text-[#083f2a] text-sm font-serif">৩. এক ক্লিকে পাসপোর্ট ব্যাকগ্রাউন্ড</h4>
+            <h4 className="font-bold text-[#084A2E] text-sm font-serif">৩. এক ক্লিকে পাসপোর্ট ব্যাকগ্রাউন্ড</h4>
             <p>
               টেলিটক, বিসিএস ও পাসপোর্ট আবেদনের জন্য এক ক্লিকে সাদা বা পাসপোর্ট স্কাই ব্লু ব্যাকগ্রাউন্ড বসিয়ে তাৎক্ষণিক ডাউনলোড করা যায়।
             </p>
@@ -1071,44 +1071,44 @@ export const BackgroundRemoverPage: React.FC = () => {
       </div>
 
       {/* FAQ Section */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-5">
-        <h3 className="text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-2">
-          <HelpCircle className="w-4 h-4 text-[#0c5c3d]" />
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-5 rounded-2xl">
+        <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
+          <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
           <span>প্রায়শই জিজ্ঞাসিত প্রশ্ন ও উত্তর (FAQ)</span>
         </h3>
 
-        <div className="space-y-4 text-xs sm:text-sm text-[#14231c] leading-relaxed">
-          <div className="space-y-1 pb-3 border-b border-[#f4efe4]">
-            <h4 className="font-bold text-[#083f2a]">এই টুল কি সত্যিই ফ্রি, কোনো লিমিট আছে কি?</h4>
-            <p className="text-[#4a4237]">
+        <div className="space-y-4 text-xs sm:text-sm text-[#0F1F17] leading-relaxed">
+          <div className="space-y-1 pb-3 border-b border-[#F0F4F2]">
+            <h4 className="font-bold text-[#084A2E]">এই টুল কি সত্যিই ফ্রি, কোনো লিমিট আছে কি?</h4>
+            <p className="text-[#34443B]">
               হ্যাঁ, Utilix.bd-এর ছবির ব্যাকগ্রাউন্ড রিমুভার সম্পূর্ণ ফ্রি এবং শতভাগ আনলিমিটেড। remove.bg বা অন্যান্য সাইটের মতো এখানে কোনো ক্রেডিট সীমা বা সাবস্ক্রিপশন নেই। আপনি যত খুশি ছবি ফুল রেজোলিউশনে রিমুভ ও ডাউনলোড করতে পারেন।
             </p>
           </div>
 
-          <div className="space-y-1 pb-3 border-b border-[#f4efe4]">
-            <h4 className="font-bold text-[#083f2a]">ছবি কি সার্ভারে আপলোড হয়?</h4>
-            <p className="text-[#4a4237]">
+          <div className="space-y-1 pb-3 border-b border-[#F0F4F2]">
+            <h4 className="font-bold text-[#084A2E]">ছবি কি সার্ভারে আপলোড হয়?</h4>
+            <p className="text-[#34443B]">
               না, কোনো ছবি কখনোই কোনো দূরবর্তী সার্ভারে আপলোড হয় না। পুরো মডেল ব্রাউজারে ক্যাশ হয়ে আপনার প্রসেসর ও জিপিইউ-এর মাধ্যমে স্থানীয়ভাবে (Locally) ছবি প্রসেস করে। ফলে আপনার সংবেদনশীল বা পারিবারিক ছবির পূর্ণ গোপনীয়তা অটুট থাকে।
             </p>
           </div>
 
-          <div className="space-y-1 pb-3 border-b border-[#f4efe4]">
-            <h4 className="font-bold text-[#083f2a]">কেমন কোয়ালিটির রেজাল্ট পাওয়া যায়?</h4>
-            <p className="text-[#4a4237]">
+          <div className="space-y-1 pb-3 border-b border-[#F0F4F2]">
+            <h4 className="font-bold text-[#084A2E]">কেমন কোয়ালিটির রেজাল্ট পাওয়া যায়?</h4>
+            <p className="text-[#34443B]">
               উন্নত অন-ডিভাইস নিউরাল নেটওয়ার্ক ব্যবহারের ফলে মানুষ, জামাকাপড়, চুলের সূক্ষ্ম প্রান্ত কিংবা পণ্যের ছবি খুবই পরিষ্কার ও প্রফেশনালভাবে ব্যাকগ্রাউন্ড থেকে আলাদা হয়ে যায়। আউটপুট মূল কোয়ালিটি এবং রেজোলিউশনেই বজায় থাকে।
             </p>
           </div>
 
-          <div className="space-y-1 pb-3 border-b border-[#f4efe4]">
-            <h4 className="font-bold text-[#083f2a]">কোন কোন ফরম্যাটের ছবি সাপোর্ট করে?</h4>
-            <p className="text-[#4a4237]">
+          <div className="space-y-1 pb-3 border-b border-[#F0F4F2]">
+            <h4 className="font-bold text-[#084A2E]">কোন কোন ফরম্যাটের ছবি সাপোর্ট করে?</h4>
+            <p className="text-[#34443B]">
               টুলটি বহুল ব্যবহৃত JPG, JPEG, PNG ও WebP ফরম্যাটের ছবি সাপোর্ট করে। ফলাফল হিসেবে আপনি স্বচ্ছ (Transparent) PNG অথবা নতুন সলিড ব্যাকগ্রাউন্ড সহ JPG/PNG সেভ করতে পারেন।
             </p>
           </div>
 
           <div className="space-y-1">
-            <h4 className="font-bold text-[#083f2a]">পাসপোর্ট বা চাকরির আবেদনের জন্য কীভাবে ছবি তৈরি করব?</h4>
-            <p className="text-[#4a4237]">
+            <h4 className="font-bold text-[#084A2E]">পাসপোর্ট বা চাকরির আবেদনের জন্য কীভাবে ছবি তৈরি করব?</h4>
+            <p className="text-[#34443B]">
               প্রথমে আপনার ছবি আপলোড করে ব্যাকগ্রাউন্ড রিমুভ করুন। এরপর কালার প্যালেট থেকে "সাদা" সিলেক্ট করে ডাউনলোড করুন। এরপর আমাদের "সরকারি ও পাসপোর্ট ছবি রিসাইজার" টুলে গিয়ে ছবিটি ৩০০×৩০০ পিক্সেল এবং ১০০KB-র নিচে রিসাইজ করে নিন।
             </p>
           </div>

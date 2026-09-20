@@ -40,7 +40,11 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
 
-    <!-- Google Fonts: Noto Sans Bengali (All Bangla UI, Headings & Body), JetBrains Mono (Code/Bijoy ANSI) -->
+    <!-- UI fonts (Hind Siliguri + Inter) are self-hosted from /fonts and declared in src/index.css -->
+    <link rel="preload" href="/fonts/hind-bn-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/hind-bn-700.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Google Fonts: Noto Sans Bengali (CV builder/export typography + glyph fallback), JetBrains Mono (Code/Bijoy ANSI) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -48,7 +52,7 @@
       rel="stylesheet"
     />
   </head>
-  <body class="bg-[#f4efe4] text-[#14231c] font-sans antialiased selection:bg-[#0c5c3d]/20 selection:text-[#083f2a]">
+  <body class="bg-[#FAFAF7] text-[#0F1F17] font-sans antialiased selection:bg-[#0B5D3B]/20 selection:text-[#084A2E]">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

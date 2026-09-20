@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
+import { getToolIconByLink } from '../data/toolIcons.tsx';
 
 interface NavbarProps {
   activeCategory?: string;
@@ -230,45 +231,49 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
   };
 
   return (
-    <header className="w-full bg-[#f4efe4] border-b border-[#d8cfb8] sticky top-0 z-30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Left: Logo + Tagline */}
-        <div className="flex items-center space-x-3">
-          <Link
-            to="/"
-            onClick={() => handleLinkClick('all')}
-            className="flex items-center space-x-2 group"
+    <header className="glass sticky top-0 z-30 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        {/* Left: Logo */}
+        <Link
+          to="/"
+          onClick={() => handleLinkClick('all')}
+          className="flex items-center gap-2 shrink-0 rounded-lg"
+          aria-label="Utilix.bd — হোম"
+        >
+          <span
+            aria-hidden="true"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold font-latin"
+            style={{ background: 'linear-gradient(135deg, #0B5D3B, #0D7048)' }}
           >
-            <span className="text-2xl font-bold tracking-tight text-[#083f2a] font-serif hover:text-[#0c5c3d] transition-colors">
-              Utilix.bd
-            </span>
-          </Link>
-          <span className="text-[#d8cfb8] hidden sm:inline">|</span>
-          <span className="text-xs sm:text-sm text-[#6b6255] hidden sm:inline-block font-sans">
+            U
+          </span>
+          <span className="text-lg font-bold tracking-tight text-[#0B5D3B] font-latin">
+            Utilix<span className="text-[#F5A524]">.bd</span>
+          </span>
+          <span className="hidden xl:inline text-[#D5E4DB] pl-1">|</span>
+          <span className="hidden xl:inline text-sm text-[#4A5A52]">
             বাংলা ডিজিটাল ইউটিলিটি হাব
           </span>
-        </div>
+        </Link>
 
         {/* Center: Desktop Navigation with Category Dropdowns */}
         <nav
           ref={navContainerRef}
           aria-label="প্রধান নেভিগেশন"
-          className="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm"
+          className="hidden lg:flex items-center gap-1 text-sm"
         >
-          {/* Home Link */}
           <Link
             to="/"
             onClick={() => handleLinkClick('all')}
-            className={`px-3 py-2 transition-colors font-medium border-b-2 ${
+            className={`px-3 py-2 rounded-lg transition-colors font-medium ${
               isHomeActive
-                ? 'text-[#083f2a] border-[#0c5c3d] font-semibold'
-                : 'text-[#6b6255] border-transparent hover:text-[#083f2a]'
+                ? 'text-[#0B5D3B] bg-[#E6F4EC] font-semibold'
+                : 'text-[#4A5A52] hover:text-[#0B5D3B] hover:bg-[#E6F4EC]/60'
             }`}
           >
             হোম
           </Link>
 
-          {/* Category Dropdowns */}
           {CATEGORIES.map((category) => {
             const catActive = isCategoryActive(category);
             const isOpen = openDropdownId === category.id;
@@ -287,18 +292,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
                   aria-expanded={isOpen}
                   aria-controls={`menu-${category.id}`}
                   onClick={() => handleCategoryClick(category.id)}
-                  className={`px-3 py-2 transition-colors font-medium flex items-center gap-1.5 cursor-pointer border-b-2 ${
+                  className={`px-3 py-2 rounded-lg transition-colors font-medium flex items-center gap-1 cursor-pointer ${
                     catActive
-                      ? 'text-[#083f2a] border-[#0c5c3d] font-semibold'
+                      ? 'text-[#0B5D3B] bg-[#E6F4EC] font-semibold'
                       : isOpen
-                      ? 'text-[#083f2a] border-transparent bg-[#e8e0cc]/40'
-                      : 'text-[#6b6255] border-transparent hover:text-[#083f2a]'
+                      ? 'text-[#0B5D3B] bg-[#E6F4EC]/60'
+                      : 'text-[#4A5A52] hover:text-[#0B5D3B] hover:bg-[#E6F4EC]/60'
                   }`}
                 >
                   <span>{category.label}</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 text-[#6b6255] transition-transform duration-150 ${
-                      isOpen ? 'rotate-180 text-[#083f2a]' : ''
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
+                      isOpen ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
@@ -309,31 +314,46 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
                     id={`menu-${category.id}`}
                     role="menu"
                     aria-labelledby={`trigger-${category.id}`}
-                    className="absolute top-full left-0 mt-0.5 w-64 bg-[#fffdf7] border border-[#d8cfb8] shadow-lg py-1 z-50"
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50"
                   >
-                    {category.items.map((tool) => {
-                      const active = isItemActive(tool.to);
-                      return (
-                        <Link
-                          key={tool.to}
-                          to={tool.to}
-                          role="menuitem"
-                          onClick={() => handleLinkClick(category.categoryKey)}
-                          className={`block px-3.5 py-2.5 transition-colors border-b border-[#efe8d6] last:border-b-0 ${
-                            active
-                              ? 'bg-[#f4efe4] text-[#083f2a] font-semibold border-l-2 border-l-[#0c5c3d]'
-                              : 'text-[#14231c] hover:bg-[#f4efe4] hover:text-[#083f2a]'
-                          }`}
-                        >
-                          <div className="text-sm font-medium">{tool.label}</div>
-                          {tool.description && (
-                            <div className="text-[11px] text-[#6b6255] mt-0.5 font-medium">
-                              {tool.description}
-                            </div>
-                          )}
-                        </Link>
-                      );
-                    })}
+                    <div className="w-80 bg-white border border-[#0B5D3B]/12 rounded-2xl shadow-[0_24px_64px_rgba(11,93,59,0.14)] p-3">
+                      <p className="px-2 pb-2 text-xs font-semibold text-[#0B5D3B]">
+                        {category.label}
+                      </p>
+                      <div className="flex flex-col gap-0.5">
+                        {category.items.map((tool) => {
+                          const active = isItemActive(tool.to);
+                          const Icon = getToolIconByLink(tool.to);
+                          return (
+                            <Link
+                              key={tool.to}
+                              to={tool.to}
+                              role="menuitem"
+                              onClick={() => handleLinkClick(category.categoryKey)}
+                              className={`flex items-start gap-3 rounded-xl px-2.5 py-2 transition-colors ${
+                                active
+                                  ? 'bg-[#E6F4EC] text-[#084A2E]'
+                                  : 'text-[#0F1F17] hover:bg-[#E6F4EC]'
+                              }`}
+                            >
+                              <span className="mt-0.5 w-8 h-8 shrink-0 rounded-lg bg-[#E6F4EC] text-[#0B5D3B] flex items-center justify-center">
+                                <Icon className="w-4 h-4" />
+                              </span>
+                              <span className="min-w-0">
+                                <span className={`block text-sm ${active ? 'font-semibold' : 'font-medium'}`}>
+                                  {tool.label}
+                                </span>
+                                {tool.description && (
+                                  <span className="block text-xs text-[#4A5A52] mt-0.5 leading-snug">
+                                    {tool.description}
+                                  </span>
+                                )}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
@@ -341,12 +361,27 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
           })}
         </nav>
 
-        {/* Right side: Engine status + Mobile Hamburger */}
-        <div className="flex items-center">
-          <div className="flex items-center text-xs text-[#0c5c3d] font-sans pl-2 border-l border-[#d8cfb8] sm:border-l-0">
-            <span className="w-2 h-2 rounded-full bg-[#0c5c3d] mr-1.5"></span>
-            <span className="hidden sm:inline">১০০% ক্লায়েন্ট-সাইড ও নিরাপদ</span>
-            <span className="sm:hidden text-[11px] font-medium">নিরাপদ টুলস</span>
+        {/* Right side: CTA + Mobile Hamburger */}
+        <div className="flex items-center gap-3">
+          <div className="hidden xl:flex items-center text-xs text-[#0B5D3B]">
+            <span className="w-2 h-2 rounded-full bg-[#0B5D3B] mr-1.5" aria-hidden="true"></span>
+            <span>১০০% ক্লায়েন্ট-সাইড ও নিরাপদ</span>
+          </div>
+
+          <Link
+            to="/#tools"
+            className="btn-shine hidden lg:inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-white"
+            style={{
+              background: 'linear-gradient(135deg, #0B5D3B, #0D7048)',
+              boxShadow: '0 4px 12px rgba(11,93,59,0.3)',
+            }}
+          >
+            সব টুলস দেখুন
+          </Link>
+
+          <div className="lg:hidden flex items-center text-[11px] font-medium text-[#0B5D3B]">
+            <span className="w-2 h-2 rounded-full bg-[#0B5D3B] mr-1.5" aria-hidden="true"></span>
+            <span>নিরাপদ টুলস</span>
           </div>
 
           <button
@@ -355,7 +390,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
             aria-label={mobileMenuOpen ? 'মেনু বন্ধ করুন' : 'মেনু খুলুন'}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-nav"
-            className="md:hidden ml-3 p-2 -mr-2 text-[#083f2a] hover:bg-[#e8e0cc] transition-colors cursor-pointer"
+            className="lg:hidden p-2 -mr-2 text-[#0B5D3B] hover:bg-[#E6F4EC] transition-colors cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -367,23 +402,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
         <nav
           id="mobile-nav"
           aria-label="মোবাইল নেভিগেশন"
-          className="md:hidden border-t border-[#d8cfb8] bg-[#fffdf7]"
+          className="lg:hidden border-t border-[#0B5D3B]/10 bg-[#FAFAF7] max-h-[calc(100vh-4rem)] overflow-y-auto"
         >
           <div className="max-w-7xl mx-auto px-4 py-3 space-y-2">
-            {/* Home Link */}
             <Link
               to="/"
               onClick={() => handleLinkClick('all')}
-              className={`block px-3 py-2.5 font-medium text-sm transition-colors ${
+              className={`block px-3.5 py-2.5 rounded-xl font-medium text-sm transition-colors ${
                 isHomeActive
-                  ? 'bg-[#f4efe4] text-[#083f2a] font-semibold border-l-4 border-[#0c5c3d]'
-                  : 'text-[#14231c] hover:bg-[#f4efe4] hover:text-[#083f2a]'
+                  ? 'bg-[#E6F4EC] text-[#084A2E] font-semibold'
+                  : 'text-[#0F1F17] hover:bg-[#E6F4EC]'
               }`}
             >
               হোম
             </Link>
 
-            {/* Accordion Categories */}
             {CATEGORIES.map((category) => {
               const catActive = isCategoryActive(category);
               const isExpanded = !!mobileExpanded[category.id];
@@ -391,7 +424,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
               return (
                 <div
                   key={category.id}
-                  className="border border-[#d8cfb8] bg-[#fffdf7] overflow-hidden"
+                  className="border border-[#0B5D3B]/10 bg-white rounded-2xl overflow-hidden"
                 >
                   <button
                     type="button"
@@ -399,39 +432,45 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
                     aria-expanded={isExpanded}
                     className={`w-full flex items-center justify-between px-3.5 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
                       catActive
-                        ? 'bg-[#f4efe4]/70 text-[#083f2a] font-semibold'
-                        : 'text-[#14231c] hover:bg-[#f4efe4]'
+                        ? 'bg-[#E6F4EC]/70 text-[#084A2E] font-semibold'
+                        : 'text-[#0F1F17] hover:bg-[#E6F4EC]/60'
                     }`}
                   >
                     <span>{category.label}</span>
                     <ChevronDown
-                      className={`w-4 h-4 text-[#6b6255] transition-transform duration-200 ${
-                        isExpanded ? 'rotate-180 text-[#083f2a]' : ''
+                      className={`w-4 h-4 text-[#4A5A52] transition-transform duration-200 ${
+                        isExpanded ? 'rotate-180 text-[#084A2E]' : ''
                       }`}
                     />
                   </button>
 
                   {isExpanded && (
-                    <div className="border-t border-[#efe8d6] bg-[#fffdf7]">
+                    <div className="border-t border-[#0B5D3B]/10 bg-white p-1.5">
                       {category.items.map((tool) => {
                         const active = isItemActive(tool.to);
+                        const Icon = getToolIconByLink(tool.to);
                         return (
                           <Link
                             key={tool.to}
                             to={tool.to}
                             onClick={() => handleLinkClick(category.categoryKey)}
-                            className={`block px-4 py-2.5 text-sm border-b border-[#f4efe4] last:border-b-0 transition-colors ${
+                            className={`flex items-start gap-3 rounded-xl px-2.5 py-2.5 text-sm transition-colors ${
                               active
-                                ? 'bg-[#f4efe4] text-[#083f2a] font-semibold pl-6 border-l-2 border-[#0c5c3d]'
-                                : 'text-[#14231c] hover:bg-[#f4efe4] hover:text-[#083f2a] pl-6'
+                                ? 'bg-[#E6F4EC] text-[#084A2E] font-semibold'
+                                : 'text-[#0F1F17] hover:bg-[#E6F4EC]'
                             }`}
                           >
-                            <div className="font-medium">{tool.label}</div>
-                            {tool.description && (
-                              <div className="text-[11px] text-[#6b6255] mt-0.5">
-                                {tool.description}
-                              </div>
-                            )}
+                            <span className="mt-0.5 w-8 h-8 shrink-0 rounded-lg bg-[#E6F4EC] text-[#0B5D3B] flex items-center justify-center">
+                              <Icon className="w-4 h-4" />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block font-medium">{tool.label}</span>
+                              {tool.description && (
+                                <span className="block text-xs text-[#4A5A52] mt-0.5">
+                                  {tool.description}
+                                </span>
+                              )}
+                            </span>
                           </Link>
                         );
                       })}
@@ -440,10 +479,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
                 </div>
               );
             })}
+
+            <Link
+              to="/#tools"
+              onClick={() => handleLinkClick('all')}
+              className="flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-semibold text-white"
+              style={{ background: 'linear-gradient(135deg, #0B5D3B, #0D7048)' }}
+            >
+              সব টুলস দেখুন <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </nav>
       )}
     </header>
   );
 };
-
