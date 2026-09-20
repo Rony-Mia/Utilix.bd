@@ -13,7 +13,8 @@ import {
   Trash2,
   Crop,
   FileText,
-  Stamp
+  Stamp,
+  FileImage
 } from 'lucide-react';
 
 export interface FaqItem {
@@ -47,7 +48,7 @@ export interface PdfToolLayoutProps {
   howToSteps?: Array<{ stepNum: string; title: string; desc: string }>;
   faqs?: FaqItem[];
   customFaqContent?: ReactNode;
-  currentToolId: 'pdf-merger' | 'pdf-split' | 'pdf-delete-pages' | 'pdf-rotate' | 'pdf-watermark-page-number';
+  currentToolId: 'pdf-merger' | 'pdf-split' | 'pdf-delete-pages' | 'pdf-rotate' | 'pdf-watermark-page-number' | 'image-to-pdf';
 }
 
 export const PdfToolLayout: React.FC<PdfToolLayoutProps> = ({
@@ -356,6 +357,33 @@ export const PdfToolLayout: React.FC<PdfToolLayoutProps> = ({
               >
                 <Stamp className="w-3.5 h-3.5 mr-1.5 text-[#0c5c3d]" />
                 <span>ওয়াটারমার্ক টুলে যান</span>
+              </Link>
+            </div>
+          )}
+
+          {/* Tool 6: Image to PDF Converter */}
+          {currentToolId !== 'image-to-pdf' && (
+            <div className="border border-[#d8cfb8] bg-[#fffdf7] p-4 flex flex-col justify-between space-y-3">
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono bg-[#f4efe4] text-[#083f2a] px-2 py-0.5">
+                    ডকুমেন্ট
+                  </span>
+                  <span className="text-[11px] font-mono text-[#6b6255]">DOC-PDF-06</span>
+                </div>
+                <h3 className="font-bold text-[#083f2a] font-serif text-sm">
+                  ইমেজ টু PDF কনভার্টার
+                </h3>
+                <p className="text-[#4a4237] leading-relaxed">
+                  একাধিক ছবি (JPG/PNG/WebP) থেকে সহজে A4 বা কাস্টম সাইজের গোছানো PDF ডকুমেন্ট তৈরি করুন।
+                </p>
+              </div>
+              <Link
+                to="/image-to-pdf"
+                className="inline-flex items-center justify-center px-3 py-2 bg-[#f4efe4] text-[#083f2a] font-medium hover:bg-[#d8cfb8] transition-colors border border-[#d8cfb8]"
+              >
+                <FileImage className="w-3.5 h-3.5 mr-1.5 text-[#0c5c3d]" />
+                <span>ইমেজ টু PDF এ যান</span>
               </Link>
             </div>
           )}

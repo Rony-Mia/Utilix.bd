@@ -1,0 +1,969 @@
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import QRCode from 'qrcode';
+import {
+  ArrowLeft,
+  QrCode,
+  Download,
+  Copy,
+  Check,
+  Globe,
+  Type,
+  Phone,
+  Mail,
+  Wifi,
+  Upload,
+  Trash2,
+  ShieldCheck,
+  HelpCircle,
+  Sparkles,
+  Sliders,
+  Maximize,
+  Layers,
+  Palette
+} from 'lucide-react';
+
+type InputCategory = 'url' | 'text' | 'phone' | 'email' | 'wifi';
+type ErrorCorrectionLevel = 'L' | 'M' | 'Q' | 'H';
+
+export const QrGeneratorPage: React.FC = () => {
+  // Category state
+  const [category, setCategory] = useState<InputCategory>('url');
+
+  // Specific input states
+  const [urlInput, setUrlInput] = useState<string>('https://utilix.bd');
+  const [textInput, setTextInput] = useState<string>('Utilix.bd — সকল প্রাত্যহিক ডিজিটাল টুল এক ঠিকানায়');
+  const [phoneInput, setPhoneInput] = useState<string>('+8801700000000');
+  
+  // Email fields
+  const [emailTo, setEmailTo] = useState<string>('support@utilix.bd');
+  const [emailSubject, setEmailSubject] = useState<string>('জরুরি তথ্য ও সহায়তা');
+  const [emailBody, setEmailBody] = useState<string>('আসসালামু আলাইকুম,\nআমার কিছু তথ্য জানার প্রয়োজন ছিল।');
+
+  // WiFi fields
+  const [wifiSsid, setWifiSsid] = useState<string>('Utilix_HighSpeed_WiFi');
+  const [wifiPassword, setWifiPassword] = useState<string>('bangladesh2026');
+  const [wifiEncryption, setWifiEncryption] = useState<'WPA' | 'WEP' | 'nopass'>('WPA');
+  const [wifiHidden, setWifiHidden] = useState<boolean>(false);
+
+  // Customization controls
+  const [fgColor, setFgColor] = useState<string>('#083f2a');
+  const [bgColor, setBgColor] = useState<string>('#ffffff');
+  const [qrSize, setQrSize] = useState<number>(600);
+  const [errorLevel, setErrorLevel] = useState<ErrorCorrectionLevel>('H');
+  const [marginSize, setMarginSize] = useState<number>(2);
+
+  // Logo overlay
+  const [logoSrc, setLogoSrc] = useState<string | null>(null);
+  const [logoName, setLogoName] = useState<string | null>(null);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
+
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+
+  // Compute final encoded string based on selected category
+  const encodedValue = useMemo(() => {
+    switch (category) {
+      case 'url':
+        return urlInput.trim() || 'https://utilix.bd';
+      case 'text':
+        return textInput || ' ';
+      case 'phone':
+        return `tel:${phoneInput.trim()}`;
+      case 'email': {
+        const to = emailTo.trim();
+        const sub = encodeURIComponent(emailSubject);
+        const body = encodeURIComponent(emailBody);
+        return `mailto:${to}?subject=${sub}&body=${body}`;
+      }
+      case 'wifi': {
+        const enc = wifiEncryption === 'nopass' ? 'nopass' : wifiEncryption;
+        const pass = wifiEncryption === 'nopass' ? '' : wifiPassword;
+        return `WIFI:T:${enc};S:${wifiSsid};P:${pass};H:${wifiHidden ? 'true' : 'false'};;`;
+      }
+      default:
+        return 'https://utilix.bd';
+    }
+  }, [
+    category,
+    urlInput,
+    textInput,
+    phoneInput,
+    emailTo,
+    emailSubject,
+    emailBody,
+    wifiSsid,
+    wifiPassword,
+    wifiEncryption,
+    wifiHidden
+  ]);
+
+  // Debounced QR code generation on Canvas
+  useEffect(() => {
+    let isCancelled = false;
+    setIsGenerating(true);
+
+    const timer = setTimeout(async () => {
+      const canvas = canvasRef.current;
+      if (!canvas) {
+        setIsGenerating(false);
+        return;
+      }
+
+      try {
+        // Render base QR code onto the canvas directly
+        await QRCode.toCanvas(canvas, encodedValue, {
+          width: qrSize,
+          margin: marginSize,
+          errorCorrectionLevel: logoSrc ? 'H' : errorLevel,
+          color: {
+            dark: fgColor,
+            light: bgColor
+          }
+        });
+
+        // CRITICAL FIX: QRCode.toCanvas sets `canvas.style.width = size + 'px'` directly
+        // on the element inline style. When qrSize is 600, 1000, 1500, or 2000px, this blows out
+        // the preview container across the screen. Reset inline styles so CSS preview sizing works.
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.maxWidth = '100%';
+        canvas.style.maxHeight = '100%';
+
+        // If logo is present, draw logo badge in the center
+        if (logoSrc && !isCancelled) {
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => {
+              if (isCancelled) return;
+              const logoDim = Math.floor(canvas.width * 0.22);
+              const logoX = (canvas.width - logoDim) / 2;
+              const logoY = (canvas.height - logoDim) / 2;
+              const padding = Math.max(4, Math.floor(canvas.width * 0.012));
+
+              // Draw clean white background badge for contrast
+              ctx.fillStyle = '#ffffff';
+              ctx.fillRect(
+                logoX - padding,
+                logoY - padding,
+                logoDim + padding * 2,
+                logoDim + padding * 2
+              );
+
+              ctx.strokeStyle = fgColor;
+              ctx.lineWidth = Math.max(2, Math.floor(canvas.width * 0.004));
+              ctx.strokeRect(
+                logoX - padding,
+                logoY - padding,
+                logoDim + padding * 2,
+                logoDim + padding * 2
+              );
+
+              // Draw logo centered
+              ctx.drawImage(img, logoX, logoY, logoDim, logoDim);
+
+              // Keep style normalized
+              canvas.style.width = '100%';
+              canvas.style.height = '100%';
+              setIsGenerating(false);
+            };
+            img.src = logoSrc;
+          } else {
+            setIsGenerating(false);
+          }
+        } else {
+          setIsGenerating(false);
+        }
+      } catch (err) {
+        console.error('QR code generation error:', err);
+        if (canvas) {
+          canvas.style.width = '100%';
+          canvas.style.height = '100%';
+        }
+        setIsGenerating(false);
+      }
+    }, 120);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(timer);
+    };
+  }, [encodedValue, qrSize, errorLevel, fgColor, bgColor, marginSize, logoSrc]);
+
+  // Logo file upload handler
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('অনুগ্রহ করে শুধুমাত্র ছবি ফাইল আপলোড করুন।');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setLogoSrc(event.target?.result as string);
+      setLogoName(file.name);
+      // Auto-elevate error correction to 'H' (30%) for logo scanning reliability
+      setErrorLevel('H');
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
+
+  // Remove logo
+  const handleRemoveLogo = () => {
+    setLogoSrc(null);
+    setLogoName(null);
+  };
+
+  // Download PNG file
+  const handleDownloadPng = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const link = document.createElement('a');
+    link.download = `utilix-bd-qrcode-${category}-${qrSize}px.png`;
+    link.href = canvas.toDataURL('image/png');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Download SVG file (Scalable Vector Graphics for ultra-sharp printing)
+  const handleDownloadSvg = async () => {
+    try {
+      const svgString = await QRCode.toString(encodedValue, {
+        type: 'svg',
+        width: qrSize,
+        margin: marginSize,
+        errorCorrectionLevel: logoSrc ? 'H' : errorLevel,
+        color: {
+          dark: fgColor,
+          light: bgColor
+        }
+      });
+
+      const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = `utilix-bd-qrcode-${category}.svg`;
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    } catch (err) {
+      console.error('Failed to generate SVG:', err);
+      alert('SVG তৈরিতে সমস্যা হয়েছে। অনুগ্রহ করে PNG ডাউনলোড করুন।');
+    }
+  };
+
+  // Copy to clipboard
+  const handleCopyToClipboard = async () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    try {
+      canvas.toBlob(async (blob) => {
+        if (!blob) return;
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          setIsCopied(true);
+          setTimeout(() => setIsCopied(false), 2500);
+        } catch (clipErr) {
+          console.warn('Clipboard write failed, fallback to data url', clipErr);
+        }
+      }, 'image/png');
+    } catch (err) {
+      console.error('Clipboard copy error:', err);
+    }
+  };
+
+  // Preset color pairings
+  const colorPresets = [
+    { label: 'ক্লাসিক কালো', fg: '#000000', bg: '#ffffff' },
+    { label: 'রয়্যাল গ্রিন', fg: '#083f2a', bg: '#ffffff' },
+    { label: 'নেভি ব্লু', fg: '#1e3a8a', bg: '#ffffff' },
+    { label: 'মেরুন লাল', fg: '#7f1d1d', bg: '#ffffff' },
+    { label: 'চারকোল স্লেট', fg: '#334155', bg: '#ffffff' },
+    { label: 'ওয়ার্ম ক্রিম', fg: '#083f2a', bg: '#f4efe4' }
+  ];
+
+  // Schema.org FAQ structured data
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'এই QR কোডের কি কোনো মেয়াদ (Expiry Date) আছে?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'না, এটি একটি সম্পূর্ণ স্ট্যাটিক (Static) QR কোড। এর কোনো মেয়াদ নেই, এটি আজীবন সক্রিয় থাকবে এবং স্ক্যান করার জন্য কোনো সাবস্ক্রিপশন বা সার্ভার লিংকের প্রয়োজন নেই।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'মাঝখানে লোগো বা ছবি বসালে স্ক্যান করতে কোনো সমস্যা হয় কি?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'না, কারণ আমরা হাই এরর কারেকশন (Level H) ব্যবহার করি, যা কিউআর কোডের ৩০% পর্যন্ত অংশ ঢেকে গেলেও নির্ভুল ও দ্রুত স্ক্যানিং নিশ্চিত করে।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'এই QR কোড কি যেকোনো প্রিন্টিং বা বাণিজ্যিক কাজে ব্যবহার করা যাবে?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'হ্যাঁ! আপনি হাই-রেজোলিউশন (১০০০px বা ২০০০px) PNG অথবা ভেক্টর SVG ফরম্যাটে ডাউনলোড করে ব্যানার, বিলবোর্ড, লিফলেট, ভিজিটিং কার্ড, রেস্তোরাঁর মেনু বা পণ্যের প্যাকেজিংয়ে প্রিন্ট করতে পারবেন।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'ওয়াইফাই (WiFi) QR কোড কীভাবে কাজ করে?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'ওয়াইফাই কিউআর কোডটিতে আপনার নেটওয়ার্কের নাম ও পাসওয়ার্ড এনকোড করা থাকে। যে কেউ তাদের ফোনের ক্যামেরা দিয়ে স্ক্যান করলেই কোনো পাসওয়ার্ড টাইপ করা ছাড়াই ওয়াইফাইতে অটো কানেক্ট হতে পারবে।',
+        },
+      },
+    ],
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <Helmet>
+        <title>কাস্টম QR কোড জেনারেটর — লোগো ও হাই-রেজোলিউশন ডাউনলোড | Utilix.bd</title>
+        <meta
+          name="description"
+          content="ফ্রি কাস্টম কিউআর কোড জেনারেটর। ওয়েবসাইট লিংক, টেক্সট, ফোন নম্বর, ওয়াইফাই ও ইমেইলের জন্য লোগো ও পছন্দের রঙসহ QR কোড তৈরি করুন। আনলিমিটেড ও আজীবন মেয়াদ।"
+        />
+        <meta
+          property="og:title"
+          content="কাস্টম QR কোড জেনারেটর — লোগো ও হাই-রেজোলিউশন ডাউনলোড | Utilix.bd"
+        />
+        <meta
+          property="og:description"
+          content="লোগো, রঙ ও বিভিন্ন সাইজের কাস্টম QR কোড তৈরি করুন সরাসরি ব্রাউজারে। কোনো সাইন-আপ নেই, আজীবন মেয়াদ ও ১০০% প্রাইভেট।"
+        />
+        <meta property="og:url" content="https://utilix.bd/qr-generator" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="কাস্টম QR কোড জেনারেটর | Utilix.bd" />
+        <meta
+          name="twitter:description"
+          content="ওয়েবসাইট, ওয়াইফাই, টেক্সট বা ফোন নম্বরের জন্য লোগোসহ কাস্টম QR কোড তৈরি করুন।"
+        />
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
+
+      {/* Top Navigation & Guarantee */}
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#d8cfb8]">
+        <div className="flex items-center space-x-3">
+          <Link
+            to="/"
+            className="border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] px-3 py-1.5 text-xs text-[#083f2a] flex items-center space-x-1.5 transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>হোমপেজে ফিরুন</span>
+          </Link>
+          <span className="text-xs text-[#6b6255] font-mono">REF: QR-ST-01</span>
+        </div>
+
+        <div className="flex items-center space-x-2 text-xs font-medium text-[#083f2a] bg-[#fffdf7] border border-[#d8cfb8] px-3 py-1.5 shadow-xs">
+          <ShieldCheck className="w-4 h-4 text-[#0c5c3d]" />
+          <span>১০০% অন-ডিভাইস স্ট্যাটিক QR • আজীবন কার্যকর • নো ট্র্যাকিং</span>
+        </div>
+      </div>
+
+      {/* Hero Header */}
+      <div className="space-y-3">
+        <div className="flex items-center space-x-2">
+          <span className="bg-[#0c5c3d]/10 text-[#0c5c3d] text-xs px-2.5 py-0.5 border border-[#0c5c3d]/20 font-medium">
+            স্ট্যাটিক QR • নো এক্সপায়ারি
+          </span>
+          <span className="text-xs text-[#6b6255]">PNG ও ভেক্টর SVG ডাউনলোড</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#083f2a] font-serif tracking-tight">
+          কাস্টম QR কোড জেনারেটর (Custom QR Code Generator)
+        </h1>
+        <p className="text-xs sm:text-sm text-[#6b6255] max-w-3xl leading-relaxed">
+          ওয়েবসাইট লিংক, প্লেইন টেক্সট, ফোন নম্বর, ইমেইল বা ওয়াইফাই (WiFi) কানেকশনের জন্য কাস্টম রঙের ও মাঝখানে লোগোসহ হাই-কোয়ালিটি কিউআর কোড তৈরি করুন। কোনো লিমিট বা মেয়াদ নেই—সরাসরি ব্রাউজারে অফলাইনে তৈরি হয়।
+        </p>
+      </div>
+
+      {/* Main Grid: Left Controls (Inputs & Customization), Right (Live Preview & Downloads) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        {/* Left Column: Form & Customization (7 Cols) */}
+        <div className="lg:col-span-7 space-y-6">
+          
+          {/* Category Tabs */}
+          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-5 space-y-4">
+            <h2 className="text-xs font-bold text-[#083f2a] font-serif uppercase tracking-wider">
+              ১. কিউআর কোডের ধরন নির্বাচন করুন
+            </h2>
+
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              <button
+                type="button"
+                onClick={() => setCategory('url')}
+                className={`p-2.5 text-xs font-medium border flex flex-col items-center justify-center space-y-1.5 transition-all cursor-pointer ${
+                  category === 'url'
+                    ? 'border-[#083f2a] bg-[#f4efe4] text-[#083f2a] font-bold shadow-xs'
+                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255] hover:bg-[#f4efe4]/50'
+                }`}
+              >
+                <Globe className="w-4 h-4 text-[#0c5c3d]" />
+                <span>ওয়েব লিংক</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setCategory('text')}
+                className={`p-2.5 text-xs font-medium border flex flex-col items-center justify-center space-y-1.5 transition-all cursor-pointer ${
+                  category === 'text'
+                    ? 'border-[#083f2a] bg-[#f4efe4] text-[#083f2a] font-bold shadow-xs'
+                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255] hover:bg-[#f4efe4]/50'
+                }`}
+              >
+                <Type className="w-4 h-4 text-[#0c5c3d]" />
+                <span>টেক্সট / বার্তা</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setCategory('phone')}
+                className={`p-2.5 text-xs font-medium border flex flex-col items-center justify-center space-y-1.5 transition-all cursor-pointer ${
+                  category === 'phone'
+                    ? 'border-[#083f2a] bg-[#f4efe4] text-[#083f2a] font-bold shadow-xs'
+                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255] hover:bg-[#f4efe4]/50'
+                }`}
+              >
+                <Phone className="w-4 h-4 text-[#0c5c3d]" />
+                <span>ফোন নম্বর</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setCategory('email')}
+                className={`p-2.5 text-xs font-medium border flex flex-col items-center justify-center space-y-1.5 transition-all cursor-pointer ${
+                  category === 'email'
+                    ? 'border-[#083f2a] bg-[#f4efe4] text-[#083f2a] font-bold shadow-xs'
+                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255] hover:bg-[#f4efe4]/50'
+                }`}
+              >
+                <Mail className="w-4 h-4 text-[#0c5c3d]" />
+                <span>ইমেইল বার্তা</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setCategory('wifi')}
+                className={`p-2.5 text-xs font-medium border flex flex-col items-center justify-center space-y-1.5 transition-all cursor-pointer col-span-2 sm:col-span-1 ${
+                  category === 'wifi'
+                    ? 'border-[#083f2a] bg-[#f4efe4] text-[#083f2a] font-bold shadow-xs'
+                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255] hover:bg-[#f4efe4]/50'
+                }`}
+              >
+                <Wifi className="w-4 h-4 text-[#0c5c3d]" />
+                <span>ওয়াইফাই (WiFi)</span>
+              </button>
+            </div>
+
+            {/* Input fields based on selected category */}
+            <div className="pt-2 border-t border-[#d8cfb8]/60 space-y-3">
+              {/* URL */}
+              {category === 'url' && (
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-[#083f2a] block">
+                    ওয়েবসাইট বা পেজের URL লিংক:
+                  </label>
+                  <input
+                    type="url"
+                    value={urlInput}
+                    onChange={(e) => setUrlInput(e.target.value)}
+                    placeholder="https://example.com"
+                    className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                  />
+                  <p className="text-[11px] text-[#6b6255]">
+                    স্ক্যান করলে সরাসরি এই ওয়েবসাইটে রিডাইরেক্ট হবে।
+                  </p>
+                </div>
+              )}
+
+              {/* Text */}
+              {category === 'text' && (
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-[#083f2a] block">
+                    প্লেইন টেক্সট বা বার্তা:
+                  </label>
+                  <textarea
+                    rows={4}
+                    value={textInput}
+                    onChange={(e) => setTextInput(e.target.value)}
+                    placeholder="আপনার বার্তা বা নোট এখানে লিখুন..."
+                    className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                  />
+                  <p className="text-[11px] text-[#6b6255]">
+                    যেকোনো ডিভাইস দিয়ে স্ক্যান করলে স্ক্রিনে এই বার্তা ভেসে উঠবে।
+                  </p>
+                </div>
+              )}
+
+              {/* Phone */}
+              {category === 'phone' && (
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-[#083f2a] block">
+                    মোবাইল বা টেলিফোন নম্বর:
+                  </label>
+                  <input
+                    type="tel"
+                    value={phoneInput}
+                    onChange={(e) => setPhoneInput(e.target.value)}
+                    placeholder="+8801XXXXXXXXX"
+                    className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                  />
+                  <p className="text-[11px] text-[#6b6255]">
+                    স্ক্যান করলে ফোনের ডায়ালারে এই নম্বরটি অটোমেটিক চলে আসবে।
+                  </p>
+                </div>
+              )}
+
+              {/* Email */}
+              {category === 'email' && (
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                      প্রাপকের ইমেইল এড্রেস:
+                    </label>
+                    <input
+                      type="email"
+                      value={emailTo}
+                      onChange={(e) => setEmailTo(e.target.value)}
+                      placeholder="name@example.com"
+                      className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                      ইমেইলের বিষয় (Subject):
+                    </label>
+                    <input
+                      type="text"
+                      value={emailSubject}
+                      onChange={(e) => setEmailSubject(e.target.value)}
+                      placeholder="জরুরি যোগাযোগ"
+                      className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                      বার্তা (Body):
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={emailBody}
+                      onChange={(e) => setEmailBody(e.target.value)}
+                      placeholder="বিস্তারিত বার্তা..."
+                      className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* WiFi */}
+              {category === 'wifi' && (
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                      নেটওয়ার্কের নাম (SSID):
+                    </label>
+                    <input
+                      type="text"
+                      value={wifiSsid}
+                      onChange={(e) => setWifiSsid(e.target.value)}
+                      placeholder="MyHome_WiFi"
+                      className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                        নিরাপত্তা পদ্ধতি (Encryption):
+                      </label>
+                      <select
+                        value={wifiEncryption}
+                        onChange={(e) => setWifiEncryption(e.target.value as 'WPA' | 'WEP' | 'nopass')}
+                        className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c]"
+                      >
+                        <option value="WPA">WPA / WPA2 / WPA3 (সাধারণ)</option>
+                        <option value="WEP">WEP (পুরাতন)</option>
+                        <option value="nopass">খোলা / নো পাসওয়ার্ড</option>
+                      </select>
+                    </div>
+
+                    {wifiEncryption !== 'nopass' && (
+                      <div>
+                        <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                          ওয়াইফাই পাসওয়ার্ড:
+                        </label>
+                        <input
+                          type="text"
+                          value={wifiPassword}
+                          onChange={(e) => setWifiPassword(e.target.value)}
+                          placeholder="Password123"
+                          className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none font-mono"
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  <label className="flex items-center space-x-2 text-xs text-[#4a4237] cursor-pointer pt-1">
+                    <input
+                      type="checkbox"
+                      checked={wifiHidden}
+                      onChange={(e) => setWifiHidden(e.target.checked)}
+                      className="rounded-none text-[#0c5c3d] border-[#d8cfb8]"
+                    />
+                    <span>লুকানো নেটওয়ার্ক (Hidden SSID)</span>
+                  </label>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Customization Options */}
+          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-5 space-y-5">
+            <h2 className="text-xs font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-1.5">
+              <Palette className="w-3.5 h-3.5 text-[#0c5c3d]" />
+              <span>২. ডিজাইন ও রঙ কাস্টমাইজেশন</span>
+            </h2>
+
+            {/* Color Presets */}
+            <div className="space-y-2">
+              <label className="text-xs font-semibold text-[#083f2a] block">
+                জনপ্রিয় কালার প্যালেট:
+              </label>
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                {colorPresets.map((preset) => (
+                  <button
+                    key={preset.label}
+                    type="button"
+                    onClick={() => {
+                      setFgColor(preset.fg);
+                      setBgColor(preset.bg);
+                    }}
+                    className="border border-[#d8cfb8] p-1.5 text-center bg-[#fcfaf5] hover:bg-[#f4efe4] transition-colors cursor-pointer text-[11px]"
+                  >
+                    <div className="flex items-center justify-center space-x-1 mb-1">
+                      <span
+                        className="w-3 h-3 rounded-full border border-black/20"
+                        style={{ backgroundColor: preset.fg }}
+                      />
+                      <span
+                        className="w-3 h-3 rounded-full border border-black/20"
+                        style={{ backgroundColor: preset.bg }}
+                      />
+                    </div>
+                    <span className="text-[#4a4237] block truncate">{preset.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Custom Color Pickers */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#d8cfb8]/60">
+              <div className="flex items-center justify-between border border-[#d8cfb8] p-2 bg-[#fcfaf5]">
+                <span className="text-xs font-semibold text-[#083f2a]">
+                  কিউআর কোডের রঙ (Foreground):
+                </span>
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs font-mono text-[#6b6255]">{fgColor}</span>
+                  <input
+                    type="color"
+                    value={fgColor}
+                    onChange={(e) => setFgColor(e.target.value)}
+                    className="w-7 h-7 border border-[#d8cfb8] cursor-pointer bg-transparent"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between border border-[#d8cfb8] p-2 bg-[#fcfaf5]">
+                <span className="text-xs font-semibold text-[#083f2a]">
+                  ব্যাকগ্রাউন্ড রঙ (Background):
+                </span>
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs font-mono text-[#6b6255]">{bgColor}</span>
+                  <input
+                    type="color"
+                    value={bgColor}
+                    onChange={(e) => setBgColor(e.target.value)}
+                    className="w-7 h-7 border border-[#d8cfb8] cursor-pointer bg-transparent"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Resolution, Margin, and Error Level */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-[#d8cfb8]/60">
+              <div>
+                <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                  রেজোলিউশন / সাইজ:
+                </label>
+                <select
+                  value={qrSize}
+                  onChange={(e) => setQrSize(parseInt(e.target.value))}
+                  className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-1.5 text-xs text-[#14231c]"
+                >
+                  <option value={300}>৩০০ × ৩০০ px (ওয়েব / মোবাইল)</option>
+                  <option value={600}>৬০০ × ৬০০ px (স্ট্যান্ডার্ড)</option>
+                  <option value={1000}>১০০০ × ১০০০ px (হাই প্রিন্টিং)</option>
+                  <option value={1500}>১৫০০ × ১৫০০ px (ব্যানার ও ফ্লেক্স)</option>
+                  <option value={2000}>২০০০ × ২০০০ px (আল্ট্রা এইচডি)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                  মার্জিন / প্যাডিং:
+                </label>
+                <select
+                  value={marginSize}
+                  onChange={(e) => setMarginSize(parseInt(e.target.value))}
+                  className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-1.5 text-xs text-[#14231c]"
+                >
+                  <option value={1}>১ মডিউল (কম ফাঁকা)</option>
+                  <option value={2}>২ মডিউল (স্ট্যান্ডার্ড)</option>
+                  <option value={4}>৪ মডিউল (প্রশস্ত ফাঁকা)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                  এরর কারেকশন লেভেল:
+                </label>
+                <select
+                  value={errorLevel}
+                  disabled={!!logoSrc}
+                  onChange={(e) => setErrorLevel(e.target.value as ErrorCorrectionLevel)}
+                  className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-1.5 text-xs text-[#14231c] disabled:opacity-75"
+                >
+                  <option value="L">L — ৭% রিকভারি</option>
+                  <option value="M">M — ১৫% রিকভারি</option>
+                  <option value="Q">Q — ২৫% রিকভারি</option>
+                  <option value="H">H — ৩০% রিকভারি (লোগোর জন্য সেরা)</option>
+                </select>
+                {logoSrc && (
+                  <p className="text-[10px] text-[#0c5c3d] mt-1">
+                    * লোগোর জন্য স্বয়ংক্রিয়ভাবে 'H' লেভেল সক্রিয়।
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Logo Overlay Section */}
+            <div className="pt-3 border-t border-[#d8cfb8]/60 space-y-2">
+              <label className="text-xs font-semibold text-[#083f2a] block">
+                মাঝখানে লোগো বা ছবি যুক্ত করুন (ঐচ্ছিক):
+              </label>
+
+              <input
+                type="file"
+                ref={logoInputRef}
+                accept="image/*"
+                onChange={handleLogoUpload}
+                className="hidden"
+              />
+
+              {logoSrc ? (
+                <div className="flex items-center justify-between border border-[#0c5c3d]/40 bg-[#f4efe4] p-2.5">
+                  <div className="flex items-center space-x-3">
+                    <img
+                      src={logoSrc}
+                      alt="Logo Preview"
+                      className="w-8 h-8 object-contain border border-[#d8cfb8] bg-[#ffffff] p-0.5"
+                    />
+                    <div>
+                      <p className="text-xs font-semibold text-[#083f2a]">
+                        {logoName || 'লোগো ছবি সংযুক্ত'}
+                      </p>
+                      <p className="text-[11px] text-[#0c5c3d]">
+                        মাঝখানে সুচারুভাবে বসানো হয়েছে
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleRemoveLogo}
+                    className="text-xs text-red-600 hover:text-red-800 p-1 flex items-center space-x-1 border border-red-200 bg-[#fffdf7] px-2 py-1 cursor-pointer"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                    <span>মুছে ফেলুন</span>
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => logoInputRef.current?.click()}
+                  className="w-full border border-dashed border-[#d8cfb8] hover:border-[#0c5c3d] p-3 text-center bg-[#fcfaf5] hover:bg-[#f4efe4] transition-colors cursor-pointer flex items-center justify-center space-x-2 text-xs text-[#083f2a]"
+                >
+                  <Upload className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                  <span>আপনার ব্র্যান্ড লোগো বা আইকন আপলোড করুন (PNG/JPG)</span>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Live Preview & Action Buttons (5 Cols) */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-5 sticky top-6">
+            <div className="flex items-center justify-between pb-3 border-b border-[#d8cfb8]">
+              <div className="flex items-center space-x-2">
+                <QrCode className="w-4 h-4 text-[#0c5c3d]" />
+                <h2 className="text-xs sm:text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider">
+                  লাইভ প্রিভিউ (Live Preview)
+                </h2>
+              </div>
+              <span className="text-[11px] text-[#6b6255] font-mono">
+                {qrSize}×{qrSize} px
+              </span>
+            </div>
+
+            {/* QR Canvas Display Frame */}
+            <div className="flex flex-col items-center justify-center p-4 sm:p-6 bg-[#f4efe4]/50 border border-[#d8cfb8] relative overflow-hidden">
+              <div className="qr-canvas-preview p-3 bg-white shadow-xs border border-[#d8cfb8] w-full max-w-[280px] sm:max-w-[300px] aspect-square flex items-center justify-center overflow-hidden">
+                <canvas
+                  ref={canvasRef}
+                  className="!w-full !h-full !max-w-full !max-h-full block object-contain aspect-square"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain',
+                    display: 'block'
+                  }}
+                />
+              </div>
+
+              {isGenerating && (
+                <div className="absolute inset-0 bg-[#fffdf7]/80 backdrop-blur-[1px] flex items-center justify-center text-xs text-[#083f2a] font-medium z-10">
+                  তৈরি হচ্ছে...
+                </div>
+              )}
+            </div>
+
+            {/* Encoded String Summary */}
+            <div className="bg-[#fcfaf5] border border-[#d8cfb8] p-2.5 text-[11px] text-[#6b6255] break-all font-mono">
+              <span className="font-bold text-[#083f2a] block not-italic">
+                এনকোড করা তথ্য:
+              </span>
+              <span className="line-clamp-2">{encodedValue}</span>
+            </div>
+
+            {/* Download Buttons Group */}
+            <div className="space-y-2.5">
+              <div className="grid grid-cols-2 gap-2.5">
+                <button
+                  type="button"
+                  onClick={handleDownloadPng}
+                  className="bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] px-4 py-2.5 text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors cursor-pointer shadow-xs"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>PNG ডাউনলোড</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleDownloadSvg}
+                  className="bg-[#083f2a] hover:bg-[#0c5c3d] text-[#fffdf7] px-4 py-2.5 text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors cursor-pointer shadow-xs"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>SVG ভেক্টর</span>
+                </button>
+              </div>
+
+              {/* Copy Image to Clipboard */}
+              <button
+                type="button"
+                onClick={handleCopyToClipboard}
+                className="w-full border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 text-[#083f2a] py-2 text-xs font-medium flex items-center justify-center space-x-1.5 transition-colors cursor-pointer"
+              >
+                {isCopied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-700" />
+                    <span className="text-emerald-700 font-semibold">ক্লিপবোর্ডে কপি সম্পন্ন!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>ক্লিপবোর্ডে ইমেজ কপি করুন</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ Information Section */}
+      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-6 space-y-4">
+        <div className="flex items-center space-x-2 border-b border-[#d8cfb8] pb-3">
+          <HelpCircle className="w-4 h-4 text-[#0c5c3d]" />
+          <h2 className="text-base font-bold text-[#083f2a] font-serif">
+            সাধারণ জিজ্ঞাসা (FAQ)
+          </h2>
+        </div>
+
+        <div className="divide-y divide-[#d8cfb8] text-xs sm:text-sm text-[#4a4237]">
+          <div className="py-3 space-y-1">
+            <h3 className="font-semibold text-[#083f2a]">
+              এই QR কোডের কি কোনো মেয়াদ (Expiry Date) আছে?
+            </h3>
+            <p className="text-[#6b6255] leading-relaxed">
+              না, এটি একটি সম্পূর্ণ স্ট্যাটিক (Static) QR কোড। এর কোনো মেয়াদ নেই, এটি আজীবন সক্রিয় থাকবে এবং স্ক্যান করার জন্য কোনো সাবস্ক্রিপশন বা সার্ভার লিংকের প্রয়োজন নেই।
+            </p>
+          </div>
+
+          <div className="py-3 space-y-1">
+            <h3 className="font-semibold text-[#083f2a]">
+              মাঝখানে লোগো বা ছবি বসালে স্ক্যান করতে কোনো সমস্যা হয় কি?
+            </h3>
+            <p className="text-[#6b6255] leading-relaxed">
+              না, কারণ আমরা হাই এরর কারেকশন (Level H) ব্যবহার করি, যা কিউআর কোডের ৩০% পর্যন্ত অংশ ঢেকে গেলেও নির্ভুল ও দ্রুত স্ক্যানিং নিশ্চিত করে।
+            </p>
+          </div>
+
+          <div className="py-3 space-y-1">
+            <h3 className="font-semibold text-[#083f2a]">
+              এই QR কোড কি যেকোনো প্রিন্টিং বা বাণিজ্যিক কাজে ব্যবহার করা যাবে?
+            </h3>
+            <p className="text-[#6b6255] leading-relaxed">
+              হ্যাঁ! আপনি হাই-রেজোলিউশন (১০০০px বা ২০০০px) PNG অথবা ভেক্টর SVG ফরম্যাটে ডাউনলোড করে ব্যানার, বিলবোর্ড, লিফলেট, ভিজিটিং কার্ড, রেস্তোরাঁর মেনু বা পণ্যের প্যাকেজিংয়ে প্রিন্ট করতে পারবেন।
+            </p>
+          </div>
+
+          <div className="py-3 space-y-1">
+            <h3 className="font-semibold text-[#083f2a]">
+              ওয়াইফাই (WiFi) QR কোড কীভাবে কাজ করে?
+            </h3>
+            <p className="text-[#6b6255] leading-relaxed">
+              ওয়াইফাই কিউআর কোডটিতে আপনার নেটওয়ার্কের নাম ও পাসওয়ার্ড এনকোড করা থাকে। যে কেউ তাদের ফোনের ক্যামেরা দিয়ে স্ক্যান করলেই কোনো পাসওয়ার্ড টাইপ করা ছাড়াই ওয়াইফাইতে অটো কানেক্ট হতে পারবে।
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -24,6 +24,28 @@ export const TOOLS: ToolItem[] = [
     link: '/photo-resizer'
   },
   {
+    id: 'bulk-photo-resizer',
+    refCode: 'IMG-GOV-04',
+    title: 'বাল্ক ফটো রিসাইজার (Bulk Resizer)',
+    description: 'একসাথে যত খুশি ছবি সরকারি চাকরি ৩০০×৩০০ বা পাসপোর্ট সাইজে এক ক্লিকে ব্যাচ রিসাইজ ও কম্প্রেস করুন। জিপ (ZIP) ফাইলে এক ক্লিকে ডাউনলোড।',
+    feature: 'আনলিমিটেড ছবি • সরকারি প্রিসেট • এক ক্লিকে ZIP ডাউনলোড',
+    category: 'image',
+    status: 'active',
+    version: 'v1.0',
+    link: '/bulk-photo-resizer'
+  },
+  {
+    id: 'heic-converter',
+    refCode: 'IMG-HEIC-01',
+    title: 'HEIC থেকে JPG/PNG কনভার্টার',
+    description: 'আইফোনে তোলা HEIC ও HEIF ছবি সরাসরি ব্রাউজারেই আসল রেজোলিউশনে JPG, PNG বা WebP ফরম্যাটে রূপান্তর করুন। সম্পূর্ণ অফলাইন ও আনলিমিটেড ব্যাচ কনভার্ট।',
+    feature: 'আইফোন HEIC সাপোর্ট • JPG, PNG, WebP আউটপুট • আনলিমিটেড ব্যাচ ও ZIP ডাউনলোড',
+    category: 'image',
+    status: 'active',
+    version: 'v1.0',
+    link: '/heic-converter'
+  },
+  {
     id: 'background-remover',
     refCode: 'IMG-AI-01',
     title: 'ছবির ব্যাকগ্রাউন্ড রিমুভার (AI Background Remover)',
@@ -44,6 +66,17 @@ export const TOOLS: ToolItem[] = [
     status: 'active',
     version: 'v1.0',
     link: '/image-merger'
+  },
+  {
+    id: 'qr-generator',
+    refCode: 'QR-ST-01',
+    title: 'কাস্টম QR কোড জেনারেটর',
+    description: 'ওয়েবসাইট লিংক, টেক্সট, ফোন নম্বর, ইমেইল বা ওয়াইফাই এর জন্য লোগো ও পছন্দের রঙসহ হাই-রেজোলিউশন কিউআর কোড তৈরি। কোনো মেয়াদ নেই, আজীবন কার্যকর।',
+    feature: 'লোগো ওভারলে • কাস্টম কালার • PNG ও ভেক্টর SVG ডাউনলোড',
+    category: 'image',
+    status: 'active',
+    version: 'v1.0',
+    link: '/qr-generator'
   },
   {
     id: 'age-calculator',

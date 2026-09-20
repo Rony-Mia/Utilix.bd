@@ -84,3 +84,13 @@ h1, h2, h3, h4, .font-heading {
     display: none !important;
   }
 }
+
+/* QR Code Preview Frame Enforcement - Prevents high-res canvases from expanding beyond preview */
+.qr-canvas-preview canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}

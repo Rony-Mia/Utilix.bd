@@ -44,6 +44,16 @@ const CATEGORIES: NavCategory[] = [
         description: '৩০০×৩০০ ছবি ও ৩০০×৮০ স্বাক্ষর রিসাইজ',
       },
       {
+        to: '/bulk-photo-resizer',
+        label: 'বাল্ক ফটো রিসাইজার (Bulk Resizer)',
+        description: 'একসাথে একাধিক ছবি ব্যাচ রিসাইজ ও ZIP ডাউনলোড',
+      },
+      {
+        to: '/heic-converter',
+        label: 'HEIC → JPG/PNG কনভার্টার',
+        description: 'আইফোনের HEIC ছবি তাৎক্ষণিক JPG/PNG-তে রূপান্তর',
+      },
+      {
         to: '/background-remover',
         label: 'ব্যাকগ্রাউন্ড রিমুভার',
         description: 'অন-ডিভাইস AI দিয়ে ছবির ব্যাকগ্রাউন্ড অপসারণ',
@@ -52,6 +62,11 @@ const CATEGORIES: NavCategory[] = [
         to: '/image-merger',
         label: 'ইমেজ মার্জার ও কোলাজ মেকার',
         description: 'A4 প্রিন্ট লেআউট, গ্রিড কোলাজ ও PDF',
+      },
+      {
+        to: '/qr-generator',
+        label: 'কাস্টম QR কোড জেনারেটর',
+        description: 'লোগো, রঙ ও হাই-রেজোলিউশন SVG/PNG ডাউনলোড',
       },
     ],
   },

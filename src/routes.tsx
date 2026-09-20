@@ -14,6 +14,9 @@ import { PdfRotatePage } from './pages/PdfRotatePage.tsx';
 import { PdfWatermarkPage } from './pages/PdfWatermarkPage.tsx';
 import { ImageMergerPage } from './pages/ImageMergerPage.tsx';
 import { BackgroundRemoverPage } from './pages/BackgroundRemoverPage.tsx';
+import { BulkPhotoResizerPage } from './pages/BulkPhotoResizerPage.tsx';
+import { HeicConverterPage } from './pages/HeicConverterPage.tsx';
+import { QrGeneratorPage } from './pages/QrGeneratorPage.tsx';
 import { AboutPage } from './pages/AboutPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage.tsx';
@@ -22,8 +25,11 @@ export const PRERENDER_ROUTES = [
   '/',
   '/converter',
   '/photo-resizer',
+  '/bulk-photo-resizer',
+  '/heic-converter',
   '/background-remover',
   '/image-merger',
+  '/qr-generator',
   '/age-calculator',
   '/amount-in-words',
   '/cv-builder',
@@ -63,8 +69,11 @@ export function AppRoutes({
       />
       <Route path="/converter" element={<ConverterPage />} />
       <Route path="/photo-resizer" element={<PhotoResizerPage />} />
+      <Route path="/bulk-photo-resizer" element={<BulkPhotoResizerPage />} />
+      <Route path="/heic-converter" element={<HeicConverterPage />} />
       <Route path="/background-remover" element={<BackgroundRemoverPage />} />
       <Route path="/image-merger" element={<ImageMergerPage />} />
+      <Route path="/qr-generator" element={<QrGeneratorPage />} />
       <Route path="/age-calculator" element={<AgeCalculatorPage />} />
       <Route path="/amount-in-words" element={<AmountInWordsPage />} />
       <Route path="/cv-builder" element={<CvBuilderPage />} />

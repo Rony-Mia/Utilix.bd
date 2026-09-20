@@ -18,18 +18,10 @@ import {
 } from 'lucide-react';
 import { PresetProfile } from '../types.ts';
 import { GOVERNMENT_PRESET_PROFILES } from '../constants/presets.ts';
+import { resizeImage } from '../utils/imageResize.ts';
 
 const ACCEPTED_UPLOAD_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 const MAX_UPLOAD_MB = 15;
-
-// Helper to calculate exact byte length of a base64 data URL
-function getDataUrlByteLength(dataUrl: string): number {
-  const commaIdx = dataUrl.indexOf(',');
-  if (commaIdx === -1) return 0;
-  const base64Str = dataUrl.slice(commaIdx + 1);
-  const padding = base64Str.endsWith('==') ? 2 : base64Str.endsWith('=') ? 1 : 0;
-  return Math.max(0, Math.floor((base64Str.length * 3) / 4) - padding);
-}
 
 export const PhotoResizerPage: React.FC = () => {
   // Preset selection
@@ -288,122 +280,30 @@ export const PhotoResizerPage: React.FC = () => {
 
   // Main 100% Client-Side Image Processing Routine with Binary Search Optimization
   const processImage = () => {
-    if (!imageSrc) return;
+    if (!imageSrc || !imgElementRef.current) return;
     setIsProcessing(true);
 
     try {
-      // 1. Compose canvas representing the user's crop/zoom/rotate/dimensions
-      const offscreenCanvas = document.createElement('canvas');
-      offscreenCanvas.width = activeWidth;
-      offscreenCanvas.height = activeHeight;
-      const ctx = offscreenCanvas.getContext('2d');
-
-      if (!ctx || !imgElementRef.current) {
-        setIsProcessing(false);
-        return;
-      }
-
-      // Background fill (white by default for passport/govt guidelines)
-      ctx.fillStyle = backgroundColor;
-      ctx.fillRect(0, 0, activeWidth, activeHeight);
-
-      const img = imgElementRef.current;
-
-      ctx.save();
-      ctx.translate(activeWidth / 2 + offsetX, activeHeight / 2 + offsetY);
-      ctx.rotate((rotation * Math.PI) / 180);
-      ctx.scale(zoom, zoom);
-
-      let drawW = activeWidth;
-      let drawH = activeHeight;
-
-      if (fitMode === 'cover') {
-        const scale = Math.max(activeWidth / img.width, activeHeight / img.height);
-        drawW = img.width * scale;
-        drawH = img.height * scale;
-      } else if (fitMode === 'contain') {
-        const scale = Math.min(activeWidth / img.width, activeHeight / img.height);
-        drawW = img.width * scale;
-        drawH = img.height * scale;
-      } else {
-        // fill / stretch
-        drawW = activeWidth;
-        drawH = activeHeight;
-      }
-
-      ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
-      ctx.restore();
-
-      // 2. Binary Search Target Size Matching
-      const outputMime =
-        activeFormat === 'png'
-          ? 'image/png'
-          : activeFormat === 'webp'
-          ? 'image/webp'
-          : 'image/jpeg';
-
-      let finalDataUrl = '';
-      let finalQuality = 100;
-      let finalBytes = 0;
-
-      if (outputMime === 'image/png') {
-        // PNG is lossless and does not take quality parameter
-        finalDataUrl = offscreenCanvas.toDataURL('image/png');
-        finalBytes = getDataUrlByteLength(finalDataUrl);
-        finalQuality = 100;
-      } else {
-        // JPEG or WebP: Binary search for the highest quality that stays <= activeMaxKb
-        const targetBytes = activeMaxKb > 0 ? activeMaxKb * 1024 : Infinity;
-
-        // Test top quality first (0.98)
-        const highCandidateQuality = 0.98;
-        const highCandidateDataUrl = offscreenCanvas.toDataURL(outputMime, highCandidateQuality);
-        const highCandidateBytes = getDataUrlByteLength(highCandidateDataUrl);
-
-        if (highCandidateBytes <= targetBytes || targetBytes === Infinity) {
-          // Fits within budget with pristine quality
-          finalDataUrl = highCandidateDataUrl;
-          finalQuality = Math.round(highCandidateQuality * 100);
-          finalBytes = highCandidateBytes;
-        } else {
-          // Binary search in range [0.05, 0.98] to hit target size with minimal overshoot/undershoot
-          let low = 0.05;
-          let high = highCandidateQuality;
-          let bestDataUrl = offscreenCanvas.toDataURL(outputMime, low);
-          let bestBytes = getDataUrlByteLength(bestDataUrl);
-          let bestQuality = low;
-
-          // 8 iterations gives 0.36% step precision
-          for (let iter = 0; iter < 8; iter++) {
-            const mid = (low + high) / 2;
-            const testDataUrl = offscreenCanvas.toDataURL(outputMime, mid);
-            const testBytes = getDataUrlByteLength(testDataUrl);
-
-            if (testBytes <= targetBytes) {
-              // Fits within government budget! Try to get even higher quality
-              bestDataUrl = testDataUrl;
-              bestBytes = testBytes;
-              bestQuality = mid;
-              low = mid;
-            } else {
-              // Exceeds limit; reduce quality
-              high = mid;
-            }
-          }
-
-          finalDataUrl = bestDataUrl;
-          finalQuality = Math.round(bestQuality * 100);
-          finalBytes = bestBytes;
-        }
-      }
-
-      setResultDataUrl(finalDataUrl);
-      setResultMeta({
+      const result = resizeImage(imgElementRef.current, {
         width: activeWidth,
         height: activeHeight,
-        sizeKb: Number((finalBytes / 1024).toFixed(1)),
-        format: activeFormat.toUpperCase(),
-        qualityUsed: finalQuality
+        maxKb: activeMaxKb,
+        format: activeFormat,
+        fitMode,
+        backgroundColor,
+        zoom,
+        rotation,
+        offsetX,
+        offsetY
+      });
+
+      setResultDataUrl(result.dataUrl);
+      setResultMeta({
+        width: result.width,
+        height: result.height,
+        sizeKb: result.sizeKb,
+        format: result.format,
+        qualityUsed: result.qualityUsed
       });
     } catch (err) {
       console.error('Client-side processing error:', err);
