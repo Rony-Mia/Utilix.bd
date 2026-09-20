@@ -44,6 +44,11 @@ const CATEGORIES: NavCategory[] = [
         description: '৩০০×৩০০ ছবি ও ৩০০×৮০ স্বাক্ষর রিসাইজ',
       },
       {
+        to: '/background-remover',
+        label: 'ব্যাকগ্রাউন্ড রিমুভার',
+        description: 'অন-ডিভাইস AI দিয়ে ছবির ব্যাকগ্রাউন্ড অপসারণ',
+      },
+      {
         to: '/image-merger',
         label: 'ইমেজ মার্জার ও কোলাজ মেকার',
         description: 'A4 প্রিন্ট লেআউট, গ্রিড কোলাজ ও PDF',

@@ -13,6 +13,7 @@ import { PdfDeletePagesPage } from './pages/PdfDeletePagesPage.tsx';
 import { PdfRotatePage } from './pages/PdfRotatePage.tsx';
 import { PdfWatermarkPage } from './pages/PdfWatermarkPage.tsx';
 import { ImageMergerPage } from './pages/ImageMergerPage.tsx';
+import { BackgroundRemoverPage } from './pages/BackgroundRemoverPage.tsx';
 import { AboutPage } from './pages/AboutPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage.tsx';
@@ -21,6 +22,7 @@ export const PRERENDER_ROUTES = [
   '/',
   '/converter',
   '/photo-resizer',
+  '/background-remover',
   '/image-merger',
   '/age-calculator',
   '/amount-in-words',
@@ -61,6 +63,7 @@ export function AppRoutes({
       />
       <Route path="/converter" element={<ConverterPage />} />
       <Route path="/photo-resizer" element={<PhotoResizerPage />} />
+      <Route path="/background-remover" element={<BackgroundRemoverPage />} />
       <Route path="/image-merger" element={<ImageMergerPage />} />
       <Route path="/age-calculator" element={<AgeCalculatorPage />} />
       <Route path="/amount-in-words" element={<AmountInWordsPage />} />

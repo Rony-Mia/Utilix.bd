@@ -24,6 +24,17 @@ export const TOOLS: ToolItem[] = [
     link: '/photo-resizer'
   },
   {
+    id: 'background-remover',
+    refCode: 'IMG-AI-01',
+    title: 'ছবির ব্যাকগ্রাউন্ড রিমুভার (AI Background Remover)',
+    description: 'কোনো সার্ভার কল ছাড়াই ব্রাউজারেই ১০০% অন-ডিভাইস ডিপ লার্নিং AI দিয়ে নিখুঁতভাবে ব্যাকগ্রাউন্ড অপসারণ। পাসপোর্ট ছবির জন্য এক ক্লিকে সাদা বা রঙিন ব্যাকগ্রাউন্ড বসানোর সুবিধা।',
+    feature: '১০০% অন-ডিভাইস AI • ফুল রেজোলিউশন • আনলিমিটেড ও ফ্রি',
+    category: 'image',
+    status: 'active',
+    version: 'v1.0',
+    link: '/background-remover'
+  },
+  {
     id: 'image-merger',
     refCode: 'IMG-GOV-03',
     title: 'ইমেজ মার্জার ও কোলাজ মেকার',
