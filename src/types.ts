@@ -10,6 +10,7 @@ export interface ToolItem {
   status: 'active' | 'coming_soon';
   version?: string;
   link?: string;
+  isPopular?: boolean;
 }
 
 export type ConversionMode = 'bijoy_to_unicode' | 'unicode_to_bijoy';

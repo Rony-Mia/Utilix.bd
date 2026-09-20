@@ -86,6 +86,15 @@ export const Footer: React.FC = () => {
                   </Link>
                 </li>
                 <li>
+                  <Link
+                    to="/changelog"
+                    className="hover:text-[#083f2a] hover:underline transition-colors flex items-center group text-[#4a4237]"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#d8cfb8] group-hover:bg-[#0c5c3d] mr-2 shrink-0 transition-colors"></span>
+                    <span>আপডেট ও রিলিজ লগ (Changelog)</span>
+                  </Link>
+                </li>
+                <li>
                   <button
                     type="button"
                     onClick={() => setShowTermsModal(true)}

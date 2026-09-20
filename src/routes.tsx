@@ -16,6 +16,7 @@ import { ImageMergerPage } from './pages/ImageMergerPage.tsx';
 import { AboutPage } from './pages/AboutPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage.tsx';
+import { ChangelogPage } from './pages/ChangelogPage.tsx';
 
 export const PRERENDER_ROUTES = [
   '/',
@@ -34,6 +35,7 @@ export const PRERENDER_ROUTES = [
   '/about',
   '/contact',
   '/privacy-policy',
+  '/changelog',
 ] as const;
 
 export interface AppRoutesProps {
@@ -74,6 +76,7 @@ export function AppRoutes({
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+      <Route path="/changelog" element={<ChangelogPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
