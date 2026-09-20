@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Search, ArrowRight } from 'lucide-react';
-import { TOOLS } from '../data/tools.ts';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
 interface NavbarProps {
   activeCategory?: string;
@@ -125,34 +124,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
 
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const navContainerRef = useRef<HTMLDivElement | null>(null);
-  const searchContainerRef = useRef<HTMLDivElement | null>(null);
-  const searchInputRef = useRef<HTMLInputElement | null>(null);
-
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>('');
-
-  // Live filtered tools for header search
-  const filteredNavTools = searchQuery.trim()
-    ? TOOLS.filter((tool) => {
-        const q = searchQuery.toLowerCase().trim();
-        return (
-          tool.title.toLowerCase().includes(q) ||
-          tool.description.toLowerCase().includes(q) ||
-          tool.feature.toLowerCase().includes(q) ||
-          (tool.refCode && tool.refCode.toLowerCase().includes(q))
-        );
-      })
-    : [];
 
   // Close menus when route changes
   useEffect(() => {
     setMobileMenuOpen(false);
     setOpenDropdownId(null);
-    setSearchOpen(false);
-    setSearchQuery('');
   }, [location.pathname]);
 
-  // Click outside and escape key handling for desktop dropdowns & search
+  // Click outside and escape key handling for desktop dropdowns
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -161,18 +140,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
       ) {
         setOpenDropdownId(null);
       }
-      if (
-        searchContainerRef.current &&
-        !searchContainerRef.current.contains(event.target as Node)
-      ) {
-        setSearchOpen(false);
-      }
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpenDropdownId(null);
-        setSearchOpen(false);
       }
     };
 
@@ -349,91 +321,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
           })}
         </nav>
 
-        {/* Right side: Search + Engine status + Mobile Hamburger */}
-        <div className="flex items-center space-x-2 sm:space-x-3">
-          {/* Header Quick Search Widget */}
-          <div ref={searchContainerRef} className="relative">
-            {!searchOpen ? (
-              <button
-                type="button"
-                onClick={() => {
-                  setSearchOpen(true);
-                  setTimeout(() => searchInputRef.current?.focus(), 50);
-                }}
-                title="টুল অনুসন্ধান করুন"
-                aria-label="টুল অনুসন্ধান করুন"
-                className="flex items-center gap-1.5 px-2 sm:px-2.5 py-1 text-xs text-[#6b6255] hover:text-[#083f2a] bg-[#fffdf7] border border-[#d8cfb8] hover:border-[#0c5c3d] transition-all cursor-pointer"
-              >
-                <Search className="w-3.5 h-3.5 text-[#0c5c3d]" />
-                <span className="hidden md:inline font-sans">টুল খুঁজুন...</span>
-              </button>
-            ) : (
-              <div className="flex items-center bg-[#fffdf7] border border-[#0c5c3d] px-2 py-1 shadow-sm w-44 sm:w-60 md:w-72 transition-all">
-                <Search className="w-3.5 h-3.5 text-[#0c5c3d] mr-1.5 shrink-0" />
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="টুল খুঁজুন (যেমন: সিভি, পিডিএফ)..."
-                  className="w-full bg-transparent outline-none text-xs text-[#14231c] placeholder-[#8a7f70] font-sans"
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSearchOpen(false);
-                    setSearchQuery('');
-                  }}
-                  title="বন্ধ করুন"
-                  className="text-[#6b6255] hover:text-[#c8342a] p-0.5 shrink-0 cursor-pointer ml-1"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            )}
-
-            {/* Quick Search Dropdown Results */}
-            {searchOpen && searchQuery.trim() && (
-              <div className="absolute right-0 top-full mt-1 w-72 sm:w-80 bg-[#fffdf7] border border-[#d8cfb8] shadow-xl z-50 max-h-80 overflow-y-auto">
-                <div className="p-2 bg-[#f4efe4] border-b border-[#d8cfb8] text-[11px] font-medium text-[#6b6255] flex items-center justify-between">
-                  <span>অনুসন্ধান ফলাফল</span>
-                  <span>{filteredNavTools.length}টি টুল পাওয়া গেছে</span>
-                </div>
-
-                {filteredNavTools.length > 0 ? (
-                  <div className="divide-y divide-[#efe8d6]">
-                    {filteredNavTools.map((tool) => (
-                      <Link
-                        key={tool.id}
-                        to={tool.link || '/'}
-                        onClick={() => {
-                          setSearchOpen(false);
-                          setSearchQuery('');
-                        }}
-                        className="block p-2.5 hover:bg-[#f4efe4] transition-colors group"
-                      >
-                        <div className="flex items-center justify-between gap-1">
-                          <span className="text-xs font-bold text-[#083f2a] group-hover:text-[#0c5c3d]">
-                            {tool.title}
-                          </span>
-                          <ArrowRight className="w-3 h-3 text-[#0c5c3d] opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                        </div>
-                        <p className="text-[11px] text-[#6b6255] line-clamp-1 mt-0.5">
-                          {tool.description}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="p-4 text-center text-xs text-[#6b6255]">
-                    "{searchQuery}" নামে কোনো টুল পাওয়া যায়নি।
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          <div className="flex items-center text-xs text-[#0c5c3d] font-sans pl-2 border-l border-[#d8cfb8]">
+        {/* Right side: Engine status + Mobile Hamburger */}
+        <div className="flex items-center">
+          <div className="flex items-center text-xs text-[#0c5c3d] font-sans pl-2 border-l border-[#d8cfb8] sm:border-l-0">
             <span className="w-2 h-2 rounded-full bg-[#0c5c3d] mr-1.5"></span>
             <span className="hidden sm:inline">১০০% ক্লায়েন্ট-সাইড ও নিরাপদ</span>
             <span className="sm:hidden text-[11px] font-medium">নিরাপদ টুলস</span>

@@ -10,7 +10,6 @@ export const TOOLS: ToolItem[] = [
     category: 'text',
     status: 'active',
     version: 'v2.4',
-    isPopular: true,
     link: '/converter'
   },
   {
@@ -22,7 +21,6 @@ export const TOOLS: ToolItem[] = [
     category: 'image',
     status: 'active',
     version: 'v1.0',
-    isPopular: true,
     link: '/photo-resizer'
   },
   {
@@ -78,7 +76,6 @@ export const TOOLS: ToolItem[] = [
     category: 'document',
     status: 'active',
     version: 'v1.0',
-    isPopular: true,
     link: '/cv-builder'
   },
   {
@@ -90,7 +87,6 @@ export const TOOLS: ToolItem[] = [
     category: 'document',
     status: 'active',
     version: 'v1.0',
-    isPopular: true,
     link: '/pdf-merger'
   },
   {
