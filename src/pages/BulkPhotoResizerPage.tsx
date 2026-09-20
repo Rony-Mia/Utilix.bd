@@ -456,21 +456,21 @@ export const BulkPhotoResizerPage: React.FC = () => {
       </Helmet>
 
       {/* Top Breadcrumb & 100% Privacy Guarantee */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#d8cfb8]">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#D5E4DB]">
         <div className="flex items-center space-x-3">
           <Link
             to="/"
-            className="border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] px-3 py-1.5 text-xs text-[#083f2a] flex items-center space-x-1.5 transition-colors"
+            className="border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] px-3 py-1.5 text-xs text-[#084A2E] flex items-center space-x-1.5 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#6b6255] font-mono">REF: IMG-GOV-02</span>
+          <span className="text-xs text-[#4A5A52] font-mono">REF: IMG-GOV-02</span>
         </div>
 
         {/* 100% Client-Side Privacy Badge */}
-        <div className="flex items-center space-x-2 text-xs font-medium text-[#083f2a] bg-[#fffdf7] border border-[#d8cfb8] px-3 py-1.5 shadow-xs">
-          <ShieldCheck className="w-4 h-4 text-[#0c5c3d]" />
+        <div className="flex items-center space-x-2 text-xs font-medium text-[#084A2E] bg-[#FFFFFF] border border-[#D5E4DB] px-3 py-1.5 shadow-xs rounded-lg">
+          <ShieldCheck className="w-4 h-4 text-[#0B5D3B]" />
           <span>১০০% ক্লায়েন্ট-সাইড অন-ডিভাইস (কোনো ছবি সার্ভারে আপলোড হয় না)</span>
         </div>
       </div>
@@ -478,30 +478,30 @@ export const BulkPhotoResizerPage: React.FC = () => {
       {/* Hero Header */}
       <div className="space-y-3">
         <div className="flex items-center space-x-2">
-          <span className="bg-[#0c5c3d]/10 text-[#0c5c3d] text-xs px-2.5 py-0.5 border border-[#0c5c3d]/20 font-medium">
+          <span className="bg-[#0B5D3B]/10 text-[#0B5D3B] text-xs px-2.5 py-0.5 border border-[#0B5D3B]/20 font-medium">
             ব্যাচ প্রসেসিং • আনলিমিটেড ফ্রি
           </span>
-          <span className="text-xs text-[#6b6255]">কোনো ফাইল লিমিট নেই</span>
+          <span className="text-xs text-[#4A5A52]">কোনো ফাইল লিমিট নেই</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#083f2a] font-serif tracking-tight">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084A2E] font-serif tracking-tight">
           বাল্ক ফটো রিসাইজার (Bulk Photo Resizer)
         </h1>
-        <p className="text-xs sm:text-sm text-[#6b6255] max-w-3xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-[#4A5A52] max-w-3xl leading-relaxed">
           একসাথে যত খুশি ছবি আপলোড করে এক ক্লিকে একই মাপে (যেমন সরকারি চাকরির ৩০০×৩০০ বা পাসপোর্ট সাইজ) রিসাইজ ও কম্প্রেস করুন। সম্পূর্ণ প্রসেসিং আপনার ব্রাউজারে ঘটে এবং সবশেষে এক ক্লিকে জিপ (ZIP) ফাইলে ডাউনলোড করা যায়।
         </p>
       </div>
 
       {/* Selling Point Box */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 rounded-2xl">
         <div className="flex items-start space-x-3">
-          <div className="w-8 h-8 rounded-none bg-[#0c5c3d]/10 border border-[#0c5c3d]/30 flex items-center justify-center shrink-0 text-[#0c5c3d] mt-0.5">
+          <div className="w-8 h-8 rounded-md bg-[#0B5D3B]/10 border border-[#0B5D3B]/30 flex items-center justify-center shrink-0 text-[#0B5D3B] mt-0.5">
             <Sparkles className="w-4 h-4" />
           </div>
-          <div className="text-xs sm:text-sm text-[#14231c]">
-            <strong className="text-[#083f2a] block font-serif">
+          <div className="text-xs sm:text-sm text-[#0F1F17]">
+            <strong className="text-[#084A2E] block font-serif">
               আনলিমিটেড ব্যাচ প্রসেসিং — কোনো পেওয়াল বা সীমাবদ্ধতা নেই
             </strong>
-            <span className="text-[#4a4237] leading-relaxed">
+            <span className="text-[#34443B] leading-relaxed">
               অধিকাংশ অনলাইন টুলে ৫ বা ১০টির বেশি ছবি আপলোড করতে দিলে প্রো সাবস্ক্রিপশন কিনতে বাধ্য করে। Utilix.bd-তে <strong>সম্পূর্ণ ক্লায়েন্ট-সাইড মেমোরিতে কাজ করার কারণে কোনো ফাইলের সংখ্যাসীমা নেই</strong>।
             </span>
           </div>
@@ -510,7 +510,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
         {/* Quick link to single resizer */}
         <Link
           to="/photo-resizer"
-          className="shrink-0 text-xs text-[#0c5c3d] hover:text-[#083f2a] font-medium flex items-center space-x-1 border border-[#0c5c3d]/30 bg-[#f4efe4] px-3 py-1.5"
+          className="shrink-0 text-xs text-[#0B5D3B] hover:text-[#084A2E] font-medium flex items-center space-x-1 border border-[#0B5D3B]/30 bg-[#F0F4F2] px-3 py-1.5"
         >
           <span>একক ছবি রিসাইজার</span>
           <ExternalLink className="w-3 h-3" />
@@ -518,22 +518,22 @@ export const BulkPhotoResizerPage: React.FC = () => {
       </div>
 
       {/* Common Settings Panel (Applies to all batch files) */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-6">
-        <div className="flex items-center justify-between pb-3 border-b border-[#d8cfb8]">
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-6 rounded-2xl">
+        <div className="flex items-center justify-between pb-3 border-b border-[#D5E4DB]">
           <div className="flex items-center space-x-2">
-            <Settings className="w-4 h-4 text-[#0c5c3d]" />
-            <h2 className="text-sm sm:text-base font-bold text-[#083f2a] font-serif uppercase tracking-wider">
+            <Settings className="w-4 h-4 text-[#0B5D3B]" />
+            <h2 className="text-sm sm:text-base font-bold text-[#084A2E] font-serif uppercase tracking-wider">
               ১. সার্বজনীন রিসাইজ সেটিংস (সব ছবির জন্য প্রযোজ্য)
             </h2>
           </div>
-          <span className="text-xs text-[#6b6255]">
+          <span className="text-xs text-[#4A5A52]">
             টার্গেট: {activeWidth} × {activeHeight} পিক্সেল
           </span>
         </div>
 
         {/* Presets Grid */}
         <div className="space-y-3">
-          <label className="text-xs font-semibold text-[#083f2a] block">
+          <label className="text-xs font-semibold text-[#084A2E] block">
             সরকারি প্রিসেট বাছাই করুন:
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
@@ -546,19 +546,19 @@ export const BulkPhotoResizerPage: React.FC = () => {
                   onClick={() => setSelectedPreset(preset.id)}
                   className={`text-left p-3 border transition-all cursor-pointer ${
                     isSelected
-                      ? 'border-[#083f2a] bg-[#f4efe4] ring-1 ring-[#083f2a]'
-                      : 'border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4]/50'
+                      ? 'border-[#084A2E] bg-[#F0F4F2] ring-1 ring-[#084A2E]'
+                      : 'border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2]/50'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-xs text-[#083f2a]">
+                    <span className="font-semibold text-xs text-[#084A2E]">
                       {preset.name}
                     </span>
-                    <span className="text-[11px] font-mono text-[#0c5c3d] font-bold">
+                    <span className="text-[11px] font-mono text-[#0B5D3B] font-bold">
                       {preset.width}×{preset.height}
                     </span>
                   </div>
-                  <div className="text-[11px] text-[#6b6255] mt-1 flex items-center justify-between">
+                  <div className="text-[11px] text-[#4A5A52] mt-1 flex items-center justify-between">
                     <span>{preset.org}</span>
                     <span>সর্বোচ্চ {preset.maxSizeKb} KB</span>
                   </div>
@@ -572,19 +572,19 @@ export const BulkPhotoResizerPage: React.FC = () => {
               onClick={() => setSelectedPreset('custom')}
               className={`text-left p-3 border transition-all cursor-pointer ${
                 selectedPreset === 'custom'
-                  ? 'border-[#083f2a] bg-[#f4efe4] ring-1 ring-[#083f2a]'
-                  : 'border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4]/50'
+                  ? 'border-[#084A2E] bg-[#F0F4F2] ring-1 ring-[#084A2E]'
+                  : 'border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2]/50'
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-xs text-[#083f2a]">
+                <span className="font-semibold text-xs text-[#084A2E]">
                   কাস্টম মাপ ও সাইজ
                 </span>
-                <span className="text-[11px] font-mono text-[#0c5c3d] font-bold">
+                <span className="text-[11px] font-mono text-[#0B5D3B] font-bold">
                   ইউজার নির্দিষ্ট
                 </span>
               </div>
-              <p className="text-[11px] text-[#6b6255] mt-1">
+              <p className="text-[11px] text-[#4A5A52] mt-1">
                 নিজের পছন্দমতো প্রস্থ, উচ্চতা ও কেবি সেট করুন
               </p>
             </button>
@@ -592,9 +592,9 @@ export const BulkPhotoResizerPage: React.FC = () => {
         </div>
 
         {/* Custom Width, Height, MaxKB Controls (if Custom or fine-tuning) */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2 border-t border-[#d8cfb8]/60">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2 border-t border-[#D5E4DB]/60">
           <div>
-            <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+            <label className="text-xs font-semibold text-[#084A2E] block mb-1">
               প্রস্থ (Width px)
             </label>
             <input
@@ -602,12 +602,12 @@ export const BulkPhotoResizerPage: React.FC = () => {
               disabled={selectedPreset !== 'custom'}
               value={activeWidth}
               onChange={(e) => setCustomWidth(Math.max(10, parseInt(e.target.value) || 0))}
-              className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-1.5 text-xs text-[#14231c] disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-1.5 text-xs text-[#0F1F17] disabled:opacity-60 disabled:cursor-not-allowed rounded-lg"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+            <label className="text-xs font-semibold text-[#084A2E] block mb-1">
               উচ্চতা (Height px)
             </label>
             <input
@@ -615,12 +615,12 @@ export const BulkPhotoResizerPage: React.FC = () => {
               disabled={selectedPreset !== 'custom'}
               value={activeHeight}
               onChange={(e) => setCustomHeight(Math.max(10, parseInt(e.target.value) || 0))}
-              className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-1.5 text-xs text-[#14231c] disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-1.5 text-xs text-[#0F1F17] disabled:opacity-60 disabled:cursor-not-allowed rounded-lg"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+            <label className="text-xs font-semibold text-[#084A2E] block mb-1">
               সর্বোচ্চ সাইজ (Max KB)
             </label>
             <input
@@ -628,20 +628,20 @@ export const BulkPhotoResizerPage: React.FC = () => {
               disabled={selectedPreset !== 'custom'}
               value={activeMaxKb}
               onChange={(e) => setCustomMaxKb(Math.max(0, parseInt(e.target.value) || 0))}
-              className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-1.5 text-xs text-[#14231c] disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-1.5 text-xs text-[#0F1F17] disabled:opacity-60 disabled:cursor-not-allowed rounded-lg"
               placeholder="0 = কোনো সীমা নেই"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+            <label className="text-xs font-semibold text-[#084A2E] block mb-1">
               আউটপুট ফরম্যাট
             </label>
             <select
               disabled={selectedPreset !== 'custom'}
               value={activeFormat}
               onChange={(e) => setCustomFormat(e.target.value as 'jpeg' | 'png' | 'webp')}
-              className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-1.5 text-xs text-[#14231c] disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-1.5 text-xs text-[#0F1F17] disabled:opacity-60 disabled:cursor-not-allowed rounded-lg"
             >
               <option value="jpeg">JPEG / JPG (স্ট্যান্ডার্ড)</option>
               <option value="png">PNG (লসলেস)</option>
@@ -651,19 +651,19 @@ export const BulkPhotoResizerPage: React.FC = () => {
         </div>
 
         {/* Fit Mode & Background Color */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#d8cfb8]/60">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#D5E4DB]/60">
           <div>
-            <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+            <label className="text-xs font-semibold text-[#084A2E] block mb-1">
               ফিট মোড (Fit Mode):
             </label>
-            <div className="flex border border-[#d8cfb8] bg-[#f4efe4] p-0.5 text-xs">
+            <div className="flex border border-[#D5E4DB] bg-[#F0F4F2] p-0.5 text-xs rounded-lg">
               <button
                 type="button"
                 onClick={() => setFitMode('cover')}
                 className={`flex-1 py-1 text-center transition-colors cursor-pointer ${
                   fitMode === 'cover'
-                    ? 'bg-[#fffdf7] font-semibold text-[#083f2a] shadow-xs'
-                    : 'text-[#6b6255] hover:text-[#083f2a]'
+                    ? 'bg-[#FFFFFF] font-semibold text-[#084A2E] shadow-xs'
+                    : 'text-[#4A5A52] hover:text-[#084A2E]'
                 }`}
               >
                 Cover (কাটছাঁট করে ফিল)
@@ -673,8 +673,8 @@ export const BulkPhotoResizerPage: React.FC = () => {
                 onClick={() => setFitMode('contain')}
                 className={`flex-1 py-1 text-center transition-colors cursor-pointer ${
                   fitMode === 'contain'
-                    ? 'bg-[#fffdf7] font-semibold text-[#083f2a] shadow-xs'
-                    : 'text-[#6b6255] hover:text-[#083f2a]'
+                    ? 'bg-[#FFFFFF] font-semibold text-[#084A2E] shadow-xs'
+                    : 'text-[#4A5A52] hover:text-[#084A2E]'
                 }`}
               >
                 Contain (পুরো ছবি অক্ষুণ্ণ)
@@ -684,8 +684,8 @@ export const BulkPhotoResizerPage: React.FC = () => {
                 onClick={() => setFitMode('fill')}
                 className={`flex-1 py-1 text-center transition-colors cursor-pointer ${
                   fitMode === 'fill'
-                    ? 'bg-[#fffdf7] font-semibold text-[#083f2a] shadow-xs'
-                    : 'text-[#6b6255] hover:text-[#083f2a]'
+                    ? 'bg-[#FFFFFF] font-semibold text-[#084A2E] shadow-xs'
+                    : 'text-[#4A5A52] hover:text-[#084A2E]'
                 }`}
               >
                 Stretch (টেনে ফিল)
@@ -694,7 +694,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+            <label className="text-xs font-semibold text-[#084A2E] block mb-1">
               প্যাডিং / ব্যাকগ্রাউন্ড রঙ:
             </label>
             <div className="flex items-center space-x-3">
@@ -703,8 +703,8 @@ export const BulkPhotoResizerPage: React.FC = () => {
                 onClick={() => setBackgroundColor('#ffffff')}
                 className={`px-3 py-1 text-xs border cursor-pointer ${
                   backgroundColor === '#ffffff'
-                    ? 'border-[#083f2a] bg-[#f4efe4] font-semibold text-[#083f2a]'
-                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255]'
+                    ? 'border-[#084A2E] bg-[#F0F4F2] font-semibold text-[#084A2E]'
+                    : 'border-[#D5E4DB] bg-[#FFFFFF] text-[#4A5A52]'
                 }`}
               >
                 সাদা (#FFFFFF)
@@ -714,8 +714,8 @@ export const BulkPhotoResizerPage: React.FC = () => {
                 onClick={() => setBackgroundColor('#d6e6f2')}
                 className={`px-3 py-1 text-xs border cursor-pointer ${
                   backgroundColor === '#d6e6f2'
-                    ? 'border-[#083f2a] bg-[#f4efe4] font-semibold text-[#083f2a]'
-                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255]'
+                    ? 'border-[#084A2E] bg-[#F0F4F2] font-semibold text-[#084A2E]'
+                    : 'border-[#D5E4DB] bg-[#FFFFFF] text-[#4A5A52]'
                 }`}
               >
                 পাসপোর্ট স্কাই ব্লু
@@ -724,7 +724,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
                 type="color"
                 value={backgroundColor}
                 onChange={(e) => setBackgroundColor(e.target.value)}
-                className="w-7 h-7 border border-[#d8cfb8] cursor-pointer bg-transparent"
+                className="w-7 h-7 border border-[#D5E4DB] cursor-pointer bg-transparent"
                 title="কাস্টম রঙ নির্বাচন করুন"
               />
             </div>
@@ -741,10 +741,10 @@ export const BulkPhotoResizerPage: React.FC = () => {
         onDragLeave={() => setIsDragOver(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`border-2 border-dashed p-8 sm:p-10 text-center transition-all cursor-pointer bg-[#fffdf7] ${
+        className={`border-2 border-dashed p-8 sm:p-10 text-center transition-all cursor-pointer bg-[#FFFFFF]  rounded-2xl ${
           isDragOver
-            ? 'border-[#0c5c3d] bg-[#f4efe4]'
-            : 'border-[#d8cfb8] hover:border-[#0c5c3d]'
+            ? 'border-[#0B5D3B] bg-[#F0F4F2]'
+            : 'border-[#D5E4DB] hover:border-[#0B5D3B]'
         }`}
       >
         <input
@@ -756,14 +756,14 @@ export const BulkPhotoResizerPage: React.FC = () => {
           className="hidden"
         />
         <div className="max-w-md mx-auto space-y-4">
-          <div className="w-14 h-14 mx-auto bg-[#f4efe4] border border-[#d8cfb8] flex items-center justify-center text-[#083f2a]">
-            <Upload className="w-7 h-7 text-[#0c5c3d]" />
+          <div className="w-14 h-14 mx-auto bg-[#F0F4F2] border border-[#D5E4DB] flex items-center justify-center text-[#084A2E] rounded-lg">
+            <Upload className="w-7 h-7 text-[#0B5D3B]" />
           </div>
           <div className="space-y-1">
-            <p className="text-sm font-semibold text-[#083f2a]">
+            <p className="text-sm font-semibold text-[#084A2E]">
               একসাথে একাধিক ছবি ড্র্যাগ করে এখানে ছাড়ুন অথবা ফাইল বাছাই করতে ক্লিক করুন
             </p>
-            <p className="text-xs text-[#6b6255]">
+            <p className="text-xs text-[#4A5A52]">
               কোনো ফাইলের সংখ্যাসীমা নেই • JPG, PNG বা WebP ফরম্যাট
             </p>
           </div>
@@ -775,7 +775,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
                 e.stopPropagation();
                 fileInputRef.current?.click();
               }}
-              className="bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] px-4 py-2 text-xs font-semibold transition-colors cursor-pointer"
+              className="bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] px-4 py-2 text-xs font-semibold transition-colors cursor-pointer"
             >
               একাধিক ছবি বাছাই করুন
             </button>
@@ -785,7 +785,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
                 e.stopPropagation();
                 handleAddSampleImages();
               }}
-              className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 text-[#14231c] px-4 py-2 text-xs font-medium transition-colors cursor-pointer"
+              className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 text-[#0F1F17] px-4 py-2 text-xs font-medium transition-colors cursor-pointer rounded-lg"
             >
               নমুনা ৩টি ছবি যোগ করুন
             </button>
@@ -795,7 +795,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
 
       {/* General Error Notice */}
       {generalError && (
-        <div className="bg-[#fff5f5] border border-[#fecaca] p-4 text-xs text-[#b91c1c] flex items-start space-x-2.5">
+        <div className="bg-[#fff5f5] border border-[#fecaca] p-4 text-xs text-[#b91c1c] flex items-start space-x-2.5 rounded-2xl">
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
           <p>{generalError}</p>
         </div>
@@ -805,17 +805,17 @@ export const BulkPhotoResizerPage: React.FC = () => {
       {items.length > 0 && (
         <div className="space-y-4">
           {/* Action Toolbar */}
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 flex flex-wrap items-center justify-between gap-4 rounded-2xl">
             {/* Stats */}
             <div className="flex items-center space-x-4 text-xs">
-              <span className="font-semibold text-[#083f2a] font-serif text-sm">
+              <span className="font-semibold text-[#084A2E] font-serif text-sm">
                 মোট ছবি: {totalCount}টি
               </span>
-              <span className="text-[#0c5c3d] font-medium">
+              <span className="text-[#0B5D3B] font-medium">
                 সম্পন্ন: {completedCount}টি
               </span>
               {pendingCount > 0 && (
-                <span className="text-[#6b6255]">অপেক্ষমান: {pendingCount}টি</span>
+                <span className="text-[#4A5A52]">অপেক্ষমান: {pendingCount}টি</span>
               )}
               {errorCount > 0 && (
                 <span className="text-red-600 font-medium">ব্যর্থ: {errorCount}টি</span>
@@ -828,7 +828,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
                 type="button"
                 onClick={handleProcessAll}
                 disabled={isProcessingAll || items.length === 0}
-                className="bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] px-4 py-2 text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                className="bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] px-4 py-2 text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer disabled:opacity-50"
               >
                 {isProcessingAll ? (
                   <>
@@ -848,7 +848,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
                 type="button"
                 onClick={handleDownloadAllZip}
                 disabled={completedCount === 0 || isZipping}
-                className="bg-[#083f2a] hover:bg-[#0c5c3d] text-[#fffdf7] px-4 py-2 text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                className="bg-[#084A2E] hover:bg-[#0B5D3B] text-[#FFFFFF] px-4 py-2 text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer disabled:opacity-50"
               >
                 {isZipping ? (
                   <>
@@ -868,7 +868,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
                 type="button"
                 onClick={handleClearAll}
                 disabled={isProcessingAll}
-                className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 text-[#6b6255] hover:text-red-700 px-3 py-2 text-xs transition-colors cursor-pointer disabled:opacity-50"
+                className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 text-[#4A5A52] hover:text-red-700 px-3 py-2 text-xs transition-colors cursor-pointer disabled:opacity-50 rounded-lg"
                 title="লিস্টের সব ছবি মুছে ফেলুন"
               >
                 <Trash2 className="w-3.5 h-3.5" />
@@ -878,14 +878,14 @@ export const BulkPhotoResizerPage: React.FC = () => {
 
           {/* Progress Bar when processing */}
           {isProcessingAll && (
-            <div className="bg-[#fffdf7] border border-[#d8cfb8] p-3 space-y-1.5">
-              <div className="flex items-center justify-between text-xs text-[#083f2a]">
+            <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-3 space-y-1.5 rounded-2xl">
+              <div className="flex items-center justify-between text-xs text-[#084A2E]">
                 <span className="font-semibold">রিসাইজ প্রোগ্রেস</span>
                 <span className="font-mono">{completedCount} / {totalCount} ({progressPercent}%)</span>
               </div>
-              <div className="w-full bg-[#f4efe4] h-2.5 border border-[#d8cfb8] overflow-hidden">
+              <div className="w-full bg-[#F0F4F2] h-2.5 border border-[#D5E4DB] overflow-hidden rounded-lg">
                 <div
-                  className="bg-[#0c5c3d] h-full transition-all duration-200"
+                  className="bg-[#0B5D3B] h-full transition-all duration-200"
                   style={{ width: `${progressPercent}%` }}
                 ></div>
               </div>
@@ -898,19 +898,19 @@ export const BulkPhotoResizerPage: React.FC = () => {
               return (
                 <div
                   key={item.id}
-                  className={`bg-[#fffdf7] border p-3 flex flex-col justify-between transition-all space-y-3 relative ${
+                  className={`bg-[#FFFFFF] border p-3 flex flex-col justify-between transition-all space-y-3 relative  rounded-2xl ${
                     item.status === 'completed'
-                      ? 'border-[#0c5c3d]/50 ring-1 ring-[#0c5c3d]/20'
+                      ? 'border-[#0B5D3B]/50 ring-1 ring-[#0B5D3B]/20'
                       : item.status === 'processing'
-                      ? 'border-[#0c5c3d] ring-2 ring-[#0c5c3d]/30'
+                      ? 'border-[#0B5D3B] ring-2 ring-[#0B5D3B]/30'
                       : item.status === 'error'
                       ? 'border-red-400 bg-red-50/20'
-                      : 'border-[#d8cfb8]'
+                      : 'border-[#D5E4DB]'
                   }`}
                 >
                   {/* Top: Remove button & Status badge */}
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] font-mono text-[#6b6255]">
+                    <span className="text-[11px] font-mono text-[#4A5A52]">
                       #{index + 1}
                     </span>
 
@@ -928,8 +928,8 @@ export const BulkPhotoResizerPage: React.FC = () => {
                         </span>
                       )}
                       {item.status === 'pending' && (
-                        <span className="bg-[#f4efe4] text-[#6b6255] text-[11px] px-2 py-0.5 font-medium flex items-center space-x-1 border border-[#d8cfb8]">
-                          <Clock className="w-3 h-3 text-[#6b6255]" />
+                        <span className="bg-[#F0F4F2] text-[#4A5A52] text-[11px] px-2 py-0.5 font-medium flex items-center space-x-1 border border-[#D5E4DB]">
+                          <Clock className="w-3 h-3 text-[#4A5A52]" />
                           <span>অপেক্ষমান</span>
                         </span>
                       )}
@@ -945,7 +945,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
                         type="button"
                         onClick={() => handleRemoveItem(item.id)}
                         disabled={item.status === 'processing'}
-                        className="text-[#6b6255] hover:text-red-700 p-0.5 transition-colors cursor-pointer disabled:opacity-30"
+                        className="text-[#4A5A52] hover:text-red-700 p-0.5 transition-colors cursor-pointer disabled:opacity-30"
                         title="ছবিটি বাদ দিন"
                       >
                         <X className="w-3.5 h-3.5" />
@@ -954,7 +954,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
                   </div>
 
                   {/* Thumbnail Image */}
-                  <div className="w-full h-36 bg-[#f4efe4] border border-[#d8cfb8] overflow-hidden flex items-center justify-center relative">
+                  <div className="w-full h-36 bg-[#F0F4F2] border border-[#D5E4DB] overflow-hidden flex items-center justify-center relative rounded-lg">
                     <img
                       src={item.result?.dataUrl || item.previewUrl}
                       alt={item.name}
@@ -963,7 +963,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
 
                     {/* Compliant Badge for Govt photo */}
                     {item.status === 'completed' && item.result && (
-                      <div className="absolute bottom-1 right-1 bg-[#083f2a]/90 text-[#fffdf7] text-[10px] font-mono px-1.5 py-0.5">
+                      <div className="absolute bottom-1 right-1 bg-[#084A2E]/90 text-[#FFFFFF] text-[10px] font-mono px-1.5 py-0.5">
                         {item.result.width}×{item.result.height}
                       </div>
                     )}
@@ -972,13 +972,13 @@ export const BulkPhotoResizerPage: React.FC = () => {
                   {/* Metadata Info */}
                   <div className="space-y-1 text-xs">
                     <div
-                      className="font-semibold text-[#083f2a] truncate"
+                      className="font-semibold text-[#084A2E] truncate"
                       title={item.name}
                     >
                       {item.name}
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] text-[#6b6255] font-mono">
+                    <div className="flex items-center justify-between text-[11px] text-[#4A5A52] font-mono">
                       <span>আসল: {item.originalSizeKb} KB</span>
                       {item.originalWidth && item.originalHeight && (
                         <span>({item.originalWidth}×{item.originalHeight})</span>
@@ -986,11 +986,11 @@ export const BulkPhotoResizerPage: React.FC = () => {
                     </div>
 
                     {item.status === 'completed' && item.result && (
-                      <div className="pt-1 border-t border-[#d8cfb8]/60 flex items-center justify-between text-[11px] font-mono font-medium">
-                        <span className="text-[#0c5c3d]">
+                      <div className="pt-1 border-t border-[#D5E4DB]/60 flex items-center justify-between text-[11px] font-mono font-medium">
+                        <span className="text-[#0B5D3B]">
                           নতুন: {item.result.sizeKb} KB
                         </span>
-                        <span className="text-[#6b6255]">
+                        <span className="text-[#4A5A52]">
                           (কোয়ালিটি: {item.result.qualityUsed}%)
                         </span>
                       </div>
@@ -1008,7 +1008,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleDownloadSingle(item)}
-                      className="w-full mt-2 border border-[#0c5c3d] bg-[#f4efe4] hover:bg-[#0c5c3d] hover:text-[#fffdf7] text-[#083f2a] py-1.5 text-xs font-medium flex items-center justify-center space-x-1 transition-colors cursor-pointer"
+                      className="w-full mt-2 border border-[#0B5D3B] bg-[#F0F4F2] hover:bg-[#0B5D3B] hover:text-[#FFFFFF] text-[#084A2E] py-1.5 text-xs font-medium flex items-center justify-center space-x-1 transition-colors cursor-pointer rounded-lg"
                     >
                       <Download className="w-3 h-3" />
                       <span>ডাউনলোড</span>
@@ -1022,47 +1022,47 @@ export const BulkPhotoResizerPage: React.FC = () => {
       )}
 
       {/* FAQ Accordion / Information Section */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-6 space-y-4">
-        <div className="flex items-center space-x-2 border-b border-[#d8cfb8] pb-3">
-          <HelpCircle className="w-4 h-4 text-[#0c5c3d]" />
-          <h2 className="text-base font-bold text-[#083f2a] font-serif">
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-6 space-y-4 rounded-2xl">
+        <div className="flex items-center space-x-2 border-b border-[#D5E4DB] pb-3">
+          <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
+          <h2 className="text-base font-bold text-[#084A2E] font-serif">
             সাধারণ জিজ্ঞাসা (FAQ)
           </h2>
         </div>
 
-        <div className="divide-y divide-[#d8cfb8] text-xs sm:text-sm text-[#4a4237]">
+        <div className="divide-y divide-[#D5E4DB] text-xs sm:text-sm text-[#34443B]">
           <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               একসাথে কতগুলো ছবি রিসাইজ করা যায়?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               একসাথে যত খুশি ছবি আপলোড ও রিসাইজ করতে পারবেন। কোনো সংখ্যার বাধ্যবাধকতা বা কৃত্রিম সীমাবদ্ধতা নেই। অন্যান্য প্রতিযোগী সাইট যেখানে ৫-১০টির বেশি ফাইল দিলে পেইড সাবস্ক্রিপশন দাবি করে, Utilix.bd-তে এটি সম্পূর্ণ আনলিমিটেড ও ফ্রি।
             </p>
           </div>
 
           <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               ছবিগুলো কি কোনো সার্ভারে আপলোড হয়? প্রাইভেসি কতটা সুরক্ষিত?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               বিন্দুমাত্র নয়। আপনার কোনো ছবি কখনোই কোনো ক্লাউড বা সার্ভারে আপলোড হয় না। সম্পূর্ণ প্রসেসিং সরাসরি আপনার নিজস্ব ডিভাইসে ব্রাউজারের মেমোরিতে (HTML5 Canvas) অফলাইনে ঘটে। আপনার ছবি সম্পূর্ণ সুরক্ষিত ও ব্যক্তিগত থাকে।
             </p>
           </div>
 
           <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               সবগুলো ছবি একসাথে কীভাবে ZIP হিসেবে ডাউনলোড করব?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               সব ছবি প্রসেসিং সম্পন্ন হওয়ার পর উপরের "সব ডাউনলোড করুন (ZIP)" বাটনে ক্লিক করলেই সেকেন্ডের মধ্যে ব্রাউজারেই একটি জিপ ফাইল তৈরি হয়ে স্বয়ংক্রিয়ভাবে ডাউনলোড শুরু হবে। এছাড়া এককভাবেও প্রতিটা ছবি আলাদা ডাউনলোড করা সম্ভব।
             </p>
           </div>
 
           <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               সরকারি চাকরির ৩০০×৩০০ ও ৩০০×৮০ প্রিসেট কি সাপোর্ট করে?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               হ্যাঁ! টেলিটক, বিসিএস, এনআইডি পোর্টাল, বাংলাদেশ ই-পাসপোর্ট এবং প্রাথমিক শিক্ষক নিয়োগের নির্ধারিত ৩০০×৩০০ পিক্সেল (১০০ KB) এবং ৩০০×৮০ পিক্সেল (৬০ KB) সরকারি প্রিসেট রেডিমেড রাখা আছে। এক ক্লিকেই সব ছবি এই নিয়মে ব্যাচ রিসাইজ হয়ে যাবে।
             </p>
           </div>

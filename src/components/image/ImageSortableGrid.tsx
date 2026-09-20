@@ -140,28 +140,28 @@ export const ImageSortableGrid: React.FC<ImageSortableGridProps> = ({
         onDragLeave={handleDragLeaveArea}
         onDrop={handleDropArea}
         onClick={() => fileInputRef.current?.click()}
-        className={`border-2 border-dashed p-6 sm:p-8 text-center cursor-pointer transition-all duration-200 ${
+        className={`border-2 border-dashed p-6 sm:p-8 text-center cursor-pointer transition-all duration-200  rounded-2xl ${
           isDraggingOver
-            ? 'border-[#0c5c3d] bg-[#0c5c3d]/10'
-            : 'border-[#d8cfb8] bg-[#fffdf7] hover:border-[#0c5c3d]/60 hover:bg-[#f4efe4]/50'
+            ? 'border-[#0B5D3B] bg-[#0B5D3B]/10'
+            : 'border-[#D5E4DB] bg-[#FFFFFF] hover:border-[#0B5D3B]/60 hover:bg-[#F0F4F2]/50'
         }`}
       >
         <div className="max-w-md mx-auto space-y-3">
-          <div className="w-12 h-12 bg-[#0c5c3d] text-[#fffdf7] mx-auto flex items-center justify-center shadow-sm">
+          <div className="w-12 h-12 bg-[#0B5D3B] text-[#FFFFFF] mx-auto flex items-center justify-center shadow-sm">
             <Upload className="w-6 h-6" />
           </div>
 
           <div className="space-y-1">
-            <h3 className="font-bold text-sm sm:text-base text-[#083f2a]">
+            <h3 className="font-bold text-sm sm:text-base text-[#084A2E]">
               ছবি নির্বাচন করুন অথবা এখানে টেনে এনে ছেড়ে দিন
             </h3>
-            <p className="text-xs text-[#6b6255]">
+            <p className="text-xs text-[#4A5A52]">
               একাধিক ছবি একসাথে নির্বাচন করা যাবে • PNG, JPG, JPEG, WEBP অনুমোদিত
             </p>
           </div>
 
           <div className="pt-1">
-            <span className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-[#0c5c3d] text-[#fffdf7] text-xs font-medium hover:bg-[#083f2a] transition-colors">
+            <span className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-[#0B5D3B] text-[#FFFFFF] text-xs font-medium hover:bg-[#084A2E] transition-colors">
               <Plus className="w-3.5 h-3.5" />
               <span>ছবি যোগ করুন</span>
             </span>
@@ -171,12 +171,12 @@ export const ImageSortableGrid: React.FC<ImageSortableGridProps> = ({
 
       {/* List Header & Actions (if items exist) */}
       {items.length > 0 && (
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 pb-1 border-b border-[#d8cfb8]">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 pb-1 border-b border-[#D5E4DB]">
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-mono font-bold bg-[#0c5c3d]/10 text-[#083f2a] px-2 py-0.5 border border-[#0c5c3d]/20">
+            <span className="text-xs font-mono font-bold bg-[#0B5D3B]/10 text-[#084A2E] px-2 py-0.5 border border-[#0B5D3B]/20">
               মোট {toBanglaDigits(items.length)}টি ছবি
             </span>
-            <span className="text-xs text-[#6b6255] hidden sm:inline">
+            <span className="text-xs text-[#4A5A52] hidden sm:inline">
               (মাউস দিয়ে টেনে বা বাটন চেপে ছবির ক্রম সাজান)
             </span>
           </div>
@@ -185,16 +185,16 @@ export const ImageSortableGrid: React.FC<ImageSortableGridProps> = ({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="px-2.5 py-1 text-xs border border-[#d8cfb8] bg-[#fffdf7] text-[#083f2a] hover:bg-[#f4efe4] font-medium flex items-center space-x-1 transition-colors cursor-pointer"
+              className="px-2.5 py-1 text-xs border border-[#D5E4DB] bg-[#FFFFFF] text-[#084A2E] hover:bg-[#F0F4F2] font-medium flex items-center space-x-1 transition-colors cursor-pointer rounded-lg"
             >
-              <Plus className="w-3.5 h-3.5 text-[#0c5c3d]" />
+              <Plus className="w-3.5 h-3.5 text-[#0B5D3B]" />
               <span>আরও ছবি দিন</span>
             </button>
 
             <button
               type="button"
               onClick={onClearAll}
-              className="px-2.5 py-1 text-xs border border-[#b84d4d]/40 bg-[#f9e8e8]/50 text-[#8a2424] hover:bg-[#f9e8e8] font-medium flex items-center space-x-1 transition-colors cursor-pointer"
+              className="px-2.5 py-1 text-xs border border-[#b84d4d]/40 bg-[#f9e8e8]/50 text-[#8a2424] hover:bg-[#f9e8e8] font-medium flex items-center space-x-1 transition-colors cursor-pointer rounded-lg"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>সব মুছুন</span>
@@ -218,28 +218,28 @@ export const ImageSortableGrid: React.FC<ImageSortableGridProps> = ({
                 onDragOver={(e) => handleItemDragOver(e, index)}
                 onDrop={(e) => handleItemDrop(e, index)}
                 onDragEnd={handleItemDragEnd}
-                className={`border bg-[#fffdf7] transition-all relative flex flex-col justify-between group ${
-                  isBeingDragged ? 'opacity-40 border-dashed border-[#0c5c3d]' : ''
+                className={`border bg-[#FFFFFF] transition-all relative flex flex-col justify-between group  rounded-lg ${
+                  isBeingDragged ? 'opacity-40 border-dashed border-[#0B5D3B]' : ''
                 } ${
-                  isHoveredTarget ? 'border-2 border-[#0c5c3d] scale-[1.02]' : 'border-[#d8cfb8]'
+                  isHoveredTarget ? 'border-2 border-[#0B5D3B] scale-[1.02]' : 'border-[#D5E4DB]'
                 }`}
               >
                 {/* Drag Handle & Order Badge Header */}
-                <div className="p-1.5 bg-[#f4efe4] border-b border-[#d8cfb8] flex items-center justify-between text-[11px]">
+                <div className="p-1.5 bg-[#F0F4F2] border-b border-[#D5E4DB] flex items-center justify-between text-[11px]">
                   <div className="flex items-center space-x-1 cursor-grab active:cursor-grabbing">
-                    <GripVertical className="w-3.5 h-3.5 text-[#6b6255]" />
-                    <span className="font-mono font-bold text-[#083f2a]">
+                    <GripVertical className="w-3.5 h-3.5 text-[#4A5A52]" />
+                    <span className="font-mono font-bold text-[#084A2E]">
                       #{toBanglaDigits(index + 1)}
                     </span>
                   </div>
 
-                  <span className="text-[10px] font-mono text-[#6b6255]">
+                  <span className="text-[10px] font-mono text-[#4A5A52]">
                     {item.width}×{item.height}
                   </span>
                 </div>
 
                 {/* Thumbnail Image Viewport */}
-                <div className="relative w-full aspect-square bg-[#ece5d8]/40 p-2 flex items-center justify-center overflow-hidden">
+                <div className="relative w-full aspect-square bg-[#E4EEE8]/40 p-2 flex items-center justify-center overflow-hidden">
                   <img
                     src={item.dataUrl}
                     alt={item.name}
@@ -257,12 +257,12 @@ export const ImageSortableGrid: React.FC<ImageSortableGridProps> = ({
                 </div>
 
                 {/* Card Footer: Metadata and Controls */}
-                <div className="p-2 space-y-2 border-t border-[#d8cfb8] bg-[#fffdf7]">
-                  <div className="text-[11px] truncate text-[#083f2a] font-medium" title={item.name}>
+                <div className="p-2 space-y-2 border-t border-[#D5E4DB] bg-[#FFFFFF]">
+                  <div className="text-[11px] truncate text-[#084A2E] font-medium" title={item.name}>
                     {item.name}
                   </div>
 
-                  <div className="flex items-center justify-between pt-1 border-t border-[#d8cfb8]/60">
+                  <div className="flex items-center justify-between pt-1 border-t border-[#D5E4DB]/60">
                     {/* Move Left / Right Reorder Buttons */}
                     <div className="flex items-center space-x-1">
                       <button
@@ -270,7 +270,7 @@ export const ImageSortableGrid: React.FC<ImageSortableGridProps> = ({
                         disabled={index === 0}
                         onClick={() => onReorder(index, index - 1)}
                         title="বামে / আগে সরান"
-                        className="p-1 border border-[#d8cfb8] bg-[#f4efe4] text-[#083f2a] hover:bg-[#d8cfb8] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                        className="p-1 border border-[#D5E4DB] bg-[#F0F4F2] text-[#084A2E] hover:bg-[#D5E4DB] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer rounded-lg"
                       >
                         <ArrowLeft className="w-3 h-3" />
                       </button>
@@ -280,7 +280,7 @@ export const ImageSortableGrid: React.FC<ImageSortableGridProps> = ({
                         disabled={index === items.length - 1}
                         onClick={() => onReorder(index, index + 1)}
                         title="ডানে / পরে সরান"
-                        className="p-1 border border-[#d8cfb8] bg-[#f4efe4] text-[#083f2a] hover:bg-[#d8cfb8] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                        className="p-1 border border-[#D5E4DB] bg-[#F0F4F2] text-[#084A2E] hover:bg-[#D5E4DB] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer rounded-lg"
                       >
                         <ArrowRight className="w-3 h-3" />
                       </button>
@@ -292,7 +292,7 @@ export const ImageSortableGrid: React.FC<ImageSortableGridProps> = ({
                         type="button"
                         onClick={() => onRotate(item.id)}
                         title="৯০° ঘড়ির দিকে ঘোরান"
-                        className="p-1 border border-[#d8cfb8] bg-[#f4efe4] text-[#0c5c3d] hover:bg-[#d8cfb8] cursor-pointer"
+                        className="p-1 border border-[#D5E4DB] bg-[#F0F4F2] text-[#0B5D3B] hover:bg-[#D5E4DB] cursor-pointer rounded-lg"
                       >
                         <RotateCw className="w-3 h-3" />
                       </button>
@@ -301,7 +301,7 @@ export const ImageSortableGrid: React.FC<ImageSortableGridProps> = ({
                         type="button"
                         onClick={() => onRemove(item.id)}
                         title="ছবিটি বাদ দিন"
-                        className="p-1 border border-[#b84d4d]/30 bg-[#f9e8e8]/60 text-[#8a2424] hover:bg-[#f9e8e8] cursor-pointer"
+                        className="p-1 border border-[#b84d4d]/30 bg-[#f9e8e8]/60 text-[#8a2424] hover:bg-[#f9e8e8] cursor-pointer rounded-lg"
                       >
                         <Trash2 className="w-3 h-3" />
                       </button>

@@ -91,34 +91,34 @@ export const PdfFileDropzone: React.FC<PdfFileDropzoneProps> = ({
             fileInputRef.current?.click();
           }
         }}
-        className={`border-2 border-dashed p-6 sm:p-9 text-center transition-all cursor-pointer select-none ${
+        className={`border-2 border-dashed p-6 sm:p-9 text-center transition-all cursor-pointer select-none  rounded-2xl ${
           isDraggingOver
-            ? 'border-[#0c5c3d] bg-[#0c5c3d]/5 scale-[0.995]'
-            : 'border-[#d8cfb8] hover:border-[#0c5c3d] bg-[#f4efe4]/30 hover:bg-[#f4efe4]/60'
+            ? 'border-[#0B5D3B] bg-[#0B5D3B]/5 scale-[0.995]'
+            : 'border-[#D5E4DB] hover:border-[#0B5D3B] bg-[#F0F4F2]/30 hover:bg-[#F0F4F2]/60'
         }`}
       >
         <div className="max-w-md mx-auto space-y-3">
-          <div className="w-13 h-13 mx-auto bg-[#f4efe4] border border-[#d8cfb8] flex items-center justify-center text-[#0c5c3d]">
+          <div className="w-13 h-13 mx-auto bg-[#F0F4F2] border border-[#D5E4DB] flex items-center justify-center text-[#0B5D3B] rounded-lg">
             {isLoading ? (
-              <Loader2 className="w-6 h-6 animate-spin text-[#0c5c3d]" />
+              <Loader2 className="w-6 h-6 animate-spin text-[#0B5D3B]" />
             ) : (
               <UploadCloud className="w-6 h-6" />
             )}
           </div>
           <div className="space-y-1">
-            <h3 className="text-base sm:text-lg font-bold text-[#083f2a] font-serif">
+            <h3 className="text-base sm:text-lg font-bold text-[#084A2E] font-serif">
               {isLoading ? loadingText : title}
             </h3>
-            <p className="text-xs sm:text-sm text-[#6b6255]">{subtitle}</p>
+            <p className="text-xs sm:text-sm text-[#4A5A52]">{subtitle}</p>
           </div>
-          <div className="pt-2 flex flex-wrap justify-center gap-2 text-[11px] font-medium text-[#083f2a]">
-            <span className="bg-[#fffdf7] border border-[#d8cfb8] px-2.5 py-1">
+          <div className="pt-2 flex flex-wrap justify-center gap-2 text-[11px] font-medium text-[#084A2E]">
+            <span className="bg-[#FFFFFF] border border-[#D5E4DB] px-2.5 py-1">
               ✓ কোনো আপলোড নেই
             </span>
-            <span className="bg-[#fffdf7] border border-[#d8cfb8] px-2.5 py-1">
+            <span className="bg-[#FFFFFF] border border-[#D5E4DB] px-2.5 py-1">
               ✓ ব্রাউজারে দ্রুত প্রসেসিং
             </span>
-            <span className="bg-[#fffdf7] border border-[#d8cfb8] px-2.5 py-1">
+            <span className="bg-[#FFFFFF] border border-[#D5E4DB] px-2.5 py-1">
               ✓ ১০০% সুরক্ষিত ও ফ্রি
             </span>
           </div>
@@ -127,7 +127,7 @@ export const PdfFileDropzone: React.FC<PdfFileDropzoneProps> = ({
 
       {/* Error Alert */}
       {errorMessage && (
-        <div className="bg-red-50 border border-red-200 p-4 text-xs sm:text-sm text-red-800 flex items-start space-x-3">
+        <div className="bg-red-50 border border-red-200 p-4 text-xs sm:text-sm text-red-800 flex items-start space-x-3 rounded-2xl">
           <AlertTriangle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
           <div className="space-y-1">
             <div className="font-bold text-red-900">ফাইল প্রক্রিয়াকরণে সতর্কতা:</div>
@@ -138,9 +138,9 @@ export const PdfFileDropzone: React.FC<PdfFileDropzoneProps> = ({
 
       {/* Selected File(s) Summary Display */}
       {selectedFiles.length > 0 && (
-        <div className="border border-[#d8cfb8] bg-[#fffdf7] p-4 space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#d8cfb8] pb-2 text-xs">
-            <span className="font-bold text-[#083f2a] font-serif">
+        <div className="border border-[#D5E4DB] bg-[#FFFFFF] p-4 space-y-3 rounded-2xl">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#D5E4DB] pb-2 text-xs">
+            <span className="font-bold text-[#084A2E] font-serif">
               নির্বাচিত ফাইল ({toBanglaNum(selectedFiles.length)}টি)
             </span>
             <div className="flex items-center space-x-2">
@@ -151,9 +151,9 @@ export const PdfFileDropzone: React.FC<PdfFileDropzoneProps> = ({
                     e.stopPropagation();
                     fileInputRef.current?.click();
                   }}
-                  className="px-2.5 py-1 border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 text-[#083f2a] font-medium flex items-center space-x-1 cursor-pointer"
+                  className="px-2.5 py-1 border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 text-[#084A2E] font-medium flex items-center space-x-1 cursor-pointer rounded-lg"
                 >
-                  <Plus className="w-3 h-3 text-[#0c5c3d]" />
+                  <Plus className="w-3 h-3 text-[#0B5D3B]" />
                   <span>আরও ফাইল যোগ করুন</span>
                 </button>
               )}
@@ -164,7 +164,7 @@ export const PdfFileDropzone: React.FC<PdfFileDropzoneProps> = ({
                     e.stopPropagation();
                     onClearAll();
                   }}
-                  className="px-2.5 py-1 border border-red-200 bg-red-50/50 hover:bg-red-100 text-red-700 font-medium flex items-center space-x-1 cursor-pointer"
+                  className="px-2.5 py-1 border border-red-200 bg-red-50/50 hover:bg-red-100 text-red-700 font-medium flex items-center space-x-1 cursor-pointer rounded-lg"
                 >
                   <Trash2 className="w-3 h-3 text-red-600" />
                   <span>মুছে ফেলুন</span>
@@ -177,18 +177,18 @@ export const PdfFileDropzone: React.FC<PdfFileDropzoneProps> = ({
             {selectedFiles.map((file, idx) => (
               <div
                 key={`${file.name}-${idx}`}
-                className="flex items-center justify-between gap-3 p-2.5 border border-[#d8cfb8] bg-[#f4efe4]/30 text-xs"
+                className="flex items-center justify-between gap-3 p-2.5 border border-[#D5E4DB] bg-[#F0F4F2]/30 text-xs rounded-lg"
               >
                 <div className="flex items-center space-x-2.5 min-w-0 flex-1">
-                  <div className="w-7 h-7 bg-[#0c5c3d]/10 text-[#0c5c3d] flex items-center justify-center shrink-0 border border-[#0c5c3d]/20">
+                  <div className="w-7 h-7 bg-[#0B5D3B]/10 text-[#0B5D3B] flex items-center justify-center shrink-0 border border-[#0B5D3B]/20 rounded-lg">
                     <FileText className="w-3.5 h-3.5" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="font-semibold text-[#14231c] truncate">{file.name}</div>
-                    <div className="text-[11px] text-[#6b6255] font-mono flex items-center space-x-2 mt-0.5">
+                    <div className="font-semibold text-[#0F1F17] truncate">{file.name}</div>
+                    <div className="text-[11px] text-[#4A5A52] font-mono flex items-center space-x-2 mt-0.5">
                       {file.pageCount !== undefined && (
                         <>
-                          <span className="text-[#0c5c3d] font-semibold">
+                          <span className="text-[#0B5D3B] font-semibold">
                             {toBanglaNum(file.pageCount)}টি পেজ
                           </span>
                           <span>•</span>
@@ -207,7 +207,7 @@ export const PdfFileDropzone: React.FC<PdfFileDropzoneProps> = ({
                       onRemoveFile(idx);
                     }}
                     title="বাদ দিন"
-                    className="p-1 text-[#c8342a] hover:bg-red-50 border border-transparent hover:border-red-200 transition-colors cursor-pointer"
+                    className="p-1 text-[#c8342a] hover:bg-red-50 border border-transparent hover:border-red-200 transition-colors cursor-pointer rounded-lg"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>

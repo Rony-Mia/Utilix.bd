@@ -304,74 +304,74 @@ export const PdfRotatePage: React.FC = () => {
       featuresTitle="পিডিএফ রোটেটরের প্রধান সুবিধাসমূহ"
       featuresGrid={
         <>
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <RotateCw className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               একক পেজ রোটেশন
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               ডকুমেন্টের ভেতরের যে পেজটি বাঁকা শুধু সেটিতে ক্লিক করে ৯০° ডানে বা বামে ঘোরানোর সুনির্দিষ্ট নিয়ন্ত্রণ।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <Compass className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               বাল্ক অল-পেজ রোটেশন
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               এক ক্লিকে সমস্ত পৃষ্ঠাকে একসাথে ৯০°, ১৮০° বা ২৭০° ঘুরিয়ে সোজা বা ল্যান্ডস্কেপ করার শর্টকাট।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               ১০০% অফলাইন প্রাইভেসি
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               আপনার ফাইল কোনো অবস্থাতেই ইন্টারনেট পেরিয়ে রিমোট সার্ভারে জমা হয় না। আপনার ডিভাইসেই কাজ সম্পন্ন হয়।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <Zap className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               তাৎক্ষণিক এক্সিকিউশন
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               যেহেতু কোনো ভারী কম্প্রেশন বা রূপান্তর নেই, তাই কয়েক সেকেন্ডের মধ্যেই সোজা করা পিডিএফ ডাউনলোড করা যায়।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <Lock className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               সম্পূর্ণ ফ্রি ও সীমাহীন
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               কোনো রেজিস্ট্রেশন বা ট্রায়াল লিমিট নেই। যত খুশি তত পিডিএফ ফাইল যেকোনো সময় আজীবন ফ্রিতে রোটেট করুন।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-2">
-            <div className="w-9 h-9 bg-[#f4efe4] border border-[#d8cfb8] text-[#0c5c3d] flex items-center justify-center font-bold">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-2 rounded-2xl">
+            <div className="w-9 h-9 bg-[#F0F4F2] border border-[#D5E4DB] text-[#0B5D3B] flex items-center justify-center font-bold rounded-lg">
               <FileCheck className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-[#083f2a] font-serif text-sm sm:text-base">
+            <h3 className="font-bold text-[#084A2E] font-serif text-sm sm:text-base">
               ১০০% আসল স্পষ্টতা অক্ষুণ্ণ
             </h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <p className="text-xs text-[#34443B] leading-relaxed">
               ঘোরানোর ফলে টেক্সটের ধারালো ভাব বা ছবির হাই-কোয়ালিটি রেজোলিউশনের কোনো অপচয় বা সংকোচন ঘটে না।
             </p>
           </div>
@@ -383,7 +383,7 @@ export const PdfRotatePage: React.FC = () => {
       }))}
     >
       {/* Interactive Tool Console */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-7 space-y-6 shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-7 space-y-6 shadow-xs rounded-2xl">
         {!loadedPdf ? (
           <PdfFileDropzone
             multiple={false}
@@ -397,17 +397,17 @@ export const PdfRotatePage: React.FC = () => {
         ) : (
           <div className="space-y-6">
             {/* Loaded File Meta Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-[#f4efe4]/60 border border-[#d8cfb8]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-[#F0F4F2]/60 border border-[#D5E4DB] rounded-2xl">
               <div className="flex items-center space-x-3 min-w-0">
-                <div className="w-10 h-10 bg-[#0c5c3d]/10 text-[#0c5c3d] flex items-center justify-center shrink-0 border border-[#0c5c3d]/20">
+                <div className="w-10 h-10 bg-[#0B5D3B]/10 text-[#0B5D3B] flex items-center justify-center shrink-0 border border-[#0B5D3B]/20 rounded-lg">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-sm sm:text-base font-bold text-[#14231c] truncate font-sans">
+                  <h3 className="text-sm sm:text-base font-bold text-[#0F1F17] truncate font-sans">
                     {loadedPdf.name}
                   </h3>
-                  <div className="text-xs text-[#6b6255] font-mono flex items-center space-x-2 mt-0.5">
-                    <span className="text-[#0c5c3d] font-bold">
+                  <div className="text-xs text-[#4A5A52] font-mono flex items-center space-x-2 mt-0.5">
+                    <span className="text-[#0B5D3B] font-bold">
                       সর্বমোট পেজ: {toBanglaNum(loadedPdf.pageCount)}টি
                     </span>
                     <span>•</span>
@@ -419,7 +419,7 @@ export const PdfRotatePage: React.FC = () => {
               <button
                 type="button"
                 onClick={handleReset}
-                className="px-3 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] text-[#6b6255] hover:text-[#083f2a] text-xs font-medium flex items-center space-x-1.5 transition-colors cursor-pointer self-start sm:self-center"
+                className="px-3 py-1.5 border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] text-[#4A5A52] hover:text-[#084A2E] text-xs font-medium flex items-center space-x-1.5 transition-colors cursor-pointer self-start sm:self-center rounded-lg"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>অন্য ফাইল দিন</span>
@@ -428,20 +428,20 @@ export const PdfRotatePage: React.FC = () => {
 
             {/* Error Message if any */}
             {errorMessage && (
-              <div className="bg-red-50 border border-red-200 p-3.5 text-xs text-red-800 flex items-start space-x-2">
+              <div className="bg-red-50 border border-red-200 p-3.5 text-xs text-red-800 flex items-start space-x-2 rounded-lg">
                 <AlertTriangle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
                 <span>{errorMessage}</span>
               </div>
             )}
 
             {/* Step 2: Global Rotate Toolbar */}
-            <div className="space-y-4 border-t border-[#d8cfb8] pt-5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#f4efe4]/40 border border-[#d8cfb8] p-3.5 text-xs">
+            <div className="space-y-4 border-t border-[#D5E4DB] pt-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F0F4F2]/40 border border-[#D5E4DB] p-3.5 text-xs rounded-lg">
                 <div className="space-y-0.5">
-                  <span className="font-bold text-[#083f2a] block">
+                  <span className="font-bold text-[#084A2E] block">
                     এক ক্লিকে সকল পেজ একসাথে ঘোরান:
                   </span>
-                  <span className="text-[11px] text-[#6b6255]">
+                  <span className="text-[11px] text-[#4A5A52]">
                     পুরো ডকুমেন্টের সবগুলো পৃষ্ঠা একই কোণে ঘুরবে
                   </span>
                 </div>
@@ -450,27 +450,27 @@ export const PdfRotatePage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleRotateAll(90)}
-                    className="px-3 py-1.5 bg-[#fffdf7] hover:bg-[#f4efe4] border border-[#d8cfb8] text-[#083f2a] font-medium flex items-center space-x-1 cursor-pointer transition-colors"
+                    className="px-3 py-1.5 bg-[#FFFFFF] hover:bg-[#F0F4F2] border border-[#D5E4DB] text-[#084A2E] font-medium flex items-center space-x-1 cursor-pointer transition-colors rounded-lg"
                   >
-                    <RotateCw className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                    <RotateCw className="w-3.5 h-3.5 text-[#0B5D3B]" />
                     <span>সব পেজ ৯০° ডানে</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleRotateAll(-90)}
-                    className="px-3 py-1.5 bg-[#fffdf7] hover:bg-[#f4efe4] border border-[#d8cfb8] text-[#083f2a] font-medium flex items-center space-x-1 cursor-pointer transition-colors"
+                    className="px-3 py-1.5 bg-[#FFFFFF] hover:bg-[#F0F4F2] border border-[#D5E4DB] text-[#084A2E] font-medium flex items-center space-x-1 cursor-pointer transition-colors rounded-lg"
                   >
-                    <RotateCcw className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                    <RotateCcw className="w-3.5 h-3.5 text-[#0B5D3B]" />
                     <span>সব পেজ ৯০° বামে</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleRotateAll(180)}
-                    className="px-3 py-1.5 bg-[#fffdf7] hover:bg-[#f4efe4] border border-[#d8cfb8] text-[#083f2a] font-medium flex items-center space-x-1 cursor-pointer transition-colors"
+                    className="px-3 py-1.5 bg-[#FFFFFF] hover:bg-[#F0F4F2] border border-[#D5E4DB] text-[#084A2E] font-medium flex items-center space-x-1 cursor-pointer transition-colors rounded-lg"
                   >
-                    <Compass className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                    <Compass className="w-3.5 h-3.5 text-[#0B5D3B]" />
                     <span>সব পেজ ১৮০° উল্টান</span>
                   </button>
 
@@ -481,7 +481,7 @@ export const PdfRotatePage: React.FC = () => {
                     className={`px-3 py-1.5 border text-xs font-medium cursor-pointer transition-colors ${
                       rotations.size === 0
                         ? 'border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50'
-                        : 'border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] text-[#6b6255]'
+                        : 'border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] text-[#4A5A52]'
                     }`}
                   >
                     রিসেট
@@ -491,14 +491,14 @@ export const PdfRotatePage: React.FC = () => {
 
               {/* Visual Page Grid with Rotation Indicators */}
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs text-[#6b6255]">
+                <div className="flex items-center justify-between text-xs text-[#4A5A52]">
                   <span>পেজ তালিকা ও ব্যক্তিগত রোটেশন কন্ট্রোল:</span>
-                  <span className="font-mono text-[11px] text-[#0c5c3d] font-bold">
+                  <span className="font-mono text-[11px] text-[#0B5D3B] font-bold">
                     {toBanglaNum(rotations.size)}টি পেজে পরিবর্তন হয়েছে
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 max-h-96 overflow-y-auto p-1.5 border border-[#d8cfb8] bg-[#f4efe4]/20">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 max-h-96 overflow-y-auto p-1.5 border border-[#D5E4DB] bg-[#F0F4F2]/20 rounded-lg">
                   {Array.from({ length: loadedPdf.pageCount }, (_, idx) => {
                     const angle = rotations.get(idx) || 0;
                     const isChanged = angle !== 0;
@@ -508,19 +508,19 @@ export const PdfRotatePage: React.FC = () => {
                         key={idx}
                         className={`border p-3 flex flex-col items-center justify-between gap-2.5 transition-all text-center select-none ${
                           isChanged
-                            ? 'bg-[#0c5c3d]/5 border-[#0c5c3d]/60 shadow-xs'
-                            : 'bg-[#fffdf7] border-[#d8cfb8]'
+                            ? 'bg-[#0B5D3B]/5 border-[#0B5D3B]/60 shadow-xs'
+                            : 'bg-[#FFFFFF] border-[#D5E4DB]'
                         }`}
                       >
                         <div className="flex items-center justify-between w-full text-[11px]">
-                          <span className="font-mono font-bold text-[#083f2a]">
+                          <span className="font-mono font-bold text-[#084A2E]">
                             #{toBanglaNum(idx + 1)}
                           </span>
                           <span
                             className={`font-mono text-[10px] px-1.5 py-0.2 border ${
                               isChanged
-                                ? 'bg-[#0c5c3d] text-white border-[#0c5c3d] font-bold'
-                                : 'bg-[#f4efe4] text-[#6b6255] border-[#d8cfb8]'
+                                ? 'bg-[#0B5D3B] text-white border-[#0B5D3B] font-bold'
+                                : 'bg-[#F0F4F2] text-[#4A5A52] border-[#D5E4DB]'
                             }`}
                           >
                             {toBanglaNum(angle)}°
@@ -528,13 +528,13 @@ export const PdfRotatePage: React.FC = () => {
                         </div>
 
                         {/* Visual Rotatable Thumbnail Container */}
-                        <div className="w-16 h-20 flex items-center justify-center bg-[#f4efe4]/50 border border-[#d8cfb8] overflow-hidden">
+                        <div className="w-16 h-20 flex items-center justify-center bg-[#F0F4F2]/50 border border-[#D5E4DB] overflow-hidden rounded-lg">
                           <div
                             style={{
                               transform: `rotate(${angle}deg)`,
                               transition: 'transform 0.25s ease-in-out',
                             }}
-                            className="w-10 h-14 bg-white border border-[#083f2a]/30 shadow-xs flex flex-col items-center justify-center text-[#083f2a]"
+                            className="w-10 h-14 bg-white border border-[#084A2E]/30 shadow-xs flex flex-col items-center justify-center text-[#084A2E] rounded-lg"
                           >
                             <FileText className="w-5 h-5 opacity-70" />
                             <span className="text-[9px] font-mono font-bold mt-0.5">
@@ -544,12 +544,12 @@ export const PdfRotatePage: React.FC = () => {
                         </div>
 
                         {/* Rotate Action Buttons */}
-                        <div className="flex items-center justify-center space-x-1.5 w-full pt-1 border-t border-[#d8cfb8]/60">
+                        <div className="flex items-center justify-center space-x-1.5 w-full pt-1 border-t border-[#D5E4DB]/60">
                           <button
                             type="button"
                             onClick={() => handleRotateSinglePage(idx, -90)}
                             title="৯০° বামে ঘোরান"
-                            className="p-1.5 border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] text-[#083f2a] transition-colors cursor-pointer"
+                            className="p-1.5 border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] text-[#084A2E] transition-colors cursor-pointer rounded-lg"
                           >
                             <RotateCcw className="w-3.5 h-3.5" />
                           </button>
@@ -557,7 +557,7 @@ export const PdfRotatePage: React.FC = () => {
                             type="button"
                             onClick={() => handleRotateSinglePage(idx, 90)}
                             title="৯০° ডানে ঘোরান"
-                            className="p-1.5 border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] text-[#083f2a] transition-colors cursor-pointer"
+                            className="p-1.5 border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] text-[#084A2E] transition-colors cursor-pointer rounded-lg"
                           >
                             <RotateCw className="w-3.5 h-3.5" />
                           </button>
@@ -576,13 +576,13 @@ export const PdfRotatePage: React.FC = () => {
                   disabled={isProcessing}
                   className={`w-full sm:w-auto px-7 py-3 font-semibold text-sm flex items-center justify-center space-x-2 transition-all shadow-xs ${
                     isProcessing
-                      ? 'bg-[#d8cfb8] text-[#6b6255] cursor-not-allowed'
-                      : 'bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] cursor-pointer active:scale-[0.99]'
+                      ? 'bg-[#D5E4DB] text-[#4A5A52] cursor-not-allowed'
+                      : 'bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] cursor-pointer active:scale-[0.99]'
                   }`}
                 >
                   {isProcessing ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin text-[#fffdf7]" />
+                      <Loader2 className="w-4 h-4 animate-spin text-[#FFFFFF]" />
                       <span>ঘোরানো হচ্ছে...</span>
                     </>
                   ) : (
@@ -601,41 +601,41 @@ export const PdfRotatePage: React.FC = () => {
 
             {/* Step 3: Success Result & Download Banner */}
             {rotateResult && (
-              <div className="border-2 border-[#0c5c3d] bg-[#f4efe4]/50 p-5 sm:p-6 space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#0c5c3d]/20 pb-3">
-                  <div className="flex items-center space-x-2 text-[#0c5c3d]">
+              <div className="border-2 border-[#0B5D3B] bg-[#F0F4F2]/50 p-5 sm:p-6 space-y-4 rounded-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#0B5D3B]/20 pb-3">
+                  <div className="flex items-center space-x-2 text-[#0B5D3B]">
                     <CheckCircle2 className="w-5 h-5" />
-                    <h3 className="font-bold text-[#083f2a] font-serif text-base sm:text-lg">
+                    <h3 className="font-bold text-[#084A2E] font-serif text-base sm:text-lg">
                       পিডিএফ সফলভাবে ঘোরানো হয়েছে!
                     </h3>
                   </div>
-                  <span className="text-xs text-[#6b6255] font-mono bg-[#fffdf7] border border-[#d8cfb8] px-2 py-0.5">
+                  <span className="text-xs text-[#4A5A52] font-mono bg-[#FFFFFF] border border-[#D5E4DB] px-2 py-0.5">
                     {rotateResult.name}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
-                  <div className="bg-[#fffdf7] border border-[#d8cfb8] p-3">
-                    <span className="block text-[11px] font-medium text-[#6b6255]">সর্বমোট পেজ</span>
-                    <span className="font-mono font-bold text-sm text-[#083f2a]">
+                  <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-3 rounded-2xl">
+                    <span className="block text-[11px] font-medium text-[#4A5A52]">সর্বমোট পেজ</span>
+                    <span className="font-mono font-bold text-sm text-[#084A2E]">
                       {toBanglaNum(rotateResult.totalPageCount)}টি
                     </span>
                   </div>
-                  <div className="bg-[#fffdf7] border border-[#d8cfb8] p-3">
-                    <span className="block text-[11px] font-medium text-[#6b6255]">ঘোরানো পেজ</span>
-                    <span className="font-mono font-bold text-sm text-[#0c5c3d]">
+                  <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-3 rounded-2xl">
+                    <span className="block text-[11px] font-medium text-[#4A5A52]">ঘোরানো পেজ</span>
+                    <span className="font-mono font-bold text-sm text-[#0B5D3B]">
                       {toBanglaNum(rotateResult.rotatedCount)}টি
                     </span>
                   </div>
-                  <div className="bg-[#fffdf7] border border-[#d8cfb8] p-3">
-                    <span className="block text-[11px] font-medium text-[#6b6255]">আউটপুট সাইজ</span>
-                    <span className="font-mono font-bold text-sm text-[#083f2a]">
+                  <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-3 rounded-2xl">
+                    <span className="block text-[11px] font-medium text-[#4A5A52]">আউটপুট সাইজ</span>
+                    <span className="font-mono font-bold text-sm text-[#084A2E]">
                       {formatBytesBengali(rotateResult.bytes.byteLength)}
                     </span>
                   </div>
-                  <div className="bg-[#fffdf7] border border-[#d8cfb8] p-3">
-                    <span className="block text-[11px] font-medium text-[#6b6255]">প্রসেসিং মোড</span>
-                    <span className="font-bold text-xs text-[#0c5c3d] mt-0.5 block">
+                  <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-3 rounded-2xl">
+                    <span className="block text-[11px] font-medium text-[#4A5A52]">প্রসেসিং মোড</span>
+                    <span className="font-bold text-xs text-[#0B5D3B] mt-0.5 block">
                       ১০০% অফলাইন
                     </span>
                   </div>
@@ -646,7 +646,7 @@ export const PdfRotatePage: React.FC = () => {
                     href={rotateResult.blobUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="px-3.5 py-2 text-xs font-medium border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] text-[#083f2a] flex items-center space-x-1.5 transition-colors cursor-pointer"
+                    className="px-3.5 py-2 text-xs font-medium border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] text-[#084A2E] flex items-center space-x-1.5 transition-colors cursor-pointer rounded-lg"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>প্রিভিউ দেখুন</span>
@@ -655,7 +655,7 @@ export const PdfRotatePage: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleDownload}
-                    className="px-6 py-2.5 bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] font-semibold text-sm flex items-center space-x-2 transition-all shadow-sm cursor-pointer"
+                    className="px-6 py-2.5 bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] font-semibold text-sm flex items-center space-x-2 transition-all shadow-sm cursor-pointer"
                   >
                     <Download className="w-4 h-4" />
                     <span>ঘোরানো পিডিএফ ডাউনলোড করুন</span>

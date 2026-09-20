@@ -93,30 +93,30 @@ export const ContactPage: React.FC = () => {
       </Helmet>
 
       {/* Header */}
-      <section className="space-y-3 border-b border-[#d8cfb8] pb-6">
-        <div className="inline-flex items-center gap-2 bg-[#fffdf7] border border-[#d8cfb8] px-3 py-1 text-xs text-[#083f2a] font-medium">
-          <MessageSquare className="w-3.5 h-3.5 text-[#0c5c3d]" />
+      <section className="space-y-3 border-b border-[#D5E4DB] pb-6">
+        <div className="inline-flex items-center gap-2 bg-[#FFFFFF] border border-[#D5E4DB] px-3 py-1 text-xs text-[#084A2E] font-medium rounded-lg">
+          <MessageSquare className="w-3.5 h-3.5 text-[#0B5D3B]" />
           <span>সরাসরি যোগাযোগ ও প্রতিক্রিয়া</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#083f2a] font-serif tracking-tight">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#084A2E] font-serif tracking-tight">
           আমাদের সাথে যোগাযোগ করুন
         </h1>
-        <p className="text-sm sm:text-base text-[#6b6255] max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-base text-[#4A5A52] max-w-2xl leading-relaxed">
           Utilix.bd প্ল্যাটফর্মটিকে আরও সমৃদ্ধ ও নির্ভুল করতে আপনার যেকোনো পরামর্শ, ত্রুটি রিপোর্ট বা নতুন টুলের প্রস্তাবনা আমাদের জানান।
         </p>
       </section>
 
       {/* Official Email Highlight Card */}
-      <section className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <section className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 border border-[#d8cfb8] bg-[#f4efe4] flex items-center justify-center text-[#0c5c3d] shrink-0">
+          <div className="w-10 h-10 border border-[#D5E4DB] bg-[#F0F4F2] flex items-center justify-center text-[#0B5D3B] shrink-0 rounded-lg">
             <Mail className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-xs text-[#6b6255] block font-medium">
+            <span className="text-xs text-[#4A5A52] block font-medium">
               অফিসিয়াল যোগাযোগ ইমেইল:
             </span>
-            <span className="font-mono text-base font-bold text-[#083f2a]">
+            <span className="font-mono text-base font-bold text-[#084A2E]">
               contact@utilix.bd
             </span>
           </div>
@@ -126,11 +126,11 @@ export const ContactPage: React.FC = () => {
           <button
             type="button"
             onClick={handleCopyEmail}
-            className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 text-[#083f2a] px-3 py-1.5 text-xs font-medium transition-colors flex items-center space-x-1.5 cursor-pointer"
+            className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 text-[#084A2E] px-3 py-1.5 text-xs font-medium transition-colors flex items-center space-x-1.5 cursor-pointer rounded-lg"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                <Check className="w-3.5 h-3.5 text-[#0B5D3B]" />
                 <span>কপি হয়েছে!</span>
               </>
             ) : (
@@ -142,7 +142,7 @@ export const ContactPage: React.FC = () => {
           </button>
           <a
             href="mailto:contact@utilix.bd"
-            className="bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer"
+            className="bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer"
           >
             ইমেইল পাঠাতে ক্লিক করুন
           </a>
@@ -152,27 +152,27 @@ export const ContactPage: React.FC = () => {
       {/* Main Form & Guidelines Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left: Contact Form (2 cols) */}
-        <div className="lg:col-span-2 bg-[#fffdf7] border border-[#d8cfb8] p-6 sm:p-8 space-y-6">
-          <h2 className="text-lg font-bold text-[#083f2a] font-serif border-b border-[#d8cfb8] pb-3">
+        <div className="lg:col-span-2 bg-[#FFFFFF] border border-[#D5E4DB] p-6 sm:p-8 space-y-6 rounded-2xl">
+          <h2 className="text-lg font-bold text-[#084A2E] font-serif border-b border-[#D5E4DB] pb-3">
             বার্তা বা মতামত পাঠান
           </h2>
 
           {submitted ? (
-            <div className="p-6 bg-[#f4efe4] border border-[#0c5c3d]/40 text-center space-y-3">
-              <div className="w-12 h-12 rounded-full bg-[#0c5c3d] text-[#fffdf7] flex items-center justify-center mx-auto">
+            <div className="p-6 bg-[#F0F4F2] border border-[#0B5D3B]/40 text-center space-y-3 rounded-2xl">
+              <div className="w-12 h-12 rounded-full bg-[#0B5D3B] text-[#FFFFFF] flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-bold text-[#083f2a] font-serif">
+              <h3 className="text-base font-bold text-[#084A2E] font-serif">
                 আপনার বার্তা সফলভাবে গৃহীত হয়েছে!
               </h3>
-              <p className="text-xs sm:text-sm text-[#4a4237] max-w-md mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#34443B] max-w-md mx-auto leading-relaxed">
                 ধন্যবাদ, {name}! আপনার মতামত বা প্রস্তাবনাটি আমাদের নজরে এসেছে। প্রয়োজনে আমরা <span className="font-mono font-medium">{email}</span> ঠিকানায় আপনার সাথে যোগাযোগ করব।
               </p>
               <div className="pt-3">
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="px-4 py-2 bg-[#0c5c3d] text-[#fffdf7] text-xs font-medium hover:bg-[#083f2a] transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-[#0B5D3B] text-[#FFFFFF] text-xs font-medium hover:bg-[#084A2E] transition-colors cursor-pointer"
                 >
                   আরেকটি বার্তা পাঠান
                 </button>
@@ -182,7 +182,7 @@ export const ContactPage: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label htmlFor="contact-name" className="text-xs font-semibold text-[#083f2a] block">
+                  <label htmlFor="contact-name" className="text-xs font-semibold text-[#084A2E] block">
                     আপনার পূর্ণ নাম <span className="text-[#c8342a]">*</span>
                   </label>
                   <input
@@ -192,12 +192,12 @@ export const ContactPage: React.FC = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="যেমনঃ মোঃ আশিকুর রহমান"
-                    className="w-full px-3 py-2 bg-[#f4efe4]/40 border border-[#d8cfb8] text-sm text-[#14231c] focus:outline-none focus:border-[#0c5c3d]"
+                    className="w-full px-3 py-2 bg-[#F0F4F2]/40 border border-[#D5E4DB] text-sm text-[#0F1F17] focus:outline-none focus:border-[#0B5D3B] rounded-lg"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="contact-email" className="text-xs font-semibold text-[#083f2a] block">
+                  <label htmlFor="contact-email" className="text-xs font-semibold text-[#084A2E] block">
                     ইমেইল ঠিকানা <span className="text-[#c8342a]">*</span>
                   </label>
                   <input
@@ -207,21 +207,21 @@ export const ContactPage: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="yourname@gmail.com"
-                    className="w-full px-3 py-2 bg-[#f4efe4]/40 border border-[#d8cfb8] text-sm text-[#14231c] focus:outline-none focus:border-[#0c5c3d]"
+                    className="w-full px-3 py-2 bg-[#F0F4F2]/40 border border-[#D5E4DB] text-sm text-[#0F1F17] focus:outline-none focus:border-[#0B5D3B] rounded-lg"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label htmlFor="contact-subject" className="text-xs font-semibold text-[#083f2a] block">
+                  <label htmlFor="contact-subject" className="text-xs font-semibold text-[#084A2E] block">
                     বার্তার বিষয়
                   </label>
                   <select
                     id="contact-subject"
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
-                    className="w-full px-3 py-2 bg-[#fffdf7] border border-[#d8cfb8] text-sm text-[#14231c] focus:outline-none focus:border-[#0c5c3d]"
+                    className="w-full px-3 py-2 bg-[#FFFFFF] border border-[#D5E4DB] text-sm text-[#0F1F17] focus:outline-none focus:border-[#0B5D3B] rounded-lg"
                   >
                     <option value="general">সাধারণ মতামত / প্রশংসা</option>
                     <option value="feature">নতুন টুলের প্রস্তাবনা</option>
@@ -232,14 +232,14 @@ export const ContactPage: React.FC = () => {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="contact-tool" className="text-xs font-semibold text-[#083f2a] block">
+                  <label htmlFor="contact-tool" className="text-xs font-semibold text-[#084A2E] block">
                     সম্পর্কিত টুল (যদি প্রযোজ্য হয়)
                   </label>
                   <select
                     id="contact-tool"
                     value={relatedTool}
                     onChange={(e) => setRelatedTool(e.target.value)}
-                    className="w-full px-3 py-2 bg-[#fffdf7] border border-[#d8cfb8] text-sm text-[#14231c] focus:outline-none focus:border-[#0c5c3d]"
+                    className="w-full px-3 py-2 bg-[#FFFFFF] border border-[#D5E4DB] text-sm text-[#0F1F17] focus:outline-none focus:border-[#0B5D3B] rounded-lg"
                   >
                     <option value="none">কোনো নির্দিষ্ট টুল নয় / সাধারণ</option>
                     <option value="converter">বিজয় ↔ ইউনিকোড কনভার্টার</option>
@@ -253,7 +253,7 @@ export const ContactPage: React.FC = () => {
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="contact-message" className="text-xs font-semibold text-[#083f2a] block">
+                <label htmlFor="contact-message" className="text-xs font-semibold text-[#084A2E] block">
                   আপনার বার্তা বা বিবরণ <span className="text-[#c8342a]">*</span>
                 </label>
                 <textarea
@@ -263,18 +263,18 @@ export const ContactPage: React.FC = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="আপনার মতামত, সমস্যা বা নতুন ফিচারের বিস্তারিত বিবরণ এখানে লিখুন..."
-                  className="w-full p-3 bg-[#f4efe4]/40 border border-[#d8cfb8] text-sm text-[#14231c] focus:outline-none focus:border-[#0c5c3d] resize-y"
+                  className="w-full p-3 bg-[#F0F4F2]/40 border border-[#D5E4DB] text-sm text-[#0F1F17] focus:outline-none focus:border-[#0B5D3B] resize-y rounded-2xl"
                 />
               </div>
 
               <div className="pt-2 flex items-center justify-between">
-                <span className="text-[11px] text-[#6b6255]">
+                <span className="text-[11px] text-[#4A5A52]">
                   আপনার তথ্য সম্পূর্ণ গোপন থাকবে, কোথাও প্রকাশ করা হবে না।
                 </span>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2.5 bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] text-sm font-semibold transition-colors flex items-center space-x-2 cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2.5 bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] text-sm font-semibold transition-colors flex items-center space-x-2 cursor-pointer disabled:opacity-50"
                 >
                   <Send className="w-4 h-4" />
                   <span>{submitting ? 'পাঠানো হচ্ছে...' : 'বার্তা পাঠান'}</span>
@@ -286,31 +286,31 @@ export const ContactPage: React.FC = () => {
 
         {/* Right: Helpful Guides (1 col) */}
         <div className="space-y-4">
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-3">
-            <h3 className="text-sm font-bold text-[#083f2a] font-serif flex items-center space-x-1.5">
-              <Sparkles className="w-4 h-4 text-[#0c5c3d]" />
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-3 rounded-2xl">
+            <h3 className="text-sm font-bold text-[#084A2E] font-serif flex items-center space-x-1.5">
+              <Sparkles className="w-4 h-4 text-[#0B5D3B]" />
               <span>নতুন টুল প্রস্তাব করতে চান?</span>
             </h3>
-            <p className="text-xs text-[#6b6255] leading-relaxed">
+            <p className="text-xs text-[#4A5A52] leading-relaxed">
               বাংলাদেশে ব্যবহারযোগ্য এমন কোনো টুল যা আপনার বা শিক্ষার্থীদের কাজে আসবে? আমাদের জানান, আমরা ক্লায়েন্ট-সাইড প্রযুক্তি দিয়ে তা বাস্তবায়নের চেষ্টা করব।
             </p>
           </div>
 
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 space-y-3">
-            <h3 className="text-sm font-bold text-[#083f2a] font-serif flex items-center space-x-1.5">
-              <AlertCircle className="w-4 h-4 text-[#0c5c3d]" />
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 space-y-3 rounded-2xl">
+            <h3 className="text-sm font-bold text-[#084A2E] font-serif flex items-center space-x-1.5">
+              <AlertCircle className="w-4 h-4 text-[#0B5D3B]" />
               <span>বাগ বা গণনায় ভুল পেলে:</span>
             </h3>
-            <p className="text-xs text-[#6b6255] leading-relaxed">
+            <p className="text-xs text-[#4A5A52] leading-relaxed">
               কোনো টুল যদি অপ্রত্যাশিত ফলাফল দেয় (যেমন নির্দিষ্ট কোনো বিজয় যুক্তবর্ণ বা বয়স হিসাব), তবে ইনপুট টেক্সট বা তারিখ উল্লেখ করে বার্তা পাঠালে দ্রুত সমাধান করা সম্ভব হয়।
             </p>
           </div>
 
-          <div className="bg-[#f4efe4] border border-[#d8cfb8] p-4 text-xs space-y-2">
-            <span className="font-bold text-[#083f2a] block">
+          <div className="bg-[#F0F4F2] border border-[#D5E4DB] p-4 text-xs space-y-2 rounded-2xl">
+            <span className="font-bold text-[#084A2E] block">
               গোপনীয়তার নিশ্চয়তা:
             </span>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               আপনার পাঠানো ইমেইল কেবল আপনার সাথে যোগাযোগের উদ্দেশ্যে সংরক্ষিত থাকবে। কোনো স্প্যাম বা প্রচারণামূলক ইমেইল পাঠানো হয় না।
             </p>
           </div>

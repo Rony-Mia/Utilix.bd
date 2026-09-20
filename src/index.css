@@ -1,23 +1,78 @@
 @import "tailwindcss";
 
-@theme {
-  --color-paper: #f4efe4;
-  --color-panel: #fffdf7;
-  --color-primary-green: #0c5c3d;
-  --color-deep-green: #083f2a;
-  --color-accent-red: #c8342a;
-  --color-border-line: #d8cfb8;
-  --color-muted-text: #6b6255;
-  --color-ink: #14231c;
+/* ── Self-hosted UI fonts (OFL) ────────────────────────────────────────────
+   Loaded under private aliases on purpose: tool code draws canvas text with
+   the family name "Hind Siliguri" (watermarks, previews). Registering the UI
+   font under that same name would silently change those exports, so the UI
+   uses "Utilix Hind" / "Utilix Inter" instead. */
+@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/hind-bn-400.woff2') format('woff2'); unicode-range: U+0951-0952, U+0964-0965, U+0980-09FE, U+1CF7, U+200C-200D, U+20B9, U+25CC; }
+@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/hind-bn-500.woff2') format('woff2'); unicode-range: U+0951-0952, U+0964-0965, U+0980-09FE, U+1CF7, U+200C-200D, U+20B9, U+25CC; }
+@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/hind-bn-600.woff2') format('woff2'); unicode-range: U+0951-0952, U+0964-0965, U+0980-09FE, U+1CF7, U+200C-200D, U+20B9, U+25CC; }
+@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/hind-bn-700.woff2') format('woff2'); unicode-range: U+0951-0952, U+0964-0965, U+0980-09FE, U+1CF7, U+200C-200D, U+20B9, U+25CC; }
+/* Latin range deliberately skips U+200C-200D (ZWNJ/ZWJ) so Bengali conjunct shaping is never split across fonts */
+@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/hind-latin-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/hind-latin-500.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/hind-latin-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/hind-latin-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Utilix Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/inter-latin-500.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Utilix Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/inter-latin-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Utilix Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/inter-latin-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
-  --font-serif: "Noto Sans Bengali", sans-serif;
-  --font-sans: "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+@theme {
+  /* Brand */
+  --color-emerald-deep: #0B5D3B;
+  --color-emerald-dark: #084A2E;
+  --color-emerald-mid: #0D7048;
+  --color-emerald-light: #E6F4EC;
+  --color-amber-brand: #F5A524;
+  --color-amber-light: #FEF3D0;
+  --color-text-heading: #0F1F17;
+  --color-text-body: #4A5A52;
+  --color-bg-main: #FAFAF7;
+  --color-line: #D5E4DB;
+
+  /* Legacy token names (unused in class names today) remapped to the new palette */
+  --color-paper: #FAFAF7;
+  --color-panel: #FFFFFF;
+  --color-primary-green: #0B5D3B;
+  --color-deep-green: #084A2E;
+  --color-accent-red: #c8342a;
+  --color-border-line: #D5E4DB;
+  --color-muted-text: #4A5A52;
+  --color-ink: #0F1F17;
+
+  --font-serif: "Utilix Hind", "Utilix Inter", "Noto Sans Bengali", sans-serif;
+  --font-sans: "Utilix Hind", "Utilix Inter", "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-latin: "Utilix Inter", "Utilix Hind", "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --radius-card: 16px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  /* Soft corners for form controls. Lives in the base layer, so any explicit
+     rounded-* utility on a tool page still wins. */
+  button,
+  select,
+  textarea,
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='file']) {
+    border-radius: 0.625rem;
+  }
+
+  :focus-visible {
+    outline: 2px solid #0B5D3B;
+    outline-offset: 2px;
+  }
 }
 
 body {
-  background-color: #f4efe4;
-  color: #14231c;
+  background-color: #FAFAF7;
+  color: #0F1F17;
   font-family: var(--font-sans);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -31,6 +86,130 @@ h1, h2, h3, h4, .font-heading {
 
 .font-code {
   font-family: var(--font-mono);
+}
+
+.font-latin {
+  font-family: var(--font-latin);
+}
+
+/* The CV is a printed/exported document: keep its original Noto Sans Bengali
+   typography regardless of the site UI font. */
+#cv-print-area,
+.cv-physical-page,
+.cv-clean-export-page {
+  --font-sans: "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Noto Sans Bengali", sans-serif;
+  /* body's font-family is inherited as a computed value, so re-declare it here
+     for text that carries no font-* utility of its own */
+  font-family: var(--font-sans);
+  color: #14231c; /* original ink colour, so the printed CV is unchanged */
+}
+
+/* ── Homepage / shell components ───────────────────────────────────────── */
+
+.dot-grid {
+  background-image: radial-gradient(circle, #0B5D3B18 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.glass {
+  background: rgba(250, 250, 247, 0.82);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(11, 93, 59, 0.1);
+}
+
+.squiggle-underline {
+  position: relative;
+  display: inline-block;
+}
+.squiggle-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8'%3E%3Cpath d='M0 4 Q25 0 50 4 Q75 8 100 4 Q125 0 150 4 Q175 8 200 4' fill='none' stroke='%23F5A524' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.card-hover {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.2s ease;
+}
+.card-hover:hover,
+.card-hover:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(11, 93, 59, 0.12), 0 4px 16px rgba(11, 93, 59, 0.08);
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+.btn-shine:hover::after {
+  left: 150%;
+}
+
+.tool-arrow {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+  transform: translateX(-8px);
+}
+.tool-card:hover .tool-arrow,
+.tool-card:focus-within .tool-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* Touch screens have no hover: keep the call-to-action visible */
+@media (hover: none) {
+  .tool-arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-8px) rotate(-3deg); }
+}
+@keyframes float2 {
+  0%, 100% { transform: translateY(-4px) rotate(2deg); }
+  50% { transform: translateY(4px) rotate(2deg); }
+}
+@keyframes float3 {
+  0%, 100% { transform: translateY(2px) rotate(-1deg); }
+  50% { transform: translateY(-6px) rotate(-1deg); }
+}
+.float-1 { animation: float1 5s ease-in-out infinite; }
+.float-2 { animation: float2 6s ease-in-out infinite 1s; }
+.float-3 { animation: float3 4.5s ease-in-out infinite 0.5s; }
+
+.glow-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .float-1, .float-2, .float-3 { animation: none; }
+  .card-hover, .tool-arrow, .btn-shine::after { transition: none; }
+  .parallax-bg { transform: none !important; }
 }
 
 /* Strict Bengali Typographic Integrity in CV Pages & Canvas Exports */

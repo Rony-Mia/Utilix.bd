@@ -365,20 +365,20 @@ export const QrGeneratorPage: React.FC = () => {
       </Helmet>
 
       {/* Top Navigation & Guarantee */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#d8cfb8]">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#D5E4DB]">
         <div className="flex items-center space-x-3">
           <Link
             to="/"
-            className="border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] px-3 py-1.5 text-xs text-[#083f2a] flex items-center space-x-1.5 transition-colors"
+            className="border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] px-3 py-1.5 text-xs text-[#084A2E] flex items-center space-x-1.5 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#6b6255] font-mono">REF: QR-ST-01</span>
+          <span className="text-xs text-[#4A5A52] font-mono">REF: QR-ST-01</span>
         </div>
 
-        <div className="flex items-center space-x-2 text-xs font-medium text-[#083f2a] bg-[#fffdf7] border border-[#d8cfb8] px-3 py-1.5 shadow-xs">
-          <ShieldCheck className="w-4 h-4 text-[#0c5c3d]" />
+        <div className="flex items-center space-x-2 text-xs font-medium text-[#084A2E] bg-[#FFFFFF] border border-[#D5E4DB] px-3 py-1.5 shadow-xs rounded-lg">
+          <ShieldCheck className="w-4 h-4 text-[#0B5D3B]" />
           <span>১০০% অন-ডিভাইস স্ট্যাটিক QR • আজীবন কার্যকর • নো ট্র্যাকিং</span>
         </div>
       </div>
@@ -386,15 +386,15 @@ export const QrGeneratorPage: React.FC = () => {
       {/* Hero Header */}
       <div className="space-y-3">
         <div className="flex items-center space-x-2">
-          <span className="bg-[#0c5c3d]/10 text-[#0c5c3d] text-xs px-2.5 py-0.5 border border-[#0c5c3d]/20 font-medium">
+          <span className="bg-[#0B5D3B]/10 text-[#0B5D3B] text-xs px-2.5 py-0.5 border border-[#0B5D3B]/20 font-medium">
             স্ট্যাটিক QR • নো এক্সপায়ারি
           </span>
-          <span className="text-xs text-[#6b6255]">PNG ও ভেক্টর SVG ডাউনলোড</span>
+          <span className="text-xs text-[#4A5A52]">PNG ও ভেক্টর SVG ডাউনলোড</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#083f2a] font-serif tracking-tight">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084A2E] font-serif tracking-tight">
           কাস্টম QR কোড জেনারেটর (Custom QR Code Generator)
         </h1>
-        <p className="text-xs sm:text-sm text-[#6b6255] max-w-3xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-[#4A5A52] max-w-3xl leading-relaxed">
           ওয়েবসাইট লিংক, প্লেইন টেক্সট, ফোন নম্বর, ইমেইল বা ওয়াইফাই (WiFi) কানেকশনের জন্য কাস্টম রঙের ও মাঝখানে লোগোসহ হাই-কোয়ালিটি কিউআর কোড তৈরি করুন। কোনো লিমিট বা মেয়াদ নেই—সরাসরি ব্রাউজারে অফলাইনে তৈরি হয়।
         </p>
       </div>
@@ -406,8 +406,8 @@ export const QrGeneratorPage: React.FC = () => {
         <div className="lg:col-span-7 space-y-6">
           
           {/* Category Tabs */}
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-5 space-y-4">
-            <h2 className="text-xs font-bold text-[#083f2a] font-serif uppercase tracking-wider">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 sm:p-5 space-y-4 rounded-2xl">
+            <h2 className="text-xs font-bold text-[#084A2E] font-serif uppercase tracking-wider">
               ১. কিউআর কোডের ধরন নির্বাচন করুন
             </h2>
 
@@ -417,11 +417,11 @@ export const QrGeneratorPage: React.FC = () => {
                 onClick={() => setCategory('url')}
                 className={`p-2.5 text-xs font-medium border flex flex-col items-center justify-center space-y-1.5 transition-all cursor-pointer ${
                   category === 'url'
-                    ? 'border-[#083f2a] bg-[#f4efe4] text-[#083f2a] font-bold shadow-xs'
-                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255] hover:bg-[#f4efe4]/50'
+                    ? 'border-[#084A2E] bg-[#F0F4F2] text-[#084A2E] font-bold shadow-xs'
+                    : 'border-[#D5E4DB] bg-[#FFFFFF] text-[#4A5A52] hover:bg-[#F0F4F2]/50'
                 }`}
               >
-                <Globe className="w-4 h-4 text-[#0c5c3d]" />
+                <Globe className="w-4 h-4 text-[#0B5D3B]" />
                 <span>ওয়েব লিংক</span>
               </button>
 
@@ -430,11 +430,11 @@ export const QrGeneratorPage: React.FC = () => {
                 onClick={() => setCategory('text')}
                 className={`p-2.5 text-xs font-medium border flex flex-col items-center justify-center space-y-1.5 transition-all cursor-pointer ${
                   category === 'text'
-                    ? 'border-[#083f2a] bg-[#f4efe4] text-[#083f2a] font-bold shadow-xs'
-                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255] hover:bg-[#f4efe4]/50'
+                    ? 'border-[#084A2E] bg-[#F0F4F2] text-[#084A2E] font-bold shadow-xs'
+                    : 'border-[#D5E4DB] bg-[#FFFFFF] text-[#4A5A52] hover:bg-[#F0F4F2]/50'
                 }`}
               >
-                <Type className="w-4 h-4 text-[#0c5c3d]" />
+                <Type className="w-4 h-4 text-[#0B5D3B]" />
                 <span>টেক্সট / বার্তা</span>
               </button>
 
@@ -443,11 +443,11 @@ export const QrGeneratorPage: React.FC = () => {
                 onClick={() => setCategory('phone')}
                 className={`p-2.5 text-xs font-medium border flex flex-col items-center justify-center space-y-1.5 transition-all cursor-pointer ${
                   category === 'phone'
-                    ? 'border-[#083f2a] bg-[#f4efe4] text-[#083f2a] font-bold shadow-xs'
-                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255] hover:bg-[#f4efe4]/50'
+                    ? 'border-[#084A2E] bg-[#F0F4F2] text-[#084A2E] font-bold shadow-xs'
+                    : 'border-[#D5E4DB] bg-[#FFFFFF] text-[#4A5A52] hover:bg-[#F0F4F2]/50'
                 }`}
               >
-                <Phone className="w-4 h-4 text-[#0c5c3d]" />
+                <Phone className="w-4 h-4 text-[#0B5D3B]" />
                 <span>ফোন নম্বর</span>
               </button>
 
@@ -456,11 +456,11 @@ export const QrGeneratorPage: React.FC = () => {
                 onClick={() => setCategory('email')}
                 className={`p-2.5 text-xs font-medium border flex flex-col items-center justify-center space-y-1.5 transition-all cursor-pointer ${
                   category === 'email'
-                    ? 'border-[#083f2a] bg-[#f4efe4] text-[#083f2a] font-bold shadow-xs'
-                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255] hover:bg-[#f4efe4]/50'
+                    ? 'border-[#084A2E] bg-[#F0F4F2] text-[#084A2E] font-bold shadow-xs'
+                    : 'border-[#D5E4DB] bg-[#FFFFFF] text-[#4A5A52] hover:bg-[#F0F4F2]/50'
                 }`}
               >
-                <Mail className="w-4 h-4 text-[#0c5c3d]" />
+                <Mail className="w-4 h-4 text-[#0B5D3B]" />
                 <span>ইমেইল বার্তা</span>
               </button>
 
@@ -469,21 +469,21 @@ export const QrGeneratorPage: React.FC = () => {
                 onClick={() => setCategory('wifi')}
                 className={`p-2.5 text-xs font-medium border flex flex-col items-center justify-center space-y-1.5 transition-all cursor-pointer col-span-2 sm:col-span-1 ${
                   category === 'wifi'
-                    ? 'border-[#083f2a] bg-[#f4efe4] text-[#083f2a] font-bold shadow-xs'
-                    : 'border-[#d8cfb8] bg-[#fffdf7] text-[#6b6255] hover:bg-[#f4efe4]/50'
+                    ? 'border-[#084A2E] bg-[#F0F4F2] text-[#084A2E] font-bold shadow-xs'
+                    : 'border-[#D5E4DB] bg-[#FFFFFF] text-[#4A5A52] hover:bg-[#F0F4F2]/50'
                 }`}
               >
-                <Wifi className="w-4 h-4 text-[#0c5c3d]" />
+                <Wifi className="w-4 h-4 text-[#0B5D3B]" />
                 <span>ওয়াইফাই (WiFi)</span>
               </button>
             </div>
 
             {/* Input fields based on selected category */}
-            <div className="pt-2 border-t border-[#d8cfb8]/60 space-y-3">
+            <div className="pt-2 border-t border-[#D5E4DB]/60 space-y-3">
               {/* URL */}
               {category === 'url' && (
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-[#083f2a] block">
+                  <label className="text-xs font-semibold text-[#084A2E] block">
                     ওয়েবসাইট বা পেজের URL লিংক:
                   </label>
                   <input
@@ -491,9 +491,9 @@ export const QrGeneratorPage: React.FC = () => {
                     value={urlInput}
                     onChange={(e) => setUrlInput(e.target.value)}
                     placeholder="https://example.com"
-                    className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                    className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-2 text-xs text-[#0F1F17] focus:border-[#0B5D3B] focus:outline-none rounded-lg"
                   />
-                  <p className="text-[11px] text-[#6b6255]">
+                  <p className="text-[11px] text-[#4A5A52]">
                     স্ক্যান করলে সরাসরি এই ওয়েবসাইটে রিডাইরেক্ট হবে।
                   </p>
                 </div>
@@ -502,7 +502,7 @@ export const QrGeneratorPage: React.FC = () => {
               {/* Text */}
               {category === 'text' && (
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-[#083f2a] block">
+                  <label className="text-xs font-semibold text-[#084A2E] block">
                     প্লেইন টেক্সট বা বার্তা:
                   </label>
                   <textarea
@@ -510,9 +510,9 @@ export const QrGeneratorPage: React.FC = () => {
                     value={textInput}
                     onChange={(e) => setTextInput(e.target.value)}
                     placeholder="আপনার বার্তা বা নোট এখানে লিখুন..."
-                    className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                    className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-2 text-xs text-[#0F1F17] focus:border-[#0B5D3B] focus:outline-none rounded-lg"
                   />
-                  <p className="text-[11px] text-[#6b6255]">
+                  <p className="text-[11px] text-[#4A5A52]">
                     যেকোনো ডিভাইস দিয়ে স্ক্যান করলে স্ক্রিনে এই বার্তা ভেসে উঠবে।
                   </p>
                 </div>
@@ -521,7 +521,7 @@ export const QrGeneratorPage: React.FC = () => {
               {/* Phone */}
               {category === 'phone' && (
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-[#083f2a] block">
+                  <label className="text-xs font-semibold text-[#084A2E] block">
                     মোবাইল বা টেলিফোন নম্বর:
                   </label>
                   <input
@@ -529,9 +529,9 @@ export const QrGeneratorPage: React.FC = () => {
                     value={phoneInput}
                     onChange={(e) => setPhoneInput(e.target.value)}
                     placeholder="+8801XXXXXXXXX"
-                    className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                    className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-2 text-xs text-[#0F1F17] focus:border-[#0B5D3B] focus:outline-none rounded-lg"
                   />
-                  <p className="text-[11px] text-[#6b6255]">
+                  <p className="text-[11px] text-[#4A5A52]">
                     স্ক্যান করলে ফোনের ডায়ালারে এই নম্বরটি অটোমেটিক চলে আসবে।
                   </p>
                 </div>
@@ -541,7 +541,7 @@ export const QrGeneratorPage: React.FC = () => {
               {category === 'email' && (
                 <div className="space-y-3">
                   <div>
-                    <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                    <label className="text-xs font-semibold text-[#084A2E] block mb-1">
                       প্রাপকের ইমেইল এড্রেস:
                     </label>
                     <input
@@ -549,11 +549,11 @@ export const QrGeneratorPage: React.FC = () => {
                       value={emailTo}
                       onChange={(e) => setEmailTo(e.target.value)}
                       placeholder="name@example.com"
-                      className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                      className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-2 text-xs text-[#0F1F17] focus:border-[#0B5D3B] focus:outline-none rounded-lg"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                    <label className="text-xs font-semibold text-[#084A2E] block mb-1">
                       ইমেইলের বিষয় (Subject):
                     </label>
                     <input
@@ -561,11 +561,11 @@ export const QrGeneratorPage: React.FC = () => {
                       value={emailSubject}
                       onChange={(e) => setEmailSubject(e.target.value)}
                       placeholder="জরুরি যোগাযোগ"
-                      className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                      className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-2 text-xs text-[#0F1F17] focus:border-[#0B5D3B] focus:outline-none rounded-lg"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                    <label className="text-xs font-semibold text-[#084A2E] block mb-1">
                       বার্তা (Body):
                     </label>
                     <textarea
@@ -573,7 +573,7 @@ export const QrGeneratorPage: React.FC = () => {
                       value={emailBody}
                       onChange={(e) => setEmailBody(e.target.value)}
                       placeholder="বিস্তারিত বার্তা..."
-                      className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                      className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-2 text-xs text-[#0F1F17] focus:border-[#0B5D3B] focus:outline-none rounded-lg"
                     />
                   </div>
                 </div>
@@ -583,7 +583,7 @@ export const QrGeneratorPage: React.FC = () => {
               {category === 'wifi' && (
                 <div className="space-y-3">
                   <div>
-                    <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                    <label className="text-xs font-semibold text-[#084A2E] block mb-1">
                       নেটওয়ার্কের নাম (SSID):
                     </label>
                     <input
@@ -591,19 +591,19 @@ export const QrGeneratorPage: React.FC = () => {
                       value={wifiSsid}
                       onChange={(e) => setWifiSsid(e.target.value)}
                       placeholder="MyHome_WiFi"
-                      className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none"
+                      className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-2 text-xs text-[#0F1F17] focus:border-[#0B5D3B] focus:outline-none rounded-lg"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                      <label className="text-xs font-semibold text-[#084A2E] block mb-1">
                         নিরাপত্তা পদ্ধতি (Encryption):
                       </label>
                       <select
                         value={wifiEncryption}
                         onChange={(e) => setWifiEncryption(e.target.value as 'WPA' | 'WEP' | 'nopass')}
-                        className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c]"
+                        className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-2 text-xs text-[#0F1F17] rounded-lg"
                       >
                         <option value="WPA">WPA / WPA2 / WPA3 (সাধারণ)</option>
                         <option value="WEP">WEP (পুরাতন)</option>
@@ -613,7 +613,7 @@ export const QrGeneratorPage: React.FC = () => {
 
                     {wifiEncryption !== 'nopass' && (
                       <div>
-                        <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                        <label className="text-xs font-semibold text-[#084A2E] block mb-1">
                           ওয়াইফাই পাসওয়ার্ড:
                         </label>
                         <input
@@ -621,18 +621,18 @@ export const QrGeneratorPage: React.FC = () => {
                           value={wifiPassword}
                           onChange={(e) => setWifiPassword(e.target.value)}
                           placeholder="Password123"
-                          className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-2 text-xs text-[#14231c] focus:border-[#0c5c3d] focus:outline-none font-mono"
+                          className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-2 text-xs text-[#0F1F17] focus:border-[#0B5D3B] focus:outline-none font-mono rounded-lg"
                         />
                       </div>
                     )}
                   </div>
 
-                  <label className="flex items-center space-x-2 text-xs text-[#4a4237] cursor-pointer pt-1">
+                  <label className="flex items-center space-x-2 text-xs text-[#34443B] cursor-pointer pt-1">
                     <input
                       type="checkbox"
                       checked={wifiHidden}
                       onChange={(e) => setWifiHidden(e.target.checked)}
-                      className="rounded-none text-[#0c5c3d] border-[#d8cfb8]"
+                      className="rounded-md text-[#0B5D3B] border-[#D5E4DB]"
                     />
                     <span>লুকানো নেটওয়ার্ক (Hidden SSID)</span>
                   </label>
@@ -642,15 +642,15 @@ export const QrGeneratorPage: React.FC = () => {
           </div>
 
           {/* Customization Options */}
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 sm:p-5 space-y-5">
-            <h2 className="text-xs font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-1.5">
-              <Palette className="w-3.5 h-3.5 text-[#0c5c3d]" />
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 sm:p-5 space-y-5 rounded-2xl">
+            <h2 className="text-xs font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-1.5">
+              <Palette className="w-3.5 h-3.5 text-[#0B5D3B]" />
               <span>২. ডিজাইন ও রঙ কাস্টমাইজেশন</span>
             </h2>
 
             {/* Color Presets */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-[#083f2a] block">
+              <label className="text-xs font-semibold text-[#084A2E] block">
                 জনপ্রিয় কালার প্যালেট:
               </label>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
@@ -662,7 +662,7 @@ export const QrGeneratorPage: React.FC = () => {
                       setFgColor(preset.fg);
                       setBgColor(preset.bg);
                     }}
-                    className="border border-[#d8cfb8] p-1.5 text-center bg-[#fcfaf5] hover:bg-[#f4efe4] transition-colors cursor-pointer text-[11px]"
+                    className="border border-[#D5E4DB] p-1.5 text-center bg-[#F8FAF9] hover:bg-[#F0F4F2] transition-colors cursor-pointer text-[11px] rounded-lg"
                   >
                     <div className="flex items-center justify-center space-x-1 mb-1">
                       <span
@@ -674,55 +674,55 @@ export const QrGeneratorPage: React.FC = () => {
                         style={{ backgroundColor: preset.bg }}
                       />
                     </div>
-                    <span className="text-[#4a4237] block truncate">{preset.label}</span>
+                    <span className="text-[#34443B] block truncate">{preset.label}</span>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Custom Color Pickers */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#d8cfb8]/60">
-              <div className="flex items-center justify-between border border-[#d8cfb8] p-2 bg-[#fcfaf5]">
-                <span className="text-xs font-semibold text-[#083f2a]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#D5E4DB]/60">
+              <div className="flex items-center justify-between border border-[#D5E4DB] p-2 bg-[#F8FAF9] rounded-lg">
+                <span className="text-xs font-semibold text-[#084A2E]">
                   কিউআর কোডের রঙ (Foreground):
                 </span>
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs font-mono text-[#6b6255]">{fgColor}</span>
+                  <span className="text-xs font-mono text-[#4A5A52]">{fgColor}</span>
                   <input
                     type="color"
                     value={fgColor}
                     onChange={(e) => setFgColor(e.target.value)}
-                    className="w-7 h-7 border border-[#d8cfb8] cursor-pointer bg-transparent"
+                    className="w-7 h-7 border border-[#D5E4DB] cursor-pointer bg-transparent"
                   />
                 </div>
               </div>
 
-              <div className="flex items-center justify-between border border-[#d8cfb8] p-2 bg-[#fcfaf5]">
-                <span className="text-xs font-semibold text-[#083f2a]">
+              <div className="flex items-center justify-between border border-[#D5E4DB] p-2 bg-[#F8FAF9] rounded-lg">
+                <span className="text-xs font-semibold text-[#084A2E]">
                   ব্যাকগ্রাউন্ড রঙ (Background):
                 </span>
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs font-mono text-[#6b6255]">{bgColor}</span>
+                  <span className="text-xs font-mono text-[#4A5A52]">{bgColor}</span>
                   <input
                     type="color"
                     value={bgColor}
                     onChange={(e) => setBgColor(e.target.value)}
-                    className="w-7 h-7 border border-[#d8cfb8] cursor-pointer bg-transparent"
+                    className="w-7 h-7 border border-[#D5E4DB] cursor-pointer bg-transparent"
                   />
                 </div>
               </div>
             </div>
 
             {/* Resolution, Margin, and Error Level */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-[#d8cfb8]/60">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-[#D5E4DB]/60">
               <div>
-                <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                <label className="text-xs font-semibold text-[#084A2E] block mb-1">
                   রেজোলিউশন / সাইজ:
                 </label>
                 <select
                   value={qrSize}
                   onChange={(e) => setQrSize(parseInt(e.target.value))}
-                  className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-1.5 text-xs text-[#14231c]"
+                  className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-1.5 text-xs text-[#0F1F17] rounded-lg"
                 >
                   <option value={300}>৩০০ × ৩০০ px (ওয়েব / মোবাইল)</option>
                   <option value={600}>৬০০ × ৬০০ px (স্ট্যান্ডার্ড)</option>
@@ -733,13 +733,13 @@ export const QrGeneratorPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                <label className="text-xs font-semibold text-[#084A2E] block mb-1">
                   মার্জিন / প্যাডিং:
                 </label>
                 <select
                   value={marginSize}
                   onChange={(e) => setMarginSize(parseInt(e.target.value))}
-                  className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-1.5 text-xs text-[#14231c]"
+                  className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-1.5 text-xs text-[#0F1F17] rounded-lg"
                 >
                   <option value={1}>১ মডিউল (কম ফাঁকা)</option>
                   <option value={2}>২ মডিউল (স্ট্যান্ডার্ড)</option>
@@ -748,14 +748,14 @@ export const QrGeneratorPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#083f2a] block mb-1">
+                <label className="text-xs font-semibold text-[#084A2E] block mb-1">
                   এরর কারেকশন লেভেল:
                 </label>
                 <select
                   value={errorLevel}
                   disabled={!!logoSrc}
                   onChange={(e) => setErrorLevel(e.target.value as ErrorCorrectionLevel)}
-                  className="w-full bg-[#fcfaf5] border border-[#d8cfb8] px-3 py-1.5 text-xs text-[#14231c] disabled:opacity-75"
+                  className="w-full bg-[#F8FAF9] border border-[#D5E4DB] px-3 py-1.5 text-xs text-[#0F1F17] disabled:opacity-75 rounded-lg"
                 >
                   <option value="L">L — ৭% রিকভারি</option>
                   <option value="M">M — ১৫% রিকভারি</option>
@@ -763,7 +763,7 @@ export const QrGeneratorPage: React.FC = () => {
                   <option value="H">H — ৩০% রিকভারি (লোগোর জন্য সেরা)</option>
                 </select>
                 {logoSrc && (
-                  <p className="text-[10px] text-[#0c5c3d] mt-1">
+                  <p className="text-[10px] text-[#0B5D3B] mt-1">
                     * লোগোর জন্য স্বয়ংক্রিয়ভাবে 'H' লেভেল সক্রিয়।
                   </p>
                 )}
@@ -771,8 +771,8 @@ export const QrGeneratorPage: React.FC = () => {
             </div>
 
             {/* Logo Overlay Section */}
-            <div className="pt-3 border-t border-[#d8cfb8]/60 space-y-2">
-              <label className="text-xs font-semibold text-[#083f2a] block">
+            <div className="pt-3 border-t border-[#D5E4DB]/60 space-y-2">
+              <label className="text-xs font-semibold text-[#084A2E] block">
                 মাঝখানে লোগো বা ছবি যুক্ত করুন (ঐচ্ছিক):
               </label>
 
@@ -785,18 +785,18 @@ export const QrGeneratorPage: React.FC = () => {
               />
 
               {logoSrc ? (
-                <div className="flex items-center justify-between border border-[#0c5c3d]/40 bg-[#f4efe4] p-2.5">
+                <div className="flex items-center justify-between border border-[#0B5D3B]/40 bg-[#F0F4F2] p-2.5 rounded-lg">
                   <div className="flex items-center space-x-3">
                     <img
                       src={logoSrc}
                       alt="Logo Preview"
-                      className="w-8 h-8 object-contain border border-[#d8cfb8] bg-[#ffffff] p-0.5"
+                      className="w-8 h-8 object-contain border border-[#D5E4DB] bg-[#ffffff] p-0.5"
                     />
                     <div>
-                      <p className="text-xs font-semibold text-[#083f2a]">
+                      <p className="text-xs font-semibold text-[#084A2E]">
                         {logoName || 'লোগো ছবি সংযুক্ত'}
                       </p>
-                      <p className="text-[11px] text-[#0c5c3d]">
+                      <p className="text-[11px] text-[#0B5D3B]">
                         মাঝখানে সুচারুভাবে বসানো হয়েছে
                       </p>
                     </div>
@@ -805,7 +805,7 @@ export const QrGeneratorPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleRemoveLogo}
-                    className="text-xs text-red-600 hover:text-red-800 p-1 flex items-center space-x-1 border border-red-200 bg-[#fffdf7] px-2 py-1 cursor-pointer"
+                    className="text-xs text-red-600 hover:text-red-800 p-1 flex items-center space-x-1 border border-red-200 bg-[#FFFFFF] px-2 py-1 cursor-pointer rounded-lg"
                   >
                     <Trash2 className="w-3 h-3" />
                     <span>মুছে ফেলুন</span>
@@ -815,9 +815,9 @@ export const QrGeneratorPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => logoInputRef.current?.click()}
-                  className="w-full border border-dashed border-[#d8cfb8] hover:border-[#0c5c3d] p-3 text-center bg-[#fcfaf5] hover:bg-[#f4efe4] transition-colors cursor-pointer flex items-center justify-center space-x-2 text-xs text-[#083f2a]"
+                  className="w-full border border-dashed border-[#D5E4DB] hover:border-[#0B5D3B] p-3 text-center bg-[#F8FAF9] hover:bg-[#F0F4F2] transition-colors cursor-pointer flex items-center justify-center space-x-2 text-xs text-[#084A2E] rounded-2xl"
                 >
-                  <Upload className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                  <Upload className="w-3.5 h-3.5 text-[#0B5D3B]" />
                   <span>আপনার ব্র্যান্ড লোগো বা আইকন আপলোড করুন (PNG/JPG)</span>
                 </button>
               )}
@@ -827,22 +827,22 @@ export const QrGeneratorPage: React.FC = () => {
 
         {/* Right Column: Live Preview & Action Buttons (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-5 sticky top-6">
-            <div className="flex items-center justify-between pb-3 border-b border-[#d8cfb8]">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-5 sticky top-6 rounded-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-[#D5E4DB]">
               <div className="flex items-center space-x-2">
-                <QrCode className="w-4 h-4 text-[#0c5c3d]" />
-                <h2 className="text-xs sm:text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider">
+                <QrCode className="w-4 h-4 text-[#0B5D3B]" />
+                <h2 className="text-xs sm:text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider">
                   লাইভ প্রিভিউ (Live Preview)
                 </h2>
               </div>
-              <span className="text-[11px] text-[#6b6255] font-mono">
+              <span className="text-[11px] text-[#4A5A52] font-mono">
                 {qrSize}×{qrSize} px
               </span>
             </div>
 
             {/* QR Canvas Display Frame */}
-            <div className="flex flex-col items-center justify-center p-4 sm:p-6 bg-[#f4efe4]/50 border border-[#d8cfb8] relative overflow-hidden">
-              <div className="qr-canvas-preview p-3 bg-white shadow-xs border border-[#d8cfb8] w-full max-w-[280px] sm:max-w-[300px] aspect-square flex items-center justify-center overflow-hidden">
+            <div className="flex flex-col items-center justify-center p-4 sm:p-6 bg-[#F0F4F2]/50 border border-[#D5E4DB] relative overflow-hidden rounded-2xl">
+              <div className="qr-canvas-preview p-3 bg-white shadow-xs border border-[#D5E4DB] w-full max-w-[280px] sm:max-w-[300px] aspect-square flex items-center justify-center overflow-hidden rounded-2xl">
                 <canvas
                   ref={canvasRef}
                   className="!w-full !h-full !max-w-full !max-h-full block object-contain aspect-square"
@@ -858,15 +858,15 @@ export const QrGeneratorPage: React.FC = () => {
               </div>
 
               {isGenerating && (
-                <div className="absolute inset-0 bg-[#fffdf7]/80 backdrop-blur-[1px] flex items-center justify-center text-xs text-[#083f2a] font-medium z-10">
+                <div className="absolute inset-0 bg-[#FFFFFF]/80 backdrop-blur-[1px] flex items-center justify-center text-xs text-[#084A2E] font-medium z-10">
                   তৈরি হচ্ছে...
                 </div>
               )}
             </div>
 
             {/* Encoded String Summary */}
-            <div className="bg-[#fcfaf5] border border-[#d8cfb8] p-2.5 text-[11px] text-[#6b6255] break-all font-mono">
-              <span className="font-bold text-[#083f2a] block not-italic">
+            <div className="bg-[#F8FAF9] border border-[#D5E4DB] p-2.5 text-[11px] text-[#4A5A52] break-all font-mono rounded-lg">
+              <span className="font-bold text-[#084A2E] block not-italic">
                 এনকোড করা তথ্য:
               </span>
               <span className="line-clamp-2">{encodedValue}</span>
@@ -878,7 +878,7 @@ export const QrGeneratorPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleDownloadPng}
-                  className="bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] px-4 py-2.5 text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors cursor-pointer shadow-xs"
+                  className="bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] px-4 py-2.5 text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors cursor-pointer shadow-xs"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>PNG ডাউনলোড</span>
@@ -887,7 +887,7 @@ export const QrGeneratorPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleDownloadSvg}
-                  className="bg-[#083f2a] hover:bg-[#0c5c3d] text-[#fffdf7] px-4 py-2.5 text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors cursor-pointer shadow-xs"
+                  className="bg-[#084A2E] hover:bg-[#0B5D3B] text-[#FFFFFF] px-4 py-2.5 text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors cursor-pointer shadow-xs"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>SVG ভেক্টর</span>
@@ -898,7 +898,7 @@ export const QrGeneratorPage: React.FC = () => {
               <button
                 type="button"
                 onClick={handleCopyToClipboard}
-                className="w-full border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 text-[#083f2a] py-2 text-xs font-medium flex items-center justify-center space-x-1.5 transition-colors cursor-pointer"
+                className="w-full border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 text-[#084A2E] py-2 text-xs font-medium flex items-center justify-center space-x-1.5 transition-colors cursor-pointer rounded-lg"
               >
                 {isCopied ? (
                   <>
@@ -918,47 +918,47 @@ export const QrGeneratorPage: React.FC = () => {
       </div>
 
       {/* FAQ Information Section */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-6 space-y-4">
-        <div className="flex items-center space-x-2 border-b border-[#d8cfb8] pb-3">
-          <HelpCircle className="w-4 h-4 text-[#0c5c3d]" />
-          <h2 className="text-base font-bold text-[#083f2a] font-serif">
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-6 space-y-4 rounded-2xl">
+        <div className="flex items-center space-x-2 border-b border-[#D5E4DB] pb-3">
+          <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
+          <h2 className="text-base font-bold text-[#084A2E] font-serif">
             সাধারণ জিজ্ঞাসা (FAQ)
           </h2>
         </div>
 
-        <div className="divide-y divide-[#d8cfb8] text-xs sm:text-sm text-[#4a4237]">
+        <div className="divide-y divide-[#D5E4DB] text-xs sm:text-sm text-[#34443B]">
           <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               এই QR কোডের কি কোনো মেয়াদ (Expiry Date) আছে?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               না, এটি একটি সম্পূর্ণ স্ট্যাটিক (Static) QR কোড। এর কোনো মেয়াদ নেই, এটি আজীবন সক্রিয় থাকবে এবং স্ক্যান করার জন্য কোনো সাবস্ক্রিপশন বা সার্ভার লিংকের প্রয়োজন নেই।
             </p>
           </div>
 
           <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               মাঝখানে লোগো বা ছবি বসালে স্ক্যান করতে কোনো সমস্যা হয় কি?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               না, কারণ আমরা হাই এরর কারেকশন (Level H) ব্যবহার করি, যা কিউআর কোডের ৩০% পর্যন্ত অংশ ঢেকে গেলেও নির্ভুল ও দ্রুত স্ক্যানিং নিশ্চিত করে।
             </p>
           </div>
 
           <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               এই QR কোড কি যেকোনো প্রিন্টিং বা বাণিজ্যিক কাজে ব্যবহার করা যাবে?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               হ্যাঁ! আপনি হাই-রেজোলিউশন (১০০০px বা ২০০০px) PNG অথবা ভেক্টর SVG ফরম্যাটে ডাউনলোড করে ব্যানার, বিলবোর্ড, লিফলেট, ভিজিটিং কার্ড, রেস্তোরাঁর মেনু বা পণ্যের প্যাকেজিংয়ে প্রিন্ট করতে পারবেন।
             </p>
           </div>
 
           <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#083f2a]">
+            <h3 className="font-semibold text-[#084A2E]">
               ওয়াইফাই (WiFi) QR কোড কীভাবে কাজ করে?
             </h3>
-            <p className="text-[#6b6255] leading-relaxed">
+            <p className="text-[#4A5A52] leading-relaxed">
               ওয়াইফাই কিউআর কোডটিতে আপনার নেটওয়ার্কের নাম ও পাসওয়ার্ড এনকোড করা থাকে। যে কেউ তাদের ফোনের ক্যামেরা দিয়ে স্ক্যান করলেই কোনো পাসওয়ার্ড টাইপ করা ছাড়াই ওয়াইফাইতে অটো কানেক্ট হতে পারবে।
             </p>
           </div>

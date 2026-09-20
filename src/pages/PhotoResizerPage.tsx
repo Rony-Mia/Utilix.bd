@@ -359,31 +359,31 @@ export const PhotoResizerPage: React.FC = () => {
       </Helmet>
 
       {/* Top Breadcrumb & Privacy Guarantee */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#d8cfb8]">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#D5E4DB]">
         <div className="flex items-center space-x-3">
           <Link
             to="/"
-            className="border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] px-3 py-1.5 text-xs text-[#083f2a] flex items-center space-x-1.5 transition-colors"
+            className="border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] px-3 py-1.5 text-xs text-[#084A2E] flex items-center space-x-1.5 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#6b6255] font-mono">REF: IMG-GOV-02</span>
+          <span className="text-xs text-[#4A5A52] font-mono">REF: IMG-GOV-02</span>
         </div>
 
         {/* 100% Client-Side Privacy Badge */}
-        <div className="flex items-center space-x-2 text-xs font-medium text-[#083f2a] bg-[#fffdf7] border border-[#d8cfb8] px-3 py-1.5 shadow-xs">
-          <ShieldCheck className="w-4 h-4 text-[#0c5c3d]" />
+        <div className="flex items-center space-x-2 text-xs font-medium text-[#084A2E] bg-[#FFFFFF] border border-[#D5E4DB] px-3 py-1.5 shadow-xs rounded-lg">
+          <ShieldCheck className="w-4 h-4 text-[#0B5D3B]" />
           <span>১০০% ক্লায়েন্ট-সাইড ব্রাউজার প্রসেসিং (গোপনীয়তা সুরক্ষিত, নো সার্ভার আপলোড)</span>
         </div>
       </div>
 
       {/* Page Title & Intro */}
       <div className="space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#083f2a] font-serif tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#084A2E] font-serif tracking-tight">
           সরকারি ও পাসপোর্ট ছবি রিসাইজার
         </h1>
-        <p className="text-sm text-[#4a4237] max-w-3xl leading-relaxed">
+        <p className="text-sm text-[#34443B] max-w-3xl leading-relaxed">
           বাংলাদেশি সরকারি চাকরি (Teletalk / BPSC), বিসিএস, প্রাথমিক শিক্ষক নিয়োগ, স্মার্ট এনআইডি ও ই-পাসপোর্ট আবেদনের নির্ধারিত
           <strong> ৩০০×৩০০ পিক্সেল (১০০ KB)</strong> এবং <strong>৩০০×৮০ পিক্সেল স্বাক্ষর (৬০ KB)</strong> মাপে
           তাৎক্ষণিক নিখুঁত ক্রপ, রিসাইজ ও বাইনারি সার্চ কম্প্রেশন। সম্পূর্ণ কাজ ব্রাউজারের অভ্যন্তরে সম্পন্ন হয়।
@@ -392,7 +392,7 @@ export const PhotoResizerPage: React.FC = () => {
 
       {/* Preset Selector Grid */}
       <div className="space-y-2">
-        <label className="text-xs font-bold text-[#083f2a] uppercase tracking-wider block font-serif">
+        <label className="text-xs font-bold text-[#084A2E] uppercase tracking-wider block font-serif">
           ১. নির্ধারিত আবেদনের প্রিসেট নির্বাচন করুন
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
@@ -405,21 +405,21 @@ export const PhotoResizerPage: React.FC = () => {
                 onClick={() => handlePresetSelect(p.id)}
                 className={`text-left p-3 border transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-[#083f2a] text-[#fffdf7] border-[#083f2a] shadow-sm'
-                    : 'bg-[#fffdf7] hover:bg-[#f4efe4] border-[#d8cfb8] text-[#14231c]'
+                    ? 'bg-[#084A2E] text-[#FFFFFF] border-[#084A2E] shadow-sm'
+                    : 'bg-[#FFFFFF] hover:bg-[#F0F4F2] border-[#D5E4DB] text-[#0F1F17]'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <span
                       className={`text-[10px] font-mono px-1.5 py-0.5 truncate max-w-[110px] ${
-                        isSelected ? 'bg-[#0c5c3d] text-[#fffdf7]' : 'bg-[#f4efe4] text-[#083f2a]'
+                        isSelected ? 'bg-[#0B5D3B] text-[#FFFFFF]' : 'bg-[#F0F4F2] text-[#084A2E]'
                       }`}
                       title={p.org}
                     >
                       {p.org}
                     </span>
-                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#fffdf7] shrink-0" />}
+                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#FFFFFF] shrink-0" />}
                   </div>
                   <h3 className="font-semibold text-xs leading-snug font-serif mb-1">
                     {p.name}
@@ -439,20 +439,20 @@ export const PhotoResizerPage: React.FC = () => {
             onClick={() => setSelectedPreset('custom')}
             className={`text-left p-3 border transition-all cursor-pointer flex flex-col justify-between ${
               selectedPreset === 'custom'
-                ? 'bg-[#083f2a] text-[#fffdf7] border-[#083f2a]'
-                : 'bg-[#fffdf7] hover:bg-[#f4efe4] border-[#d8cfb8] text-[#14231c]'
+                ? 'bg-[#084A2E] text-[#FFFFFF] border-[#084A2E]'
+                : 'bg-[#FFFFFF] hover:bg-[#F0F4F2] border-[#D5E4DB] text-[#0F1F17]'
             }`}
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <span
                   className={`text-[10px] font-mono px-1.5 py-0.5 ${
-                    selectedPreset === 'custom' ? 'bg-[#0c5c3d] text-[#fffdf7]' : 'bg-[#f4efe4] text-[#083f2a]'
+                    selectedPreset === 'custom' ? 'bg-[#0B5D3B] text-[#FFFFFF]' : 'bg-[#F0F4F2] text-[#084A2E]'
                   }`}
                 >
                   CUSTOM
                 </span>
-                {selectedPreset === 'custom' && <CheckCircle2 className="w-3.5 h-3.5 text-[#fffdf7]" />}
+                {selectedPreset === 'custom' && <CheckCircle2 className="w-3.5 h-3.5 text-[#FFFFFF]" />}
               </div>
               <h3 className="font-semibold text-xs leading-snug font-serif mb-1">
                 কাস্টম সাইজ ও কম্প্রেশন
@@ -467,40 +467,40 @@ export const PhotoResizerPage: React.FC = () => {
 
       {/* Custom Parameters Form (When custom selected) */}
       {selectedPreset === 'custom' && (
-        <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+        <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs rounded-2xl">
           <div>
-            <label className="block text-[#6b6255] mb-1 font-medium">প্রস্থ (Width - পিক্সেল):</label>
+            <label className="block text-[#4A5A52] mb-1 font-medium">প্রস্থ (Width - পিক্সেল):</label>
             <input
               type="number"
               value={customWidth}
               onChange={(e) => setCustomWidth(Math.max(10, parseInt(e.target.value) || 10))}
-              className="w-full p-2 border border-[#d8cfb8] bg-[#f4efe4]/30 font-mono text-sm focus:outline-none focus:border-[#0c5c3d]"
+              className="w-full p-2 border border-[#D5E4DB] bg-[#F0F4F2]/30 font-mono text-sm focus:outline-none focus:border-[#0B5D3B] rounded-lg"
             />
           </div>
           <div>
-            <label className="block text-[#6b6255] mb-1 font-medium">উচ্চতা (Height - পিক্সেল):</label>
+            <label className="block text-[#4A5A52] mb-1 font-medium">উচ্চতা (Height - পিক্সেল):</label>
             <input
               type="number"
               value={customHeight}
               onChange={(e) => setCustomHeight(Math.max(10, parseInt(e.target.value) || 10))}
-              className="w-full p-2 border border-[#d8cfb8] bg-[#f4efe4]/30 font-mono text-sm focus:outline-none focus:border-[#0c5c3d]"
+              className="w-full p-2 border border-[#D5E4DB] bg-[#F0F4F2]/30 font-mono text-sm focus:outline-none focus:border-[#0B5D3B] rounded-lg"
             />
           </div>
           <div>
-            <label className="block text-[#6b6255] mb-1 font-medium">সর্বোচ্চ ফাইল সাইজ (Max KB):</label>
+            <label className="block text-[#4A5A52] mb-1 font-medium">সর্বোচ্চ ফাইল সাইজ (Max KB):</label>
             <input
               type="number"
               value={customMaxKb}
               onChange={(e) => setCustomMaxKb(Math.max(5, parseInt(e.target.value) || 5))}
-              className="w-full p-2 border border-[#d8cfb8] bg-[#f4efe4]/30 font-mono text-sm focus:outline-none focus:border-[#0c5c3d]"
+              className="w-full p-2 border border-[#D5E4DB] bg-[#F0F4F2]/30 font-mono text-sm focus:outline-none focus:border-[#0B5D3B] rounded-lg"
             />
           </div>
           <div>
-            <label className="block text-[#6b6255] mb-1 font-medium">ফরম্যাট (Format):</label>
+            <label className="block text-[#4A5A52] mb-1 font-medium">ফরম্যাট (Format):</label>
             <select
               value={customFormat}
               onChange={(e) => setCustomFormat(e.target.value as 'jpeg' | 'png' | 'webp')}
-              className="w-full p-2 border border-[#d8cfb8] bg-[#f4efe4]/30 text-sm focus:outline-none focus:border-[#0c5c3d]"
+              className="w-full p-2 border border-[#D5E4DB] bg-[#F0F4F2]/30 text-sm focus:outline-none focus:border-[#0B5D3B] rounded-lg"
             >
               <option value="jpeg">JPEG (.jpg) - সরকারি মান</option>
               <option value="png">PNG (.png)</option>
@@ -513,27 +513,27 @@ export const PhotoResizerPage: React.FC = () => {
       {/* Main Workspace: 2 Side-by-Side Panels */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
         {/* Left Side: Upload & Adjustment Studio */}
-        <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 flex flex-col justify-between space-y-6">
+        <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 flex flex-col justify-between space-y-6 rounded-2xl">
           <div className="space-y-4">
             {/* Panel Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-[#d8cfb8]">
-              <span className="text-xs font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-1.5">
-                <FileImage className="w-4 h-4 text-[#0c5c3d]" />
+            <div className="flex items-center justify-between pb-3 border-b border-[#D5E4DB]">
+              <span className="text-xs font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-1.5">
+                <FileImage className="w-4 h-4 text-[#0B5D3B]" />
                 <span>২. ইনপুট ছবি ও পজিশনিং</span>
               </span>
               <div className="flex items-center space-x-2">
                 <button
                   type="button"
                   onClick={() => loadSampleImage('photo')}
-                  className="text-[11px] text-[#083f2a] hover:underline cursor-pointer"
+                  className="text-[11px] text-[#084A2E] hover:underline cursor-pointer"
                 >
                   নমুনা ছবি
                 </button>
-                <span className="text-[#d8cfb8]">|</span>
+                <span className="text-[#D5E4DB]">|</span>
                 <button
                   type="button"
                   onClick={() => loadSampleImage('signature')}
-                  className="text-[11px] text-[#083f2a] hover:underline cursor-pointer"
+                  className="text-[11px] text-[#084A2E] hover:underline cursor-pointer"
                 >
                   নমুনা স্বাক্ষর
                 </button>
@@ -551,19 +551,19 @@ export const PhotoResizerPage: React.FC = () => {
 
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-[#d8cfb8] hover:border-[#0c5c3d] bg-[#f4efe4]/30 hover:bg-[#f4efe4]/60 p-4 text-center cursor-pointer transition-colors"
+              className="border-2 border-dashed border-[#D5E4DB] hover:border-[#0B5D3B] bg-[#F0F4F2]/30 hover:bg-[#F0F4F2]/60 p-4 text-center cursor-pointer transition-colors rounded-2xl"
             >
-              <Upload className="w-6 h-6 mx-auto mb-2 text-[#083f2a]" />
-              <div className="text-xs font-semibold text-[#083f2a]">
+              <Upload className="w-6 h-6 mx-auto mb-2 text-[#084A2E]" />
+              <div className="text-xs font-semibold text-[#084A2E]">
                 ছবি নির্বাচন করতে ক্লিক করুন অথবা এখানে টেনে আনুন
               </div>
-              <div className="text-[11px] text-[#6b6255] mt-1 font-mono">
+              <div className="text-[11px] text-[#4A5A52] mt-1 font-mono">
                 JPG, PNG, WebP (ব্রাউজার মেমোরিতে নিরাপদে প্রসেস হবে)
               </div>
             </div>
 
             {uploadError && (
-              <div className="bg-[#fef2f2] border border-[#fecaca] text-[#991b1b] p-2.5 flex items-start space-x-2 text-xs">
+              <div className="bg-[#fef2f2] border border-[#fecaca] text-[#991b1b] p-2.5 flex items-start space-x-2 text-xs rounded-lg">
                 <AlertTriangle className="w-3.5 h-3.5 mt-0.5 shrink-0" />
                 <span>{uploadError}</span>
               </div>
@@ -571,11 +571,11 @@ export const PhotoResizerPage: React.FC = () => {
 
             {/* Original Metadata Tag */}
             {originalMeta && (
-              <div className="bg-[#f4efe4]/50 border border-[#d8cfb8] p-2.5 flex items-center justify-between text-xs font-mono">
-                <span className="truncate max-w-[200px] text-[#14231c]" title={originalMeta.name}>
+              <div className="bg-[#F0F4F2]/50 border border-[#D5E4DB] p-2.5 flex items-center justify-between text-xs font-mono rounded-lg">
+                <span className="truncate max-w-[200px] text-[#0F1F17]" title={originalMeta.name}>
                   {originalMeta.name}
                 </span>
-                <span className="text-[#6b6255]">
+                <span className="text-[#4A5A52]">
                   মূল: {originalMeta.width}×{originalMeta.height} px | {originalMeta.sizeKb} KB
                 </span>
               </div>
@@ -583,17 +583,17 @@ export const PhotoResizerPage: React.FC = () => {
 
             {/* Interactive Crop / Pan / Zoom Sliders */}
             <div className="space-y-3 pt-2">
-              <div className="flex items-center justify-between text-xs text-[#083f2a] font-semibold">
+              <div className="flex items-center justify-between text-xs text-[#084A2E] font-semibold">
                 <span className="flex items-center space-x-1">
                   <Sliders className="w-3.5 h-3.5" />
                   <span>ক্রপ ও জুম নিয়ন্ত্রণ:</span>
                 </span>
-                <span className="font-mono text-[11px] text-[#6b6255]">{Math.round(zoom * 100)}%</span>
+                <span className="font-mono text-[11px] text-[#4A5A52]">{Math.round(zoom * 100)}%</span>
               </div>
 
               {/* Zoom Slider */}
               <div className="flex items-center space-x-3">
-                <ZoomOut className="w-4 h-4 text-[#6b6255]" />
+                <ZoomOut className="w-4 h-4 text-[#4A5A52]" />
                 <input
                   type="range"
                   min="0.5"
@@ -601,15 +601,15 @@ export const PhotoResizerPage: React.FC = () => {
                   step="0.05"
                   value={zoom}
                   onChange={(e) => setZoom(parseFloat(e.target.value))}
-                  className="w-full accent-[#0c5c3d]"
+                  className="w-full accent-[#0B5D3B]"
                 />
-                <ZoomIn className="w-4 h-4 text-[#6b6255]" />
+                <ZoomIn className="w-4 h-4 text-[#4A5A52]" />
               </div>
 
               {/* Pan Horizontal & Vertical */}
               <div className="grid grid-cols-2 gap-3 pt-1 text-xs">
                 <div>
-                  <div className="flex justify-between text-[#6b6255] mb-1">
+                  <div className="flex justify-between text-[#4A5A52] mb-1">
                     <span>অনুভূমিক সরান (X):</span>
                     <span className="font-mono">{offsetX}px</span>
                   </div>
@@ -620,11 +620,11 @@ export const PhotoResizerPage: React.FC = () => {
                     step="2"
                     value={offsetX}
                     onChange={(e) => setOffsetX(parseInt(e.target.value, 10))}
-                    className="w-full accent-[#0c5c3d]"
+                    className="w-full accent-[#0B5D3B]"
                   />
                 </div>
                 <div>
-                  <div className="flex justify-between text-[#6b6255] mb-1">
+                  <div className="flex justify-between text-[#4A5A52] mb-1">
                     <span>উল্লম্ব সরান (Y):</span>
                     <span className="font-mono">{offsetY}px</span>
                   </div>
@@ -635,20 +635,20 @@ export const PhotoResizerPage: React.FC = () => {
                     step="2"
                     value={offsetY}
                     onChange={(e) => setOffsetY(parseInt(e.target.value, 10))}
-                    className="w-full accent-[#0c5c3d]"
+                    className="w-full accent-[#0B5D3B]"
                   />
                 </div>
               </div>
 
               {/* Rotate & Reset row */}
-              <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#d8cfb8] text-xs">
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#D5E4DB] text-xs">
                 <div className="flex items-center space-x-2">
                   <button
                     type="button"
                     onClick={() => setRotation((r) => (r + 90) % 360)}
-                    className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 px-2.5 py-1 text-[#14231c] flex items-center space-x-1 transition-colors cursor-pointer"
+                    className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 px-2.5 py-1 text-[#0F1F17] flex items-center space-x-1 transition-colors cursor-pointer rounded-lg"
                   >
-                    <RotateCw className="w-3.5 h-3.5 text-[#083f2a]" />
+                    <RotateCw className="w-3.5 h-3.5 text-[#084A2E]" />
                     <span>৯০° ঘোরান ({rotation}°)</span>
                   </button>
 
@@ -660,19 +660,19 @@ export const PhotoResizerPage: React.FC = () => {
                       setOffsetX(0);
                       setOffsetY(0);
                     }}
-                    className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 px-2.5 py-1 text-[#14231c] flex items-center space-x-1 transition-colors cursor-pointer"
+                    className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 px-2.5 py-1 text-[#0F1F17] flex items-center space-x-1 transition-colors cursor-pointer rounded-lg"
                   >
-                    <RefreshCw className="w-3.5 h-3.5 text-[#083f2a]" />
+                    <RefreshCw className="w-3.5 h-3.5 text-[#084A2E]" />
                     <span>রিসেট</span>
                   </button>
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  <label className="text-[#6b6255]">ফিট মোড:</label>
+                  <label className="text-[#4A5A52]">ফিট মোড:</label>
                   <select
                     value={fitMode}
                     onChange={(e) => setFitMode(e.target.value as 'cover' | 'contain' | 'fill')}
-                    className="border border-[#d8cfb8] bg-[#f4efe4]/30 px-2 py-1 text-xs focus:outline-none"
+                    className="border border-[#D5E4DB] bg-[#F0F4F2]/30 px-2 py-1 text-xs focus:outline-none rounded-lg"
                   >
                     <option value="cover">ফিল ও ক্রপ (Fill/Cover)</option>
                     <option value="contain">সম্পূর্ণ ছবি (Contain)</option>
@@ -684,22 +684,22 @@ export const PhotoResizerPage: React.FC = () => {
           </div>
 
           {/* Guidelines hint */}
-          <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-3 text-xs font-medium text-[#4a4237] leading-relaxed">
+          <div className="bg-[#F0F4F2]/40 border border-[#D5E4DB] p-3 text-xs font-medium text-[#34443B] leading-relaxed rounded-2xl">
             💡 <strong>টিপস:</strong> সরকারি চাকরি ও বিসিএস আবেদনে ছবির ব্যাকগ্রাউন্ড সাদা বা হালকা একরঙা হতে হবে।
             স্বাক্ষরের জন্য সাদা কাগজে কালো কালির কলম দিয়ে স্বাক্ষর করে ছবি তুলে এখানে ক্রপ করুন।
           </div>
         </div>
 
         {/* Right Side: Processed Output Preview & Compliance */}
-        <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 flex flex-col justify-between space-y-6">
+        <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 flex flex-col justify-between space-y-6 rounded-2xl">
           <div className="space-y-4">
             {/* Panel Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-[#d8cfb8]">
-              <span className="text-xs font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-1.5">
-                <CheckCircle2 className="w-4 h-4 text-[#0c5c3d]" />
+            <div className="flex items-center justify-between pb-3 border-b border-[#D5E4DB]">
+              <span className="text-xs font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-1.5">
+                <CheckCircle2 className="w-4 h-4 text-[#0B5D3B]" />
                 <span>৩. চূড়ান্ত আউটপুট ও ভেরিফিকেশন</span>
               </span>
-              <div className="text-[11px] font-mono text-[#0c5c3d] flex items-center space-x-1">
+              <div className="text-[11px] font-mono text-[#0B5D3B] flex items-center space-x-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
                 <span>ক্যানভাস বাইনারি অপ্টিমাইজার</span>
               </div>
@@ -738,10 +738,10 @@ export const PhotoResizerPage: React.FC = () => {
             </div>
 
             {/* Visual Canvas Display Frame */}
-            <div className="bg-[#f4efe4]/50 border border-[#d8cfb8] p-6 flex flex-col items-center justify-center min-h-[300px] relative overflow-hidden">
+            <div className="bg-[#F0F4F2]/50 border border-[#D5E4DB] p-6 flex flex-col items-center justify-center min-h-[300px] relative overflow-hidden rounded-2xl">
               {isProcessing && (
-                <div className="absolute inset-0 bg-[#fffdf7]/80 backdrop-blur-xs flex flex-col items-center justify-center z-10 space-y-2 text-xs text-[#083f2a]">
-                  <RefreshCw className="w-6 h-6 animate-spin text-[#0c5c3d]" />
+                <div className="absolute inset-0 bg-[#FFFFFF]/80 backdrop-blur-xs flex flex-col items-center justify-center z-10 space-y-2 text-xs text-[#084A2E]">
+                  <RefreshCw className="w-6 h-6 animate-spin text-[#0B5D3B]" />
                   <span>ছবি অপ্টিমাইজেশন চলছে...</span>
                 </div>
               )}
@@ -749,7 +749,7 @@ export const PhotoResizerPage: React.FC = () => {
               {resultDataUrl ? (
                 <div className="flex flex-col items-center space-y-3">
                   <div
-                    className="border-2 border-[#083f2a] shadow-sm bg-white overflow-hidden"
+                    className="border-2 border-[#084A2E] shadow-sm bg-white overflow-hidden rounded-lg"
                     style={{
                       width: activeHeight < 150 ? '300px' : activeWidth > 350 ? '240px' : `${activeWidth}px`,
                       height: activeHeight < 150 ? '80px' : activeHeight > 350 ? `${(240 * activeHeight) / activeWidth}px` : `${activeHeight}px`
@@ -763,13 +763,13 @@ export const PhotoResizerPage: React.FC = () => {
                   </div>
 
                   <div className="text-center">
-                    <span className="text-xs font-mono text-[#6b6255] bg-[#fffdf7] px-2 py-0.5 border border-[#d8cfb8]">
+                    <span className="text-xs font-mono text-[#4A5A52] bg-[#FFFFFF] px-2 py-0.5 border border-[#D5E4DB]">
                       আউটপুট রেজোলিউশন: {resultMeta?.width} × {resultMeta?.height} px ({resultMeta?.format})
                     </span>
                   </div>
                 </div>
               ) : (
-                <div className="text-center text-xs text-[#6b6255]">
+                <div className="text-center text-xs text-[#4A5A52]">
                   কোনো ছবি লোড করা হয়নি
                 </div>
               )}
@@ -778,32 +778,32 @@ export const PhotoResizerPage: React.FC = () => {
             {/* Quality & Encoding Details */}
             {resultMeta && (
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-2">
-                  <span className="block text-[11px] font-medium text-[#6b6255]">প্রস্থ ও উচ্চতা</span>
-                  <span className="font-mono font-bold text-[#083f2a]">{resultMeta.width}×{resultMeta.height}</span>
+                <div className="bg-[#F0F4F2]/40 border border-[#D5E4DB] p-2 rounded-lg">
+                  <span className="block text-[11px] font-medium text-[#4A5A52]">প্রস্থ ও উচ্চতা</span>
+                  <span className="font-mono font-bold text-[#084A2E]">{resultMeta.width}×{resultMeta.height}</span>
                 </div>
-                <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-2">
-                  <span className="block text-[11px] font-medium text-[#6b6255]">ফাইল সাইজ</span>
-                  <span className={`font-mono font-bold ${resultMeta.sizeKb <= activeMaxKb ? 'text-[#0c5c3d]' : 'text-[#c8342a]'}`}>
+                <div className="bg-[#F0F4F2]/40 border border-[#D5E4DB] p-2 rounded-lg">
+                  <span className="block text-[11px] font-medium text-[#4A5A52]">ফাইল সাইজ</span>
+                  <span className={`font-mono font-bold ${resultMeta.sizeKb <= activeMaxKb ? 'text-[#0B5D3B]' : 'text-[#c8342a]'}`}>
                     {resultMeta.sizeKb} KB
                   </span>
                 </div>
-                <div className="bg-[#f4efe4]/40 border border-[#d8cfb8] p-2">
-                  <span className="block text-[11px] font-medium text-[#6b6255]">বাইনারি কোয়ালিটি</span>
-                  <span className="font-mono font-bold text-[#083f2a]">{resultMeta.qualityUsed}%</span>
+                <div className="bg-[#F0F4F2]/40 border border-[#D5E4DB] p-2 rounded-lg">
+                  <span className="block text-[11px] font-medium text-[#4A5A52]">বাইনারি কোয়ালিটি</span>
+                  <span className="font-mono font-bold text-[#084A2E]">{resultMeta.qualityUsed}%</span>
                 </div>
               </div>
             )}
           </div>
 
           {/* Action Download Buttons */}
-          <div className="pt-4 border-t border-[#d8cfb8] flex flex-wrap items-center justify-between gap-3">
+          <div className="pt-4 border-t border-[#D5E4DB] flex flex-wrap items-center justify-between gap-3">
             <button
               type="button"
               onClick={processImage}
-              className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 px-3 py-2 text-xs text-[#14231c] flex items-center space-x-1.5 transition-colors cursor-pointer"
+              className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 px-3 py-2 text-xs text-[#0F1F17] flex items-center space-x-1.5 transition-colors cursor-pointer rounded-lg"
             >
-              <RefreshCw className="w-3.5 h-3.5 text-[#083f2a]" />
+              <RefreshCw className="w-3.5 h-3.5 text-[#084A2E]" />
               <span>পুনরায় প্রসেস করুন</span>
             </button>
 
@@ -813,8 +813,8 @@ export const PhotoResizerPage: React.FC = () => {
               disabled={!resultDataUrl}
               className={`px-5 py-2 text-xs font-semibold flex items-center space-x-2 transition-all shadow-sm ${
                 resultDataUrl
-                  ? 'bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] cursor-pointer'
-                  : 'bg-[#d8cfb8]/50 text-[#6b6255] cursor-not-allowed'
+                  ? 'bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] cursor-pointer'
+                  : 'bg-[#D5E4DB]/50 text-[#4A5A52] cursor-not-allowed'
               }`}
             >
               <Download className="w-4 h-4" />
@@ -825,15 +825,15 @@ export const PhotoResizerPage: React.FC = () => {
       </div>
 
       {/* Official Government Sizing Guidelines Reference Box */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-6 space-y-4">
-        <h3 className="text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-2">
-          <HelpCircle className="w-4 h-4 text-[#0c5c3d]" />
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-6 space-y-4 rounded-2xl">
+        <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
+          <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
           <span>সরকারি চাকরি ও পাসপোর্ট আবেদনের অফিশিয়াল নির্দেশিকা</span>
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-[#4a4237] leading-relaxed">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-[#34443B] leading-relaxed">
           <div className="space-y-2">
-            <h4 className="font-bold text-[#083f2a]">১. ছবির নিয়মাবলী (Photo Rules):</h4>
+            <h4 className="font-bold text-[#084A2E]">১. ছবির নিয়মাবলী (Photo Rules):</h4>
             <ul className="list-disc pl-4 space-y-1.5">
               <li>ছবির মাপ অবশ্যই নির্দিষ্ট <strong>৩০০ × ৩০০ পিক্সেল (প্রস্থ × উচ্চতা)</strong> হতে হবে।</li>
               <li>ছবির ফাইলের আকার কোনোভাবেই <strong>১০০ কিলোবাইট (100 KB)</strong>-এর বেশি হওয়া যাবে না।</li>
@@ -843,7 +843,7 @@ export const PhotoResizerPage: React.FC = () => {
           </div>
 
           <div className="space-y-2">
-            <h4 className="font-bold text-[#083f2a]">২. স্বাক্ষরের নিয়মাবলী (Signature Rules):</h4>
+            <h4 className="font-bold text-[#084A2E]">২. স্বাক্ষরের নিয়মাবলী (Signature Rules):</h4>
             <ul className="list-disc pl-4 space-y-1.5">
               <li>স্বাক্ষরের মাপ অবশ্যই নির্দিষ্ট <strong>৩০০ × ৮০ পিক্সেল (প্রস্থ × উচ্চতা)</strong> হতে হবে।</li>
               <li>স্বাক্ষরের ফাইলের আকার কোনোভাবেই <strong>৬০ কিলোবাইট (60 KB)</strong>-এর বেশি হওয়া যাবে না।</li>
@@ -855,32 +855,32 @@ export const PhotoResizerPage: React.FC = () => {
       </div>
 
       {/* Org-wise Size Reference Table */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-4">
-        <h3 className="text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-2">
-          <HelpCircle className="w-4 h-4 text-[#0c5c3d]" />
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-4 rounded-2xl">
+        <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
+          <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
           <span>কোন প্রতিষ্ঠানে কোন সাইজ লাগে — দ্রুত রেফারেন্স টেবিল</span>
         </h3>
 
-        <div className="overflow-x-auto border border-[#d8cfb8]">
+        <div className="overflow-x-auto border border-[#D5E4DB]">
           <table className="w-full text-xs text-left">
-            <thead className="bg-[#f4efe4] text-[#083f2a] border-b border-[#d8cfb8]">
+            <thead className="bg-[#F0F4F2] text-[#084A2E] border-b border-[#D5E4DB]">
               <tr>
                 <th className="p-2.5">প্রতিষ্ঠান / ক্ষেত্র</th>
                 <th className="p-2.5">মাপ (পিক্সেল)</th>
                 <th className="p-2.5">সর্বোচ্চ সাইজ</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#d8cfb8]">
+            <tbody className="divide-y divide-[#D5E4DB]">
               {GOVERNMENT_PRESET_PROFILES.map((profile) => (
-                <tr key={profile.id} className="hover:bg-[#f4efe4]/50">
-                  <td className="p-2.5 text-[#14231c]">
+                <tr key={profile.id} className="hover:bg-[#F0F4F2]/50">
+                  <td className="p-2.5 text-[#0F1F17]">
                     <div className="font-medium">{profile.name}</div>
-                    <div className="text-[11px] text-[#6b6255]">{profile.org}</div>
+                    <div className="text-[11px] text-[#4A5A52]">{profile.org}</div>
                   </td>
-                  <td className="p-2.5 font-mono text-[#083f2a]">
+                  <td className="p-2.5 font-mono text-[#084A2E]">
                     {profile.width} × {profile.height}
                   </td>
-                  <td className="p-2.5 font-mono text-[#083f2a]">
+                  <td className="p-2.5 font-mono text-[#084A2E]">
                     {profile.maxSizeKb} KB
                   </td>
                 </tr>
@@ -891,37 +891,37 @@ export const PhotoResizerPage: React.FC = () => {
       </div>
 
       {/* FAQ / Common Mistakes Section */}
-      <div className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-5">
-        <h3 className="text-sm font-bold text-[#083f2a] font-serif uppercase tracking-wider flex items-center space-x-2">
-          <HelpCircle className="w-4 h-4 text-[#0c5c3d]" />
+      <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-5 rounded-2xl">
+        <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
+          <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
           <span>সাধারণ ভুল যা আবেদন বাতিল করে দেয়</span>
         </h3>
 
-        <div className="space-y-4 text-xs sm:text-sm text-[#14231c] leading-relaxed">
+        <div className="space-y-4 text-xs sm:text-sm text-[#0F1F17] leading-relaxed">
           <div className="space-y-1">
-            <h4 className="font-bold text-[#083f2a]">ভুল ব্যাকগ্রাউন্ড কালার</h4>
-            <p className="text-[#4a4237]">
+            <h4 className="font-bold text-[#084A2E]">ভুল ব্যাকগ্রাউন্ড কালার</h4>
+            <p className="text-[#34443B]">
               রঙিন, প্যাটার্নযুক্ত বা ছায়াময় ব্যাকগ্রাউন্ডে তোলা ছবি অনেক পোর্টালে সরাসরি রিজেক্ট হয়। সবসময় <strong>সাদা বা হালকা ধূসর একরঙা ব্যাকগ্রাউন্ডে</strong> তোলা ছবি ব্যবহার করুন — পাসপোর্টের ক্ষেত্রে সাদা ব্যাকগ্রাউন্ড বাধ্যতামূলক।
             </p>
           </div>
 
           <div className="space-y-1">
-            <h4 className="font-bold text-[#083f2a]">"এক্স্যাক্ট" সাইজ না মেলা</h4>
-            <p className="text-[#4a4237]">
+            <h4 className="font-bold text-[#084A2E]">"এক্স্যাক্ট" সাইজ না মেলা</h4>
+            <p className="text-[#34443B]">
               অনেকে ছবি ছোট করেন কিন্তু <strong>অনুপাত (aspect ratio)</strong> ঠিক রাখেন না, ফলে ছবি টেনে বিকৃত (stretched) দেখায়। এই টুলে প্রিসেট সিলেক্ট করলে অনুপাত স্বয়ংক্রিয়ভাবে ঠিক থাকে, তাই ম্যানুয়াল ক্রপের বদলে প্রিসেট ব্যবহার করাই নিরাপদ।
             </p>
           </div>
 
           <div className="space-y-1">
-            <h4 className="font-bold text-[#083f2a]">কম্প্রেস করে সাইজ কমাতে গিয়ে ছবি অস্পষ্ট হয়ে যাওয়া</h4>
-            <p className="text-[#4a4237]">
+            <h4 className="font-bold text-[#084A2E]">কম্প্রেস করে সাইজ কমাতে গিয়ে ছবি অস্পষ্ট হয়ে যাওয়া</h4>
+            <p className="text-[#34443B]">
               KB লিমিট মেলাতে অতিরিক্ত কম্প্রেশন করলে ছবির মুখ ঝাপসা/পিক্সেলেটেড দেখাতে পারে, যা যাচাইকারী কর্মকর্তার কাছে সন্দেহজনক মনে হতে পারে। ভালো রেজোলিউশনের মূল ছবি দিয়ে শুরু করলে কম্প্রেশনের পরও কোয়ালিটি ভালো থাকে।
             </p>
           </div>
 
           <div className="space-y-1">
-            <h4 className="font-bold text-[#083f2a]">স্বাক্ষরের ক্ষেত্রে ভুল কালির রঙ বা ঝাপসা স্ক্যান</h4>
-            <p className="text-[#4a4237]">
+            <h4 className="font-bold text-[#084A2E]">স্বাক্ষরের ক্ষেত্রে ভুল কালির রঙ বা ঝাপসা স্ক্যান</h4>
+            <p className="text-[#34443B]">
               নীল বা হালকা রঙের কালি, অথবা কম আলোয় তোলা স্বাক্ষরের ছবি স্পষ্টভাবে বোঝা যায় না। সবসময় <strong>কালো কালির বলপেন/সাইনপেন</strong> দিয়ে স্বাক্ষর করে ভালো আলোয় ছবি তুলুন বা স্ক্যান করুন।
             </p>
           </div>

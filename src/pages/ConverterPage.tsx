@@ -142,36 +142,36 @@ export const ConverterPage: React.FC = () => {
       </Helmet>
 
       {/* Breadcrumb */}
-      <nav className="flex items-center space-x-2 text-xs text-[#6b6255]">
-        <Link to="/" className="hover:text-[#083f2a] underline-offset-2 hover:underline">
+      <nav className="flex items-center space-x-2 text-xs text-[#4A5A52]">
+        <Link to="/" className="hover:text-[#084A2E] underline-offset-2 hover:underline">
           হোম
         </Link>
         <span>&gt;</span>
-        <span className="text-[#6b6255]">টেক্সট টুলস</span>
+        <span className="text-[#4A5A52]">টেক্সট টুলস</span>
         <span>&gt;</span>
-        <span className="text-[#083f2a] font-medium">বিজয় ↔ ইউনিকোড</span>
+        <span className="text-[#084A2E] font-medium">বিজয় ↔ ইউনিকোড</span>
       </nav>
 
       {/* Page Header */}
       <section className="space-y-2">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#083f2a] font-serif">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#084A2E] font-serif">
           বিজয় (ANSI) ↔ ইউনিকোড কনভার্টার
         </h1>
-        <p className="text-sm sm:text-base text-[#6b6255] max-w-3xl leading-relaxed">
+        <p className="text-sm sm:text-base text-[#4A5A52] max-w-3xl leading-relaxed">
           পুরনো সুতন্বীএমজে (SutonnyMJ) ডকুমেন্টের লেখা এবং আধুনিক ইউনিকোডের মধ্যে তাৎক্ষণিক দ্বিমুখী রূপান্তর। নির্ভুল যুক্তাক্ষর ও কার-চিহ্ন বিন্যাস।
         </p>
       </section>
 
       {/* Mode Toggle Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#d8cfb8] pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#D5E4DB] pb-4">
         <div className="flex items-center space-x-1 sm:space-x-2">
           <button
             type="button"
             onClick={() => setMode('bijoy_to_unicode')}
             className={`px-4 py-2 text-xs sm:text-sm font-medium border transition-colors cursor-pointer ${
               mode === 'bijoy_to_unicode'
-                ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                : 'bg-[#fffdf7] text-[#6b6255] border-[#d8cfb8] hover:text-[#083f2a]'
+                ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                : 'bg-[#FFFFFF] text-[#4A5A52] border-[#D5E4DB] hover:text-[#084A2E]'
             }`}
           >
             বিজয় (ANSI) → ইউনিকোড
@@ -182,12 +182,12 @@ export const ConverterPage: React.FC = () => {
             onClick={() => setMode('unicode_to_bijoy')}
             className={`px-4 py-2 text-xs sm:text-sm font-medium border transition-colors cursor-pointer flex items-center space-x-1.5 ${
               mode === 'unicode_to_bijoy'
-                ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                : 'bg-[#fffdf7] text-[#6b6255] border-[#d8cfb8] hover:text-[#083f2a]'
+                ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                : 'bg-[#FFFFFF] text-[#4A5A52] border-[#D5E4DB] hover:text-[#084A2E]'
             }`}
           >
             <span>ইউনিকোড → বিজয় (ANSI)</span>
-            <span className="text-[10px] px-1 py-0.2 bg-[#d8cfb8] text-[#083f2a] rounded-none font-semibold">
+            <span className="text-[10px] px-1 py-0.2 bg-[#D5E4DB] text-[#084A2E] rounded-md font-semibold">
               বেটা
             </span>
           </button>
@@ -197,9 +197,9 @@ export const ConverterPage: React.FC = () => {
         <button
           type="button"
           onClick={handleSwapMode}
-          className="inline-flex items-center px-3 py-1.5 text-xs text-[#083f2a] hover:text-[#0c5c3d] bg-[#fffdf7] border border-[#d8cfb8] transition-colors cursor-pointer"
+          className="inline-flex items-center px-3 py-1.5 text-xs text-[#084A2E] hover:text-[#0B5D3B] bg-[#FFFFFF] border border-[#D5E4DB] transition-colors cursor-pointer rounded-lg"
         >
-          <ArrowLeftRight className="w-3.5 h-3.5 mr-1.5 text-[#0c5c3d]" />
+          <ArrowLeftRight className="w-3.5 h-3.5 mr-1.5 text-[#0B5D3B]" />
           <span>মোড উল্টান</span>
         </button>
       </div>
@@ -208,18 +208,18 @@ export const ConverterPage: React.FC = () => {
       <div className="relative">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 items-stretch">
           {/* Left Panel: Input */}
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 flex flex-col justify-between">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 flex flex-col justify-between rounded-2xl">
             <div>
               {/* Panel Header */}
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#d8cfb8]">
-                <span className="text-xs sm:text-sm font-bold text-[#083f2a] font-serif">
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#D5E4DB]">
+                <span className="text-xs sm:text-sm font-bold text-[#084A2E] font-serif">
                   {mode === 'bijoy_to_unicode'
                     ? 'ইনপুট: SUTONNYMJ / ANSI টেক্সট'
                     : 'ইনপুট: আধুনিক ইউনিকোড (বাংলা)'}
                 </span>
-                <div className="text-[11px] font-mono text-[#6b6255] flex items-center space-x-2">
+                <div className="text-[11px] font-mono text-[#4A5A52] flex items-center space-x-2">
                   <span>বর্ণ: {inputCharCount}</span>
-                  <span className="text-[#d8cfb8]">|</span>
+                  <span className="text-[#D5E4DB]">|</span>
                   <span>শব্দ: {inputWordCount}</span>
                 </div>
               </div>
@@ -234,21 +234,21 @@ export const ConverterPage: React.FC = () => {
                     : 'ইউনিকোড বাংলা টেক্সট এখানে পেস্ট বা টাইপ করুন...'
                 }
                 rows={12}
-                className={`w-full p-3 bg-[#f4efe4]/40 border border-[#d8cfb8] text-sm text-[#14231c] focus:outline-none focus:border-[#0c5c3d] leading-relaxed resize-y min-h-[280px] ${
+                className={`w-full p-3 bg-[#F0F4F2]/40 border border-[#D5E4DB] text-sm text-[#0F1F17] focus:outline-none focus:border-[#0B5D3B] leading-relaxed resize-y min-h-[280px]  rounded-2xl ${
                   mode === 'bijoy_to_unicode' ? 'font-mono' : 'font-sans'
                 }`}
               />
             </div>
 
             {/* Left Panel Footer Buttons */}
-            <div className="pt-3 border-t border-[#d8cfb8] flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div className="pt-3 border-t border-[#D5E4DB] flex flex-wrap items-center justify-between gap-2 text-xs">
               <div className="flex items-center space-x-3">
                 <button
                   type="button"
                   onClick={() =>
                     setInputText(mode === 'bijoy_to_unicode' ? SAMPLE_BIJOY_TEXT : SAMPLE_UNICODE_TEXT)
                   }
-                  className="text-[#083f2a] hover:text-[#0c5c3d] flex items-center space-x-1 hover:underline cursor-pointer"
+                  className="text-[#084A2E] hover:text-[#0B5D3B] flex items-center space-x-1 hover:underline cursor-pointer"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>নমুনা টেক্সট যোগ করুন</span>
@@ -275,9 +275,9 @@ export const ConverterPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 px-2.5 py-1 text-[#14231c] flex items-center space-x-1 transition-colors cursor-pointer"
+                  className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 px-2.5 py-1 text-[#0F1F17] flex items-center space-x-1 transition-colors cursor-pointer rounded-lg"
                 >
-                  <Upload className="w-3.5 h-3.5 text-[#083f2a]" />
+                  <Upload className="w-3.5 h-3.5 text-[#084A2E]" />
                   <span>ফাইল আপলোড (.txt)</span>
                 </button>
               </div>
@@ -290,32 +290,32 @@ export const ConverterPage: React.FC = () => {
               type="button"
               onClick={handleSwapMode}
               title="মোড পরিবর্তন করুন"
-              className="w-9 h-9 rounded-full border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] text-[#0c5c3d] flex items-center justify-center shadow-sm cursor-pointer"
+              className="w-9 h-9 rounded-full border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] text-[#0B5D3B] flex items-center justify-center shadow-sm cursor-pointer"
             >
               <ArrowLeftRight className="w-4 h-4" />
             </button>
           </div>
 
           {/* Right Panel: Output */}
-          <div className="bg-[#fffdf7] border border-[#d8cfb8] p-4 flex flex-col justify-between">
+          <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-4 flex flex-col justify-between rounded-2xl">
             <div>
               {/* Panel Header */}
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#d8cfb8]">
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#D5E4DB]">
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs sm:text-sm font-bold text-[#083f2a] font-serif">
+                  <span className="text-xs sm:text-sm font-bold text-[#084A2E] font-serif">
                     {mode === 'bijoy_to_unicode'
                       ? 'আউটপুট: আধুনিক ইউনিকোড (বাংলা)'
                       : 'আউটপুট: SUTONNYMJ / ANSI টেক্সট'}
                   </span>
-                  <span className="inline-flex items-center text-[11px] text-[#0c5c3d] font-sans font-medium">
-                    <span className={`w-1.5 h-1.5 rounded-full bg-[#0c5c3d] mr-1 ${syncPulse ? 'scale-150' : ''}`}></span>
+                  <span className="inline-flex items-center text-[11px] text-[#0B5D3B] font-sans font-medium">
+                    <span className={`w-1.5 h-1.5 rounded-full bg-[#0B5D3B] mr-1 ${syncPulse ? 'scale-150' : ''}`}></span>
                     স্বয়ংক্রিয় সিঙ্কড
                   </span>
                 </div>
 
-                <div className="text-[11px] font-mono text-[#6b6255] flex items-center space-x-2">
+                <div className="text-[11px] font-mono text-[#4A5A52] flex items-center space-x-2">
                   <span>বর্ণ: {outputCharCount}</span>
-                  <span className="text-[#d8cfb8]">|</span>
+                  <span className="text-[#D5E4DB]">|</span>
                   <span>শব্দ: {outputWordCount}</span>
                 </div>
               </div>
@@ -326,21 +326,21 @@ export const ConverterPage: React.FC = () => {
                 value={outputText}
                 placeholder="রূপান্তরিত ফলাফল এখানে রিয়েল-টাইমে প্রদর্শিত হবে..."
                 rows={12}
-                className={`w-full p-3 bg-[#f4efe4]/20 border border-[#d8cfb8] text-sm text-[#14231c] focus:outline-none leading-relaxed resize-y min-h-[280px] ${
+                className={`w-full p-3 bg-[#F0F4F2]/20 border border-[#D5E4DB] text-sm text-[#0F1F17] focus:outline-none leading-relaxed resize-y min-h-[280px]  rounded-2xl ${
                   mode === 'bijoy_to_unicode' ? 'font-sans' : 'font-mono'
-                } ${syncPulse ? 'ring-1 ring-[#0c5c3d]' : ''}`}
+                } ${syncPulse ? 'ring-1 ring-[#0B5D3B]' : ''}`}
               />
             </div>
 
             {/* Right Panel Footer Buttons */}
-            <div className="pt-3 border-t border-[#d8cfb8] flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div className="pt-3 border-t border-[#D5E4DB] flex flex-wrap items-center justify-between gap-2 text-xs">
               <div className="flex items-center space-x-2">
                 <button
                   type="button"
                   onClick={handleReconvert}
-                  className="border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#d8cfb8]/50 px-2.5 py-1 text-[#14231c] flex items-center space-x-1 transition-colors cursor-pointer"
+                  className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 px-2.5 py-1 text-[#0F1F17] flex items-center space-x-1 transition-colors cursor-pointer rounded-lg"
                 >
-                  <RotateCcw className={`w-3.5 h-3.5 text-[#083f2a] ${syncPulse ? 'animate-spin' : ''}`} />
+                  <RotateCcw className={`w-3.5 h-3.5 text-[#084A2E] ${syncPulse ? 'animate-spin' : ''}`} />
                   <span>পুনরায় রূপান্তর</span>
                 </button>
 
@@ -348,13 +348,13 @@ export const ConverterPage: React.FC = () => {
                   type="button"
                   onClick={handleDownload}
                   disabled={!outputText}
-                  className={`border border-[#d8cfb8] px-2.5 py-1 flex items-center space-x-1 transition-colors ${
+                  className={`border border-[#D5E4DB] px-2.5 py-1 flex items-center space-x-1 transition-colors ${
                     outputText
-                      ? 'bg-[#f4efe4] hover:bg-[#d8cfb8]/50 text-[#14231c] cursor-pointer'
-                      : 'bg-[#d8cfb8]/30 text-[#6b6255] cursor-not-allowed'
+                      ? 'bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 text-[#0F1F17] cursor-pointer'
+                      : 'bg-[#D5E4DB]/30 text-[#4A5A52] cursor-not-allowed'
                   }`}
                 >
-                  <Download className="w-3.5 h-3.5 text-[#083f2a]" />
+                  <Download className="w-3.5 h-3.5 text-[#084A2E]" />
                   <span>ডাউনলোড (.txt)</span>
                 </button>
               </div>
@@ -366,10 +366,10 @@ export const ConverterPage: React.FC = () => {
                   disabled={!outputText}
                   className={`px-4 py-1.5 font-medium flex items-center space-x-1.5 transition-colors ${
                     copied
-                      ? 'bg-[#083f2a] text-[#fffdf7]'
+                      ? 'bg-[#084A2E] text-[#FFFFFF]'
                       : outputText
-                      ? 'bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] cursor-pointer'
-                      : 'bg-[#d8cfb8]/50 text-[#6b6255] cursor-not-allowed'
+                      ? 'bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] cursor-pointer'
+                      : 'bg-[#D5E4DB]/50 text-[#4A5A52] cursor-not-allowed'
                   }`}
                 >
                   {copied ? (
@@ -395,7 +395,7 @@ export const ConverterPage: React.FC = () => {
             type="button"
             onClick={handleSwapMode}
             title="মোড পরিবর্তন করুন"
-            className="w-10 h-10 rounded-full border border-[#d8cfb8] bg-[#fffdf7] hover:bg-[#f4efe4] text-[#0c5c3d] flex items-center justify-center transition-all hover:scale-105 shadow-sm cursor-pointer"
+            className="w-10 h-10 rounded-full border border-[#D5E4DB] bg-[#FFFFFF] hover:bg-[#F0F4F2] text-[#0B5D3B] flex items-center justify-center transition-all hover:scale-105 shadow-sm cursor-pointer"
           >
             <ArrowLeftRight className="w-4 h-4" />
           </button>
@@ -403,39 +403,39 @@ export const ConverterPage: React.FC = () => {
       </div>
 
       {/* Accuracy & Notes Info Box */}
-      <section className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-4">
-        <div className="flex items-center space-x-2 border-b border-[#d8cfb8] pb-3">
-          <Info className="w-4 h-4 text-[#0c5c3d]" />
-          <h2 className="text-base sm:text-lg font-bold text-[#083f2a] font-serif">
+      <section className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-4 rounded-2xl">
+        <div className="flex items-center space-x-2 border-b border-[#D5E4DB] pb-3">
+          <Info className="w-4 h-4 text-[#0B5D3B]" />
+          <h2 className="text-base sm:text-lg font-bold text-[#084A2E] font-serif">
             নির্ভুলতা ও সীমাবদ্ধতা নির্দেশিকা (Accuracy & Notes)
           </h2>
         </div>
 
-        <ul className="text-xs sm:text-sm text-[#14231c] space-y-2.5 leading-relaxed list-disc list-inside">
+        <ul className="text-xs sm:text-sm text-[#0F1F17] space-y-2.5 leading-relaxed list-disc list-inside">
           <li>
-            <strong className="font-semibold text-[#083f2a]">সমর্থিত ফন্ট পরিবার:</strong> SutonnyMJ, Boishakhi, Sutonny, ইত্যাদি বিজয় ANSI এনকোডিংয়ের যে কোনো ফন্টের লেখা সম্পূর্ণ নির্ভুলভাবে ইউনিকোডে রূপান্তর করা সম্ভব।
+            <strong className="font-semibold text-[#084A2E]">সমর্থিত ফন্ট পরিবার:</strong> SutonnyMJ, Boishakhi, Sutonny, ইত্যাদি বিজয় ANSI এনকোডিংয়ের যে কোনো ফন্টের লেখা সম্পূর্ণ নির্ভুলভাবে ইউনিকোডে রূপান্তর করা সম্ভব।
           </li>
           <li>
-            <strong className="font-semibold text-[#083f2a]">স্বয়ংক্রিয় যুক্তাক্ষর ও কার স্থানান্তর:</strong> বাংলায় একার (ে), ই-কার (ি), এবং ঐ-কার (ৈ)-এর মতো প্রি-কারগুলো টাইপিংয়ে পূর্বে আসলেও ইউনিকোড স্পেসিফিকেশন অনুযায়ী ব্যঞ্জনের পরবর্তী সঠিক স্থানে সাজানো হয়।
+            <strong className="font-semibold text-[#084A2E]">স্বয়ংক্রিয় যুক্তাক্ষর ও কার স্থানান্তর:</strong> বাংলায় একার (ে), ই-কার (ি), এবং ঐ-কার (ৈ)-এর মতো প্রি-কারগুলো টাইপিংয়ে পূর্বে আসলেও ইউনিকোড স্পেসিফিকেশন অনুযায়ী ব্যঞ্জনের পরবর্তী সঠিক স্থানে সাজানো হয়।
           </li>
           <li>
-            <strong className="font-semibold text-[#083f2a]">জটিল যুক্তবর্ণ হ্যান্ডলিং:</strong> ক্ষ, জ্ঞ, ত্ত, ঙ্ক, ঙ্গ, ত্র, ভ্র, ষ্ণ সহ প্রায় শতাধিক জটিল বাংলা যুক্তবর্ণ ও রেফ স্বয়ংক্রিয়ভাবে সঠিক ব্যাকরণগত ক্রমানুসারে প্রক্রিয়াভুক্ত হয়।
+            <strong className="font-semibold text-[#084A2E]">জটিল যুক্তবর্ণ হ্যান্ডলিং:</strong> ক্ষ, জ্ঞ, ত্ত, ঙ্ক, ঙ্গ, ত্র, ভ্র, ষ্ণ সহ প্রায় শতাধিক জটিল বাংলা যুক্তবর্ণ ও রেফ স্বয়ংক্রিয়ভাবে সঠিক ব্যাকরণগত ক্রমানুসারে প্রক্রিয়াভুক্ত হয়।
           </li>
           <li>
-            <strong className="font-semibold text-[#083f2a]">গোপনীয়তা নিশ্চয়তা:</strong> সমস্ত কনভার্সন ফাংশন সরাসরি আপনার ব্রাউজারের জাভাস্ক্রিপ্টে কার্যকর হয়। আপনার কোনো ডেটা কোথাও আপলোড বা সেভ হয় না।
+            <strong className="font-semibold text-[#084A2E]">গোপনীয়তা নিশ্চয়তা:</strong> সমস্ত কনভার্সন ফাংশন সরাসরি আপনার ব্রাউজারের জাভাস্ক্রিপ্টে কার্যকর হয়। আপনার কোনো ডেটা কোথাও আপলোড বা সেভ হয় না।
           </li>
         </ul>
       </section>
 
       {/* Verified Character Mapping Reference (Generated FROM CONVERSION_MAP) */}
-      <section className="bg-[#fffdf7] border border-[#d8cfb8] p-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#d8cfb8] pb-3">
+      <section className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 rounded-2xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#D5E4DB] pb-3">
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-[#083f2a] font-serif flex items-center space-x-2">
-              <Sparkles className="w-4 h-4 text-[#0c5c3d]" />
+            <h3 className="text-sm sm:text-base font-bold text-[#084A2E] font-serif flex items-center space-x-2">
+              <Sparkles className="w-4 h-4 text-[#0B5D3B]" />
               <span>কনভার্সন ম্যাপ রেফারেন্স (CONVERSION_MAP ভিত্তিক ক্যারেক্টার টেবিল)</span>
             </h3>
-            <p className="text-xs text-[#6b6255] mt-0.5">
+            <p className="text-xs text-[#4A5A52] mt-0.5">
               প্রকৃত কনভার্সন ম্যাপিং টেবিল থেকে সরাসরি জেনারেট করা তালিকা
             </p>
           </div>
@@ -446,12 +446,12 @@ export const ConverterPage: React.FC = () => {
               value={searchMap}
               onChange={(e) => setSearchMap(e.target.value)}
               placeholder="অক্ষর বা কি খুঁজুন..."
-              className="px-2.5 py-1 text-xs bg-[#f4efe4] border border-[#d8cfb8] focus:outline-none focus:border-[#0c5c3d]"
+              className="px-2.5 py-1 text-xs bg-[#F0F4F2] border border-[#D5E4DB] focus:outline-none focus:border-[#0B5D3B] rounded-lg"
             />
             <button
               type="button"
               onClick={() => setShowMappingTable(!showMappingTable)}
-              className="text-xs border border-[#d8cfb8] bg-[#f4efe4] px-2.5 py-1 text-[#083f2a] flex items-center space-x-1 cursor-pointer"
+              className="text-xs border border-[#D5E4DB] bg-[#F0F4F2] px-2.5 py-1 text-[#084A2E] flex items-center space-x-1 cursor-pointer rounded-lg"
             >
               <span>{showMappingTable ? 'লুকান' : 'প্রদর্শন করুন'}</span>
               {showMappingTable ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -461,25 +461,25 @@ export const ConverterPage: React.FC = () => {
 
         {showMappingTable && (
           <div className="pt-4 space-y-3">
-            <div className="max-h-72 overflow-y-auto border border-[#d8cfb8]">
+            <div className="max-h-72 overflow-y-auto border border-[#D5E4DB]">
               <table className="w-full text-xs text-left">
-                <thead className="bg-[#f4efe4] text-[#083f2a] border-b border-[#d8cfb8] sticky top-0">
+                <thead className="bg-[#F0F4F2] text-[#084A2E] border-b border-[#D5E4DB] sticky top-0">
                   <tr>
                     <th className="p-2.5 font-mono">Bijoy (SutonnyMJ কি)</th>
                     <th className="p-2.5 font-sans">ইউনিকোড আউটপুট</th>
-                    <th className="p-2.5 font-mono text-[#6b6255]">ইউনিকোড কোডপয়েন্ট</th>
+                    <th className="p-2.5 font-mono text-[#4A5A52]">ইউনিকোড কোডপয়েন্ট</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#d8cfb8]">
+                <tbody className="divide-y divide-[#D5E4DB]">
                   {verifiedMappings.slice(0, 80).map((item, idx) => (
-                    <tr key={idx} className="hover:bg-[#f4efe4]/50">
-                      <td className="p-2 font-mono text-[#083f2a] font-medium bg-[#f4efe4]/30">
+                    <tr key={idx} className="hover:bg-[#F0F4F2]/50">
+                      <td className="p-2 font-mono text-[#084A2E] font-medium bg-[#F0F4F2]/30">
                         {item.bijoy}
                       </td>
-                      <td className="p-2 font-sans text-base text-[#14231c]">
+                      <td className="p-2 font-sans text-base text-[#0F1F17]">
                         {item.unicode}
                       </td>
-                      <td className="p-2 font-mono text-[#6b6255]">
+                      <td className="p-2 font-mono text-[#4A5A52]">
                         {Array.from(item.unicode)
                           .map((c: string) => 'U+' + c.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0'))
                           .join(' ')}
@@ -489,7 +489,7 @@ export const ConverterPage: React.FC = () => {
                 </tbody>
               </table>
             </div>
-            <p className="text-[11px] text-[#6b6255] font-mono text-right">
+            <p className="text-[11px] text-[#4A5A52] font-mono text-right">
               মোট {verifiedMappings.length} টি এনকোডিং ম্যাপিং লোড করা হয়েছে
             </p>
           </div>
@@ -497,39 +497,39 @@ export const ConverterPage: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-[#fffdf7] border border-[#d8cfb8] p-5 sm:p-6 space-y-5">
-        <div className="flex items-center space-x-2 border-b border-[#d8cfb8] pb-3">
-          <Info className="w-4 h-4 text-[#0c5c3d]" />
-          <h2 className="text-base sm:text-lg font-bold text-[#083f2a] font-serif">
+      <section className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-5 rounded-2xl">
+        <div className="flex items-center space-x-2 border-b border-[#D5E4DB] pb-3">
+          <Info className="w-4 h-4 text-[#0B5D3B]" />
+          <h2 className="text-base sm:text-lg font-bold text-[#084A2E] font-serif">
             প্রায়শই জিজ্ঞাসিত প্রশ্ন (FAQ)
           </h2>
         </div>
 
-        <div className="space-y-5 text-xs sm:text-sm text-[#14231c] leading-relaxed">
+        <div className="space-y-5 text-xs sm:text-sm text-[#0F1F17] leading-relaxed">
           <div className="space-y-1.5">
-            <h3 className="font-bold text-[#083f2a]">বিজয় (ANSI) আর ইউনিকোডের পার্থক্য কী?</h3>
-            <p className="text-[#4a4237]">
+            <h3 className="font-bold text-[#084A2E]">বিজয় (ANSI) আর ইউনিকোডের পার্থক্য কী?</h3>
+            <p className="text-[#34443B]">
               বিজয় (সুতন্বীএমজে, বৈশাখী ইত্যাদি) একটা পুরনো <strong>ANSI-ভিত্তিক এনকোডিং</strong>, যেখানে প্রতিটা বাংলা অক্ষরকে একটা নির্দিষ্ট ইংরেজি key-এর সাথে ম্যাপ করা হয় — সেই ফন্ট ইনস্টল করা না থাকলে লেখা ভাঙা/অপাঠ্য দেখায়। ইউনিকোড হলো আন্তর্জাতিক স্ট্যান্ডার্ড এনকোডিং যেখানে প্রতিটা বাংলা অক্ষরের একটা নির্দিষ্ট, ফন্ট-নিরপেক্ষ কোড থাকে — তাই যেকোনো ডিভাইস, ব্রাউজার বা সোশ্যাল মিডিয়ায় ঠিকভাবে দেখা যায়।
             </p>
           </div>
 
           <div className="space-y-1.5">
-            <h3 className="font-bold text-[#083f2a]">কখন কোনটা দরকার হয়?</h3>
-            <p className="text-[#4a4237]">
+            <h3 className="font-bold text-[#084A2E]">কখন কোনটা দরকার হয়?</h3>
+            <p className="text-[#34443B]">
               পুরনো সংবাদপত্র অফিস, প্রেস বা সরকারি দপ্তরের আর্কাইভ করা ডকুমেন্ট প্রায়ই বিজয়/সুতন্বীএমজে ফরম্যাটে থাকে — সেগুলো ওয়েবসাইট, ফেসবুক বা মোবাইলে ব্যবহার করতে হলে <strong>ইউনিকোডে রূপান্তর</strong> করতে হয়। উল্টোদিকে, কিছু পুরনো প্রিন্টিং প্রেস বা সফটওয়্যার এখনো শুধু বিজয় এনকোডিং নেয় — তখন ইউনিকোড থেকে <strong>বিজয়ে রূপান্তর</strong> দরকার হয়।
             </p>
           </div>
 
           <div className="space-y-1.5">
-            <h3 className="font-bold text-[#083f2a]">কপি করার পর ফন্ট ভেঙে/উল্টাপাল্টা দেখাচ্ছে কেন?</h3>
-            <p className="text-[#4a4237]">
+            <h3 className="font-bold text-[#084A2E]">কপি করার পর ফন্ট ভেঙে/উল্টাপাল্টা দেখাচ্ছে কেন?</h3>
+            <p className="text-[#34443B]">
               এটা সবচেয়ে কমন সমস্যা। ইউনিকোডে রূপান্তরিত টেক্সট কোনো <strong>বিজয়-ফন্ট সিলেক্ট করা</strong> জায়গায় (যেমন MS Word-এ SutonnyMJ ফন্ট সিলেক্ট করা থাকলে) পেস্ট করলে অক্ষর ভাঙা দেখাবে — কারণ ফন্ট আর এনকোডিং মিলছে না। সমাধান: পেস্ট করার আগে সেই জায়গায় ফন্ট বদলে <strong>Kalpurush, SolaimanLipi, Nikosh</strong> এর মতো ইউনিকোড বাংলা ফন্ট সিলেক্ট করে নিন। উল্টোদিকে বিজয়ে কনভার্ট করা টেক্সট পেস্ট করার সময় অবশ্যই SutonnyMJ/বিজয় ফন্ট সিলেক্ট থাকতে হবে, নাহলে সেটাও ভাঙা দেখাবে।
             </p>
           </div>
 
           <div className="space-y-1.5">
-            <h3 className="font-bold text-[#083f2a]">আমার ডেটা কি কোথাও জমা থাকে?</h3>
-            <p className="text-[#4a4237]">
+            <h3 className="font-bold text-[#084A2E]">আমার ডেটা কি কোথাও জমা থাকে?</h3>
+            <p className="text-[#34443B]">
               না। পুরো রূপান্তর প্রক্রিয়াটা আপনার ব্রাউজারেই (JavaScript দিয়ে) হয় — কোনো সার্ভারে আপলোড হয় না, তাই সংবেদনশীল বা ব্যক্তিগত ডকুমেন্টও নিরাপদে রূপান্তর করা যায়।
             </p>
           </div>

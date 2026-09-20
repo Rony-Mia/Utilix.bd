@@ -16,7 +16,7 @@ export default function App({ helmetContext }: AppProps) {
   return (
     <HelmetProvider context={helmetContext}>
       <ScrollToTop />
-      <div className="min-h-screen flex flex-col bg-[#f4efe4] text-[#14231c]">
+      <div className="min-h-screen flex flex-col bg-[#FAFAF7] text-[#0F1F17]">
         {/* Top Navbar */}
         <Navbar
           activeCategory={selectedCategory}
@@ -37,12 +37,12 @@ export default function App({ helmetContext }: AppProps) {
 
         {/* Floating / Direct Terms of Use Modal when triggered from Trust section */}
         {showTermsModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-            <div className="bg-[#fffdf7] border border-[#d8cfb8] max-w-lg w-full p-6 relative rounded-none">
-              <h3 className="text-lg font-serif font-bold text-[#083f2a] mb-2 pb-2 border-b border-[#d8cfb8]">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0F1F17]/50 backdrop-blur-sm p-4" role="dialog" aria-modal="true" aria-label="ব্যবহারের নিয়ম ও তথ্যের নিরাপত্তা নির্দেশিকা">
+            <div className="bg-white border border-[#D5E4DB] max-w-lg w-full p-6 relative rounded-2xl shadow-[0_24px_64px_rgba(11,93,59,0.18)]">
+              <h3 className="text-lg font-serif font-bold text-[#084A2E] mb-2 pb-2 border-b border-[#D5E4DB]">
                 ব্যবহারের নিয়ম ও তথ্যের নিরাপত্তা নির্দেশিকা
               </h3>
-              <div className="text-xs sm:text-sm text-[#14231c] leading-relaxed space-y-3">
+              <div className="text-xs sm:text-sm text-[#0F1F17] leading-relaxed space-y-3">
                 <p>
                   <strong>১. শতভাগ ক্লায়েন্ট-সাইড প্রসেসিং:</strong> ইউটিলিক্স (Utilix.bd)-এর প্রতিটি ইউটিলিটি টুল সম্পূর্ণ ক্লায়েন্ট-সাইড মেমোরিতে পরিচালিত হয়। আপনার টাইপকৃত কোনো টেক্সট, হিসাবের তথ্য বা আপলোডকৃত ফাইল কোনো বাহ্যিক সার্ভার বা ক্লাউড স্টোরেজে জমা হয় না।
                 </p>
@@ -53,11 +53,11 @@ export default function App({ helmetContext }: AppProps) {
                   <strong>৩. ফলাফলের নির্ভুলতা:</strong> বাংলা যুক্তাক্ষর ও ফন্ট রূপান্তরের ক্ষেত্রে প্রচলিত সুতন্বীএমজে এবং ইউনিকোড স্ট্যান্ডার্ড সতর্কতার সাথে অনুসরণ করা হয়েছে।
                 </p>
               </div>
-              <div className="mt-6 pt-3 border-t border-[#d8cfb8] flex justify-end">
+              <div className="mt-6 pt-3 border-t border-[#D5E4DB] flex justify-end">
                 <button
                   type="button"
                   onClick={() => setShowTermsModal(false)}
-                  className="px-4 py-1.5 bg-[#0c5c3d] text-[#fffdf7] text-xs font-medium hover:bg-[#083f2a] transition-colors cursor-pointer"
+                  className="px-4 py-1.5 bg-[#0B5D3B] text-[#FFFFFF] text-xs font-medium hover:bg-[#084A2E] transition-colors cursor-pointer"
                 >
                   সম্মত ও বন্ধ করুন
                 </button>

@@ -477,41 +477,41 @@ export const ImageMergerPage: React.FC = () => {
       </Helmet>
 
       {/* HEADER SECTION */}
-      <div className="border-b border-[#d8cfb8] pb-6 space-y-3">
+      <div className="border-b border-[#D5E4DB] pb-6 space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
-            <span className="text-[11px] font-mono font-bold bg-[#0c5c3d] text-[#fffdf7] px-2.5 py-0.5">
+            <span className="text-[11px] font-mono font-bold bg-[#0B5D3B] text-[#FFFFFF] px-2.5 py-0.5">
               ইমেজ প্রসেসিং ও লেআউট
             </span>
-            <span className="text-xs font-mono text-[#6b6255]">IMG-GOV-03</span>
+            <span className="text-xs font-mono text-[#4A5A52]">IMG-GOV-03</span>
           </div>
 
-          <div className="flex items-center space-x-2 text-xs text-[#0c5c3d] font-medium">
+          <div className="flex items-center space-x-2 text-xs text-[#0B5D3B] font-medium">
             <ShieldCheck className="w-4 h-4" />
             <span>১০০% ব্রাউজার প্রসেসিং • প্রাইভেট ও নিরাপদ</span>
           </div>
         </div>
 
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#083f2a] tracking-tight">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#084A2E] tracking-tight">
           ইমেজ মার্জার ও কোলাজ মেকার (Image Merger & Grid Creator)
         </h1>
 
-        <p className="text-sm sm:text-base text-[#4a4237] max-w-4xl leading-relaxed">
+        <p className="text-sm sm:text-base text-[#34443B] max-w-4xl leading-relaxed">
           একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজ, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। সরকারি আবেদন, পাসপোর্ট ছবি প্রিন্ট লেআউট, এনআইডি কার্ডের এপিঠ-ওপিঠ বা প্রজেক্ট রিপোর্টের জন্য আদর্শ। কোনো ছবি সার্ভারে যায় না।
         </p>
       </div>
 
       {/* WORKBENCH CONTAINER */}
-      <div className="border border-[#d8cfb8] bg-[#fffdf7] p-5 sm:p-7 lg:p-8 space-y-8">
+      <div className="border border-[#D5E4DB] bg-[#FFFFFF] p-5 sm:p-7 lg:p-8 space-y-8 rounded-2xl">
         {/* SECTION 1: UPLOAD & SORTABLE IMAGES */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 text-xs font-mono text-[#083f2a]">
-              <span className="bg-[#f4efe4] border border-[#d8cfb8] px-2 py-0.5 font-bold">ধাপ ১</span>
+            <div className="flex items-center space-x-2 text-xs font-mono text-[#084A2E]">
+              <span className="bg-[#F0F4F2] border border-[#D5E4DB] px-2 py-0.5 font-bold">ধাপ ১</span>
               <span className="font-bold">ছবি আপলোড ও ক্রমবিন্যাস (Images & Reorder)</span>
             </div>
             {items.length > 0 && (
-              <span className="text-xs font-mono text-[#6b6255]">
+              <span className="text-xs font-mono text-[#4A5A52]">
                 {toBanglaDigits(items.length)}টি ছবি লোড করা হয়েছে
               </span>
             )}
@@ -530,19 +530,19 @@ export const ImageMergerPage: React.FC = () => {
 
         {/* SECTION 2 & 3: CONFIGURATION AND LIVE PREVIEW (2-COLUMN GRID) */}
         {items.length > 0 && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4 border-t border-[#d8cfb8]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4 border-t border-[#D5E4DB]">
             {/* LEFT COLUMN: CONTROLS PANEL (7 COLS) */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="flex items-center space-x-2 pb-2 border-b border-[#d8cfb8]">
-                <Sliders className="w-4 h-4 text-[#0c5c3d]" />
-                <h2 className="font-bold text-sm sm:text-base text-[#083f2a] font-serif">
+              <div className="flex items-center space-x-2 pb-2 border-b border-[#D5E4DB]">
+                <Sliders className="w-4 h-4 text-[#0B5D3B]" />
+                <h2 className="font-bold text-sm sm:text-base text-[#084A2E] font-serif">
                   লেআউট ও পেজ কনফিগারেশন
                 </h2>
               </div>
 
               {/* Quick Preset Buttons */}
               <div className="space-y-1.5">
-                <span className="text-xs font-bold text-[#083f2a] block">জনপ্রিয় প্রিসেট (Quick Presets)</span>
+                <span className="text-xs font-bold text-[#084A2E] block">জনপ্রিয় প্রিসেট (Quick Presets)</span>
                 <div className="flex flex-wrap gap-2">
                   {[
                     { id: 'a4_2x2', label: 'A4 পেজে ৪টি ছবি (২×২)' },
@@ -555,7 +555,7 @@ export const ImageMergerPage: React.FC = () => {
                       key={p.id}
                       type="button"
                       onClick={() => applyPreset(p.id)}
-                      className="text-xs px-2.5 py-1.5 border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#0c5c3d] hover:text-[#fffdf7] hover:border-[#0c5c3d] text-[#083f2a] transition-colors cursor-pointer"
+                      className="text-xs px-2.5 py-1.5 border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#0B5D3B] hover:text-[#FFFFFF] hover:border-[#0B5D3B] text-[#084A2E] transition-colors cursor-pointer rounded-lg"
                     >
                       {p.label}
                     </button>
@@ -566,7 +566,7 @@ export const ImageMergerPage: React.FC = () => {
               {/* Page Size & Orientation */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#083f2a] block">পেজ সাইজ (Page Size)</label>
+                  <label className="text-xs font-bold text-[#084A2E] block">পেজ সাইজ (Page Size)</label>
                   <div className="grid grid-cols-3 gap-1.5">
                     {(['A4', 'Letter', 'A3', 'AutoFit', 'Custom'] as PageSize[]).map((size) => (
                       <button
@@ -575,8 +575,8 @@ export const ImageMergerPage: React.FC = () => {
                         onClick={() => setPageSize(size)}
                         className={`py-1.5 text-xs font-medium border text-center transition-colors cursor-pointer ${
                           pageSize === size
-                            ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                            : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                            ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                            : 'bg-[#FFFFFF] text-[#084A2E] border-[#D5E4DB] hover:bg-[#F0F4F2]'
                         }`}
                       >
                         {size === 'AutoFit' ? 'অটোফিট' : size === 'Custom' ? 'কাস্টম' : size}
@@ -587,15 +587,15 @@ export const ImageMergerPage: React.FC = () => {
 
                 {pageSize !== 'AutoFit' && pageSize !== 'Custom' && (
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#083f2a] block">পেজ ওরিয়েন্টেশন</label>
+                    <label className="text-xs font-bold text-[#084A2E] block">পেজ ওরিয়েন্টেশন</label>
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         type="button"
                         onClick={() => setOrientation('portrait')}
                         className={`py-1.5 text-xs font-medium border text-center transition-colors cursor-pointer ${
                           orientation === 'portrait'
-                            ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                            : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                            ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                            : 'bg-[#FFFFFF] text-[#084A2E] border-[#D5E4DB] hover:bg-[#F0F4F2]'
                         }`}
                       >
                         লম্বালম্বি (Portrait)
@@ -605,8 +605,8 @@ export const ImageMergerPage: React.FC = () => {
                         onClick={() => setOrientation('landscape')}
                         className={`py-1.5 text-xs font-medium border text-center transition-colors cursor-pointer ${
                           orientation === 'landscape'
-                            ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                            : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                            ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                            : 'bg-[#FFFFFF] text-[#084A2E] border-[#D5E4DB] hover:bg-[#F0F4F2]'
                         }`}
                       >
                         আড়াআড়ি (Landscape)
@@ -618,9 +618,9 @@ export const ImageMergerPage: React.FC = () => {
 
               {/* Custom Dimensions (if Custom PageSize) */}
               {pageSize === 'Custom' && (
-                <div className="grid grid-cols-2 gap-4 p-3 bg-[#f4efe4]/50 border border-[#d8cfb8]">
+                <div className="grid grid-cols-2 gap-4 p-3 bg-[#F0F4F2]/50 border border-[#D5E4DB] rounded-2xl">
                   <div className="space-y-1">
-                    <label htmlFor={customWidthInputId} className="text-xs font-bold text-[#083f2a]">
+                    <label htmlFor={customWidthInputId} className="text-xs font-bold text-[#084A2E]">
                       কাস্টম প্রস্থ (Width px)
                     </label>
                     <input
@@ -631,11 +631,11 @@ export const ImageMergerPage: React.FC = () => {
                       step="50"
                       value={customWidth}
                       onChange={(e) => setCustomWidth(Number(e.target.value))}
-                      className="w-full px-2.5 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs font-mono"
+                      className="w-full px-2.5 py-1.5 border border-[#D5E4DB] bg-[#FFFFFF] text-xs font-mono rounded-lg"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label htmlFor={customHeightInputId} className="text-xs font-bold text-[#083f2a]">
+                    <label htmlFor={customHeightInputId} className="text-xs font-bold text-[#084A2E]">
                       কাস্টম উচ্চতা (Height px)
                     </label>
                     <input
@@ -646,7 +646,7 @@ export const ImageMergerPage: React.FC = () => {
                       step="50"
                       value={customHeight}
                       onChange={(e) => setCustomHeight(Number(e.target.value))}
-                      className="w-full px-2.5 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs font-mono"
+                      className="w-full px-2.5 py-1.5 border border-[#D5E4DB] bg-[#FFFFFF] text-xs font-mono rounded-lg"
                     />
                   </div>
                 </div>
@@ -654,15 +654,15 @@ export const ImageMergerPage: React.FC = () => {
 
               {/* Layout Mode & Grid Matrix */}
               <div className="space-y-3">
-                <label className="text-xs font-bold text-[#083f2a] block">লেআউট বিন্যাস (Layout Mode)</label>
+                <label className="text-xs font-bold text-[#084A2E] block">লেআউট বিন্যাস (Layout Mode)</label>
                 <div className="grid grid-cols-3 gap-2">
                   <button
                     type="button"
                     onClick={() => setLayoutMode('grid')}
                     className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
                       layoutMode === 'grid'
-                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                        ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                        : 'bg-[#FFFFFF] text-[#084A2E] border-[#D5E4DB] hover:bg-[#F0F4F2]'
                     }`}
                   >
                     গ্রিড কোলাজ (Grid)
@@ -672,8 +672,8 @@ export const ImageMergerPage: React.FC = () => {
                     onClick={() => setLayoutMode('vertical')}
                     className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
                       layoutMode === 'vertical'
-                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                        ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                        : 'bg-[#FFFFFF] text-[#084A2E] border-[#D5E4DB] hover:bg-[#F0F4F2]'
                     }`}
                   >
                     ভার্টিক্যাল স্ট্যাক (Vertical)
@@ -683,8 +683,8 @@ export const ImageMergerPage: React.FC = () => {
                     onClick={() => setLayoutMode('horizontal')}
                     className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
                       layoutMode === 'horizontal'
-                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                        ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                        : 'bg-[#FFFFFF] text-[#084A2E] border-[#D5E4DB] hover:bg-[#F0F4F2]'
                     }`}
                   >
                     হরাইজন্টাল সারি (Row)
@@ -695,9 +695,9 @@ export const ImageMergerPage: React.FC = () => {
                 {layoutMode === 'grid' && (
                   <div className="grid grid-cols-2 gap-4 pt-1">
                     <div className="space-y-1">
-                      <div className="flex justify-between text-xs text-[#083f2a]">
+                      <div className="flex justify-between text-xs text-[#084A2E]">
                         <label htmlFor={colsInputId} className="font-bold">কলাম সংখ্যা (Columns)</label>
-                        <span className="font-mono text-[#0c5c3d] font-bold">{columns} কলাম</span>
+                        <span className="font-mono text-[#0B5D3B] font-bold">{columns} কলাম</span>
                       </div>
                       <input
                         id={colsInputId}
@@ -706,9 +706,9 @@ export const ImageMergerPage: React.FC = () => {
                         max="6"
                         value={columns}
                         onChange={(e) => setColumns(Number(e.target.value))}
-                        className="w-full accent-[#0c5c3d]"
+                        className="w-full accent-[#0B5D3B]"
                       />
-                      <div className="flex justify-between text-[10px] text-[#6b6255]">
+                      <div className="flex justify-between text-[10px] text-[#4A5A52]">
                         <span>১ কলাম</span>
                         <span>২ (স্ট্যান্ডার্ড)</span>
                         <span>৬ কলাম</span>
@@ -716,9 +716,9 @@ export const ImageMergerPage: React.FC = () => {
                     </div>
 
                     <div className="space-y-1">
-                      <div className="flex justify-between text-xs text-[#083f2a]">
+                      <div className="flex justify-between text-xs text-[#084A2E]">
                         <label htmlFor={rowsInputId} className="font-bold">সারি সংখ্যা (Rows)</label>
-                        <span className="font-mono text-[#0c5c3d] font-bold">{rows} সারি</span>
+                        <span className="font-mono text-[#0B5D3B] font-bold">{rows} সারি</span>
                       </div>
                       <input
                         id={rowsInputId}
@@ -727,9 +727,9 @@ export const ImageMergerPage: React.FC = () => {
                         max="8"
                         value={rows}
                         onChange={(e) => setRows(Number(e.target.value))}
-                        className="w-full accent-[#0c5c3d]"
+                        className="w-full accent-[#0B5D3B]"
                       />
-                      <div className="flex justify-between text-[10px] text-[#6b6255]">
+                      <div className="flex justify-between text-[10px] text-[#4A5A52]">
                         <span>১ সারি</span>
                         <span>২ (স্ট্যান্ডার্ড)</span>
                         <span>৮ সারি</span>
@@ -741,7 +741,7 @@ export const ImageMergerPage: React.FC = () => {
 
               {/* Image Fit Option */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#083f2a] block">
+                <label className="text-xs font-bold text-[#084A2E] block">
                   ছবির অনুপাত ও ফিট (Image Fit)
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -756,8 +756,8 @@ export const ImageMergerPage: React.FC = () => {
                       onClick={() => setImageFit(fit.id as ImageFit)}
                       className={`py-1.5 text-xs font-medium border text-center transition-colors cursor-pointer ${
                         imageFit === fit.id
-                          ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                          : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                          ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                          : 'bg-[#FFFFFF] text-[#084A2E] border-[#D5E4DB] hover:bg-[#F0F4F2]'
                       }`}
                     >
                       {fit.label}
@@ -767,11 +767,11 @@ export const ImageMergerPage: React.FC = () => {
               </div>
 
               {/* Spacing & Borders Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-[#f4efe4]/40 border border-[#d8cfb8]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-[#F0F4F2]/40 border border-[#D5E4DB] rounded-2xl">
                 <div className="space-y-1">
-                  <div className="flex justify-between text-xs text-[#083f2a]">
+                  <div className="flex justify-between text-xs text-[#084A2E]">
                     <label htmlFor={paddingInputId} className="font-medium">ছবিগুলোর দূরত্ব (Padding)</label>
-                    <span className="font-mono text-[#6b6255]">{padding}px</span>
+                    <span className="font-mono text-[#4A5A52]">{padding}px</span>
                   </div>
                   <input
                     id={paddingInputId}
@@ -780,14 +780,14 @@ export const ImageMergerPage: React.FC = () => {
                     max="50"
                     value={padding}
                     onChange={(e) => setPadding(Number(e.target.value))}
-                    className="w-full accent-[#0c5c3d]"
+                    className="w-full accent-[#0B5D3B]"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <div className="flex justify-between text-xs text-[#083f2a]">
+                  <div className="flex justify-between text-xs text-[#084A2E]">
                     <label htmlFor={marginInputId} className="font-medium">পেজ বর্ডার মার্জিন</label>
-                    <span className="font-mono text-[#6b6255]">{margin}px</span>
+                    <span className="font-mono text-[#4A5A52]">{margin}px</span>
                   </div>
                   <input
                     id={marginInputId}
@@ -796,14 +796,14 @@ export const ImageMergerPage: React.FC = () => {
                     max="60"
                     value={margin}
                     onChange={(e) => setMargin(Number(e.target.value))}
-                    className="w-full accent-[#0c5c3d]"
+                    className="w-full accent-[#0B5D3B]"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <div className="flex justify-between text-xs text-[#083f2a]">
+                  <div className="flex justify-between text-xs text-[#084A2E]">
                     <label htmlFor={radiusInputId} className="font-medium">গোল কোণ (Border Radius)</label>
-                    <span className="font-mono text-[#6b6255]">{borderRadius}px</span>
+                    <span className="font-mono text-[#4A5A52]">{borderRadius}px</span>
                   </div>
                   <input
                     id={radiusInputId}
@@ -812,14 +812,14 @@ export const ImageMergerPage: React.FC = () => {
                     max="30"
                     value={borderRadius}
                     onChange={(e) => setBorderRadius(Number(e.target.value))}
-                    className="w-full accent-[#0c5c3d]"
+                    className="w-full accent-[#0B5D3B]"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <div className="flex justify-between text-xs text-[#083f2a]">
+                  <div className="flex justify-between text-xs text-[#084A2E]">
                     <label htmlFor={borderWidthInputId} className="font-medium">বর্ডার স্ট্রোক (Border Width)</label>
-                    <span className="font-mono text-[#6b6255]">{borderWidth}px</span>
+                    <span className="font-mono text-[#4A5A52]">{borderWidth}px</span>
                   </div>
                   <input
                     id={borderWidthInputId}
@@ -828,7 +828,7 @@ export const ImageMergerPage: React.FC = () => {
                     max="8"
                     value={borderWidth}
                     onChange={(e) => setBorderWidth(Number(e.target.value))}
-                    className="w-full accent-[#0c5c3d]"
+                    className="w-full accent-[#0B5D3B]"
                   />
                 </div>
               </div>
@@ -836,7 +836,7 @@ export const ImageMergerPage: React.FC = () => {
               {/* Background Color & Border Color Pickers */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <span className="text-xs font-bold text-[#083f2a] block">পেজের পটভূমি (Background)</span>
+                  <span className="text-xs font-bold text-[#084A2E] block">পেজের পটভূমি (Background)</span>
                   <div className="flex items-center space-x-2">
                     {[
                       { label: 'সাদা', val: '#ffffff' },
@@ -850,8 +850,8 @@ export const ImageMergerPage: React.FC = () => {
                         onClick={() => setBackgroundColor(b.val)}
                         className={`px-2 py-1 text-xs border transition-all cursor-pointer ${
                           backgroundColor === b.val
-                            ? 'border-[#0c5c3d] ring-1 ring-[#0c5c3d] font-bold bg-[#fffdf7]'
-                            : 'border-[#d8cfb8] bg-[#fffdf7]'
+                            ? 'border-[#0B5D3B] ring-1 ring-[#0B5D3B] font-bold bg-[#FFFFFF]'
+                            : 'border-[#D5E4DB] bg-[#FFFFFF]'
                         }`}
                       >
                         {b.label}
@@ -862,14 +862,14 @@ export const ImageMergerPage: React.FC = () => {
                       value={backgroundColor === 'transparent' ? '#ffffff' : backgroundColor}
                       onChange={(e) => setBackgroundColor(e.target.value)}
                       title="কাস্টম ব্যাকগ্রাউন্ড কালার"
-                      className="w-7 h-7 border border-[#d8cfb8] p-0.5 bg-[#fffdf7] cursor-pointer"
+                      className="w-7 h-7 border border-[#D5E4DB] p-0.5 bg-[#FFFFFF] cursor-pointer rounded-lg"
                     />
                   </div>
                 </div>
 
                 {borderWidth > 0 && (
                   <div className="space-y-1.5">
-                    <span className="text-xs font-bold text-[#083f2a] block">বর্ডার কালার (Border Color)</span>
+                    <span className="text-xs font-bold text-[#084A2E] block">বর্ডার কালার (Border Color)</span>
                     <div className="flex items-center space-x-2">
                       {[
                         { label: 'বেজ', val: '#d8cfb8' },
@@ -883,8 +883,8 @@ export const ImageMergerPage: React.FC = () => {
                           onClick={() => setBorderColor(c.val)}
                           className={`px-2 py-1 text-xs border transition-all cursor-pointer ${
                             borderColor === c.val
-                              ? 'border-[#0c5c3d] ring-1 ring-[#0c5c3d] font-bold bg-[#fffdf7]'
-                              : 'border-[#d8cfb8] bg-[#fffdf7]'
+                              ? 'border-[#0B5D3B] ring-1 ring-[#0B5D3B] font-bold bg-[#FFFFFF]'
+                              : 'border-[#D5E4DB] bg-[#FFFFFF]'
                           }`}
                         >
                           {c.label}
@@ -895,7 +895,7 @@ export const ImageMergerPage: React.FC = () => {
                         value={borderColor}
                         onChange={(e) => setBorderColor(e.target.value)}
                         title="কাস্টম বর্ডার কালার"
-                        className="w-7 h-7 border border-[#d8cfb8] p-0.5 bg-[#fffdf7] cursor-pointer"
+                        className="w-7 h-7 border border-[#D5E4DB] p-0.5 bg-[#FFFFFF] cursor-pointer rounded-lg"
                       />
                     </div>
                   </div>
@@ -906,20 +906,20 @@ export const ImageMergerPage: React.FC = () => {
             {/* RIGHT COLUMN: LIVE INTERACTIVE PREVIEW & EXPORT PANEL (5 COLS) */}
             <div className="lg:col-span-5 space-y-5">
               {/* Preview Header */}
-              <div className="flex items-center justify-between pb-2 border-b border-[#d8cfb8]">
+              <div className="flex items-center justify-between pb-2 border-b border-[#D5E4DB]">
                 <div className="flex items-center space-x-2">
-                  <Eye className="w-4 h-4 text-[#0c5c3d]" />
-                  <h3 className="font-bold text-sm text-[#083f2a] font-serif">
+                  <Eye className="w-4 h-4 text-[#0B5D3B]" />
+                  <h3 className="font-bold text-sm text-[#084A2E] font-serif">
                     লাইভ ক্যানভাস প্রিভিউ
                   </h3>
                 </div>
-                <span className="text-xs font-mono text-[#6b6255]">
+                <span className="text-xs font-mono text-[#4A5A52]">
                   {canvasDimensions.width} × {canvasDimensions.height} px
                 </span>
               </div>
 
               {/* Viewport Box */}
-              <div className="border border-[#d8cfb8] bg-[#ece5d8]/40 p-4 flex flex-col items-center justify-center min-h-[340px] max-h-[500px] overflow-hidden relative shadow-inner">
+              <div className="border border-[#D5E4DB] bg-[#E4EEE8]/40 p-4 flex flex-col items-center justify-center min-h-[340px] max-h-[500px] overflow-hidden relative shadow-inner rounded-2xl">
                 {previewDataUrl ? (
                   <div className="relative max-w-full max-h-[460px] flex items-center justify-center shadow-lg bg-white">
                     <img
@@ -929,20 +929,20 @@ export const ImageMergerPage: React.FC = () => {
                     />
                   </div>
                 ) : (
-                  <div className="text-center text-[#6b6255] text-xs space-y-2">
-                    <FileImage className="w-10 h-10 text-[#a59b8a] mx-auto animate-pulse" />
+                  <div className="text-center text-[#4A5A52] text-xs space-y-2">
+                    <FileImage className="w-10 h-10 text-[#8A9E92] mx-auto animate-pulse" />
                     <p>ছবি নির্বাচন করলে এখানে রিয়েল-টাইম ক্যানভাস দৃশ্যমান হবে</p>
                   </div>
                 )}
               </div>
 
               {/* EXPORT & DOWNLOAD PANEL */}
-              <div className="border border-[#d8cfb8] bg-[#f4efe4]/50 p-4 space-y-4">
-                <div className="flex items-center justify-between pb-2 border-b border-[#d8cfb8]">
-                  <span className="text-xs font-bold text-[#083f2a] uppercase tracking-wider">
+              <div className="border border-[#D5E4DB] bg-[#F0F4F2]/50 p-4 space-y-4 rounded-2xl">
+                <div className="flex items-center justify-between pb-2 border-b border-[#D5E4DB]">
+                  <span className="text-xs font-bold text-[#084A2E] uppercase tracking-wider">
                     ডাউনলোড অপশন
                   </span>
-                  <span className="text-xs font-mono text-[#0c5c3d] font-bold">
+                  <span className="text-xs font-mono text-[#0B5D3B] font-bold">
                     {exportFormat === 'application/pdf'
                       ? 'PDF ডকুমেন্ট'
                       : exportFormat === 'image/jpeg'
@@ -958,8 +958,8 @@ export const ImageMergerPage: React.FC = () => {
                     onClick={() => setExportFormat('image/jpeg')}
                     className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
                       exportFormat === 'image/jpeg'
-                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                        ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                        : 'bg-[#FFFFFF] text-[#084A2E] border-[#D5E4DB] hover:bg-[#F0F4F2]'
                     }`}
                   >
                     JPG ইমেজ
@@ -970,8 +970,8 @@ export const ImageMergerPage: React.FC = () => {
                     onClick={() => setExportFormat('image/png')}
                     className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
                       exportFormat === 'image/png'
-                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                        ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                        : 'bg-[#FFFFFF] text-[#084A2E] border-[#D5E4DB] hover:bg-[#F0F4F2]'
                     }`}
                   >
                     PNG ইমেজ
@@ -982,8 +982,8 @@ export const ImageMergerPage: React.FC = () => {
                     onClick={() => setExportFormat('application/pdf')}
                     className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
                       exportFormat === 'application/pdf'
-                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
-                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                        ? 'bg-[#0B5D3B] text-[#FFFFFF] border-[#0B5D3B]'
+                        : 'bg-[#FFFFFF] text-[#084A2E] border-[#D5E4DB] hover:bg-[#F0F4F2]'
                     }`}
                   >
                     PDF ফাইল (প্রিন্ট)
@@ -993,9 +993,9 @@ export const ImageMergerPage: React.FC = () => {
                 {/* Quality Slider for JPEG / PDF */}
                 {exportFormat !== 'image/png' && (
                   <div className="space-y-1">
-                    <div className="flex justify-between text-xs text-[#083f2a]">
+                    <div className="flex justify-between text-xs text-[#084A2E]">
                       <label htmlFor={qualityInputId} className="font-medium">ইমেজ কোয়ালিটি / কম্প্রেশন</label>
-                      <span className="font-mono text-[#6b6255]">{Math.round(exportQuality * 100)}%</span>
+                      <span className="font-mono text-[#4A5A52]">{Math.round(exportQuality * 100)}%</span>
                     </div>
                     <input
                       id={qualityInputId}
@@ -1005,9 +1005,9 @@ export const ImageMergerPage: React.FC = () => {
                       step="0.05"
                       value={exportQuality}
                       onChange={(e) => setExportQuality(Number(e.target.value))}
-                      className="w-full accent-[#0c5c3d]"
+                      className="w-full accent-[#0B5D3B]"
                     />
-                    <div className="flex justify-between text-[10px] text-[#6b6255]">
+                    <div className="flex justify-between text-[10px] text-[#4A5A52]">
                       <span>মাঝারি (৫০%)</span>
                       <span>উচ্চ (৮৫%)</span>
                       <span>সর্বোচ্চ (১০০%)</span>
@@ -1017,7 +1017,7 @@ export const ImageMergerPage: React.FC = () => {
 
                 {/* Filename Input */}
                 <div className="space-y-1">
-                  <label htmlFor={filenameInputId} className="text-xs font-bold text-[#083f2a]">
+                  <label htmlFor={filenameInputId} className="text-xs font-bold text-[#084A2E]">
                     ফাইলের নাম
                   </label>
                   <input
@@ -1026,13 +1026,13 @@ export const ImageMergerPage: React.FC = () => {
                     value={exportFilename}
                     onChange={(e) => setExportFilename(e.target.value)}
                     placeholder="utilix-merged-image"
-                    className="w-full px-2.5 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs font-mono"
+                    className="w-full px-2.5 py-1.5 border border-[#D5E4DB] bg-[#FFFFFF] text-xs font-mono rounded-lg"
                   />
                 </div>
 
                 {/* Error Banner */}
                 {errorMessage && (
-                  <div className="p-2.5 border border-[#b84d4d] bg-[#f9e8e8] text-[#8a2424] text-xs flex items-center space-x-2">
+                  <div className="p-2.5 border border-[#b84d4d] bg-[#f9e8e8] text-[#8a2424] text-xs flex items-center space-x-2 rounded-lg">
                     <AlertTriangle className="w-4 h-4 shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
@@ -1043,7 +1043,7 @@ export const ImageMergerPage: React.FC = () => {
                   type="button"
                   onClick={handleExport}
                   disabled={isExporting || items.length === 0}
-                  className="w-full py-3 bg-[#0c5c3d] hover:bg-[#083f2a] disabled:bg-[#a59b8a] text-[#fffdf7] font-bold text-sm tracking-wide transition-colors flex items-center justify-center space-x-2 shadow-sm cursor-pointer"
+                  className="w-full py-3 bg-[#0B5D3B] hover:bg-[#084A2E] disabled:bg-[#8A9E92] text-[#FFFFFF] font-bold text-sm tracking-wide transition-colors flex items-center justify-center space-x-2 shadow-sm cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   <span>
@@ -1061,56 +1061,56 @@ export const ImageMergerPage: React.FC = () => {
       </div>
 
       {/* SECTION 4: EDUCATIONAL DEEP DIVE & SEO CONTENT (800+ Words in Bengali) */}
-      <div className="border border-[#d8cfb8] bg-[#fffdf7] p-6 lg:p-10 space-y-8 text-[#14231c]">
+      <div className="border border-[#D5E4DB] bg-[#FFFFFF] p-6 lg:p-10 space-y-8 text-[#0F1F17] rounded-2xl">
         {/* Title and Intro */}
         <div className="space-y-3">
-          <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#083f2a]">
+          <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#084A2E]">
             একাধিক ছবি এক পেজে সাজানো ও মার্জ করার প্রয়োজনীয়তা ও সুবিধা
           </h2>
-          <p className="text-sm sm:text-base text-[#4a4237] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#34443B] leading-relaxed">
             বর্তমান ডিজিটাল প্রশাসনিক যোগাযোগ, প্রাতিষ্ঠানিক প্রজেক্ট পেপার, চাকরির আবেদন এবং ই-কমার্স ব্যবসায় একাধিক ছবিকে সুশৃঙ্খলভাবে একটি ফ্রেমে বা A4 পেজে উপস্থাপন করা একটি অপরিহার্য কাজ। কোনো থার্ড-পার্টি ভারী সফটওয়্যার বা ফটোশপ ছাড়াই সরাসরি ব্রাউজারে ছবি জোড়া লাগানো এবং নিখুঁত প্রিন্ট লেআউটে সাজানোর জন্য Utilix.bd-এর <strong>ইমেজ মার্জার ও কোলাজ মেকার</strong> একটি সহজ, শক্তিশালী এবং সম্পূর্ণ বিনামূল্যে ব্যবহারযোগ্য প্ল্যাটফর্ম।
           </p>
         </div>
 
         {/* Feature Highlights Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-          <div className="p-4 border border-[#d8cfb8] bg-[#f4efe4]/30 space-y-2">
-            <div className="w-8 h-8 bg-[#0c5c3d] text-[#fffdf7] flex items-center justify-center">
+          <div className="p-4 border border-[#D5E4DB] bg-[#F0F4F2]/30 space-y-2 rounded-2xl">
+            <div className="w-8 h-8 bg-[#0B5D3B] text-[#FFFFFF] flex items-center justify-center">
               <Printer className="w-4 h-4" />
             </div>
-            <h3 className="font-bold text-sm text-[#083f2a] font-serif">A4 ও Letter পেজে প্রিন্ট ফ্রেন্ডলি</h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <h3 className="font-bold text-sm text-[#084A2E] font-serif">A4 ও Letter পেজে প্রিন্ট ফ্রেন্ডলি</h3>
+            <p className="text-xs text-[#34443B] leading-relaxed">
               পাসপোর্ট সাইজের একাধিক ছবি, স্ট্যাম্প ছবি কিংবা বিভিন্ন প্রশংসাপত্রের ছবিকে একটি A4 পেজে সাজিয়ে সরাসরি প্রিন্ট দিন। ফটো পেপারের অপচয় রোধ ও প্রিন্টিং খরচ কমাতে এটি অতুলনীয়।
             </p>
           </div>
 
-          <div className="p-4 border border-[#d8cfb8] bg-[#f4efe4]/30 space-y-2">
-            <div className="w-8 h-8 bg-[#0c5c3d] text-[#fffdf7] flex items-center justify-center">
+          <div className="p-4 border border-[#D5E4DB] bg-[#F0F4F2]/30 space-y-2 rounded-2xl">
+            <div className="w-8 h-8 bg-[#0B5D3B] text-[#FFFFFF] flex items-center justify-center">
               <Layers className="w-4 h-4" />
             </div>
-            <h3 className="font-bold text-sm text-[#083f2a] font-serif">আইডি কার্ড ও সার্টিফিকেটের এপিঠ-ওপিঠ</h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <h3 className="font-bold text-sm text-[#084A2E] font-serif">আইডি কার্ড ও সার্টিফিকেটের এপিঠ-ওপিঠ</h3>
+            <p className="text-xs text-[#34443B] leading-relaxed">
               ব্যাংক একাউন্ট খোলা, সিম রেজিস্ট্রেশন বা সরকারি ফর্মের জন্য জাতীয় পরিচয়পত্র (NID) কিংবা ড্রাইভিং লাইসেন্সের সামনের ও পেছনের অংশ এক সারিতে জোড়া লাগিয়ে নিমিষেই PDF বানান।
             </p>
           </div>
 
-          <div className="p-4 border border-[#d8cfb8] bg-[#f4efe4]/30 space-y-2">
-            <div className="w-8 h-8 bg-[#0c5c3d] text-[#fffdf7] flex items-center justify-center">
+          <div className="p-4 border border-[#D5E4DB] bg-[#F0F4F2]/30 space-y-2 rounded-2xl">
+            <div className="w-8 h-8 bg-[#0B5D3B] text-[#FFFFFF] flex items-center justify-center">
               <ShieldCheck className="w-4 h-4" />
             </div>
-            <h3 className="font-bold text-sm text-[#083f2a] font-serif">১০০% ক্লায়েন্ট-সাইড প্রাইভেসি</h3>
-            <p className="text-xs text-[#4a4237] leading-relaxed">
+            <h3 className="font-bold text-sm text-[#084A2E] font-serif">১০০% ক্লায়েন্ট-সাইড প্রাইভেসি</h3>
+            <p className="text-xs text-[#34443B] leading-relaxed">
               আপনার ব্যক্তিগত বা অফিশিয়াল স্পর্শকাতর ছবিগুলো কোনো ক্লাউড সার্ভার বা ডেটাবেজে আপলোড হয় না। সম্পূর্ণ কম্পোজিশন আপনার ডিভাইসের ব্রাউজারেই প্রক্রিয়াজাত হয়।
             </p>
           </div>
         </div>
 
         {/* Detailed Practical Use Cases */}
-        <div className="space-y-4 pt-4 border-t border-[#d8cfb8]">
-          <h3 className="text-lg font-serif font-bold text-[#083f2a]">
+        <div className="space-y-4 pt-4 border-t border-[#D5E4DB]">
+          <h3 className="text-lg font-serif font-bold text-[#084A2E]">
             বাস্তব ক্ষেত্রে ইমেজ মার্জার টুলের প্রধান ব্যবহারসমূহ:
           </h3>
-          <ul className="space-y-3 text-xs sm:text-sm text-[#3a3227] leading-relaxed list-disc list-inside">
+          <ul className="space-y-3 text-xs sm:text-sm text-[#24332B] leading-relaxed list-disc list-inside">
             <li>
               <strong>সরকারি ও ব্যাংক চাকরির আবেদন কপি:</strong> প্রার্থীর প্রবেশপত্র, প্রশংসাপত্র, বিভিন্ন সনদ বা অভিজ্ঞতার পাতার ছবিগুলোকে একটি নির্দিষ্ট ফাইলে একত্রিত করা।
             </li>
@@ -1130,39 +1130,39 @@ export const ImageMergerPage: React.FC = () => {
         </div>
 
         {/* Step-by-Step Guide */}
-        <div className="space-y-4 pt-4 border-t border-[#d8cfb8]">
-          <h3 className="text-lg font-serif font-bold text-[#083f2a]">
+        <div className="space-y-4 pt-4 border-t border-[#D5E4DB]">
+          <h3 className="text-lg font-serif font-bold text-[#084A2E]">
             কীভাবে খুব সহজে ছবি মার্জ করবেন? (৪টি সহজ ধাপ)
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="border border-[#d8cfb8] bg-[#f4efe4]/30 p-4 space-y-1">
-              <span className="text-xs font-mono font-bold text-[#0c5c3d]">ধাপ ০১</span>
-              <h4 className="font-bold text-sm text-[#083f2a]">ছবি আপলোড</h4>
-              <p className="text-xs text-[#4a4237]">
+            <div className="border border-[#D5E4DB] bg-[#F0F4F2]/30 p-4 space-y-1 rounded-2xl">
+              <span className="text-xs font-mono font-bold text-[#0B5D3B]">ধাপ ০১</span>
+              <h4 className="font-bold text-sm text-[#084A2E]">ছবি আপলোড</h4>
+              <p className="text-xs text-[#34443B]">
                 কম্পিউটার বা মোবাইল থেকে আপনার কাঙ্ক্ষিত ছবিগুলো একসাথে ড্রপজোন বক্সে নির্বাচন করুন।
               </p>
             </div>
 
-            <div className="border border-[#d8cfb8] bg-[#f4efe4]/30 p-4 space-y-1">
-              <span className="text-xs font-mono font-bold text-[#0c5c3d]">ধাপ ০২</span>
-              <h4 className="font-bold text-sm text-[#083f2a]">ক্রম ও রোটেশন ঠিক করা</h4>
-              <p className="text-xs text-[#4a4237]">
+            <div className="border border-[#D5E4DB] bg-[#F0F4F2]/30 p-4 space-y-1 rounded-2xl">
+              <span className="text-xs font-mono font-bold text-[#0B5D3B]">ধাপ ০২</span>
+              <h4 className="font-bold text-sm text-[#084A2E]">ক্রম ও রোটেশন ঠিক করা</h4>
+              <p className="text-xs text-[#34443B]">
                 থাম্বনেইল ড্রাগ করে ছবির ক্রম সাজিয়ে নিন এবং উল্টো ছবি থাকলে তা ৯০° রোটেট করে সোজা করুন।
               </p>
             </div>
 
-            <div className="border border-[#d8cfb8] bg-[#f4efe4]/30 p-4 space-y-1">
-              <span className="text-xs font-mono font-bold text-[#0c5c3d]">ধাপ ০৩</span>
-              <h4 className="font-bold text-sm text-[#083f2a]">লেআউট ও গ্রিড কাস্টমাইজ</h4>
-              <p className="text-xs text-[#4a4237]">
+            <div className="border border-[#D5E4DB] bg-[#F0F4F2]/30 p-4 space-y-1 rounded-2xl">
+              <span className="text-xs font-mono font-bold text-[#0B5D3B]">ধাপ ০৩</span>
+              <h4 className="font-bold text-sm text-[#084A2E]">লেআউট ও গ্রিড কাস্টমাইজ</h4>
+              <p className="text-xs text-[#34443B]">
                 A4, Letter বা AutoFit পেজ নির্বাচন করে কলাম, রো, প্যাডিং ও ব্যাকগ্রাউন্ড কালার ঠিক করুন।
               </p>
             </div>
 
-            <div className="border border-[#d8cfb8] bg-[#f4efe4]/30 p-4 space-y-1">
-              <span className="text-xs font-mono font-bold text-[#0c5c3d]">ধাপ ০৪</span>
-              <h4 className="font-bold text-sm text-[#083f2a]">এক ক্লিকে ডাউনলোড</h4>
-              <p className="text-xs text-[#4a4237]">
+            <div className="border border-[#D5E4DB] bg-[#F0F4F2]/30 p-4 space-y-1 rounded-2xl">
+              <span className="text-xs font-mono font-bold text-[#0B5D3B]">ধাপ ০৪</span>
+              <h4 className="font-bold text-sm text-[#084A2E]">এক ক্লিকে ডাউনলোড</h4>
+              <p className="text-xs text-[#34443B]">
                 লাইভ প্রিভিউ সন্তোষজনক হলে JPG, PNG বা সরাসরি Print-ready PDF হিসেবে ডাউনলোড করে নিন।
               </p>
             </div>
@@ -1170,20 +1170,20 @@ export const ImageMergerPage: React.FC = () => {
         </div>
 
         {/* FAQs Section */}
-        <div className="space-y-4 pt-6 border-t border-[#d8cfb8]">
-          <h3 className="text-lg font-serif font-bold text-[#083f2a] flex items-center space-x-2">
-            <HelpCircle className="w-5 h-5 text-[#0c5c3d]" />
+        <div className="space-y-4 pt-6 border-t border-[#D5E4DB]">
+          <h3 className="text-lg font-serif font-bold text-[#084A2E] flex items-center space-x-2">
+            <HelpCircle className="w-5 h-5 text-[#0B5D3B]" />
             <span>সচরাচর জিজ্ঞাসিত প্রশ্নাবলী (FAQ)</span>
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {faqSchema.mainEntity.map((faq, idx) => (
-              <div key={idx} className="border border-[#d8cfb8] bg-[#fffdf7] p-4 space-y-2">
-                <h4 className="font-bold text-sm text-[#083f2a] flex items-start space-x-2">
-                  <span className="text-[#0c5c3d] font-mono font-bold shrink-0">Q.</span>
+              <div key={idx} className="border border-[#D5E4DB] bg-[#FFFFFF] p-4 space-y-2 rounded-2xl">
+                <h4 className="font-bold text-sm text-[#084A2E] flex items-start space-x-2">
+                  <span className="text-[#0B5D3B] font-mono font-bold shrink-0">Q.</span>
                   <span>{faq.name}</span>
                 </h4>
-                <p className="text-xs sm:text-sm text-[#4a4237] leading-relaxed pl-5">
+                <p className="text-xs sm:text-sm text-[#34443B] leading-relaxed pl-5">
                   {faq.acceptedAnswer.text}
                 </p>
               </div>
@@ -1192,61 +1192,61 @@ export const ImageMergerPage: React.FC = () => {
         </div>
 
         {/* Related Tools Internal Linking */}
-        <div className="pt-6 border-t border-[#d8cfb8] space-y-3">
-          <h3 className="font-serif font-bold text-sm text-[#083f2a]">
+        <div className="pt-6 border-t border-[#D5E4DB] space-y-3">
+          <h3 className="font-serif font-bold text-sm text-[#084A2E]">
             Utilix.bd-এর অন্যান্য সম্পর্কিত ইউটিলিটি টুলস:
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <Link
               to="/photo-resizer"
-              className="p-3 border border-[#d8cfb8] bg-[#f4efe4]/40 hover:bg-[#0c5c3d]/5 hover:border-[#0c5c3d] transition-colors group flex items-center justify-between"
+              className="p-3 border border-[#D5E4DB] bg-[#F0F4F2]/40 hover:bg-[#0B5D3B]/5 hover:border-[#0B5D3B] transition-colors group flex items-center justify-between"
             >
               <div>
-                <span className="text-[10px] font-mono text-[#6b6255]">IMG-GOV-02</span>
-                <h4 className="font-bold text-xs text-[#083f2a] group-hover:text-[#0c5c3d]">
+                <span className="text-[10px] font-mono text-[#4A5A52]">IMG-GOV-02</span>
+                <h4 className="font-bold text-xs text-[#084A2E] group-hover:text-[#0B5D3B]">
                   ছবি ও স্বাক্ষর রিসাইজার
                 </h4>
               </div>
-              <ArrowRight className="w-4 h-4 text-[#6b6255] group-hover:text-[#0c5c3d]" />
+              <ArrowRight className="w-4 h-4 text-[#4A5A52] group-hover:text-[#0B5D3B]" />
             </Link>
 
             <Link
               to="/pdf-merger"
-              className="p-3 border border-[#d8cfb8] bg-[#f4efe4]/40 hover:bg-[#0c5c3d]/5 hover:border-[#0c5c3d] transition-colors group flex items-center justify-between"
+              className="p-3 border border-[#D5E4DB] bg-[#F0F4F2]/40 hover:bg-[#0B5D3B]/5 hover:border-[#0B5D3B] transition-colors group flex items-center justify-between"
             >
               <div>
-                <span className="text-[10px] font-mono text-[#6b6255]">DOC-PDF-01</span>
-                <h4 className="font-bold text-xs text-[#083f2a] group-hover:text-[#0c5c3d]">
+                <span className="text-[10px] font-mono text-[#4A5A52]">DOC-PDF-01</span>
+                <h4 className="font-bold text-xs text-[#084A2E] group-hover:text-[#0B5D3B]">
                   পিডিএফ মার্জার (PDF Merger)
                 </h4>
               </div>
-              <ArrowRight className="w-4 h-4 text-[#6b6255] group-hover:text-[#0c5c3d]" />
+              <ArrowRight className="w-4 h-4 text-[#4A5A52] group-hover:text-[#0B5D3B]" />
             </Link>
 
             <Link
               to="/pdf-watermark-page-number"
-              className="p-3 border border-[#d8cfb8] bg-[#f4efe4]/40 hover:bg-[#0c5c3d]/5 hover:border-[#0c5c3d] transition-colors group flex items-center justify-between"
+              className="p-3 border border-[#D5E4DB] bg-[#F0F4F2]/40 hover:bg-[#0B5D3B]/5 hover:border-[#0B5D3B] transition-colors group flex items-center justify-between"
             >
               <div>
-                <span className="text-[10px] font-mono text-[#6b6255]">DOC-PDF-05</span>
-                <h4 className="font-bold text-xs text-[#083f2a] group-hover:text-[#0c5c3d]">
+                <span className="text-[10px] font-mono text-[#4A5A52]">DOC-PDF-05</span>
+                <h4 className="font-bold text-xs text-[#084A2E] group-hover:text-[#0B5D3B]">
                   পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর
                 </h4>
               </div>
-              <ArrowRight className="w-4 h-4 text-[#6b6255] group-hover:text-[#0c5c3d]" />
+              <ArrowRight className="w-4 h-4 text-[#4A5A52] group-hover:text-[#0B5D3B]" />
             </Link>
 
             <Link
               to="/cv-builder"
-              className="p-3 border border-[#d8cfb8] bg-[#f4efe4]/40 hover:bg-[#0c5c3d]/5 hover:border-[#0c5c3d] transition-colors group flex items-center justify-between"
+              className="p-3 border border-[#D5E4DB] bg-[#F0F4F2]/40 hover:bg-[#0B5D3B]/5 hover:border-[#0B5D3B] transition-colors group flex items-center justify-between"
             >
               <div>
-                <span className="text-[10px] font-mono text-[#6b6255]">DOC-CV-01</span>
-                <h4 className="font-bold text-xs text-[#083f2a] group-hover:text-[#0c5c3d]">
+                <span className="text-[10px] font-mono text-[#4A5A52]">DOC-CV-01</span>
+                <h4 className="font-bold text-xs text-[#084A2E] group-hover:text-[#0B5D3B]">
                   সিভি ও জীবনবৃত্তান্ত মেকার
                 </h4>
               </div>
-              <ArrowRight className="w-4 h-4 text-[#6b6255] group-hover:text-[#0c5c3d]" />
+              <ArrowRight className="w-4 h-4 text-[#4A5A52] group-hover:text-[#0B5D3B]" />
             </Link>
           </div>
         </div>
