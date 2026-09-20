@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Search, X, ArrowRight } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ChevronDown, Search, ArrowRight } from 'lucide-react';
 import { TOOLS } from '../data/tools.ts';
 
 interface NavbarProps {
@@ -30,7 +30,7 @@ const CATEGORIES: NavCategory[] = [
       {
         to: '/converter',
         label: 'বিজয় ↔ ইউনিকোড কনভার্টার',
-        description: 'সুতন্বীএমজে ও ইউনিকোড ফন্ট লাইভ রূপান্তর',
+        description: 'সুতন্বীএমজে ও ইউনিকোড ফন্ট রূপান্তর',
       },
     ],
   },
@@ -41,7 +41,7 @@ const CATEGORIES: NavCategory[] = [
     items: [
       {
         to: '/photo-resizer',
-        label: 'সরকারি ও পাসপোর্ট ছবি রিসাইজার',
+        label: 'পাসপোর্ট ও চাকরির ছবি রিসাইজার',
         description: '৩০০×৩০০ ছবি ও ৩০০×৮০ স্বাক্ষর রিসাইজ',
       },
       {
@@ -52,8 +52,30 @@ const CATEGORIES: NavCategory[] = [
     ],
   },
   {
-    id: 'pdf-tools',
-    label: 'পিডিএফ টুলস',
+    id: 'calculator-tools',
+    label: 'হিসাব ও ক্যালকুলেটর',
+    categoryKey: 'calculator',
+    items: [
+      {
+        to: '/age-calculator',
+        label: 'বয়স ক্যালকুলেটর',
+        description: 'চাকরির আবেদনের বয়স ও কোটা যাচাই',
+      },
+      {
+        to: '/amount-in-words',
+        label: 'টাকা কথায় রূপান্তরক',
+        description: 'চেক ও দলিলের টাকার কথায় রূপান্তর',
+      },
+      {
+        to: '/gpa-calculator',
+        label: 'জিপিএ ও সিজিপিএ ক্যালকুলেটর',
+        description: 'এসএসসি, এইচএসসি ও ভার্সিটি সিজিপিএ হিসাব',
+      },
+    ],
+  },
+  {
+    id: 'document-tools',
+    label: 'সিভি ও ডকুমেন্ট',
     categoryKey: 'document',
     items: [
       {
@@ -64,7 +86,7 @@ const CATEGORIES: NavCategory[] = [
       {
         to: '/pdf-split',
         label: 'পিডিএফ স্প্লিটার',
-        description: 'পেজ রেঞ্জ বা একক পেজে ভাগ ও ডাউনলোড',
+        description: 'পেজ রেঞ্জ বা একক পেজে ভাগ ও ZIP ডাউনলোড',
       },
       {
         to: '/pdf-delete-pages',
@@ -79,41 +101,12 @@ const CATEGORIES: NavCategory[] = [
       {
         to: '/pdf-watermark-page-number',
         label: 'পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর',
-        description: 'কাস্টম টেক্সট স্ট্যাম্প ও পৃষ্ঠা নম্বর যোগ',
+        description: 'কাস্টম টেক্সট/লোগো স্ট্যাম্প ও পৃষ্ঠা নম্বর যোগ',
       },
-    ],
-  },
-  {
-    id: 'calc-tools',
-    label: 'হিসাব ও ক্যালকুলেটর',
-    categoryKey: 'calculator',
-    items: [
-      {
-        to: '/age-calculator',
-        label: 'বয়স ক্যালকুলেটর',
-        description: 'চাকরির আবেদনের বয়স ও কোটা হিসাব',
-      },
-      {
-        to: '/amount-in-words',
-        label: 'টাকা কথায় রূপান্তরক',
-        description: 'চেক ও দলিলের টাকার কথায় রূপান্তর',
-      },
-      {
-        to: '/gpa-calculator',
-        label: 'জিপিএ ও সিজিপিএ ক্যালকুলেটর',
-        description: 'এসএসসি, এইচএসসি ও ভার্সিটি সিজিপিএ',
-      },
-    ],
-  },
-  {
-    id: 'doc-tools',
-    label: 'সিভি ও ডকুমেন্ট',
-    categoryKey: 'document',
-    items: [
       {
         to: '/cv-builder',
         label: 'সিভি ও জীবনবৃত্তান্ত মেকার',
-        description: 'পেশাদার বাংলা ও ইংরেজি CV তৈরি',
+        description: 'সরকারি ও কর্পোরেট চাকরির ৫টি ফরম্যাটে CV তৈরি',
       },
     ],
   },
@@ -121,60 +114,45 @@ const CATEGORIES: NavCategory[] = [
 
 export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
-  const [paletteOpen, setPaletteOpen] = useState<boolean>(false);
-  const [paletteQuery, setPaletteQuery] = useState<string>('');
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [mobileExpanded, setMobileExpanded] = useState<Record<string, boolean>>({
+    'text-tools': true,
+    'image-tools': true,
+    'calculator-tools': true,
+    'document-tools': true,
+  });
 
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const navContainerRef = useRef<HTMLDivElement | null>(null);
-  const paletteInputRef = useRef<HTMLInputElement | null>(null);
+  const searchContainerRef = useRef<HTMLDivElement | null>(null);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Scroll listener: transparent over hero, becomes #FFFFFF with 1px border on scroll past hero
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
-    };
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
-  // Cmd+K / Ctrl+K shortcut listener
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setPaletteOpen((prev) => !prev);
-      }
-      if (e.key === 'Escape') {
-        setPaletteOpen(false);
-        setOpenDropdownId(null);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  // Focus palette input on open
-  useEffect(() => {
-    if (paletteOpen) {
-      setTimeout(() => paletteInputRef.current?.focus(), 60);
-    } else {
-      setPaletteQuery('');
-    }
-  }, [paletteOpen]);
+  // Live filtered tools for header search
+  const filteredNavTools = searchQuery.trim()
+    ? TOOLS.filter((tool) => {
+        const q = searchQuery.toLowerCase().trim();
+        return (
+          tool.title.toLowerCase().includes(q) ||
+          tool.description.toLowerCase().includes(q) ||
+          tool.feature.toLowerCase().includes(q) ||
+          (tool.refCode && tool.refCode.toLowerCase().includes(q))
+        );
+      })
+    : [];
 
   // Close menus when route changes
   useEffect(() => {
-    setOpenDropdownId(null);
-    setPaletteOpen(false);
     setMobileMenuOpen(false);
+    setOpenDropdownId(null);
+    setSearchOpen(false);
+    setSearchQuery('');
   }, [location.pathname]);
 
-  // Click outside to close desktop dropdowns
+  // Click outside and escape key handling for desktop dropdowns & search
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -183,32 +161,42 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
       ) {
         setOpenDropdownId(null);
       }
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target as Node)
+      ) {
+        setSearchOpen(false);
+      }
     };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpenDropdownId(null);
+        setSearchOpen(false);
+      }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
       if (closeTimeoutRef.current) {
         clearTimeout(closeTimeoutRef.current);
       }
     };
   }, []);
 
-  // Filtered tools for Command Palette
-  const filteredTools = paletteQuery.trim()
-    ? TOOLS.filter((tool) => {
-        const q = paletteQuery.toLowerCase().trim();
-        return (
-          tool.title.toLowerCase().includes(q) ||
-          tool.description.toLowerCase().includes(q) ||
-          tool.feature.toLowerCase().includes(q)
-        );
-      })
-    : TOOLS;
+  const isHomeActive = location.pathname === '/';
 
   const isCategoryActive = (cat: NavCategory) => {
     return cat.items.some((item) => location.pathname === item.to);
   };
 
+  const isItemActive = (itemTo: string) => location.pathname === itemTo;
+
+  // Desktop hover interactions with delay
   const handleMouseEnter = (id: string) => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -226,6 +214,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
     }, 180);
   };
 
+  const handleCategoryClick = (id: string) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setOpenDropdownId((prev) => (prev === id ? null : id));
+  };
+
   const handleLinkClick = (categoryKey?: string) => {
     setOpenDropdownId(null);
     setMobileMenuOpen(false);
@@ -234,100 +230,295 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
     }
   };
 
-  const getCategoryLabel = (category: string) => {
-    switch (category) {
-      case 'text':
-        return 'টেক্সট টুলস';
-      case 'image':
-        return 'ইমেজ টুলস';
-      case 'calculator':
-        return 'হিসাব ও ক্যালকুলেটর';
-      case 'document':
-        return 'সিভি ও ডকুমেন্ট';
-      default:
-        return 'টুল';
-    }
+  const toggleMobileCategory = (id: string) => {
+    setMobileExpanded((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
   return (
-    <>
-      <header
-        className={`w-full sticky top-0 z-30 transition-all duration-200 ${
-          isScrolled
-            ? 'bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E3DCC8]'
-            : 'bg-transparent border-b border-transparent'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          {/* Left: "Utilix.bd" wordmark, Tiro Bangla, 22px */}
-          <div className="flex items-center">
+    <header className="w-full bg-[#f4efe4] border-b border-[#d8cfb8] sticky top-0 z-30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        {/* Left: Logo + Tagline */}
+        <div className="flex items-center space-x-3">
+          <Link
+            to="/"
+            onClick={() => handleLinkClick('all')}
+            className="flex items-center space-x-2 group"
+          >
+            <span className="text-2xl font-bold tracking-tight text-[#083f2a] font-serif hover:text-[#0c5c3d] transition-colors">
+              Utilix.bd
+            </span>
+          </Link>
+          <span className="text-[#d8cfb8] hidden sm:inline">|</span>
+          <span className="text-xs sm:text-sm text-[#6b6255] hidden sm:inline-block font-sans">
+            বাংলা ডিজিটাল ইউটিলিটি হাব
+          </span>
+        </div>
+
+        {/* Center: Desktop Navigation with Category Dropdowns */}
+        <nav
+          ref={navContainerRef}
+          aria-label="প্রধান নেভিগেশন"
+          className="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm"
+        >
+          {/* Home Link */}
+          <Link
+            to="/"
+            onClick={() => handleLinkClick('all')}
+            className={`px-3 py-2 transition-colors font-medium border-b-2 ${
+              isHomeActive
+                ? 'text-[#083f2a] border-[#0c5c3d] font-semibold'
+                : 'text-[#6b6255] border-transparent hover:text-[#083f2a]'
+            }`}
+          >
+            হোম
+          </Link>
+
+          {/* Category Dropdowns */}
+          {CATEGORIES.map((category) => {
+            const catActive = isCategoryActive(category);
+            const isOpen = openDropdownId === category.id;
+
+            return (
+              <div
+                key={category.id}
+                className="relative"
+                onMouseEnter={() => handleMouseEnter(category.id)}
+                onMouseLeave={handleMouseLeave}
+              >
+                <button
+                  type="button"
+                  id={`trigger-${category.id}`}
+                  aria-haspopup="true"
+                  aria-expanded={isOpen}
+                  aria-controls={`menu-${category.id}`}
+                  onClick={() => handleCategoryClick(category.id)}
+                  className={`px-3 py-2 transition-colors font-medium flex items-center gap-1.5 cursor-pointer border-b-2 ${
+                    catActive
+                      ? 'text-[#083f2a] border-[#0c5c3d] font-semibold'
+                      : isOpen
+                      ? 'text-[#083f2a] border-transparent bg-[#e8e0cc]/40'
+                      : 'text-[#6b6255] border-transparent hover:text-[#083f2a]'
+                  }`}
+                >
+                  <span>{category.label}</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 text-[#6b6255] transition-transform duration-150 ${
+                      isOpen ? 'rotate-180 text-[#083f2a]' : ''
+                    }`}
+                  />
+                </button>
+
+                {/* Dropdown Panel */}
+                {isOpen && (
+                  <div
+                    id={`menu-${category.id}`}
+                    role="menu"
+                    aria-labelledby={`trigger-${category.id}`}
+                    className="absolute top-full left-0 mt-0.5 w-64 bg-[#fffdf7] border border-[#d8cfb8] shadow-lg py-1 z-50"
+                  >
+                    {category.items.map((tool) => {
+                      const active = isItemActive(tool.to);
+                      return (
+                        <Link
+                          key={tool.to}
+                          to={tool.to}
+                          role="menuitem"
+                          onClick={() => handleLinkClick(category.categoryKey)}
+                          className={`block px-3.5 py-2.5 transition-colors border-b border-[#efe8d6] last:border-b-0 ${
+                            active
+                              ? 'bg-[#f4efe4] text-[#083f2a] font-semibold border-l-2 border-l-[#0c5c3d]'
+                              : 'text-[#14231c] hover:bg-[#f4efe4] hover:text-[#083f2a]'
+                          }`}
+                        >
+                          <div className="text-sm font-medium">{tool.label}</div>
+                          {tool.description && (
+                            <div className="text-[11px] text-[#6b6255] mt-0.5 font-medium">
+                              {tool.description}
+                            </div>
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </nav>
+
+        {/* Right side: Search + Engine status + Mobile Hamburger */}
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          {/* Header Quick Search Widget */}
+          <div ref={searchContainerRef} className="relative">
+            {!searchOpen ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchOpen(true);
+                  setTimeout(() => searchInputRef.current?.focus(), 50);
+                }}
+                title="টুল অনুসন্ধান করুন"
+                aria-label="টুল অনুসন্ধান করুন"
+                className="flex items-center gap-1.5 px-2 sm:px-2.5 py-1 text-xs text-[#6b6255] hover:text-[#083f2a] bg-[#fffdf7] border border-[#d8cfb8] hover:border-[#0c5c3d] transition-all cursor-pointer"
+              >
+                <Search className="w-3.5 h-3.5 text-[#0c5c3d]" />
+                <span className="hidden md:inline font-sans">টুল খুঁজুন...</span>
+              </button>
+            ) : (
+              <div className="flex items-center bg-[#fffdf7] border border-[#0c5c3d] px-2 py-1 shadow-sm w-44 sm:w-60 md:w-72 transition-all">
+                <Search className="w-3.5 h-3.5 text-[#0c5c3d] mr-1.5 shrink-0" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="টুল খুঁজুন (যেমন: সিভি, পিডিএফ)..."
+                  className="w-full bg-transparent outline-none text-xs text-[#14231c] placeholder-[#8a7f70] font-sans"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchOpen(false);
+                    setSearchQuery('');
+                  }}
+                  title="বন্ধ করুন"
+                  className="text-[#6b6255] hover:text-[#c8342a] p-0.5 shrink-0 cursor-pointer ml-1"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+
+            {/* Quick Search Dropdown Results */}
+            {searchOpen && searchQuery.trim() && (
+              <div className="absolute right-0 top-full mt-1 w-72 sm:w-80 bg-[#fffdf7] border border-[#d8cfb8] shadow-xl z-50 max-h-80 overflow-y-auto">
+                <div className="p-2 bg-[#f4efe4] border-b border-[#d8cfb8] text-[11px] font-medium text-[#6b6255] flex items-center justify-between">
+                  <span>অনুসন্ধান ফলাফল</span>
+                  <span>{filteredNavTools.length}টি টুল পাওয়া গেছে</span>
+                </div>
+
+                {filteredNavTools.length > 0 ? (
+                  <div className="divide-y divide-[#efe8d6]">
+                    {filteredNavTools.map((tool) => (
+                      <Link
+                        key={tool.id}
+                        to={tool.link || '/'}
+                        onClick={() => {
+                          setSearchOpen(false);
+                          setSearchQuery('');
+                        }}
+                        className="block p-2.5 hover:bg-[#f4efe4] transition-colors group"
+                      >
+                        <div className="flex items-center justify-between gap-1">
+                          <span className="text-xs font-bold text-[#083f2a] group-hover:text-[#0c5c3d]">
+                            {tool.title}
+                          </span>
+                          <ArrowRight className="w-3 h-3 text-[#0c5c3d] opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                        </div>
+                        <p className="text-[11px] text-[#6b6255] line-clamp-1 mt-0.5">
+                          {tool.description}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="p-4 text-center text-xs text-[#6b6255]">
+                    "{searchQuery}" নামে কোনো টুল পাওয়া যায়নি।
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center text-xs text-[#0c5c3d] font-sans pl-2 border-l border-[#d8cfb8]">
+            <span className="w-2 h-2 rounded-full bg-[#0c5c3d] mr-1.5"></span>
+            <span className="hidden sm:inline">১০০% ক্লায়েন্ট-সাইড ও নিরাপদ</span>
+            <span className="sm:hidden text-[11px] font-medium">নিরাপদ টুলস</span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-label={mobileMenuOpen ? 'মেনু বন্ধ করুন' : 'মেনু খুলুন'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav"
+            className="md:hidden ml-3 p-2 -mr-2 text-[#083f2a] hover:bg-[#e8e0cc] transition-colors cursor-pointer"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Accordion Navigation */}
+      {mobileMenuOpen && (
+        <nav
+          id="mobile-nav"
+          aria-label="মোবাইল নেভিগেশন"
+          className="md:hidden border-t border-[#d8cfb8] bg-[#fffdf7]"
+        >
+          <div className="max-w-7xl mx-auto px-4 py-3 space-y-2">
+            {/* Home Link */}
             <Link
               to="/"
               onClick={() => handleLinkClick('all')}
-              className="font-tiro text-[22px] font-normal text-[#0D2818] hover:text-[#0D2818]/80 transition-opacity"
+              className={`block px-3 py-2.5 font-medium text-sm transition-colors ${
+                isHomeActive
+                  ? 'bg-[#f4efe4] text-[#083f2a] font-semibold border-l-4 border-[#0c5c3d]'
+                  : 'text-[#14231c] hover:bg-[#f4efe4] hover:text-[#083f2a]'
+              }`}
             >
-              Utilix.bd
+              হোম
             </Link>
-          </div>
 
-          {/* Center: Desktop Navigation Mega Menu (re-styled with thin 1px underline on hover, no chevron icons) */}
-          <nav
-            ref={navContainerRef}
-            aria-label="প্রধান নেভিগেশন"
-            className="hidden lg:flex items-center space-x-6 text-[14px]"
-          >
+            {/* Accordion Categories */}
             {CATEGORIES.map((category) => {
               const catActive = isCategoryActive(category);
-              const isOpen = openDropdownId === category.id;
+              const isExpanded = !!mobileExpanded[category.id];
 
               return (
                 <div
                   key={category.id}
-                  className="relative py-4"
-                  onMouseEnter={() => handleMouseEnter(category.id)}
-                  onMouseLeave={handleMouseLeave}
+                  className="border border-[#d8cfb8] bg-[#fffdf7] overflow-hidden"
                 >
                   <button
                     type="button"
-                    onClick={() =>
-                      setOpenDropdownId((prev) =>
-                        prev === category.id ? null : category.id
-                      )
-                    }
-                    className={`relative py-1 text-[14px] font-medium transition-colors cursor-pointer text-[#0D2818] after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:bg-[#0D2818] after:transition-all after:duration-200 ${
-                      isOpen || catActive
-                        ? 'after:w-full'
-                        : 'after:w-0 hover:after:w-full'
+                    onClick={() => toggleMobileCategory(category.id)}
+                    aria-expanded={isExpanded}
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
+                      catActive
+                        ? 'bg-[#f4efe4]/70 text-[#083f2a] font-semibold'
+                        : 'text-[#14231c] hover:bg-[#f4efe4]'
                     }`}
                   >
                     <span>{category.label}</span>
+                    <ChevronDown
+                      className={`w-4 h-4 text-[#6b6255] transition-transform duration-200 ${
+                        isExpanded ? 'rotate-180 text-[#083f2a]' : ''
+                      }`}
+                    />
                   </button>
 
-                  {/* Dropdown Panel */}
-                  {isOpen && (
-                    <div
-                      role="menu"
-                      className="absolute top-full left-0 mt-0 w-64 bg-[#FFFFFF] border border-[#E3DCC8] rounded-[6px] py-1.5 z-50 shadow-[0_4px_16px_rgba(13,40,24,0.04)]"
-                    >
+                  {isExpanded && (
+                    <div className="border-t border-[#efe8d6] bg-[#fffdf7]">
                       {category.items.map((tool) => {
-                        const active = location.pathname === tool.to;
+                        const active = isItemActive(tool.to);
                         return (
                           <Link
                             key={tool.to}
                             to={tool.to}
-                            role="menuitem"
                             onClick={() => handleLinkClick(category.categoryKey)}
-                            className={`block px-3.5 py-2 transition-colors border-b border-[#FAF6EC] last:border-b-0 ${
+                            className={`block px-4 py-2.5 text-sm border-b border-[#f4efe4] last:border-b-0 transition-colors ${
                               active
-                                ? 'bg-[#FAF6EC] text-[#0D2818] font-medium'
-                                : 'text-[#0D2818] hover:bg-[#FAF6EC]'
+                                ? 'bg-[#f4efe4] text-[#083f2a] font-semibold pl-6 border-l-2 border-[#0c5c3d]'
+                                : 'text-[#14231c] hover:bg-[#f4efe4] hover:text-[#083f2a] pl-6'
                             }`}
                           >
-                            <div className="text-[13px] font-medium text-[#0D2818]">
-                              {tool.label}
-                            </div>
+                            <div className="font-medium">{tool.label}</div>
                             {tool.description && (
-                              <div className="text-[12px] text-[#5C6F63] mt-0.5 leading-snug">
+                              <div className="text-[11px] text-[#6b6255] mt-0.5">
                                 {tool.description}
                               </div>
                             )}
@@ -339,151 +530,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
                 </div>
               );
             })}
-          </nav>
-
-          {/* Right: Search Trigger Pill with ⌘K badge & Mobile Hamburger */}
-          <div className="flex items-center space-x-3">
-            <button
-              type="button"
-              onClick={() => setPaletteOpen(true)}
-              aria-label="টুল অনুসন্ধান করুন"
-              className="flex items-center gap-2 px-3 py-1.5 text-[13px] text-[#5C6F63] hover:text-[#0D2818] bg-[#FFFFFF] border border-[#E3DCC8] rounded-full transition-all cursor-pointer hover:border-[#0D2818]/40 shadow-[0_1px_2px_rgba(13,40,24,0.02)]"
-            >
-              <Search className="w-3.5 h-3.5 text-[#5C6F63]" />
-              <span className="font-sans">খুঁজুন...</span>
-              <kbd className="text-[11px] font-sans font-medium text-[#B54A3C] bg-[#FAF6EC] px-1.5 py-0.5 rounded border border-[#E3DCC8]">
-                ⌘K
-              </kbd>
-            </button>
-
-            {/* Mobile Hamburger Button */}
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen((open) => !open)}
-              aria-label={mobileMenuOpen ? 'মেনু বন্ধ করুন' : 'মেনু খুলুন'}
-              className="lg:hidden p-1.5 text-[#0D2818] hover:bg-[#FFFFFF] border border-transparent hover:border-[#E3DCC8] rounded-[6px] transition-colors cursor-pointer"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <div className="space-y-1 w-5">
-                  <span className="block w-5 h-0.5 bg-[#0D2818]"></span>
-                  <span className="block w-4 h-0.5 bg-[#0D2818]"></span>
-                  <span className="block w-5 h-0.5 bg-[#0D2818]"></span>
-                </div>
-              )}
-            </button>
           </div>
-        </div>
-
-        {/* Mobile Dropdown Menu */}
-        {mobileMenuOpen && (
-          <nav
-            aria-label="মোবাইল নেভিগেশন"
-            className="lg:hidden border-t border-[#E3DCC8] bg-[#FFFFFF] px-4 py-4 space-y-4"
-          >
-            {CATEGORIES.map((cat) => (
-              <div key={cat.id} className="space-y-1">
-                <div className="text-[13px] font-medium text-[#5C6F63] pb-1 border-b border-[#FAF6EC]">
-                  {cat.label}
-                </div>
-                <div className="space-y-1 pt-1">
-                  {cat.items.map((tool) => (
-                    <Link
-                      key={tool.to}
-                      to={tool.to}
-                      onClick={() => handleLinkClick(cat.categoryKey)}
-                      className="block py-1.5 text-[14px] text-[#0D2818] hover:text-[#0D2818]/70"
-                    >
-                      {tool.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </nav>
-        )}
-      </header>
-
-      {/* Full Command-Palette-Style Overlay */}
-      {paletteOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 bg-[#0D2818]/30 backdrop-blur-sm flex items-start justify-center pt-16 sm:pt-24 px-4"
-          onClick={() => setPaletteOpen(false)}
-        >
-          <div
-            className="w-full max-w-xl bg-[#FFFFFF] border border-[#E3DCC8] rounded-[8px] shadow-[0_16px_36px_rgba(13,40,24,0.12)] overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Search Input Bar */}
-            <div className="flex items-center px-4 py-3 border-b border-[#E3DCC8]">
-              <Search className="w-4 h-4 text-[#5C6F63] mr-2.5 shrink-0" />
-              <input
-                ref={paletteInputRef}
-                type="text"
-                value={paletteQuery}
-                onChange={(e) => setPaletteQuery(e.target.value)}
-                placeholder="টুলের নাম খুঁজুন (যেমন: বিজয়, সিভি, PDF)..."
-                className="w-full bg-transparent outline-none text-[15px] text-[#0D2818] placeholder-[#5C6F63]/70 font-sans"
-              />
-              <button
-                type="button"
-                onClick={() => setPaletteOpen(false)}
-                className="p-1 text-[#5C6F63] hover:text-[#0D2818] cursor-pointer"
-                title="বন্ধ করুন"
-              >
-                <kbd className="text-[11px] font-sans text-[#5C6F63] bg-[#FAF6EC] px-1.5 py-0.5 rounded border border-[#E3DCC8]">
-                  ESC
-                </kbd>
-              </button>
-            </div>
-
-            {/* Filtered Tools List */}
-            <div className="max-h-80 overflow-y-auto p-2 divide-y divide-[#FAF6EC]">
-              {filteredTools.length > 0 ? (
-                filteredTools.map((tool) => (
-                  <button
-                    key={tool.id}
-                    type="button"
-                    onClick={() => {
-                      if (tool.link) {
-                        navigate(tool.link);
-                        setPaletteOpen(false);
-                      }
-                    }}
-                    className="w-full text-left p-2.5 hover:bg-[#FAF6EC] rounded-[6px] transition-colors flex items-center justify-between group cursor-pointer"
-                  >
-                    <div>
-                      <div className="text-[14px] font-medium text-[#0D2818] flex items-center gap-2">
-                        <span>{tool.title}</span>
-                        <span className="text-[12px] font-medium text-[#5C6F63] bg-[#FAF6EC] border border-[#E3DCC8] px-1.5 py-0.2 rounded">
-                          {getCategoryLabel(tool.category)}
-                        </span>
-                      </div>
-                      <div className="text-[12px] text-[#5C6F63] line-clamp-1 mt-0.5">
-                        {tool.description}
-                      </div>
-                    </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#0D2818] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all shrink-0 ml-2" />
-                  </button>
-                ))
-              ) : (
-                <div className="py-8 text-center text-[14px] text-[#5C6F63]">
-                  "{paletteQuery}" নামে কোনো টুল পাওয়া যায়নি।
-                </div>
-              )}
-            </div>
-
-            {/* Palette Footer */}
-            <div className="px-4 py-2 bg-[#FAF6EC] border-t border-[#E3DCC8] text-[12px] text-[#5C6F63] flex items-center justify-between">
-              <span>{filteredTools.length}টি টুল তালিকাভুক্ত</span>
-              <span>ব্যবহার করতে এন্টার চাপুন বা ক্লিক করুন</span>
-            </div>
-          </div>
-        </div>
+        </nav>
       )}
-    </>
+    </header>
   );
 };
+

@@ -285,277 +285,171 @@ export const HomePage: React.FC<HomePageProps> = ({
       </Helmet>
 
       {/* =========================================================================
-          PHASE 1 REDESIGN: HERO SECTION
+          RESTRUCTURED HERO SECTION
           ========================================================================= */}
-      <section className="pt-4 sm:pt-8 pb-14 sm:pb-24">
-        {/* Mobile: stack right-column visual ABOVE headline (compressed to Bijoy mockup only) */}
-        <div className="lg:hidden mb-8 w-full max-w-sm mx-auto">
-          <div className="bg-[#FFFFFF] border border-[#E3DCC8] rounded-[8px] p-3 shadow-[0_2px_8px_rgba(13,40,24,0.04)]">
-            <div className="flex items-center justify-between border-b border-[#E3DCC8] pb-2 mb-2.5">
-              <div className="flex items-center space-x-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#E3DCC8]"></span>
-                <span className="w-2 h-2 rounded-full bg-[#E3DCC8]"></span>
-                <span className="w-2 h-2 rounded-full bg-[#E3DCC8]"></span>
-              </div>
-              <div className="text-[11px] font-sans font-medium text-[#5C6F63]">
-                বিজয় ↔ ইউনিকোড
-              </div>
-              <CheckCircle2 className="w-3.5 h-3.5 text-[#0D2818]" />
-            </div>
-            <div className="grid grid-cols-2 gap-2 text-[10px]">
-              <div className="bg-[#FAF6EC] p-2 rounded-[4px] border border-[#E3DCC8]/60 font-mono text-[#5C6F63]">
-                <div className="text-[9px] text-[#5C6F63]/80 mb-1 font-sans">ANSI (বিজয়)</div>
-                <div>Avgvi †mvbvj evsjv,</div>
-                <div>Avwg †Zvgvq fv‡jvevwm|</div>
-              </div>
-              <div className="bg-[#FFFFFF] p-2 rounded-[4px] border border-[#E3DCC8]/60 text-[#0D2818]">
-                <div className="text-[9px] text-[#5C6F63]/80 mb-1 font-sans">ইউনিকোড (বাংলা)</div>
-                <div>আমার সোনার বাংলা,</div>
-                <div>আমি তোমায় ভালোবাসি।</div>
-              </div>
-            </div>
-          </div>
+      <section className="space-y-6 pt-2">
+        <div className="inline-block bg-[#fffdf7] border border-[#d8cfb8] px-3 py-1 text-xs text-[#083f2a] font-medium tracking-wide">
+          বাংলা ডিজিটাল ইউটিলিটি হাব
         </div>
 
-        {/* Desktop 2-column asymmetric layout (55/45 split, left-aligned) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Left Column (55% -> 7 cols) */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left">
-            <h1 className="font-tiro text-[36px] sm:text-[48px] lg:text-[60px] font-normal text-[#0D2818] leading-[1.08] tracking-normal">
-              প্রতিদিনের কাজ, <br className="hidden sm:inline" />
-              একটু সহজ করে দিই।
-            </h1>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#083f2a] font-serif leading-tight max-w-4xl">
+          দ্রুত, কার্যকর ও{' '}
+          <span className="inline-block bg-[#083f2a] text-[#fffdf7] px-3.5 py-1 rounded-md my-1 shadow-sm font-sans font-semibold">
+            সম্পূর্ণ বিনামূল্যে ও নিরাপদ
+          </span>{' '}
+          ব্রাউজার-ভিত্তিক বাংলা টুলস।
+        </h1>
 
-            <p className="text-[16px] sm:text-[18px] text-[#5C6F63] font-normal leading-[1.7] max-w-xl">
-              বিজয় থেকে ইউনিকোড, সিভি থেকে PDF — বাংলাদেশের জন্য বানানো টুলস, সম্পূর্ণ বিনামূল্যে।
-            </p>
+        <p className="text-base sm:text-lg text-[#6b6255] max-w-3xl leading-relaxed font-sans">
+          আপনার কোনো ডেটা বা ফাইল সার্ভারে জমা হয় না; সমস্ত রূপান্তর এবং গণনা সরাসরি আপনার কম্পিউটারে সম্পন্ন হয় — নিখরচায় ও তাৎক্ষণিকভাবে।
+        </p>
 
-            {/* Three Understated Text Links (NOT buttons, NOT pills) */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3.5 sm:gap-6 pt-2">
-              <Link
-                to="/converter"
-                className="inline-flex items-center text-[15px] sm:text-[16px] text-[#0D2818] font-medium group transition-colors hover:text-[#0D2818]/80"
-              >
-                <span>বিজয় → ইউনিকোড কনভার্ট করুন</span>
-                <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-1 text-[#0D2818]" />
-              </Link>
-
-              <Link
-                to="/cv-builder"
-                className="inline-flex items-center text-[15px] sm:text-[16px] text-[#0D2818] font-medium group transition-colors hover:text-[#0D2818]/80"
-              >
-                <span>সিভি তৈরি করুন</span>
-                <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-1 text-[#0D2818]" />
-              </Link>
-
-              <Link
-                to="/pdf-merger"
-                className="inline-flex items-center text-[15px] sm:text-[16px] text-[#0D2818] font-medium group transition-colors hover:text-[#0D2818]/80"
-              >
-                <span>PDF মার্জ করুন</span>
-                <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-1 text-[#0D2818]" />
-              </Link>
+        {/* Primary Hero Search Bar */}
+        <form onSubmit={handleHeroSearchSubmit} className="max-w-2xl w-full pt-1">
+          <div className="flex items-stretch bg-[#fffdf7] border-2 border-[#0c5c3d] shadow-sm transition-all focus-within:border-[#083f2a]">
+            <div className="flex items-center pl-3.5 text-[#6b6255]">
+              <Search className="w-5 h-5 text-[#0c5c3d]" />
             </div>
+            <input
+              type="text"
+              value={heroSearch}
+              onChange={(e) => setHeroSearch(e.target.value)}
+              placeholder="কোন টুল খুঁজছেন? যেমন: বিজয় কনভার্টার, সিভি মেকার, পিডিএফ মার্জ..."
+              className="w-full px-3 py-3 text-xs sm:text-sm bg-transparent outline-none text-[#14231c] placeholder-[#8a7f70] font-sans"
+            />
+            {heroSearch && (
+              <button
+                type="button"
+                onClick={() => setHeroSearch('')}
+                className="px-2.5 text-[#6b6255] hover:text-[#c8342a] cursor-pointer"
+                title="মুছে ফেলুন"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+            <button
+              type="submit"
+              className="bg-[#0c5c3d] hover:bg-[#083f2a] text-[#fffdf7] px-5 sm:px-7 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+            >
+              <span>খুঁজুন</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
+        </form>
 
-          {/* Right Column (45% -> 5 cols, Desktop Signature Visual Element) */}
-          <div className="hidden lg:block lg:col-span-5 relative py-6 select-none">
-            {/* Layered Composition Container on plain #FAF6EC background */}
-            <div className="relative w-full max-w-[420px] mx-auto h-[320px]">
-              {/* Mockup 2 (Behind / Right): CV Builder Preview */}
-              <div
-                className="absolute right-0 top-2 w-[250px] bg-[#FFFFFF] border border-[#E3DCC8] rounded-[8px] p-3.5 shadow-[0_2px_8px_rgba(13,40,24,0.04)] rotate-3 transition-transform"
-                style={{ zIndex: 1 }}
-              >
-                <div className="flex items-center justify-between border-b border-[#E3DCC8] pb-2 mb-3">
-                  <div className="text-[11px] font-medium text-[#5C6F63]">
-                    সিভি প্রিভিউ (A4)
-                  </div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#0D2818]"></div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-9 h-10 bg-[#FAF6EC] border border-[#E3DCC8] rounded-[2px] shrink-0 flex items-center justify-center">
-                      <FileText className="w-4 h-4 text-[#5C6F63]/50" />
-                    </div>
-                    <div className="space-y-1.5 w-full">
-                      <div className="h-2.5 w-24 bg-[#0D2818]/80 rounded-[2px]"></div>
-                      <div className="h-2 w-16 bg-[#5C6F63]/40 rounded-[2px]"></div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1 pt-1 border-t border-[#FAF6EC]">
-                    <div className="h-1.5 w-full bg-[#5C6F63]/25 rounded-[1px]"></div>
-                    <div className="h-1.5 w-4/5 bg-[#5C6F63]/20 rounded-[1px]"></div>
-                    <div className="h-1.5 w-3/4 bg-[#5C6F63]/15 rounded-[1px]"></div>
-                  </div>
-
-                  <div className="pt-2 border-t border-[#FAF6EC] space-y-1.5">
-                    <div className="h-2 w-16 bg-[#0D2818]/60 rounded-[2px]"></div>
-                    <div className="h-1.5 w-full bg-[#5C6F63]/20 rounded-[1px]"></div>
-                    <div className="h-1.5 w-5/6 bg-[#5C6F63]/15 rounded-[1px]"></div>
-                  </div>
-
-                  <div className="text-[9px] text-[#5C6F63]/60 text-right pt-1 font-mono">
-                    A4 • পৃষ্ঠা ১/১
-                  </div>
-                </div>
-              </div>
-
-              {/* Mockup 1 (Front / Left): Bijoy ↔ Unicode Converter */}
-              <div
-                className="absolute left-0 top-16 w-[310px] bg-[#FFFFFF] border border-[#E3DCC8] rounded-[8px] p-3.5 shadow-[0_2px_8px_rgba(13,40,24,0.04)] -rotate-1 transition-transform"
-                style={{ zIndex: 2 }}
-              >
-                <div className="flex items-center justify-between border-b border-[#E3DCC8] pb-2 mb-3">
-                  <div className="flex items-center space-x-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#E3DCC8]"></span>
-                    <span className="w-2 h-2 rounded-full bg-[#E3DCC8]"></span>
-                    <span className="w-2 h-2 rounded-full bg-[#E3DCC8]"></span>
-                  </div>
-                  <div className="text-[11px] font-sans font-medium text-[#0D2818]">
-                    বিজয় ↔ ইউনিকোড
-                  </div>
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0D2818]" />
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 text-[11px]">
-                  <div className="bg-[#FAF6EC] p-2.5 rounded-[4px] border border-[#E3DCC8]/60 font-mono text-[#5C6F63] space-y-1">
-                    <div className="text-[9px] text-[#5C6F63]/80 font-sans">সুতন্বীএমজে (ANSI)</div>
-                    <div className="truncate">Avgvi †mvbvj evsjv,</div>
-                    <div className="truncate">Avwg †Zvgvq fv‡jvevwm|</div>
-                  </div>
-
-                  <div className="bg-[#FFFFFF] p-2.5 rounded-[4px] border border-[#E3DCC8]/60 text-[#0D2818] space-y-1">
-                    <div className="text-[9px] text-[#5C6F63]/80 font-sans">ইউনিকোড (বাংলা)</div>
-                    <div className="truncate">আমার সোনার বাংলা,</div>
-                    <div className="truncate">আমি তোমায় ভালোবাসি।</div>
-                  </div>
-                </div>
-
-                <div className="mt-2.5 pt-2 border-t border-[#FAF6EC] flex items-center justify-between text-[10px] text-[#5C6F63]">
-                  <span>লাইভ রূপান্তর সম্পন্ন</span>
-                  <span className="text-[#0D2818] font-medium">১০০% সঠিক</span>
-                </div>
-              </div>
-            </div>
+        {/* Two Trust Badges (Positioned below the hero search bar) */}
+        <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-1 text-xs sm:text-sm text-[#14231c]">
+          <div className="flex items-center space-x-2">
+            <CheckCircle2 className="w-4 h-4 text-[#0c5c3d] shrink-0" />
+            <span>কোনো লগইন প্রয়োজন নেই</span>
+          </div>
+          <span className="text-[#d8cfb8] hidden sm:inline">•</span>
+          <div className="flex items-center space-x-2">
+            <Lock className="w-4 h-4 text-[#0c5c3d] shrink-0" />
+            <span>সম্পূর্ণ ব্যক্তিগত ও ব্রাউজার-ভিত্তিক প্রসেসিং</span>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          PHASE 1 REDESIGN: FEATURED TOOLS SECTION
+          CATEGORY CARD ROW (5 Cards between Hero & Tool Grid)
           ========================================================================= */}
-      <section className="py-12 sm:py-20 space-y-8">
-        <h2 className="text-[28px] sm:text-[32px] font-semibold text-[#0D2818] font-sans">
-          যা দিয়ে বেশিরভাগ মানুষ শুরু করে
-        </h2>
+      <section className="space-y-3">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-bold text-[#083f2a] uppercase tracking-wider font-serif">
+            ক্যাটাগরি ব্রাউজ করুন
+          </span>
+          <span className="text-[11px] text-[#6b6255]">
+            ক্লিক করে নির্দিষ্ট বিভাগের টুলস দেখুন
+          </span>
+        </div>
 
-        {/* Asymmetric layout: 1 Large Block (60%) + 2 Smaller Stacked Blocks (40%) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-          {/* Large Block (Roughly 60% -> 7 cols): বিজয় ↔ ইউনিকোড কনভার্টার with subtle #FAF6EC background */}
-          <div className="lg:col-span-7 bg-[#FAF6EC] rounded-[8px] p-6 sm:p-8 flex flex-col justify-between space-y-6">
-            <div className="space-y-5">
-              {/* Real Miniature Live-Style Preview (2-3 lines of text) */}
-              <div className="bg-[#FFFFFF] border border-[#E3DCC8] rounded-[6px] p-4 space-y-3 shadow-[0_1px_3px_rgba(13,40,24,0.02)]">
-                <div className="flex items-center justify-between text-[12px] text-[#5C6F63] border-b border-[#FAF6EC] pb-2">
-                  <span className="font-mono">সুতন্বীএমজে (বিজয় ANSI)</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#0D2818]" />
-                  <span className="font-medium text-[#0D2818]">ইউনিকোড (বাংলা)</span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-[13px] leading-relaxed">
-                  <div className="bg-[#FAF6EC]/60 p-3 rounded-[4px] font-mono text-[#5C6F63] border border-[#E3DCC8]/40">
-                    <p className="line-clamp-3">
-                      Avgvi †mvbvj evsjv, Avwg †Zvgvq fv‡jvevwm| wPiw`b †Zvgvi AvKvk, †Zvgvi evZvm, Avgvi cÖv‡Y evRvq euvwk...
-                    </p>
-                  </div>
-                  <div className="bg-[#FFFFFF] p-3 rounded-[4px] text-[#0D2818] border border-[#E3DCC8]/60">
-                    <p className="line-clamp-3">
-                      আমার সোনার বাংলা, আমি তোমায় ভালোবাসি। চিরদিন তোমার আকাশ, তোমার বাতাস, আমার প্রাণে বাজায় বাঁশি...
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-[20px] sm:text-[22px] font-semibold text-[#0D2818] font-sans">
-                  বিজয় ↔ ইউনিকোড কনভার্টার
-                </h3>
-                <p className="text-[15px] text-[#5C6F63] leading-[1.7] mt-1.5">
-                  পুরোনো সুতন্বীএমজে ফন্টের টাইপিং এক ক্লিকে আধুনিক ইউনিকোডে রূপান্তর করুন নিমিষেই।
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <Link
-                to="/converter"
-                className="inline-flex items-center text-[15px] font-medium text-[#0D2818] group hover:text-[#0D2818]/80 transition-colors"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {CATEGORY_CARDS.map((card) => {
+            const isSelected = selectedCategory === card.categoryKey && !heroSearch;
+            return (
+              <button
+                key={card.id}
+                type="button"
+                onClick={() => handleCategoryCardClick(card.categoryKey)}
+                className={`text-left bg-[#fffdf7] border transition-all cursor-pointer flex flex-col justify-between overflow-hidden group ${
+                  isSelected
+                    ? 'border-[#0c5c3d] ring-2 ring-[#0c5c3d]/20 shadow-md'
+                    : 'border-[#d8cfb8] hover:border-[#0c5c3d] hover:shadow-sm'
+                }`}
               >
-                <span>টুল খুলুন</span>
-                <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-1 text-[#0D2818]" />
-              </Link>
+                {/* Solid Tonal Header Band */}
+                <div className={`${card.color} text-[#fffdf7] p-4 space-y-2.5`}>
+                  <div className="flex items-center justify-between">
+                    <div className="w-7 h-7 rounded-full bg-[#fffdf7]/20 flex items-center justify-center">
+                      {card.icon}
+                    </div>
+                    <span className="text-[11px] font-semibold bg-[#fffdf7]/20 px-2 py-0.5 rounded-full font-sans">
+                      {card.badge}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-bold font-serif text-[#fffdf7]">
+                      {card.name}
+                    </h3>
+                    <p className="text-[11px] text-[#fffdf7]/85 leading-snug line-clamp-2 mt-1">
+                      {card.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Lighter Footer Strip */}
+                <div className="p-3 bg-[#f4efe4] border-t border-[#d8cfb8] text-[11px] text-[#4a4237] flex items-center justify-between">
+                  <span className="truncate">
+                    <strong className="text-[#083f2a]">ফিচার্ড:</strong> {card.featuredTool}
+                  </span>
+                  <ArrowRight className="w-3 h-3 text-[#0c5c3d] opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all shrink-0 ml-1" />
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* =========================================================================
+          STATS BAR
+          ========================================================================= */}
+      <section className="bg-[#fffdf7] border border-[#d8cfb8] py-4 px-3 sm:px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-[#d8cfb8]">
+          <div className="text-center px-2 sm:px-4 py-2">
+            <div className="text-2xl sm:text-3xl font-bold text-[#083f2a] font-serif">
+              ৫০,০০০+
+            </div>
+            <div className="text-xs text-[#6b6255] font-sans mt-0.5">
+              ব্যবহারকারী
             </div>
           </div>
 
-          {/* Two Smaller Blocks Stacked (Roughly 40% -> 5 cols) */}
-          <div className="lg:col-span-5 flex flex-col justify-between gap-6">
-            {/* Smaller Block 1: সিভি মেকার (Typography + arrow only, no visual preview) */}
-            <div className="bg-[#FFFFFF] rounded-[8px] p-6 sm:p-7 flex flex-col justify-between border border-[#E3DCC8] hover:border-[#0D2818]/30 transition-colors space-y-4">
-              <div>
-                <h3 className="text-[18px] sm:text-[20px] font-semibold text-[#0D2818] font-sans">
-                  সিভি ও জীবনবৃত্তান্ত মেকার
-                </h3>
-                <p className="text-[14px] sm:text-[15px] text-[#5C6F63] leading-[1.7] mt-1.5">
-                  সরকারি চাকরি ও কর্পোরেট ফরম্যাটে পরিচ্ছন্ন বাংলা ও ইংরেজি সিভি তৈরি ও সরাসরি PDF ডাউনলোড।
-                </p>
-              </div>
-
-              <div>
-                <Link
-                  to="/cv-builder"
-                  className="inline-flex items-center text-[15px] font-medium text-[#0D2818] group hover:text-[#0D2818]/80 transition-colors"
-                >
-                  <span>টুল খুলুন</span>
-                  <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-1 text-[#0D2818]" />
-                </Link>
-              </div>
+          <div className="text-center px-2 sm:px-4 py-2">
+            <div className="text-2xl sm:text-3xl font-bold text-[#083f2a] font-serif">
+              ১,২০,০০০+
             </div>
+            <div className="text-xs text-[#6b6255] font-sans mt-0.5">
+              টুল ব্যবহৃত হয়েছে
+            </div>
+          </div>
 
-            {/* Smaller Block 2: PDF মার্জার (Includes a tiny icon-sized preview) */}
-            <div className="bg-[#FFFFFF] rounded-[8px] p-6 sm:p-7 flex flex-col justify-between border border-[#E3DCC8] hover:border-[#0D2818]/30 transition-colors space-y-4">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-[18px] sm:text-[20px] font-semibold text-[#0D2818] font-sans">
-                    PDF মার্জার
-                  </h3>
-                  <p className="text-[14px] sm:text-[15px] text-[#5C6F63] leading-[1.7] mt-1.5">
-                    একাধিক পিডিএফ ফাইলকে ক্রমানুসারে সাজিয়ে মুহূর্তেই একত্র করে একক ফাইলে রূপান্তর করুন।
-                  </p>
-                </div>
+          <div className="text-center px-2 sm:px-4 py-2">
+            <div className="text-2xl sm:text-3xl font-bold text-[#083f2a] font-serif">
+              ১২টি
+            </div>
+            <div className="text-xs text-[#6b6255] font-sans mt-0.5">
+              মোট টুলস
+            </div>
+          </div>
 
-                {/* Tiny icon-sized preview showing 2 merging sheets */}
-                <div className="w-10 h-10 rounded-[6px] bg-[#FAF6EC] border border-[#E3DCC8] flex items-center justify-center shrink-0">
-                  <div className="relative w-5 h-6">
-                    <div className="absolute left-0 top-0 w-4 h-5 bg-[#FFFFFF] border border-[#E3DCC8] rounded-[1px]"></div>
-                    <div className="absolute right-0 bottom-0 w-4 h-5 bg-[#FFFFFF] border border-[#0D2818]/40 rounded-[1px] shadow-[0_1px_2px_rgba(13,40,24,0.06)] flex items-center justify-center">
-                      <span className="text-[7px] font-mono text-[#0D2818] font-bold">PDF</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <Link
-                  to="/pdf-merger"
-                  className="inline-flex items-center text-[15px] font-medium text-[#0D2818] group hover:text-[#0D2818]/80 transition-colors"
-                >
-                  <span>টুল খুলুন</span>
-                  <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-1 text-[#0D2818]" />
-                </Link>
-              </div>
+          <div className="text-center px-2 sm:px-4 py-2">
+            <div className="text-2xl sm:text-3xl font-bold text-[#083f2a] font-serif">
+              ৩৫,০০০+
+            </div>
+            <div className="text-xs text-[#6b6255] font-sans mt-0.5">
+              PDF তৈরি হয়েছে
             </div>
           </div>
         </div>
