@@ -43,6 +43,11 @@ const CATEGORIES: NavCategory[] = [
         label: 'পাসপোর্ট ও চাকরির ছবি রিসাইজার',
         description: '৩০০×৩০০ ছবি ও ৩০০×৮০ স্বাক্ষর রিসাইজ',
       },
+      {
+        to: '/image-merger',
+        label: 'ইমেজ মার্জার ও কোলাজ মেকার',
+        description: 'A4 প্রিন্ট লেআউট, গ্রিড কোলাজ ও PDF',
+      },
     ],
   },
   {

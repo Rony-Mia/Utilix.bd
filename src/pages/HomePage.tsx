@@ -23,7 +23,8 @@ import {
   Scissors,
   Trash2,
   RotateCw,
-  Stamp
+  Stamp,
+  Grid
 } from 'lucide-react';
 import { TOOLS } from '../data/tools.ts';
 import { SITE_UPDATES } from '../data/updates.ts';
@@ -48,7 +49,7 @@ const FAQS = [
   {
     question: 'Utilix.bd-তে বর্তমানে কী কী টুল পাওয়া যায়?',
     answer:
-      'বর্তমানে আমাদের প্ল্যাটফর্মে ১১টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, সিভি মেকার এবং ৫টি শক্তিশালী পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট, পিডিএফ রোটেট ও পিডিএফ ওয়াটারমার্ক/পেজ নম্বর)।'
+      'বর্তমানে আমাদের প্ল্যাটফর্মে ১২টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, ইমেজ মার্জার ও কোলাজ মেকার, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, সিভি মেকার এবং ৫টি শক্তিশালী পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট, পিডিএফ রোটেট ও পিডিএফ ওয়াটারমার্ক/পেজ নম্বর)।'
   },
   {
     question: 'ইন্টারনেট সংযোগ ছাড়া অফলাইনে কি এই টুলগুলো কাজ করে?',
@@ -271,6 +272,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <div className="w-10 h-10 border border-[#d8cfb8] bg-[#f4efe4] flex items-center justify-center text-[#0c5c3d]">
                       {tool.id === 'bijoy-converter' && <ArrowLeftRight className="w-5 h-5" />}
                       {tool.id === 'photo-resizer' && <Crop className="w-5 h-5" />}
+                      {tool.id === 'image-merger' && <Grid className="w-5 h-5" />}
                       {tool.id === 'age-calculator' && <Calculator className="w-5 h-5" />}
                       {tool.id === 'amount-in-words' && <Coins className="w-5 h-5" />}
                       {tool.id === 'gpa-calculator' && <GraduationCap className="w-5 h-5" />}

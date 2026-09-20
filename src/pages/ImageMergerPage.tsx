@@ -1,0 +1,1256 @@
+import React, { useState, useEffect, useRef, useId, useCallback } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import {
+  Grid,
+  Download,
+  FileImage,
+  Sliders,
+  Layers,
+  Sparkles,
+  Maximize2,
+  RefreshCw,
+  Palette,
+  CheckCircle2,
+  AlertTriangle,
+  FileText,
+  Printer,
+  Eye,
+  Info,
+  ChevronRight,
+  ShieldCheck,
+  Zap,
+  HelpCircle,
+  Crop,
+  ArrowRight
+} from 'lucide-react';
+import {
+  PageSize,
+  PageOrientation,
+  LayoutMode,
+  ImageFit,
+  MergedCanvasConfig,
+  createMergedCanvas,
+  exportCanvasToFormat,
+  loadImageElement,
+  formatBytesBengali,
+  toBanglaDigits
+} from '../lib/imageMergerUtils.ts';
+import { ImageSortableGrid, ImageSortableItem } from '../components/image/ImageSortableGrid.tsx';
+
+export const ImageMergerPage: React.FC = () => {
+  // Image Items State
+  const [items, setItems] = useState<ImageSortableItem[]>([]);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Layout Configuration State
+  const [pageSize, setPageSize] = useState<PageSize>('A4');
+  const [orientation, setOrientation] = useState<PageOrientation>('portrait');
+  const [layoutMode, setLayoutMode] = useState<LayoutMode>('grid');
+  const [columns, setColumns] = useState<number>(2);
+  const [rows, setRows] = useState<number>(2);
+
+  // Spacing & Border
+  const [padding, setPadding] = useState<number>(16);
+  const [margin, setMargin] = useState<number>(24);
+  const [borderRadius, setBorderRadius] = useState<number>(4);
+  const [borderWidth, setBorderWidth] = useState<number>(1);
+  const [borderColor, setBorderColor] = useState<string>('#d8cfb8');
+
+  // Background & Fit
+  const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
+  const [imageFit, setImageFit] = useState<ImageFit>('contain');
+
+  // Custom Size (if pageSize === 'Custom')
+  const [customWidth, setCustomWidth] = useState<number>(1200);
+  const [customHeight, setCustomHeight] = useState<number>(1200);
+
+  // Export Settings
+  const [exportFormat, setExportFormat] = useState<'image/png' | 'image/jpeg' | 'application/pdf'>('image/jpeg');
+  const [exportQuality, setExportQuality] = useState<number>(0.92);
+  const [exportFilename, setExportFilename] = useState<string>('utilix-merged-image');
+  const [isExporting, setIsExporting] = useState<boolean>(false);
+
+  // Live Canvas Preview
+  const previewCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [previewDataUrl, setPreviewDataUrl] = useState<string | null>(null);
+  const [canvasDimensions, setCanvasDimensions] = useState<{ width: number; height: number }>({
+    width: 1240,
+    height: 1754,
+  });
+
+  // Unique IDs for accessibility
+  const paddingInputId = useId();
+  const marginInputId = useId();
+  const radiusInputId = useId();
+  const borderWidthInputId = useId();
+  const qualityInputId = useId();
+  const filenameInputId = useId();
+  const customWidthInputId = useId();
+  const customHeightInputId = useId();
+  const colsInputId = useId();
+  const rowsInputId = useId();
+
+  // Helper to re-render the preview canvas
+  const updateCanvasPreview = useCallback(async () => {
+    if (items.length === 0) {
+      setPreviewDataUrl(null);
+      return;
+    }
+
+    try {
+      const config: MergedCanvasConfig = {
+        pageSize,
+        orientation,
+        layoutMode,
+        columns,
+        rows,
+        padding,
+        margin,
+        backgroundColor,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        imageFit,
+        customWidthPx: customWidth,
+        customHeightPx: customHeight,
+      };
+
+      const htmlImages = items.map((it) => it.imgElement);
+      const canvas = await createMergedCanvas(htmlImages, config);
+      previewCanvasRef.current = canvas;
+      setCanvasDimensions({ width: canvas.width, height: canvas.height });
+      setPreviewDataUrl(canvas.toDataURL('image/png'));
+    } catch (err: unknown) {
+      console.error('Failed to render canvas preview:', err);
+    }
+  }, [
+    items,
+    pageSize,
+    orientation,
+    layoutMode,
+    columns,
+    rows,
+    padding,
+    margin,
+    backgroundColor,
+    borderColor,
+    borderWidth,
+    borderRadius,
+    imageFit,
+    customWidth,
+    customHeight,
+  ]);
+
+  // Debounced effect to update canvas when options or images change
+  useEffect(() => {
+    let isCancelled = false;
+    const timer = setTimeout(() => {
+      if (!isCancelled) {
+        updateCanvasPreview();
+      }
+    }, 80);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(timer);
+    };
+  }, [updateCanvasPreview]);
+
+  // Handle uploading multiple files
+  const handleUploadFiles = async (files: File[]) => {
+    setErrorMessage(null);
+    setIsProcessing(true);
+
+    try {
+      const newItems: ImageSortableItem[] = [];
+
+      for (const file of files) {
+        const id = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+        const imgElement = await loadImageElement(file, 0);
+        const dataUrl = imgElement.src;
+
+        newItems.push({
+          id,
+          file,
+          dataUrl,
+          imgElement,
+          rotation: 0,
+          name: file.name,
+          sizeBytes: file.size,
+          width: imgElement.width,
+          height: imgElement.height,
+        });
+      }
+
+      setItems((prev) => {
+        const updated = [...prev, ...newItems];
+        // Automatically suggest column/row count if grid mode
+        if (updated.length > 0 && layoutMode === 'grid') {
+          if (updated.length <= 2) {
+            setColumns(2);
+            setRows(1);
+          } else if (updated.length <= 4) {
+            setColumns(2);
+            setRows(2);
+          } else if (updated.length <= 6) {
+            setColumns(3);
+            setRows(2);
+          } else if (updated.length <= 9) {
+            setColumns(3);
+            setRows(3);
+          } else {
+            setColumns(4);
+            setRows(Math.ceil(updated.length / 4));
+          }
+        }
+        return updated;
+      });
+    } catch (err: unknown) {
+      setErrorMessage(
+        err instanceof Error ? err.message : 'কিছু ছবি লোড করার সময় সমস্যা হয়েছে।'
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  // Remove individual item
+  const handleRemoveItem = (id: string) => {
+    setItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  // Rotate individual item 90 degrees CW
+  const handleRotateItem = async (id: string) => {
+    const target = items.find((it) => it.id === id);
+    if (!target) return;
+
+    try {
+      const newRotation = (target.rotation + 90) % 360;
+      const rotatedImg = await loadImageElement(target.file, newRotation);
+
+      setItems((prev) =>
+        prev.map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                rotation: newRotation,
+                imgElement: rotatedImg,
+                width: rotatedImg.width,
+                height: rotatedImg.height,
+              }
+            : item
+        )
+      );
+    } catch (err) {
+      console.error('Failed to rotate image:', err);
+    }
+  };
+
+  // Reorder items
+  const handleReorderItems = (startIndex: number, endIndex: number) => {
+    setItems((prev) => {
+      const result = Array.from(prev);
+      const [removed] = result.splice(startIndex, 1);
+      result.splice(endIndex, 0, removed);
+      return result;
+    });
+  };
+
+  // Clear all items
+  const handleClearAll = () => {
+    setItems([]);
+    setPreviewDataUrl(null);
+    setErrorMessage(null);
+  };
+
+  // Quick Preset Handlers
+  const applyPreset = (presetName: string) => {
+    if (presetName === 'a4_2x2') {
+      setPageSize('A4');
+      setOrientation('portrait');
+      setLayoutMode('grid');
+      setColumns(2);
+      setRows(2);
+      setPadding(16);
+      setMargin(24);
+      setImageFit('contain');
+    } else if (presetName === 'passport_sheet') {
+      setPageSize('A4');
+      setOrientation('portrait');
+      setLayoutMode('grid');
+      setColumns(2);
+      setRows(3);
+      setPadding(12);
+      setMargin(20);
+      setImageFit('contain');
+      setBackgroundColor('#ffffff');
+      setBorderWidth(1);
+      setBorderColor('#cccccc');
+    } else if (presetName === 'vertical_strip') {
+      setPageSize('AutoFit');
+      setLayoutMode('vertical');
+      setPadding(10);
+      setMargin(15);
+      setImageFit('cover');
+    } else if (presetName === 'horizontal_row') {
+      setPageSize('AutoFit');
+      setLayoutMode('horizontal');
+      setPadding(10);
+      setMargin(15);
+      setImageFit('cover');
+    } else if (presetName === 'grid_3x3') {
+      setPageSize('A4');
+      setOrientation('portrait');
+      setLayoutMode('grid');
+      setColumns(3);
+      setRows(3);
+      setPadding(10);
+      setMargin(20);
+      setImageFit('cover');
+    }
+  };
+
+  // Execute export and download
+  const handleExport = async () => {
+    if (items.length === 0) {
+      setErrorMessage('ডাউনলোড করার আগে অনুগ্রহ করে অন্তত একটি ছবি যোগ করুন।');
+      return;
+    }
+
+    setIsExporting(true);
+    setErrorMessage(null);
+
+    try {
+      const config: MergedCanvasConfig = {
+        pageSize,
+        orientation,
+        layoutMode,
+        columns,
+        rows,
+        padding,
+        margin,
+        backgroundColor,
+        borderColor,
+        borderWidth,
+        borderRadius,
+        imageFit,
+        customWidthPx: customWidth,
+        customHeightPx: customHeight,
+      };
+
+      const htmlImages = items.map((it) => it.imgElement);
+      const canvas = await createMergedCanvas(htmlImages, config);
+      const cleanFilename = (exportFilename || 'utilix-merged-image').trim().replace(/\.[^/.]+$/, '');
+
+      await exportCanvasToFormat(canvas, exportFormat, exportQuality, cleanFilename);
+    } catch (err: unknown) {
+      setErrorMessage(
+        err instanceof Error ? `এক্সপোর্ট ব্যর্থ হয়েছে: ${err.message}` : 'ছবি তৈরি করতে সমস্যা হয়েছে।'
+      );
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  // Schema.org Structured Data
+  const softwareSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'ইমেজ মার্জার ও কোলাজ মেকার — Utilix.bd',
+    applicationCategory: 'MultimediaApplication',
+    operatingSystem: 'All (Web Browser)',
+    url: 'https://utilix.bd/image-merger',
+    description:
+      'বিনামূল্যে একাধিক ছবি একসাথে জোড়া লাগানো, A4 পেজে পাসপোর্ট বা স্ট্যাম্প সাইজ লেআউট তৈরি, গ্রিড কোলাজ এবং সরাসরি PDF বা JPG ডাউনলোড করার সম্পূর্ণ ক্লায়েন্ট-সাইড টুল।',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'BDT',
+    },
+    featureList: [
+      'একাধিক ছবি ড্রাগ-অ্যান্ড-ড্রপ আপলোড ও লাইভ রি-অর্ডার',
+      'A4, Letter, A3 ও অটোফিট পেজ ফরম্যাটে নিখুঁত প্রিন্ট লেআউট',
+      'ভার্টিক্যাল, হরাইজন্টাল ও কাস্টম গ্রিড (যেমন ২×২, ২×৩, ৩×৩)',
+      'মার্জিন, প্যাডিং, বর্ডার স্ট্রোক ও কর্নার রেডিয়াস কাস্টমাইজেশন',
+      'JPG, PNG এবং সরাসরি Print-ready PDF এক্সপোর্ট',
+      '১০০% ক্লায়েন্ট-সাইড ব্রাউজার প্রসেসিং ও ডাটা নিরাপত্তা',
+    ],
+  };
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'ইমেজ মার্জার (Image Merger) দিয়ে কি A4 পেজে একাধিক ছবি প্রিন্ট করা যায়?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'হ্যাঁ, খুব সহজেই! পেজ সাইজ থেকে A4 নির্বাচন করে ২×২ (৪টি ছবি), ২×৩ (৬টি ছবি) কিংবা কাস্টম গ্রিড সেট করে এক পেজে একাধিক ছবি সাজিয়ে সরাসরি প্রিন্ট-রেডি PDF বা হাই-কোয়ালিটি JPG আকারে ডাউনলোড করতে পারেন।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'এনআইডি (NID) বা আইডি কার্ডের এপিঠ-ওপিঠ কি এক পৃষ্ঠায় জোড়া লাগানো সম্ভব?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'হ্যাঁ, আইডি কার্ডের সামনের এবং পেছনের পৃষ্ঠার ২টি ছবি আপলোড করে "Vertical Stack" বা ২ কলামের গ্রিড নির্বাচন করলে স্বয়ংক্রিয়ভাবে দুটি ছবি সুন্দরভাবে এক ফ্রেমে জোড়া লেগে যাবে।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'ছবিগুলোর ক্রম বা পজিশন কি পরিবর্তন করা যায়?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'হ্যাঁ, আপলোডকৃত ছবির থাম্বনেইল মাউস বা আঙুল দিয়ে টেনে (Drag & Drop) অথবা অ্যারো বোতাম চেপে যেকোনো ছবির অবস্থান পরিবর্তন করা যায়। এছাড়াও প্রতিটি ছবি ৯০° কোণে ঘোরানোর (Rotate) ব্যবস্থাও রয়েছে।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'ছবি কি ঝাপসা বা কম কোয়ালিটির হয়ে যাবে?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'না, আমাদের অ্যালগরিদম ১৫০ ডিপিআই (DPI) স্ট্যান্ডার্ড ভেক্টর ক্যানভাসে ছবি রেন্ডার করে। এক্সপোর্টের সময় আপনি ছবির কোয়ালিটি ১০০% পর্যন্ত রাখতে পারেন অথবা লসলেস PNG বেছে নিতে পারেন।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'আমার আপলোড করা ছবি কি ইন্টারনেটে বা কোনো সার্ভারে চলে যায়?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'না, কোনো ছবি সার্ভারে যায় না। Utilix.bd-এর পুরো প্রযুক্তি আপনার ডিভাইসের ব্রাউজার মেমরিতে (HTML5 Canvas) চলে। অফলাইনেও টুলটি পূর্ণ কার্যক্ষম থাকে।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'ছবিগুলোর মাঝে কি ব্যবধান (Gap) বা বর্ডার যোগ করা যায়?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'হ্যাঁ, আপনি প্যাডিং (Padding) স্লাইডার দিয়ে ছবিগুলোর মধ্যকার দূরত্ব এবং মার্জিন (Margin) দিয়ে পেজের কিনারা থেকে দূরত্ব নিয়ন্ত্রণ করতে পারেন। এছাড়াও ফ্রেমের মতো সুন্দর বর্ডার ও গোল কোণ (Border Radius) যুক্ত করার সুযোগ রয়েছে।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'পিডিএফ (PDF) আকারে সেভ করলে কি সরাসরি ফটো পেপারে প্রিন্ট দেওয়া যাবে?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'হ্যাঁ, এক্সপোর্ট ফরম্যাট হিসেবে "PDF" নির্বাচন করলে তা স্ট্যান্ডার্ড প্রিন্টার পেজ মাপ অনুযায়ী তৈরি হয়, যা যেকোনো সাইবার ক্যাফে বা ব্যক্তিগত প্রিন্টারে সরাসরি প্রিন্ট করার উপযোগী।',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'টুলটি ব্যবহার করতে কি কোনো টাকা বা রেজিস্ট্রেশন লাগে?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'না, Utilix.bd-এর অন্যান্য টুলের মতো এটিও সম্পূর্ণ বিনামূল্যে, বিজ্ঞাপন-মুক্ত এবং কোনো সাইন-আপ ছাড়াই আজীবন ব্যবহারের জন্য উন্মুক্ত।',
+        },
+      },
+    ],
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-10">
+      <Helmet>
+        <title>ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utilix.bd</title>
+        <meta
+          name="description"
+          content="একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। পাসপোর্ট ছবি প্রিন্ট লেআউট ও অফিসিয়াল ডকুমেন্টের জন্য ফ্রি টুল। ১০০% ক্লায়েন্ট-সাইড ও নিরাপদ।"
+        />
+        <link rel="canonical" href="https://utilix.bd/image-merger" />
+        <meta property="og:title" content="ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utilix.bd" />
+        <meta
+          property="og:description"
+          content="একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। পাসপোর্ট ছবি প্রিন্ট লেআউট ও অফিসিয়াল ডকুমেন্টের জন্য ফ্রি টুল।"
+        />
+        <meta property="og:url" content="https://utilix.bd/image-merger" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utilix.bd" />
+        <meta
+          name="twitter:description"
+          content="একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। ১০০% অফলাইন ও নিরাপদ।"
+        />
+        <script type="application/ld+json">{JSON.stringify(softwareSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
+
+      {/* HEADER SECTION */}
+      <div className="border-b border-[#d8cfb8] pb-6 space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center space-x-2">
+            <span className="text-[11px] font-mono font-bold bg-[#0c5c3d] text-[#fffdf7] px-2.5 py-0.5">
+              ইমেজ প্রসেসিং ও লেআউট
+            </span>
+            <span className="text-xs font-mono text-[#6b6255]">IMG-GOV-03</span>
+          </div>
+
+          <div className="flex items-center space-x-2 text-xs text-[#0c5c3d] font-medium">
+            <ShieldCheck className="w-4 h-4" />
+            <span>১০০% ব্রাউজার প্রসেসিং • প্রাইভেট ও নিরাপদ</span>
+          </div>
+        </div>
+
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#083f2a] tracking-tight">
+          ইমেজ মার্জার ও কোলাজ মেকার (Image Merger & Grid Creator)
+        </h1>
+
+        <p className="text-sm sm:text-base text-[#4a4237] max-w-4xl leading-relaxed">
+          একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজ, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। সরকারি আবেদন, পাসপোর্ট ছবি প্রিন্ট লেআউট, এনআইডি কার্ডের এপিঠ-ওপিঠ বা প্রজেক্ট রিপোর্টের জন্য আদর্শ। কোনো ছবি সার্ভারে যায় না।
+        </p>
+      </div>
+
+      {/* WORKBENCH CONTAINER */}
+      <div className="border border-[#d8cfb8] bg-[#fffdf7] p-5 sm:p-7 lg:p-8 space-y-8">
+        {/* SECTION 1: UPLOAD & SORTABLE IMAGES */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2 text-xs font-mono text-[#083f2a]">
+              <span className="bg-[#f4efe4] border border-[#d8cfb8] px-2 py-0.5 font-bold">ধাপ ১</span>
+              <span className="font-bold">ছবি আপলোড ও ক্রমবিন্যাস (Images & Reorder)</span>
+            </div>
+            {items.length > 0 && (
+              <span className="text-xs font-mono text-[#6b6255]">
+                {toBanglaDigits(items.length)}টি ছবি লোড করা হয়েছে
+              </span>
+            )}
+          </div>
+
+          <ImageSortableGrid
+            items={items}
+            onUpload={handleUploadFiles}
+            onRemove={handleRemoveItem}
+            onRotate={handleRotateItem}
+            onReorder={handleReorderItems}
+            onClearAll={handleClearAll}
+            isLoading={isProcessing}
+          />
+        </div>
+
+        {/* SECTION 2 & 3: CONFIGURATION AND LIVE PREVIEW (2-COLUMN GRID) */}
+        {items.length > 0 && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4 border-t border-[#d8cfb8]">
+            {/* LEFT COLUMN: CONTROLS PANEL (7 COLS) */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="flex items-center space-x-2 pb-2 border-b border-[#d8cfb8]">
+                <Sliders className="w-4 h-4 text-[#0c5c3d]" />
+                <h2 className="font-bold text-sm sm:text-base text-[#083f2a] font-serif">
+                  লেআউট ও পেজ কনফিগারেশন
+                </h2>
+              </div>
+
+              {/* Quick Preset Buttons */}
+              <div className="space-y-1.5">
+                <span className="text-xs font-bold text-[#083f2a] block">জনপ্রিয় প্রিসেট (Quick Presets)</span>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { id: 'a4_2x2', label: 'A4 পেজে ৪টি ছবি (২×২)' },
+                    { id: 'passport_sheet', label: 'পাসপোর্ট ছবি শিট (৬টি)' },
+                    { id: 'vertical_strip', label: 'লম্বালম্বি স্ট্রিপ (Vertical)' },
+                    { id: 'horizontal_row', label: 'পাশাপাশি সারি (Row)' },
+                    { id: 'grid_3x3', label: '৯টি ছবির গ্রিড (৩×৩)' },
+                  ].map((p) => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      onClick={() => applyPreset(p.id)}
+                      className="text-xs px-2.5 py-1.5 border border-[#d8cfb8] bg-[#f4efe4] hover:bg-[#0c5c3d] hover:text-[#fffdf7] hover:border-[#0c5c3d] text-[#083f2a] transition-colors cursor-pointer"
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Page Size & Orientation */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#083f2a] block">পেজ সাইজ (Page Size)</label>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {(['A4', 'Letter', 'A3', 'AutoFit', 'Custom'] as PageSize[]).map((size) => (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={() => setPageSize(size)}
+                        className={`py-1.5 text-xs font-medium border text-center transition-colors cursor-pointer ${
+                          pageSize === size
+                            ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                            : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                        }`}
+                      >
+                        {size === 'AutoFit' ? 'অটোফিট' : size === 'Custom' ? 'কাস্টম' : size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {pageSize !== 'AutoFit' && pageSize !== 'Custom' && (
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#083f2a] block">পেজ ওরিয়েন্টেশন</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setOrientation('portrait')}
+                        className={`py-1.5 text-xs font-medium border text-center transition-colors cursor-pointer ${
+                          orientation === 'portrait'
+                            ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                            : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                        }`}
+                      >
+                        লম্বালম্বি (Portrait)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setOrientation('landscape')}
+                        className={`py-1.5 text-xs font-medium border text-center transition-colors cursor-pointer ${
+                          orientation === 'landscape'
+                            ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                            : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                        }`}
+                      >
+                        আড়াআড়ি (Landscape)
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Custom Dimensions (if Custom PageSize) */}
+              {pageSize === 'Custom' && (
+                <div className="grid grid-cols-2 gap-4 p-3 bg-[#f4efe4]/50 border border-[#d8cfb8]">
+                  <div className="space-y-1">
+                    <label htmlFor={customWidthInputId} className="text-xs font-bold text-[#083f2a]">
+                      কাস্টম প্রস্থ (Width px)
+                    </label>
+                    <input
+                      id={customWidthInputId}
+                      type="number"
+                      min="200"
+                      max="6000"
+                      step="50"
+                      value={customWidth}
+                      onChange={(e) => setCustomWidth(Number(e.target.value))}
+                      className="w-full px-2.5 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs font-mono"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label htmlFor={customHeightInputId} className="text-xs font-bold text-[#083f2a]">
+                      কাস্টম উচ্চতা (Height px)
+                    </label>
+                    <input
+                      id={customHeightInputId}
+                      type="number"
+                      min="200"
+                      max="6000"
+                      step="50"
+                      value={customHeight}
+                      onChange={(e) => setCustomHeight(Number(e.target.value))}
+                      className="w-full px-2.5 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs font-mono"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Layout Mode & Grid Matrix */}
+              <div className="space-y-3">
+                <label className="text-xs font-bold text-[#083f2a] block">লেআউট বিন্যাস (Layout Mode)</label>
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setLayoutMode('grid')}
+                    className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
+                      layoutMode === 'grid'
+                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                    }`}
+                  >
+                    গ্রিড কোলাজ (Grid)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setLayoutMode('vertical')}
+                    className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
+                      layoutMode === 'vertical'
+                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                    }`}
+                  >
+                    ভার্টিক্যাল স্ট্যাক (Vertical)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setLayoutMode('horizontal')}
+                    className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
+                      layoutMode === 'horizontal'
+                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                    }`}
+                  >
+                    হরাইজন্টাল সারি (Row)
+                  </button>
+                </div>
+
+                {/* Grid Columns & Rows controls if layoutMode === 'grid' */}
+                {layoutMode === 'grid' && (
+                  <div className="grid grid-cols-2 gap-4 pt-1">
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-xs text-[#083f2a]">
+                        <label htmlFor={colsInputId} className="font-bold">কলাম সংখ্যা (Columns)</label>
+                        <span className="font-mono text-[#0c5c3d] font-bold">{columns} কলাম</span>
+                      </div>
+                      <input
+                        id={colsInputId}
+                        type="range"
+                        min="1"
+                        max="6"
+                        value={columns}
+                        onChange={(e) => setColumns(Number(e.target.value))}
+                        className="w-full accent-[#0c5c3d]"
+                      />
+                      <div className="flex justify-between text-[10px] text-[#6b6255]">
+                        <span>১ কলাম</span>
+                        <span>২ (স্ট্যান্ডার্ড)</span>
+                        <span>৬ কলাম</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-xs text-[#083f2a]">
+                        <label htmlFor={rowsInputId} className="font-bold">সারি সংখ্যা (Rows)</label>
+                        <span className="font-mono text-[#0c5c3d] font-bold">{rows} সারি</span>
+                      </div>
+                      <input
+                        id={rowsInputId}
+                        type="range"
+                        min="1"
+                        max="8"
+                        value={rows}
+                        onChange={(e) => setRows(Number(e.target.value))}
+                        className="w-full accent-[#0c5c3d]"
+                      />
+                      <div className="flex justify-between text-[10px] text-[#6b6255]">
+                        <span>১ সারি</span>
+                        <span>২ (স্ট্যান্ডার্ড)</span>
+                        <span>৮ সারি</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Image Fit Option */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-[#083f2a] block">
+                  ছবির অনুপাত ও ফিট (Image Fit)
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { id: 'contain', label: 'পুরো ছবি ফিট (Contain)' },
+                    { id: 'cover', label: 'ঘর পূর্ণ ক্রপ (Cover)' },
+                    { id: 'fill', label: 'টেনে পূরণ (Fill)' },
+                  ].map((fit) => (
+                    <button
+                      key={fit.id}
+                      type="button"
+                      onClick={() => setImageFit(fit.id as ImageFit)}
+                      className={`py-1.5 text-xs font-medium border text-center transition-colors cursor-pointer ${
+                        imageFit === fit.id
+                          ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                          : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                      }`}
+                    >
+                      {fit.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Spacing & Borders Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-[#f4efe4]/40 border border-[#d8cfb8]">
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs text-[#083f2a]">
+                    <label htmlFor={paddingInputId} className="font-medium">ছবিগুলোর দূরত্ব (Padding)</label>
+                    <span className="font-mono text-[#6b6255]">{padding}px</span>
+                  </div>
+                  <input
+                    id={paddingInputId}
+                    type="range"
+                    min="0"
+                    max="50"
+                    value={padding}
+                    onChange={(e) => setPadding(Number(e.target.value))}
+                    className="w-full accent-[#0c5c3d]"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs text-[#083f2a]">
+                    <label htmlFor={marginInputId} className="font-medium">পেজ বর্ডার মার্জিন</label>
+                    <span className="font-mono text-[#6b6255]">{margin}px</span>
+                  </div>
+                  <input
+                    id={marginInputId}
+                    type="range"
+                    min="0"
+                    max="60"
+                    value={margin}
+                    onChange={(e) => setMargin(Number(e.target.value))}
+                    className="w-full accent-[#0c5c3d]"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs text-[#083f2a]">
+                    <label htmlFor={radiusInputId} className="font-medium">গোল কোণ (Border Radius)</label>
+                    <span className="font-mono text-[#6b6255]">{borderRadius}px</span>
+                  </div>
+                  <input
+                    id={radiusInputId}
+                    type="range"
+                    min="0"
+                    max="30"
+                    value={borderRadius}
+                    onChange={(e) => setBorderRadius(Number(e.target.value))}
+                    className="w-full accent-[#0c5c3d]"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs text-[#083f2a]">
+                    <label htmlFor={borderWidthInputId} className="font-medium">বর্ডার স্ট্রোক (Border Width)</label>
+                    <span className="font-mono text-[#6b6255]">{borderWidth}px</span>
+                  </div>
+                  <input
+                    id={borderWidthInputId}
+                    type="range"
+                    min="0"
+                    max="8"
+                    value={borderWidth}
+                    onChange={(e) => setBorderWidth(Number(e.target.value))}
+                    className="w-full accent-[#0c5c3d]"
+                  />
+                </div>
+              </div>
+
+              {/* Background Color & Border Color Pickers */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <span className="text-xs font-bold text-[#083f2a] block">পেজের পটভূমি (Background)</span>
+                  <div className="flex items-center space-x-2">
+                    {[
+                      { label: 'সাদা', val: '#ffffff' },
+                      { label: 'ক্রিম', val: '#f4efe4' },
+                      { label: 'কালো', val: '#1e293b' },
+                      { label: 'স্বচ্ছ', val: 'transparent' },
+                    ].map((b) => (
+                      <button
+                        key={b.val}
+                        type="button"
+                        onClick={() => setBackgroundColor(b.val)}
+                        className={`px-2 py-1 text-xs border transition-all cursor-pointer ${
+                          backgroundColor === b.val
+                            ? 'border-[#0c5c3d] ring-1 ring-[#0c5c3d] font-bold bg-[#fffdf7]'
+                            : 'border-[#d8cfb8] bg-[#fffdf7]'
+                        }`}
+                      >
+                        {b.label}
+                      </button>
+                    ))}
+                    <input
+                      type="color"
+                      value={backgroundColor === 'transparent' ? '#ffffff' : backgroundColor}
+                      onChange={(e) => setBackgroundColor(e.target.value)}
+                      title="কাস্টম ব্যাকগ্রাউন্ড কালার"
+                      className="w-7 h-7 border border-[#d8cfb8] p-0.5 bg-[#fffdf7] cursor-pointer"
+                    />
+                  </div>
+                </div>
+
+                {borderWidth > 0 && (
+                  <div className="space-y-1.5">
+                    <span className="text-xs font-bold text-[#083f2a] block">বর্ডার কালার (Border Color)</span>
+                    <div className="flex items-center space-x-2">
+                      {[
+                        { label: 'বেজ', val: '#d8cfb8' },
+                        { label: 'কালো', val: '#14231c' },
+                        { label: 'সবুজ', val: '#0c5c3d' },
+                        { label: 'সাদা', val: '#ffffff' },
+                      ].map((c) => (
+                        <button
+                          key={c.val}
+                          type="button"
+                          onClick={() => setBorderColor(c.val)}
+                          className={`px-2 py-1 text-xs border transition-all cursor-pointer ${
+                            borderColor === c.val
+                              ? 'border-[#0c5c3d] ring-1 ring-[#0c5c3d] font-bold bg-[#fffdf7]'
+                              : 'border-[#d8cfb8] bg-[#fffdf7]'
+                          }`}
+                        >
+                          {c.label}
+                        </button>
+                      ))}
+                      <input
+                        type="color"
+                        value={borderColor}
+                        onChange={(e) => setBorderColor(e.target.value)}
+                        title="কাস্টম বর্ডার কালার"
+                        className="w-7 h-7 border border-[#d8cfb8] p-0.5 bg-[#fffdf7] cursor-pointer"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN: LIVE INTERACTIVE PREVIEW & EXPORT PANEL (5 COLS) */}
+            <div className="lg:col-span-5 space-y-5">
+              {/* Preview Header */}
+              <div className="flex items-center justify-between pb-2 border-b border-[#d8cfb8]">
+                <div className="flex items-center space-x-2">
+                  <Eye className="w-4 h-4 text-[#0c5c3d]" />
+                  <h3 className="font-bold text-sm text-[#083f2a] font-serif">
+                    লাইভ ক্যানভাস প্রিভিউ
+                  </h3>
+                </div>
+                <span className="text-xs font-mono text-[#6b6255]">
+                  {canvasDimensions.width} × {canvasDimensions.height} px
+                </span>
+              </div>
+
+              {/* Viewport Box */}
+              <div className="border border-[#d8cfb8] bg-[#ece5d8]/40 p-4 flex flex-col items-center justify-center min-h-[340px] max-h-[500px] overflow-hidden relative shadow-inner">
+                {previewDataUrl ? (
+                  <div className="relative max-w-full max-h-[460px] flex items-center justify-center shadow-lg bg-white">
+                    <img
+                      src={previewDataUrl}
+                      alt="Merged Canvas Live Preview"
+                      className="max-w-full max-h-[440px] object-contain block border border-black/10"
+                    />
+                  </div>
+                ) : (
+                  <div className="text-center text-[#6b6255] text-xs space-y-2">
+                    <FileImage className="w-10 h-10 text-[#a59b8a] mx-auto animate-pulse" />
+                    <p>ছবি নির্বাচন করলে এখানে রিয়েল-টাইম ক্যানভাস দৃশ্যমান হবে</p>
+                  </div>
+                )}
+              </div>
+
+              {/* EXPORT & DOWNLOAD PANEL */}
+              <div className="border border-[#d8cfb8] bg-[#f4efe4]/50 p-4 space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-[#d8cfb8]">
+                  <span className="text-xs font-bold text-[#083f2a] uppercase tracking-wider">
+                    ডাউনলোড অপশন
+                  </span>
+                  <span className="text-xs font-mono text-[#0c5c3d] font-bold">
+                    {exportFormat === 'application/pdf'
+                      ? 'PDF ডকুমেন্ট'
+                      : exportFormat === 'image/jpeg'
+                      ? 'JPEG ছবি'
+                      : 'PNG ছবি'}
+                  </span>
+                </div>
+
+                {/* Format Selector */}
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setExportFormat('image/jpeg')}
+                    className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
+                      exportFormat === 'image/jpeg'
+                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                    }`}
+                  >
+                    JPG ইমেজ
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setExportFormat('image/png')}
+                    className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
+                      exportFormat === 'image/png'
+                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                    }`}
+                  >
+                    PNG ইমেজ
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setExportFormat('application/pdf')}
+                    className={`py-2 text-xs font-medium border text-center transition-colors cursor-pointer ${
+                      exportFormat === 'application/pdf'
+                        ? 'bg-[#0c5c3d] text-[#fffdf7] border-[#0c5c3d]'
+                        : 'bg-[#fffdf7] text-[#083f2a] border-[#d8cfb8] hover:bg-[#f4efe4]'
+                    }`}
+                  >
+                    PDF ফাইল (প্রিন্ট)
+                  </button>
+                </div>
+
+                {/* Quality Slider for JPEG / PDF */}
+                {exportFormat !== 'image/png' && (
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs text-[#083f2a]">
+                      <label htmlFor={qualityInputId} className="font-medium">ইমেজ কোয়ালিটি / কম্প্রেশন</label>
+                      <span className="font-mono text-[#6b6255]">{Math.round(exportQuality * 100)}%</span>
+                    </div>
+                    <input
+                      id={qualityInputId}
+                      type="range"
+                      min="0.5"
+                      max="1.0"
+                      step="0.05"
+                      value={exportQuality}
+                      onChange={(e) => setExportQuality(Number(e.target.value))}
+                      className="w-full accent-[#0c5c3d]"
+                    />
+                    <div className="flex justify-between text-[10px] text-[#6b6255]">
+                      <span>মাঝারি (৫০%)</span>
+                      <span>উচ্চ (৮৫%)</span>
+                      <span>সর্বোচ্চ (১০০%)</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Filename Input */}
+                <div className="space-y-1">
+                  <label htmlFor={filenameInputId} className="text-xs font-bold text-[#083f2a]">
+                    ফাইলের নাম
+                  </label>
+                  <input
+                    id={filenameInputId}
+                    type="text"
+                    value={exportFilename}
+                    onChange={(e) => setExportFilename(e.target.value)}
+                    placeholder="utilix-merged-image"
+                    className="w-full px-2.5 py-1.5 border border-[#d8cfb8] bg-[#fffdf7] text-xs font-mono"
+                  />
+                </div>
+
+                {/* Error Banner */}
+                {errorMessage && (
+                  <div className="p-2.5 border border-[#b84d4d] bg-[#f9e8e8] text-[#8a2424] text-xs flex items-center space-x-2">
+                    <AlertTriangle className="w-4 h-4 shrink-0" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
+                {/* Big Download Button */}
+                <button
+                  type="button"
+                  onClick={handleExport}
+                  disabled={isExporting || items.length === 0}
+                  className="w-full py-3 bg-[#0c5c3d] hover:bg-[#083f2a] disabled:bg-[#a59b8a] text-[#fffdf7] font-bold text-sm tracking-wide transition-colors flex items-center justify-center space-x-2 shadow-sm cursor-pointer"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>
+                    {isExporting
+                      ? 'তৈরি হচ্ছে...'
+                      : exportFormat === 'application/pdf'
+                      ? 'PDF আকারে ডাউনলোড করুন'
+                      : 'মার্জ করা ছবি ডাউনলোড করুন'}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* SECTION 4: EDUCATIONAL DEEP DIVE & SEO CONTENT (800+ Words in Bengali) */}
+      <div className="border border-[#d8cfb8] bg-[#fffdf7] p-6 lg:p-10 space-y-8 text-[#14231c]">
+        {/* Title and Intro */}
+        <div className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#083f2a]">
+            একাধিক ছবি এক পেজে সাজানো ও মার্জ করার প্রয়োজনীয়তা ও সুবিধা
+          </h2>
+          <p className="text-sm sm:text-base text-[#4a4237] leading-relaxed">
+            বর্তমান ডিজিটাল প্রশাসনিক যোগাযোগ, প্রাতিষ্ঠানিক প্রজেক্ট পেপার, চাকরির আবেদন এবং ই-কমার্স ব্যবসায় একাধিক ছবিকে সুশৃঙ্খলভাবে একটি ফ্রেমে বা A4 পেজে উপস্থাপন করা একটি অপরিহার্য কাজ। কোনো থার্ড-পার্টি ভারী সফটওয়্যার বা ফটোশপ ছাড়াই সরাসরি ব্রাউজারে ছবি জোড়া লাগানো এবং নিখুঁত প্রিন্ট লেআউটে সাজানোর জন্য Utilix.bd-এর <strong>ইমেজ মার্জার ও কোলাজ মেকার</strong> একটি সহজ, শক্তিশালী এবং সম্পূর্ণ বিনামূল্যে ব্যবহারযোগ্য প্ল্যাটফর্ম।
+          </p>
+        </div>
+
+        {/* Feature Highlights Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+          <div className="p-4 border border-[#d8cfb8] bg-[#f4efe4]/30 space-y-2">
+            <div className="w-8 h-8 bg-[#0c5c3d] text-[#fffdf7] flex items-center justify-center">
+              <Printer className="w-4 h-4" />
+            </div>
+            <h3 className="font-bold text-sm text-[#083f2a] font-serif">A4 ও Letter পেজে প্রিন্ট ফ্রেন্ডলি</h3>
+            <p className="text-xs text-[#4a4237] leading-relaxed">
+              পাসপোর্ট সাইজের একাধিক ছবি, স্ট্যাম্প ছবি কিংবা বিভিন্ন প্রশংসাপত্রের ছবিকে একটি A4 পেজে সাজিয়ে সরাসরি প্রিন্ট দিন। ফটো পেপারের অপচয় রোধ ও প্রিন্টিং খরচ কমাতে এটি অতুলনীয়।
+            </p>
+          </div>
+
+          <div className="p-4 border border-[#d8cfb8] bg-[#f4efe4]/30 space-y-2">
+            <div className="w-8 h-8 bg-[#0c5c3d] text-[#fffdf7] flex items-center justify-center">
+              <Layers className="w-4 h-4" />
+            </div>
+            <h3 className="font-bold text-sm text-[#083f2a] font-serif">আইডি কার্ড ও সার্টিফিকেটের এপিঠ-ওপিঠ</h3>
+            <p className="text-xs text-[#4a4237] leading-relaxed">
+              ব্যাংক একাউন্ট খোলা, সিম রেজিস্ট্রেশন বা সরকারি ফর্মের জন্য জাতীয় পরিচয়পত্র (NID) কিংবা ড্রাইভিং লাইসেন্সের সামনের ও পেছনের অংশ এক সারিতে জোড়া লাগিয়ে নিমিষেই PDF বানান।
+            </p>
+          </div>
+
+          <div className="p-4 border border-[#d8cfb8] bg-[#f4efe4]/30 space-y-2">
+            <div className="w-8 h-8 bg-[#0c5c3d] text-[#fffdf7] flex items-center justify-center">
+              <ShieldCheck className="w-4 h-4" />
+            </div>
+            <h3 className="font-bold text-sm text-[#083f2a] font-serif">১০০% ক্লায়েন্ট-সাইড প্রাইভেসি</h3>
+            <p className="text-xs text-[#4a4237] leading-relaxed">
+              আপনার ব্যক্তিগত বা অফিশিয়াল স্পর্শকাতর ছবিগুলো কোনো ক্লাউড সার্ভার বা ডেটাবেজে আপলোড হয় না। সম্পূর্ণ কম্পোজিশন আপনার ডিভাইসের ব্রাউজারেই প্রক্রিয়াজাত হয়।
+            </p>
+          </div>
+        </div>
+
+        {/* Detailed Practical Use Cases */}
+        <div className="space-y-4 pt-4 border-t border-[#d8cfb8]">
+          <h3 className="text-lg font-serif font-bold text-[#083f2a]">
+            বাস্তব ক্ষেত্রে ইমেজ মার্জার টুলের প্রধান ব্যবহারসমূহ:
+          </h3>
+          <ul className="space-y-3 text-xs sm:text-sm text-[#3a3227] leading-relaxed list-disc list-inside">
+            <li>
+              <strong>সরকারি ও ব্যাংক চাকরির আবেদন কপি:</strong> প্রার্থীর প্রবেশপত্র, প্রশংসাপত্র, বিভিন্ন সনদ বা অভিজ্ঞতার পাতার ছবিগুলোকে একটি নির্দিষ্ট ফাইলে একত্রিত করা।
+            </li>
+            <li>
+              <strong>টেন্ডার ও ইঞ্জিনিয়ারিং পরিদর্শন রিপোর্ট:</strong> প্রজেক্ট সাইটের কাজের অগ্রগতি প্রদর্শনে ২×২ বা ৩×৩ গ্রিডে তারিখ অনুযায়ী ছবি সাজিয়ে রিপোর্ট তৈরি।
+            </li>
+            <li>
+              <strong>পাসপোর্ট সাইজ ছবির ফটো শিট:</strong> ল্যাব বা সাইবার ক্যাফেতে না গিয়ে নিজে নিজের পাসপোর্ট/স্ট্যাম্প ছবি ৪টি বা ৬টি একসাথে সাজিয়ে প্রিন্ট উপযোগী শিট তৈরি।
+            </li>
+            <li>
+              <strong>অনলাইন শপ ও ই-কমার্স ক্যাটালগ:</strong> ফেসবুক পেইজ বা অনলাইন শপের প্রোডাক্ট প্রদর্শনের জন্য বিভিন্ন অ্যাঙ্গেলের ৪টি বা ৬টি ছবি দিয়ে আকর্ষণীয় পণ্য কোলাজ তৈরি।
+            </li>
+            <li>
+              <strong>শিক্ষার্থী ও বৈজ্ঞানিক তুলনা:</strong> মাইক্রোস্কোপিক স্লাইড বা বৈজ্ঞানিক গবেষণার পরীক্ষার তুলনামূলক ছবিগুলোকে পাশাপাশি (Horizontal) সাজিয়ে থিসিস পেপারে ব্যবহার।
+            </li>
+          </ul>
+        </div>
+
+        {/* Step-by-Step Guide */}
+        <div className="space-y-4 pt-4 border-t border-[#d8cfb8]">
+          <h3 className="text-lg font-serif font-bold text-[#083f2a]">
+            কীভাবে খুব সহজে ছবি মার্জ করবেন? (৪টি সহজ ধাপ)
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="border border-[#d8cfb8] bg-[#f4efe4]/30 p-4 space-y-1">
+              <span className="text-xs font-mono font-bold text-[#0c5c3d]">ধাপ ০১</span>
+              <h4 className="font-bold text-sm text-[#083f2a]">ছবি আপলোড</h4>
+              <p className="text-xs text-[#4a4237]">
+                কম্পিউটার বা মোবাইল থেকে আপনার কাঙ্ক্ষিত ছবিগুলো একসাথে ড্রপজোন বক্সে নির্বাচন করুন।
+              </p>
+            </div>
+
+            <div className="border border-[#d8cfb8] bg-[#f4efe4]/30 p-4 space-y-1">
+              <span className="text-xs font-mono font-bold text-[#0c5c3d]">ধাপ ০২</span>
+              <h4 className="font-bold text-sm text-[#083f2a]">ক্রম ও রোটেশন ঠিক করা</h4>
+              <p className="text-xs text-[#4a4237]">
+                থাম্বনেইল ড্রাগ করে ছবির ক্রম সাজিয়ে নিন এবং উল্টো ছবি থাকলে তা ৯০° রোটেট করে সোজা করুন।
+              </p>
+            </div>
+
+            <div className="border border-[#d8cfb8] bg-[#f4efe4]/30 p-4 space-y-1">
+              <span className="text-xs font-mono font-bold text-[#0c5c3d]">ধাপ ০৩</span>
+              <h4 className="font-bold text-sm text-[#083f2a]">লেআউট ও গ্রিড কাস্টমাইজ</h4>
+              <p className="text-xs text-[#4a4237]">
+                A4, Letter বা AutoFit পেজ নির্বাচন করে কলাম, রো, প্যাডিং ও ব্যাকগ্রাউন্ড কালার ঠিক করুন।
+              </p>
+            </div>
+
+            <div className="border border-[#d8cfb8] bg-[#f4efe4]/30 p-4 space-y-1">
+              <span className="text-xs font-mono font-bold text-[#0c5c3d]">ধাপ ০৪</span>
+              <h4 className="font-bold text-sm text-[#083f2a]">এক ক্লিকে ডাউনলোড</h4>
+              <p className="text-xs text-[#4a4237]">
+                লাইভ প্রিভিউ সন্তোষজনক হলে JPG, PNG বা সরাসরি Print-ready PDF হিসেবে ডাউনলোড করে নিন।
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* FAQs Section */}
+        <div className="space-y-4 pt-6 border-t border-[#d8cfb8]">
+          <h3 className="text-lg font-serif font-bold text-[#083f2a] flex items-center space-x-2">
+            <HelpCircle className="w-5 h-5 text-[#0c5c3d]" />
+            <span>সচরাচর জিজ্ঞাসিত প্রশ্নাবলী (FAQ)</span>
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {faqSchema.mainEntity.map((faq, idx) => (
+              <div key={idx} className="border border-[#d8cfb8] bg-[#fffdf7] p-4 space-y-2">
+                <h4 className="font-bold text-sm text-[#083f2a] flex items-start space-x-2">
+                  <span className="text-[#0c5c3d] font-mono font-bold shrink-0">Q.</span>
+                  <span>{faq.name}</span>
+                </h4>
+                <p className="text-xs sm:text-sm text-[#4a4237] leading-relaxed pl-5">
+                  {faq.acceptedAnswer.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Related Tools Internal Linking */}
+        <div className="pt-6 border-t border-[#d8cfb8] space-y-3">
+          <h3 className="font-serif font-bold text-sm text-[#083f2a]">
+            Utilix.bd-এর অন্যান্য সম্পর্কিত ইউটিলিটি টুলস:
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <Link
+              to="/photo-resizer"
+              className="p-3 border border-[#d8cfb8] bg-[#f4efe4]/40 hover:bg-[#0c5c3d]/5 hover:border-[#0c5c3d] transition-colors group flex items-center justify-between"
+            >
+              <div>
+                <span className="text-[10px] font-mono text-[#6b6255]">IMG-GOV-02</span>
+                <h4 className="font-bold text-xs text-[#083f2a] group-hover:text-[#0c5c3d]">
+                  ছবি ও স্বাক্ষর রিসাইজার
+                </h4>
+              </div>
+              <ArrowRight className="w-4 h-4 text-[#6b6255] group-hover:text-[#0c5c3d]" />
+            </Link>
+
+            <Link
+              to="/pdf-merger"
+              className="p-3 border border-[#d8cfb8] bg-[#f4efe4]/40 hover:bg-[#0c5c3d]/5 hover:border-[#0c5c3d] transition-colors group flex items-center justify-between"
+            >
+              <div>
+                <span className="text-[10px] font-mono text-[#6b6255]">DOC-PDF-01</span>
+                <h4 className="font-bold text-xs text-[#083f2a] group-hover:text-[#0c5c3d]">
+                  পিডিএফ মার্জার (PDF Merger)
+                </h4>
+              </div>
+              <ArrowRight className="w-4 h-4 text-[#6b6255] group-hover:text-[#0c5c3d]" />
+            </Link>
+
+            <Link
+              to="/pdf-watermark-page-number"
+              className="p-3 border border-[#d8cfb8] bg-[#f4efe4]/40 hover:bg-[#0c5c3d]/5 hover:border-[#0c5c3d] transition-colors group flex items-center justify-between"
+            >
+              <div>
+                <span className="text-[10px] font-mono text-[#6b6255]">DOC-PDF-05</span>
+                <h4 className="font-bold text-xs text-[#083f2a] group-hover:text-[#0c5c3d]">
+                  পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর
+                </h4>
+              </div>
+              <ArrowRight className="w-4 h-4 text-[#6b6255] group-hover:text-[#0c5c3d]" />
+            </Link>
+
+            <Link
+              to="/cv-builder"
+              className="p-3 border border-[#d8cfb8] bg-[#f4efe4]/40 hover:bg-[#0c5c3d]/5 hover:border-[#0c5c3d] transition-colors group flex items-center justify-between"
+            >
+              <div>
+                <span className="text-[10px] font-mono text-[#6b6255]">DOC-CV-01</span>
+                <h4 className="font-bold text-xs text-[#083f2a] group-hover:text-[#0c5c3d]">
+                  সিভি ও জীবনবৃত্তান্ত মেকার
+                </h4>
+              </div>
+              <ArrowRight className="w-4 h-4 text-[#6b6255] group-hover:text-[#0c5c3d]" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

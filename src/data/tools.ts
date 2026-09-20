@@ -24,6 +24,17 @@ export const TOOLS: ToolItem[] = [
     link: '/photo-resizer'
   },
   {
+    id: 'image-merger',
+    refCode: 'IMG-GOV-03',
+    title: 'ইমেজ মার্জার ও কোলাজ মেকার',
+    description: 'একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজ, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। পাসপোর্ট ছবি প্রিন্ট লেআউট ও অফিসিয়াল ডকুমেন্টের জন্য আদর্শ।',
+    feature: 'A4 প্রিন্ট লেআউট • ২×২, ২×৩ ও কাস্টম গ্রিড • JPG/PNG/PDF এক্সপোর্ট',
+    category: 'image',
+    status: 'active',
+    version: 'v1.0',
+    link: '/image-merger'
+  },
+  {
     id: 'age-calculator',
     refCode: 'CALC-AGE-01',
     title: 'সরকারি চাকরির বয়স ক্যালকুলেটর',
