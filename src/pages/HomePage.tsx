@@ -598,7 +598,7 @@ const HowItWorks: React.FC = () => (
 // ── Privacy (dark, layered parallax with waves that flow in from the sections above and below) ────────
 
 const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => (
-  <ParallaxScene className="py-32 lg:py-40 bg-[#052D1C]" aria-labelledby="privacy-heading">
+  <ParallaxScene data-cursor-theme="dark" className="py-32 lg:py-40 bg-[#052D1C]" aria-labelledby="privacy-heading">
     <ParallaxStage>
     {/* far: tiled jamdani lattice + green glow */}
     <ParallaxLayer
@@ -827,7 +827,7 @@ const FaqSection: React.FC = () => {
 const FinalCta: React.FC = () => (
   <section className="py-16 px-4 sm:px-6">
     <div className="max-w-[1200px] mx-auto">
-      <ParallaxScene as="div" className="rounded-3xl bg-[#052D1C]">
+      <ParallaxScene as="div" data-cursor-theme="dark" className="rounded-3xl bg-[#052D1C]">
     <ParallaxStage>
         <ParallaxLayer
           dist={50}
