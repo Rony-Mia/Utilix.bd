@@ -1,22 +1,10 @@
 @import "tailwindcss";
 
-/* ── Self-hosted UI fonts (OFL) ────────────────────────────────────────────
-   Loaded under private aliases on purpose: tool code draws canvas text with
-   the family name "Hind Siliguri" (watermarks, previews). Registering the UI
-   font under that same name would silently change those exports, so the UI
-   uses "Utilix Hind" / "Utilix Inter" instead. */
-@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/hind-bn-400.woff2') format('woff2'); unicode-range: U+0951-0952, U+0964-0965, U+0980-09FE, U+1CF7, U+200C-200D, U+20B9, U+25CC; }
-@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/hind-bn-500.woff2') format('woff2'); unicode-range: U+0951-0952, U+0964-0965, U+0980-09FE, U+1CF7, U+200C-200D, U+20B9, U+25CC; }
-@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/hind-bn-600.woff2') format('woff2'); unicode-range: U+0951-0952, U+0964-0965, U+0980-09FE, U+1CF7, U+200C-200D, U+20B9, U+25CC; }
-@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/hind-bn-700.woff2') format('woff2'); unicode-range: U+0951-0952, U+0964-0965, U+0980-09FE, U+1CF7, U+200C-200D, U+20B9, U+25CC; }
-/* Latin range deliberately skips U+200C-200D (ZWNJ/ZWJ) so Bengali conjunct shaping is never split across fonts */
-@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/hind-latin-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/hind-latin-500.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/hind-latin-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Utilix Hind'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/hind-latin-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Utilix Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/inter-latin-500.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Utilix Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/inter-latin-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Utilix Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/inter-latin-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-200B, U+200E-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* UI text now uses Google-hosted "Noto Sans Bengali" (loaded in index.html)
+   instead of the self-hosted Hind Siliguri/Inter pairing — see --font-serif/
+   --font-sans/--font-latin below. Canvas-drawn exports (watermarks, CV
+   preview) still request the literal family name "Hind Siliguri" in their
+   own drawing code and are unaffected by this change. */
 
 @theme {
   /* Brand */
@@ -41,9 +29,9 @@
   --color-muted-text: #4A5A52;
   --color-ink: #0F1F17;
 
-  --font-serif: "Utilix Hind", "Utilix Inter", "Noto Sans Bengali", sans-serif;
-  --font-sans: "Utilix Hind", "Utilix Inter", "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-latin: "Utilix Inter", "Utilix Hind", "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Noto Sans Bengali", sans-serif;
+  --font-sans: "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-latin: "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   --radius-card: 16px;
