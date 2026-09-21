@@ -33,17 +33,17 @@ export const QrGeneratorPage: React.FC = () => {
   const [category, setCategory] = useState<InputCategory>('url');
 
   // Specific input states
-  const [urlInput, setUrlInput] = useState<string>('https://utilix.bd');
-  const [textInput, setTextInput] = useState<string>('Utilix.bd — সকল প্রাত্যহিক ডিজিটাল টুল এক ঠিকানায়');
+  const [urlInput, setUrlInput] = useState<string>('https://utools.bd');
+  const [textInput, setTextInput] = useState<string>('Utools.bd — সকল প্রাত্যহিক ডিজিটাল টুল এক ঠিকানায়');
   const [phoneInput, setPhoneInput] = useState<string>('+8801700000000');
   
   // Email fields
-  const [emailTo, setEmailTo] = useState<string>('support@utilix.bd');
+  const [emailTo, setEmailTo] = useState<string>('support@utools.bd');
   const [emailSubject, setEmailSubject] = useState<string>('জরুরি তথ্য ও সহায়তা');
   const [emailBody, setEmailBody] = useState<string>('আসসালামু আলাইকুম,\nআমার কিছু তথ্য জানার প্রয়োজন ছিল।');
 
   // WiFi fields
-  const [wifiSsid, setWifiSsid] = useState<string>('Utilix_HighSpeed_WiFi');
+  const [wifiSsid, setWifiSsid] = useState<string>('Utools_HighSpeed_WiFi');
   const [wifiPassword, setWifiPassword] = useState<string>('bangladesh2026');
   const [wifiEncryption, setWifiEncryption] = useState<'WPA' | 'WEP' | 'nopass'>('WPA');
   const [wifiHidden, setWifiHidden] = useState<boolean>(false);
@@ -68,7 +68,7 @@ export const QrGeneratorPage: React.FC = () => {
   const encodedValue = useMemo(() => {
     switch (category) {
       case 'url':
-        return urlInput.trim() || 'https://utilix.bd';
+        return urlInput.trim() || 'https://utools.bd';
       case 'text':
         return textInput || ' ';
       case 'phone':
@@ -85,7 +85,7 @@ export const QrGeneratorPage: React.FC = () => {
         return `WIFI:T:${enc};S:${wifiSsid};P:${pass};H:${wifiHidden ? 'true' : 'false'};;`;
       }
       default:
-        return 'https://utilix.bd';
+        return 'https://utools.bd';
     }
   }, [
     category,
@@ -228,7 +228,7 @@ export const QrGeneratorPage: React.FC = () => {
     if (!canvas) return;
 
     const link = document.createElement('a');
-    link.download = `utilix-bd-qrcode-${category}-${qrSize}px.png`;
+    link.download = `utools-bd-qrcode-${category}-${qrSize}px.png`;
     link.href = canvas.toDataURL('image/png');
     document.body.appendChild(link);
     link.click();
@@ -252,7 +252,7 @@ export const QrGeneratorPage: React.FC = () => {
       const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.download = `utilix-bd-qrcode-${category}.svg`;
+      link.download = `utools-bd-qrcode-${category}.svg`;
       link.href = url;
       document.body.appendChild(link);
       link.click();
@@ -341,23 +341,23 @@ export const QrGeneratorPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>কাস্টম QR কোড জেনারেটর — লোগো ও হাই-রেজোলিউশন ডাউনলোড | Utilix.bd</title>
+        <title>কাস্টম QR কোড জেনারেটর — লোগো ও হাই-রেজোলিউশন ডাউনলোড | Utools.bd</title>
         <meta
           name="description"
           content="ফ্রি কাস্টম কিউআর কোড জেনারেটর। ওয়েবসাইট লিংক, টেক্সট, ফোন নম্বর, ওয়াইফাই ও ইমেইলের জন্য লোগো ও পছন্দের রঙসহ QR কোড তৈরি করুন। আনলিমিটেড ও আজীবন মেয়াদ।"
         />
         <meta
           property="og:title"
-          content="কাস্টম QR কোড জেনারেটর — লোগো ও হাই-রেজোলিউশন ডাউনলোড | Utilix.bd"
+          content="কাস্টম QR কোড জেনারেটর — লোগো ও হাই-রেজোলিউশন ডাউনলোড | Utools.bd"
         />
         <meta
           property="og:description"
           content="লোগো, রঙ ও বিভিন্ন সাইজের কাস্টম QR কোড তৈরি করুন সরাসরি ব্রাউজারে। কোনো সাইন-আপ নেই, আজীবন মেয়াদ ও ১০০% প্রাইভেট।"
         />
-        <meta property="og:url" content="https://utilix.bd/qr-generator" />
+        <meta property="og:url" content="https://utools.bd/qr-generator" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="কাস্টম QR কোড জেনারেটর | Utilix.bd" />
+        <meta name="twitter:title" content="কাস্টম QR কোড জেনারেটর | Utools.bd" />
         <meta
           name="twitter:description"
           content="ওয়েবসাইট, ওয়াইফাই, টেক্সট বা ফোন নম্বরের জন্য লোগোসহ কাস্টম QR কোড তৈরি করুন।"
