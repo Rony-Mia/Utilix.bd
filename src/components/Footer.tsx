@@ -40,7 +40,7 @@ export const Footer: React.FC = () => {
   return (
     <>
       <footer data-cursor-theme="dark" className="relative z-10 w-full mt-20 bg-[#0F1F17] text-white/60 text-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-24 sm:pb-8">
           {/* Brand row */}
           <div className="flex flex-col md:flex-row md:items-center justify-between pb-8 border-b border-white/10 gap-5">
             <div className="space-y-2 max-w-2xl">
@@ -161,7 +161,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Bottom line */}
-          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 gap-3">
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 gap-3 sm:pr-20">
             <p>© {new Date().getFullYear()} Utilix.bd — সর্বস্বত্ব সংরক্ষিত। সম্পূর্ণ ব্রাউজার-ভিত্তিক ও অফলাইন প্রস্তুত।</p>
             <p>দ্রুত, নিরাপদ ও নির্ভরযোগ্য বাংলা অনলাইন টুলবক্স</p>
           </div>

@@ -6,6 +6,7 @@ import { AppRoutes } from './routes.tsx';
 import { ScrollToTop } from './components/ScrollToTop.tsx';
 import { SiteBackdrop } from './components/parallax/SiteBackdrop.tsx';
 import { CursorFollower } from './components/CursorFollower.tsx';
+import { FloatingActions } from './components/floating/FloatingActions.tsx';
 
 interface AppProps {
   helmetContext?: Record<string, unknown>;
@@ -40,6 +41,9 @@ export default function App({ helmetContext }: AppProps) {
 
         {/* Footer */}
         <Footer />
+
+        {/* Floating back-to-top + WhatsApp (bottom-right, every page) */}
+        <FloatingActions />
 
         {/* Floating / Direct Terms of Use Modal when triggered from Trust section */}
         {showTermsModal && (
