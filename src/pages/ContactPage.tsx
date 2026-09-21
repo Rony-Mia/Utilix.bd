@@ -27,7 +27,7 @@ export const ContactPage: React.FC = () => {
   const { copied, copy } = useCopyToClipboard();
 
   const handleCopyEmail = () => {
-    void copy('contact@utools.bd');
+    void copy('contact@utilix.bd');
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -54,41 +54,41 @@ export const ContactPage: React.FC = () => {
   const contactSchema = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: 'যোগাযোগ — Utools.bd',
-    description: 'Utools.bd-এর সাথে যোগাযোগের মাধ্যম। মতামত, বাগ রিপোর্ট বা নতুন টুলের প্রস্তাব পাঠান।',
-    url: 'https://utools.bd/contact',
+    name: 'যোগাযোগ — Utilix.bd',
+    description: 'Utilix.bd-এর সাথে যোগাযোগের মাধ্যম। মতামত, বাগ রিপোর্ট বা নতুন টুলের প্রস্তাব পাঠান।',
+    url: 'https://utilix.bd/contact',
     mainEntity: {
       '@type': 'Organization',
-      name: 'Utools.bd',
-      url: 'https://utools.bd',
-      email: 'contact@utools.bd'
+      name: 'Utilix.bd',
+      url: 'https://utilix.bd',
+      email: 'contact@utilix.bd'
     }
   };
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-10">
       <Helmet>
-        <title>যোগাযোগ ও মতামত — Utools.bd | আমাদের সাথে যোগাযোগ করুন</title>
+        <title>যোগাযোগ ও মতামত — Utilix.bd | আমাদের সাথে যোগাযোগ করুন</title>
         <meta
           name="description"
-          content="Utools.bd সম্পর্কে যেকোনো প্রশ্ন, বাগ রিপোর্ট, মতামত বা নতুন টুলের প্রস্তাবনার জন্য আমাদের সাথে সরাসরি যোগাযোগ করুন। অফিসিয়াল ইমেইল: contact@utools.bd।"
+          content="Utilix.bd সম্পর্কে যেকোনো প্রশ্ন, বাগ রিপোর্ট, মতামত বা নতুন টুলের প্রস্তাবনার জন্য আমাদের সাথে সরাসরি যোগাযোগ করুন। অফিসিয়াল ইমেইল: contact@utilix.bd।"
         />
-        <link rel="canonical" href="https://utools.bd/contact" />
-        <meta property="og:title" content="যোগাযোগ ও মতামত — Utools.bd" />
+        <link rel="canonical" href="https://utilix.bd/contact" />
+        <meta property="og:title" content="যোগাযোগ ও মতামত — Utilix.bd" />
         <meta
           property="og:description"
-          content="Utools.bd সম্পর্কে যেকোনো প্রশ্ন, মতামত বা নতুন টুলের প্রস্তাবনার জন্য যোগাযোগ করুন।"
+          content="Utilix.bd সম্পর্কে যেকোনো প্রশ্ন, মতামত বা নতুন টুলের প্রস্তাবনার জন্য যোগাযোগ করুন।"
         />
-        <meta property="og:url" content="https://utools.bd/contact" />
+        <meta property="og:url" content="https://utilix.bd/contact" />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://utools.bd/og-image.png" />
+        <meta property="og:image" content="https://utilix.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="যোগাযোগ ও মতামত — Utools.bd" />
+        <meta name="twitter:title" content="যোগাযোগ ও মতামত — Utilix.bd" />
         <meta
           name="twitter:description"
-          content="Utools.bd সম্পর্কে যেকোনো প্রশ্ন, মতামত বা নতুন টুলের প্রস্তাবনার জন্য যোগাযোগ করুন।"
+          content="Utilix.bd সম্পর্কে যেকোনো প্রশ্ন, মতামত বা নতুন টুলের প্রস্তাবনার জন্য যোগাযোগ করুন।"
         />
-        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(contactSchema)}</script>
       </Helmet>
 
@@ -102,7 +102,7 @@ export const ContactPage: React.FC = () => {
           আমাদের সাথে যোগাযোগ করুন
         </h1>
         <p className="text-sm sm:text-base text-[#4A5A52] max-w-2xl leading-relaxed">
-          Utools.bd প্ল্যাটফর্মটিকে আরও সমৃদ্ধ ও নির্ভুল করতে আপনার যেকোনো পরামর্শ, ত্রুটি রিপোর্ট বা নতুন টুলের প্রস্তাবনা আমাদের জানান।
+          Utilix.bd প্ল্যাটফর্মটিকে আরও সমৃদ্ধ ও নির্ভুল করতে আপনার যেকোনো পরামর্শ, ত্রুটি রিপোর্ট বা নতুন টুলের প্রস্তাবনা আমাদের জানান।
         </p>
       </section>
 
@@ -117,7 +117,7 @@ export const ContactPage: React.FC = () => {
               অফিসিয়াল যোগাযোগ ইমেইল:
             </span>
             <span className="font-mono text-base font-bold text-[#084A2E]">
-              contact@utools.bd
+              contact@utilix.bd
             </span>
           </div>
         </div>
@@ -141,7 +141,7 @@ export const ContactPage: React.FC = () => {
             )}
           </button>
           <a
-            href="mailto:contact@utools.bd"
+            href="mailto:contact@utilix.bd"
             className="bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer"
           >
             ইমেইল পাঠাতে ক্লিক করুন

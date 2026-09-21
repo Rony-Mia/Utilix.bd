@@ -54,7 +54,7 @@ export const Footer: React.FC = () => {
                   U
                 </span>
                 <span className="text-lg font-bold text-white font-latin">
-                  Utools<span className="text-[#F5A524]">.bd</span>
+                  Utilix<span className="text-[#F5A524]">.bd</span>
                 </span>
                 <span className="text-xs px-2.5 py-0.5 bg-white/10 text-white/80 font-semibold rounded-full">
                   {toBn(TOOLS.length)}টি ফ্রি টুলস
@@ -163,7 +163,7 @@ export const Footer: React.FC = () => {
 
           {/* Bottom line */}
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 gap-3 sm:pr-20">
-            <p>© {new Date().getFullYear()} Utools.bd — সর্বস্বত্ব সংরক্ষিত। সম্পূর্ণ ব্রাউজার-ভিত্তিক ও অফলাইন প্রস্তুত।</p>
+            <p>© {new Date().getFullYear()} Utilix.bd — সর্বস্বত্ব সংরক্ষিত। সম্পূর্ণ ব্রাউজার-ভিত্তিক ও অফলাইন প্রস্তুত।</p>
             <p>দ্রুত, নিরাপদ ও নির্ভরযোগ্য বাংলা অনলাইন টুলবক্স</p>
           </div>
         </div>
@@ -194,13 +194,13 @@ export const Footer: React.FC = () => {
               </div>
               <div className="text-xs sm:text-sm text-[#0F1F17] leading-relaxed space-y-2 border-t border-[#D5E4DB] pt-3">
                 <p>
-                  Utools.bd-এর প্রতিটি ইউটিলিটি টুল বাংলা টেক্সট রূপান্তর, ছবি সাইজিং ও গণনার কাজে সার্বজনীন সহায়তার উদ্দেশ্যে সরবরাহ করা হয়েছে।
+                  Utilix.bd-এর প্রতিটি ইউটিলিটি টুল বাংলা টেক্সট রূপান্তর, ছবি সাইজিং ও গণনার কাজে সার্বজনীন সহায়তার উদ্দেশ্যে সরবরাহ করা হয়েছে।
                 </p>
                 <p>
                   ১. রূপান্তরের ফলাফল সম্পূর্ণ ক্লায়েন্ট-সাইড অ্যালগরিদমের মাধ্যমে উৎপন্ন হয়। অফিসিয়াল বা গুরুত্বপূর্ণ নথিতে ব্যবহারের পূর্বে ফলাফল নিরীক্ষা করে নেওয়ার পরামর্শ দেওয়া হয়।
                 </p>
                 <p>
-                  ২. ইউটুলস ব্যবহার ব্যক্তিগত, প্রাতিষ্ঠানিক ও বাণিজ্যিক কাজের জন্য সম্পূর্ণ বিনামূল্যে উন্মুক্ত।
+                  ২. ইউটিলিক্স ব্যবহার ব্যক্তিগত, প্রাতিষ্ঠানিক ও বাণিজ্যিক কাজের জন্য সম্পূর্ণ বিনামূল্যে উন্মুক্ত।
                 </p>
                 <p>
                   ৩. আপনার ডেটার নিরাপত্তা সম্পূর্ণ নিশ্চিত কারণ কোনো তথ্য কোনো সার্ভারে স্থানান্তরিত হয় না।

@@ -1,6 +1,6 @@
 /**
  * Bijoy (SutonnyMJ / ANSI) to Unicode & Unicode to Bijoy conversion utilities.
- * Utools.bd - Browser-side processing engine.
+ * Utilix.bd - Browser-side processing engine.
  */
 
 export const CONVERSION_MAP: Record<string, string> = {
@@ -207,7 +207,7 @@ function protectEnglishAndPunctuation(text: string): { protectedText: string; to
     return match;
   });
 
-  // 2. Web domains or emails (e.g. Utools.bd, info@utools.bd)
+  // 2. Web domains or emails (e.g. Utilix.bd, info@utilix.bd)
   current = current.replace(/\b([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})\b/g, (match) => {
     return saveToken(match);
   });

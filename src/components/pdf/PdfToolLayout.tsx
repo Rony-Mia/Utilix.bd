@@ -83,11 +83,11 @@ export const PdfToolLayout: React.FC<PdfToolLayoutProps> = ({
         <meta property="og:description" content={ogDescription || metaDescription} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utools.bd/og-image.png" />
+        <meta property="og:image" content="https://utilix.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={ogTitle || title} />
         <meta name="twitter:description" content={ogDescription || metaDescription} />
-        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
         {schemas.map((schema, idx) => (
           <script key={idx} type="application/ld+json">
             {JSON.stringify(schema)}

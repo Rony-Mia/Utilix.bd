@@ -8,7 +8,7 @@ import { PRERENDER_ROUTES } from './src/routes.tsx';
 // prerendered here AND included in the generated sitemap.xml below.
 const ROUTES: readonly string[] = PRERENDER_ROUTES;
 
-const SITE_ORIGIN = 'https://utools.bd';
+const SITE_ORIGIN = 'https://utilix.bd';
 
 function generateSitemap(routes: readonly string[]): string {
   const urlEntries = routes

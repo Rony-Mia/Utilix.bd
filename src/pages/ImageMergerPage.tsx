@@ -70,7 +70,7 @@ export const ImageMergerPage: React.FC = () => {
   // Export Settings
   const [exportFormat, setExportFormat] = useState<'image/png' | 'image/jpeg' | 'application/pdf'>('image/jpeg');
   const [exportQuality, setExportQuality] = useState<number>(0.92);
-  const [exportFilename, setExportFilename] = useState<string>('utools-merged-image');
+  const [exportFilename, setExportFilename] = useState<string>('utilix-merged-image');
   const [isExporting, setIsExporting] = useState<boolean>(false);
 
   // Live Canvas Preview
@@ -343,7 +343,7 @@ export const ImageMergerPage: React.FC = () => {
 
       const htmlImages = items.map((it) => it.imgElement);
       const canvas = await createMergedCanvas(htmlImages, config);
-      const cleanFilename = (exportFilename || 'utools-merged-image').trim().replace(/\.[^/.]+$/, '');
+      const cleanFilename = (exportFilename || 'utilix-merged-image').trim().replace(/\.[^/.]+$/, '');
 
       await exportCanvasToFormat(canvas, exportFormat, exportQuality, cleanFilename);
     } catch (err: unknown) {
@@ -359,10 +359,10 @@ export const ImageMergerPage: React.FC = () => {
   const softwareSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'ইমেজ মার্জার ও কোলাজ মেকার — Utools.bd',
+    name: 'ইমেজ মার্জার ও কোলাজ মেকার — Utilix.bd',
     applicationCategory: 'MultimediaApplication',
     operatingSystem: 'All (Web Browser)',
-    url: 'https://utools.bd/image-merger',
+    url: 'https://utilix.bd/image-merger',
     description:
       'বিনামূল্যে একাধিক ছবি একসাথে জোড়া লাগানো, A4 পেজে পাসপোর্ট বা স্ট্যাম্প সাইজ লেআউট তৈরি, গ্রিড কোলাজ এবং সরাসরি PDF বা JPG ডাউনলোড করার সম্পূর্ণ ক্লায়েন্ট-সাইড টুল।',
     offers: {
@@ -421,7 +421,7 @@ export const ImageMergerPage: React.FC = () => {
         name: 'আমার আপলোড করা ছবি কি ইন্টারনেটে বা কোনো সার্ভারে চলে যায়?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'না, কোনো ছবি সার্ভারে যায় না। Utools.bd-এর পুরো প্রযুক্তি আপনার ডিভাইসের ব্রাউজার মেমরিতে (HTML5 Canvas) চলে। অফলাইনেও টুলটি পূর্ণ কার্যক্ষম থাকে।',
+          text: 'না, কোনো ছবি সার্ভারে যায় না। Utilix.bd-এর পুরো প্রযুক্তি আপনার ডিভাইসের ব্রাউজার মেমরিতে (HTML5 Canvas) চলে। অফলাইনেও টুলটি পূর্ণ কার্যক্ষম থাকে।',
         },
       },
       {
@@ -445,7 +445,7 @@ export const ImageMergerPage: React.FC = () => {
         name: 'টুলটি ব্যবহার করতে কি কোনো টাকা বা রেজিস্ট্রেশন লাগে?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'না, Utools.bd-এর অন্যান্য টুলের মতো এটিও সম্পূর্ণ বিনামূল্যে, বিজ্ঞাপন-মুক্ত এবং কোনো সাইন-আপ ছাড়াই আজীবন ব্যবহারের জন্য উন্মুক্ত।',
+          text: 'না, Utilix.bd-এর অন্যান্য টুলের মতো এটিও সম্পূর্ণ বিনামূল্যে, বিজ্ঞাপন-মুক্ত এবং কোনো সাইন-আপ ছাড়াই আজীবন ব্যবহারের জন্য উন্মুক্ত।',
         },
       },
     ],
@@ -454,21 +454,21 @@ export const ImageMergerPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-10">
       <Helmet>
-        <title>ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utools.bd</title>
+        <title>ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utilix.bd</title>
         <meta
           name="description"
           content="একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। পাসপোর্ট ছবি প্রিন্ট লেআউট ও অফিসিয়াল ডকুমেন্টের জন্য ফ্রি টুল। ১০০% ক্লায়েন্ট-সাইড ও নিরাপদ।"
         />
-        <link rel="canonical" href="https://utools.bd/image-merger" />
-        <meta property="og:title" content="ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utools.bd" />
+        <link rel="canonical" href="https://utilix.bd/image-merger" />
+        <meta property="og:title" content="ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utilix.bd" />
         <meta
           property="og:description"
           content="একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। পাসপোর্ট ছবি প্রিন্ট লেআউট ও অফিসিয়াল ডকুমেন্টের জন্য ফ্রি টুল।"
         />
-        <meta property="og:url" content="https://utools.bd/image-merger" />
+        <meta property="og:url" content="https://utilix.bd/image-merger" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utools.bd" />
+        <meta name="twitter:title" content="ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utilix.bd" />
         <meta
           name="twitter:description"
           content="একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। ১০০% অফলাইন ও নিরাপদ।"
@@ -1026,7 +1026,7 @@ export const ImageMergerPage: React.FC = () => {
                     type="text"
                     value={exportFilename}
                     onChange={(e) => setExportFilename(e.target.value)}
-                    placeholder="utools-merged-image"
+                    placeholder="utilix-merged-image"
                     className="w-full px-2.5 py-1.5 border border-[#D5E4DB] bg-[#FFFFFF] text-xs font-mono rounded-lg"
                   />
                 </div>
@@ -1069,7 +1069,7 @@ export const ImageMergerPage: React.FC = () => {
             একাধিক ছবি এক পেজে সাজানো ও মার্জ করার প্রয়োজনীয়তা ও সুবিধা
           </h2>
           <p className="text-sm sm:text-base text-[#34443B] leading-relaxed">
-            বর্তমান ডিজিটাল প্রশাসনিক যোগাযোগ, প্রাতিষ্ঠানিক প্রজেক্ট পেপার, চাকরির আবেদন এবং ই-কমার্স ব্যবসায় একাধিক ছবিকে সুশৃঙ্খলভাবে একটি ফ্রেমে বা A4 পেজে উপস্থাপন করা একটি অপরিহার্য কাজ। কোনো থার্ড-পার্টি ভারী সফটওয়্যার বা ফটোশপ ছাড়াই সরাসরি ব্রাউজারে ছবি জোড়া লাগানো এবং নিখুঁত প্রিন্ট লেআউটে সাজানোর জন্য Utools.bd-এর <strong>ইমেজ মার্জার ও কোলাজ মেকার</strong> একটি সহজ, শক্তিশালী এবং সম্পূর্ণ বিনামূল্যে ব্যবহারযোগ্য প্ল্যাটফর্ম।
+            বর্তমান ডিজিটাল প্রশাসনিক যোগাযোগ, প্রাতিষ্ঠানিক প্রজেক্ট পেপার, চাকরির আবেদন এবং ই-কমার্স ব্যবসায় একাধিক ছবিকে সুশৃঙ্খলভাবে একটি ফ্রেমে বা A4 পেজে উপস্থাপন করা একটি অপরিহার্য কাজ। কোনো থার্ড-পার্টি ভারী সফটওয়্যার বা ফটোশপ ছাড়াই সরাসরি ব্রাউজারে ছবি জোড়া লাগানো এবং নিখুঁত প্রিন্ট লেআউটে সাজানোর জন্য Utilix.bd-এর <strong>ইমেজ মার্জার ও কোলাজ মেকার</strong> একটি সহজ, শক্তিশালী এবং সম্পূর্ণ বিনামূল্যে ব্যবহারযোগ্য প্ল্যাটফর্ম।
           </p>
         </div>
 

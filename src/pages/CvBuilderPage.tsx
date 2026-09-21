@@ -124,10 +124,10 @@ function toBanglaNum(num: number | string): string {
   return String(num).replace(/\d/g, (d) => bnDigits[parseInt(d, 10)]);
 }
 
-const LOCAL_STORAGE_KEY = 'utools_cv_builder_data_v1';
-const LOCAL_STORAGE_LANG_KEY = 'utools_cv_builder_lang_v1';
-const LOCAL_STORAGE_TEMPLATE_KEY = 'utools_cv_builder_template_v1';
-const LOCAL_STORAGE_BREAKS_KEY = 'utools_cv_builder_breaks_v1';
+const LOCAL_STORAGE_KEY = 'utilix_cv_builder_data_v1';
+const LOCAL_STORAGE_LANG_KEY = 'utilix_cv_builder_lang_v1';
+const LOCAL_STORAGE_TEMPLATE_KEY = 'utilix_cv_builder_template_v1';
+const LOCAL_STORAGE_BREAKS_KEY = 'utilix_cv_builder_breaks_v1';
 
 export const CvBuilderPage: React.FC = () => {
   const [cvData, setCvData] = useState<CvData>(SAMPLE_CV_DATA_BN);
@@ -859,27 +859,27 @@ export const CvBuilderPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>ফ্রি সিভি মেকার — বাংলা ও ইংরেজি CV Builder | Utools.bd</title>
+        <title>ফ্রি সিভি মেকার — বাংলা ও ইংরেজি CV Builder | Utilix.bd</title>
         <meta
           name="description"
           content="বাংলাদেশি সরকারি চাকরি ও বেসরকারি পদের জন্য ১০০% ক্লায়েন্ট-সাইড ফ্রি জীবনবৃত্তান্ত (CV/Resume) মেকার। ৫টি প্রফেশনাল টেমপ্লেট, বাংলা ও ইংরেজি সাপোর্ট, ওয়ার্ডের মতো মাল্টি-পেজ ফিজিক্যাল প্রিভিউ, ইনস্ট্যান্ট A4 PDF প্রিন্ট ও ডাউনলোড।"
         />
-        <link rel="canonical" href="https://utools.bd/cv-builder" />
-        <meta property="og:title" content="ফ্রি সিভি মেকার — বাংলা ও ইংরেজি CV Builder | Utools.bd" />
+        <link rel="canonical" href="https://utilix.bd/cv-builder" />
+        <meta property="og:title" content="ফ্রি সিভি মেকার — বাংলা ও ইংরেজি CV Builder | Utilix.bd" />
         <meta
           property="og:description"
           content="বাংলাদেশি সরকারি চাকরি ও বেসরকারি পদের জন্য ১০০% ক্লায়েন্ট-সাইড ফ্রি জীবনবৃত্তান্ত (CV/Resume) মেকার।"
         />
-        <meta property="og:url" content="https://utools.bd/cv-builder" />
+        <meta property="og:url" content="https://utilix.bd/cv-builder" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utools.bd/og-image.png" />
+        <meta property="og:image" content="https://utilix.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ফ্রি সিভি মেকার | Utools.bd" />
+        <meta name="twitter:title" content="ফ্রি সিভি মেকার | Utilix.bd" />
         <meta
           name="twitter:description"
           content="বাংলাদেশি সরকারি চাকরি ও বেসরকারি পদের জন্য ১০০% ক্লায়েন্ট-সাইড ফ্রি জীবনবৃত্তান্ত মেকার।"
         />
-        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
       <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',

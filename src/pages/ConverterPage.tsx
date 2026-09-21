@@ -81,7 +81,7 @@ export const ConverterPage: React.FC = () => {
     const link = document.createElement('a');
     const timestamp = new Date().toISOString().slice(0, 10);
     link.href = url;
-    link.download = `utools_${mode === 'bijoy_to_unicode' ? 'unicode' : 'bijoy'}_${timestamp}.txt`;
+    link.download = `utilix_${mode === 'bijoy_to_unicode' ? 'unicode' : 'bijoy'}_${timestamp}.txt`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -120,26 +120,26 @@ export const ConverterPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 space-y-8">
       <Helmet>
-        <title>বিজয় ↔ ইউনিকোড কনভার্টার — Bijoy to Unicode Bengali Converter | Utools.bd</title>
+        <title>বিজয় ↔ ইউনিকোড কনভার্টার — Bijoy to Unicode Bengali Converter | Utilix.bd</title>
         <meta
           name="description"
           content="সুতন্বীএমজে (Bijoy ANSI) এবং ইউনিকোড (Avro/Unicode) ফন্টের মধ্যে দ্রুত ও নির্ভুল দ্বিমুখী বাংলা রূপান্তরকারী। শতভাগ অফলাইন ও নিরাপদ।"
         />
-        <meta property="og:title" content="বিজয় ↔ ইউনিকোড কনভার্টার — Bijoy to Unicode Converter | Utools.bd" />
+        <meta property="og:title" content="বিজয় ↔ ইউনিকোড কনভার্টার — Bijoy to Unicode Converter | Utilix.bd" />
         <meta
           property="og:description"
           content="সুতন্বীএমজে (Bijoy ANSI) এবং ইউনিকোড (Avro/Unicode) ফন্টের মধ্যে দ্রুত ও নির্ভুল দ্বিমুখী বাংলা রূপান্তরকারী। শতভাগ অফলাইন ও নিরাপদ।"
         />
-        <meta property="og:url" content="https://utools.bd/converter" />
+        <meta property="og:url" content="https://utilix.bd/converter" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utools.bd/og-image.png" />
+        <meta property="og:image" content="https://utilix.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="বিজয় ↔ ইউনিকোড কনভার্টার | Utools.bd" />
+        <meta name="twitter:title" content="বিজয় ↔ ইউনিকোড কনভার্টার | Utilix.bd" />
         <meta
           name="twitter:description"
           content="সুতন্বীএমজে এবং ইউনিকোডের মধ্যে দ্রুত ও নির্ভুল দ্বিমুখী বাংলা টেক্সট রূপান্তর।"
         />
-        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
       </Helmet>
 
       {/* Breadcrumb */}

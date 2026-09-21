@@ -243,7 +243,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
           to="/"
           onClick={() => handleLinkClick('all')}
           className="flex items-center gap-2 shrink-0 rounded-lg"
-          aria-label="Utools.bd — হোম"
+          aria-label="Utilix.bd — হোম"
         >
           <span
             aria-hidden="true"
@@ -253,7 +253,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
             U
           </span>
           <span className="text-lg font-bold tracking-tight text-[#0B5D3B] font-latin">
-            Utools<span className="text-[#F5A524]">.bd</span>
+            Utilix<span className="text-[#F5A524]">.bd</span>
           </span>
           <span className="hidden xl:inline text-[#D5E4DB] pl-1">|</span>
           <span className="hidden xl:inline text-sm text-[#4A5A52]">
