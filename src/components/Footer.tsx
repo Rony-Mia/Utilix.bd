@@ -39,7 +39,7 @@ export const Footer: React.FC = () => {
 
   return (
     <>
-      <footer className="w-full mt-20 bg-[#0F1F17] text-white/60 text-sm">
+      <footer className="relative z-10 w-full mt-20 bg-[#0F1F17] text-white/60 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
           {/* Brand row */}
           <div className="flex flex-col md:flex-row md:items-center justify-between pb-8 border-b border-white/10 gap-5">

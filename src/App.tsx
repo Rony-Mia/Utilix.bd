@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
 import { AppRoutes } from './routes.tsx';
 import { ScrollToTop } from './components/ScrollToTop.tsx';
+import { SiteBackdrop } from './components/parallax/SiteBackdrop.tsx';
 
 interface AppProps {
   helmetContext?: Record<string, unknown>;
@@ -16,7 +17,10 @@ export default function App({ helmetContext }: AppProps) {
   return (
     <HelmetProvider context={helmetContext}>
       <ScrollToTop />
-      <div className="min-h-screen flex flex-col bg-[#FAFAF7] text-[#0F1F17]">
+      <div className="relative min-h-screen flex flex-col bg-[#FAFAF7] text-[#0F1F17]">
+        {/* Site-wide parallax backdrop (fixed, decorative, outside <main>) */}
+        <SiteBackdrop />
+
         {/* Top Navbar */}
         <Navbar
           activeCategory={selectedCategory}
@@ -24,7 +28,7 @@ export default function App({ helmetContext }: AppProps) {
         />
 
         {/* Main Content Area */}
-        <main className="flex-grow">
+        <main className="flex-grow relative z-10">
           <AppRoutes
             selectedCategory={selectedCategory}
             onSelectCategory={(cat) => setSelectedCategory(cat)}
