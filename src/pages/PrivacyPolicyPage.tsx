@@ -18,42 +18,42 @@ export const PrivacyPolicyPage: React.FC = () => {
   const policySchema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'গোপনীয়তা নীতি (Privacy Policy) — Utilix.bd',
+    name: 'গোপনীয়তা নীতি (Privacy Policy) — Utools.bd',
     description:
-      'Utilix.bd-এর সম্পূর্ণ গোপনীয়তা নীতিমালা — ১০০% ব্রাউজার-ভিত্তিক ক্লায়েন্ট-সাইড প্রযুক্তি, জিরো সার্ভার লগিং ও ডেটা সুরক্ষা প্রতিশ্রুতি।',
-    url: 'https://utilix.bd/privacy-policy',
+      'Utools.bd-এর সম্পূর্ণ গোপনীয়তা নীতিমালা — ১০০% ব্রাউজার-ভিত্তিক ক্লায়েন্ট-সাইড প্রযুক্তি, জিরো সার্ভার লগিং ও ডেটা সুরক্ষা প্রতিশ্রুতি।',
+    url: 'https://utools.bd/privacy-policy',
     publisher: {
       '@type': 'Organization',
-      name: 'Utilix.bd',
-      url: 'https://utilix.bd',
-      logo: 'https://utilix.bd/og-image.png'
+      name: 'Utools.bd',
+      url: 'https://utools.bd',
+      logo: 'https://utools.bd/og-image.png'
     }
   };
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-10">
       <Helmet>
-        <title>গোপনীয়তা নীতি (Privacy Policy) — Utilix.bd | ১০০% ক্লায়েন্ট-সাইড নিরাপত্তা</title>
+        <title>গোপনীয়তা নীতি (Privacy Policy) — Utools.bd | ১০০% ক্লায়েন্ট-সাইড নিরাপত্তা</title>
         <meta
           name="description"
-          content="Utilix.bd-এর গোপনীয়তা নীতি জানুন। আমাদের কোনো সার্ভার ডেটাবেজ নেই; আপনার সমস্ত ছবি, টেক্সট, বয়স ও জীবনবৃত্তান্ত সরাসরি আপনার নিজস্ব ব্রাউজারে নিরাপদ থাকে।"
+          content="Utools.bd-এর গোপনীয়তা নীতি জানুন। আমাদের কোনো সার্ভার ডেটাবেজ নেই; আপনার সমস্ত ছবি, টেক্সট, বয়স ও জীবনবৃত্তান্ত সরাসরি আপনার নিজস্ব ব্রাউজারে নিরাপদ থাকে।"
         />
-        <link rel="canonical" href="https://utilix.bd/privacy-policy" />
-        <meta property="og:title" content="গোপনীয়তা নীতি (Privacy Policy) — Utilix.bd" />
+        <link rel="canonical" href="https://utools.bd/privacy-policy" />
+        <meta property="og:title" content="গোপনীয়তা নীতি (Privacy Policy) — Utools.bd" />
         <meta
           property="og:description"
-          content="Utilix.bd-এর গোপনীয়তা নীতি জানুন। ১০০% ব্রাউজার-ভিত্তিক ক্লায়েন্ট-সাইড নিরাপত্তা।"
+          content="Utools.bd-এর গোপনীয়তা নীতি জানুন। ১০০% ব্রাউজার-ভিত্তিক ক্লায়েন্ট-সাইড নিরাপত্তা।"
         />
-        <meta property="og:url" content="https://utilix.bd/privacy-policy" />
+        <meta property="og:url" content="https://utools.bd/privacy-policy" />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://utilix.bd/og-image.png" />
+        <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="গোপনীয়তা নীতি (Privacy Policy) — Utilix.bd" />
+        <meta name="twitter:title" content="গোপনীয়তা নীতি (Privacy Policy) — Utools.bd" />
         <meta
           name="twitter:description"
-          content="Utilix.bd-এর গোপনীয়তা নীতি জানুন। ১০০% ব্রাউজার-ভিত্তিক ক্লায়েন্ট-সাইড নিরাপত্তা।"
+          content="Utools.bd-এর গোপনীয়তা নীতি জানুন। ১০০% ব্রাউজার-ভিত্তিক ক্লায়েন্ট-সাইড নিরাপত্তা।"
         />
-        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(policySchema)}</script>
       </Helmet>
 
@@ -84,7 +84,7 @@ export const PrivacyPolicyPage: React.FC = () => {
               সংক্ষিপ্ত সারসংক্ষেপ (Quick Summary)
             </h2>
             <p className="text-xs sm:text-sm text-[#34443B] leading-relaxed mt-1">
-              Utilix.bd এমনভাবে তৈরি করা হয়েছে যাতে ব্যবহারকারীর কোনো ব্যক্তিগত ডেটা সার্ভারে পাঠানোর প্রয়োজনই না পড়ে। আপনি যে টেক্সট কনভার্ট করেন, ছবি রিসাইজ করেন, চাকরির বয়স বা জিপিএ গণনা করেন, কিংবা জীবনবৃত্তান্ত (CV) তৈরি করেন — তার কোনো অংশই কোনো ক্লাউড সার্ভারে আপলোড বা সংরক্ষিত হয় না। সমস্ত কাজ সরাসরি আপনার নিজস্ব ব্রাউজারের অভ্যন্তরীণ মেমোরিতে (Client-Side Memory) সম্পন্ন হয়।
+              Utools.bd এমনভাবে তৈরি করা হয়েছে যাতে ব্যবহারকারীর কোনো ব্যক্তিগত ডেটা সার্ভারে পাঠানোর প্রয়োজনই না পড়ে। আপনি যে টেক্সট কনভার্ট করেন, ছবি রিসাইজ করেন, চাকরির বয়স বা জিপিএ গণনা করেন, কিংবা জীবনবৃত্তান্ত (CV) তৈরি করেন — তার কোনো অংশই কোনো ক্লাউড সার্ভারে আপলোড বা সংরক্ষিত হয় না। সমস্ত কাজ সরাসরি আপনার নিজস্ব ব্রাউজারের অভ্যন্তরীণ মেমোরিতে (Client-Side Memory) সম্পন্ন হয়।
             </p>
           </div>
         </div>
@@ -99,7 +99,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             <span>১. ক্লায়েন্ট-সাইড আর্কিটেকচার ও জিরো-সার্ভার ডেটা স্থানান্তর</span>
           </h2>
           <p>
-            সাধারণ ওয়েবসাইটে কোনো টেক্সট বা ফাইল প্রসেস করার জন্য ব্যবহারকারীর ইনপুট সার্ভারে পাঠানো হয় এবং সার্ভার থেকে ফলাফল ফেরত আসে। কিন্তু Utilix.bd আধুনিক HTML5, JavaScript ও Web Canvas প্রযুক্তির সাহায্যে <strong>১০০% ক্লায়েন্ট-সাইড (Client-side execution)</strong> নীতি অনুসরণ করে।
+            সাধারণ ওয়েবসাইটে কোনো টেক্সট বা ফাইল প্রসেস করার জন্য ব্যবহারকারীর ইনপুট সার্ভারে পাঠানো হয় এবং সার্ভার থেকে ফলাফল ফেরত আসে। কিন্তু Utools.bd আধুনিক HTML5, JavaScript ও Web Canvas প্রযুক্তির সাহায্যে <strong>১০০% ক্লায়েন্ট-সাইড (Client-side execution)</strong> নীতি অনুসরণ করে।
           </p>
           <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-[#34443B] pl-2">
             <li>আপনার ব্রাউজার ছাড়া অন্য কোথাও কোনো ইনপুট ফাইল পাঠানো হয় না।</li>
@@ -144,7 +144,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             <span>৪. কোনো ট্র্যাকিং বা অযাচিত বিজ্ঞাপন নেই</span>
           </h2>
           <p>
-            Utilix.bd-তে কোনো আগ্রাসী ট্র্যাকিং স্ক্রিপ্ট, আচরণভিত্তিক বিজ্ঞাপনী কুঁকি বা ব্যবহারকারীর পরিচয় সনাক্তকরণ সিস্টেম নেই। আমরা ব্যবহারকারীর ব্যক্তিগত পছন্দের গোপনীয়তাকে সম্পূর্ণ শ্রদ্ধা করি।
+            Utools.bd-তে কোনো আগ্রাসী ট্র্যাকিং স্ক্রিপ্ট, আচরণভিত্তিক বিজ্ঞাপনী কুঁকি বা ব্যবহারকারীর পরিচয় সনাক্তকরণ সিস্টেম নেই। আমরা ব্যবহারকারীর ব্যক্তিগত পছন্দের গোপনীয়তাকে সম্পূর্ণ শ্রদ্ধা করি।
           </p>
         </section>
 
@@ -160,8 +160,8 @@ export const PrivacyPolicyPage: React.FC = () => {
           <div className="pt-2">
             <p className="text-xs text-[#4A5A52]">
               যেকোনো প্রশ্নের জন্য আমাদের ইমেইল করুন:{' '}
-              <a href="mailto:contact@utilix.bd" className="font-mono text-[#0B5D3B] underline">
-                contact@utilix.bd
+              <a href="mailto:contact@utools.bd" className="font-mono text-[#0B5D3B] underline">
+                contact@utools.bd
               </a>
             </p>
           </div>

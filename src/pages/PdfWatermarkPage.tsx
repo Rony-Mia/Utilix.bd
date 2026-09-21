@@ -257,10 +257,10 @@ export const PdfWatermarkPage: React.FC = () => {
   const softwareSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর — Utilix.bd',
+    name: 'পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর — Utools.bd',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'All (Web Browser)',
-    url: 'https://utilix.bd/pdf-watermark-page-number',
+    url: 'https://utools.bd/pdf-watermark-page-number',
     description:
       'বিনামূল্যে পিডিএফ ডকুমেন্টে টেক্সট বা লোগো ওয়াটারমার্ক এবং পৃষ্ঠা নম্বর বসানোর সম্পূর্ণ ক্লায়েন্ট-সাইড ইউটিলিটি।',
     offers: {
@@ -366,9 +366,9 @@ export const PdfWatermarkPage: React.FC = () => {
 
   return (
     <PdfToolLayout
-      title="পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর অনলাইন | PDF Watermark & Page Number Free — Utilix.bd"
+      title="পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর অনলাইন | PDF Watermark & Page Number Free — Utools.bd"
       metaDescription="ফ্রি অনলাইন পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর যোগ করার টুল। গোপনীয়তা রক্ষায় টেক্সট/লোগো স্ট্যাম্প এবং পৃষ্ঠা নম্বর বসান সহজে। ১০০% ব্রাউজার প্রসেসিং ও নিরাপদ।"
-      canonicalUrl="https://utilix.bd/pdf-watermark-page-number"
+      canonicalUrl="https://utools.bd/pdf-watermark-page-number"
       refCode="DOC-PDF-05"
       badgeText="ডকুমেন্ট সিকিউরিটি ও স্ট্যাম্প"
       h1="পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর (PDF Watermark & Page Number)"
@@ -412,10 +412,10 @@ export const PdfWatermarkPage: React.FC = () => {
           </p>
           <div className="border-l-4 border-[#0B5D3B] pl-4 py-2 bg-[#F0F4F2]/60 my-4">
             <h4 className="font-bold text-[#084A2E] text-base mb-1">
-              কেন Utilix.bd-এর ওয়াটারমার্ক ও পেজ নম্বর টুল সেরা?
+              কেন Utools.bd-এর ওয়াটারমার্ক ও পেজ নম্বর টুল সেরা?
             </h4>
             <p className="text-sm">
-              বেশিরভাগ অনলাইন সাইট ফাইল সার্ভারে আপলোড করায় স্পর্শকাতর ফাইল লিক হওয়ার ভয় থাকে। Utilix.bd-তে কোনো ফাইল কোনোদিন আপনার ডিভাইস ছেড়ে কোথাও যায় না। তাছাড়া বাংলা ও ইংরেজি উভয় ভাষায় পেজ নম্বর ও ওয়াটারমার্কের সুবিধা রয়েছে।
+              বেশিরভাগ অনলাইন সাইট ফাইল সার্ভারে আপলোড করায় স্পর্শকাতর ফাইল লিক হওয়ার ভয় থাকে। Utools.bd-তে কোনো ফাইল কোনোদিন আপনার ডিভাইস ছেড়ে কোথাও যায় না। তাছাড়া বাংলা ও ইংরেজি উভয় ভাষায় পেজ নম্বর ও ওয়াটারমার্কের সুবিধা রয়েছে।
             </p>
           </div>
         </div>

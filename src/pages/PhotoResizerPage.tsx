@@ -318,7 +318,7 @@ export const PhotoResizerPage: React.FC = () => {
     if (!resultDataUrl) return;
     const link = document.createElement('a');
     const ext = activeFormat === 'png' ? 'png' : activeFormat === 'webp' ? 'webp' : 'jpg';
-    link.download = `utilix-bd-${activeWidth}x${activeHeight}-${selectedPreset}.${ext}`;
+    link.download = `utools-bd-${activeWidth}x${activeHeight}-${selectedPreset}.${ext}`;
     link.href = resultDataUrl;
     link.click();
   };
@@ -334,29 +334,29 @@ export const PhotoResizerPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>সরকারি চাকরি ও পাসপোর্ট ছবি রিসাইজার — Photo & Signature Resizer | Utilix.bd</title>
+        <title>সরকারি চাকরি ও পাসপোর্ট ছবি রিসাইজার — Photo & Signature Resizer | Utools.bd</title>
         <meta
           name="description"
           content="বিসিএস, সরকারি চাকরি (৩০০×৩০০ পিক্সেল, ১০০ কেবি) ও স্বাক্ষর (৩০০×৮০ পিক্সেল, ৬০ কেবি) সহ পাসপোর্ট সাইজ ছবির নির্ভুল অনলাইন রিসাইজার ও ক্রপার।"
         />
         <meta
           property="og:title"
-          content="সরকারি চাকরি ও পাসপোর্ট ছবি রিসাইজার — Photo & Signature Resizer | Utilix.bd"
+          content="সরকারি চাকরি ও পাসপোর্ট ছবি রিসাইজার — Photo & Signature Resizer | Utools.bd"
         />
         <meta
           property="og:description"
           content="বিসিএস, সরকারি চাকরি (৩০০×৩০০ পিক্সেল, ১০০ কেবি) ও স্বাক্ষর (৩০০×৮০ পিক্সেল, ৬০ কেবি) সহ পাসপোর্ট সাইজ ছবির নির্ভুল অনলাইন রিসাইজার ও ক্রপার।"
         />
-        <meta property="og:url" content="https://utilix.bd/photo-resizer" />
+        <meta property="og:url" content="https://utools.bd/photo-resizer" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utilix.bd/og-image.png" />
+        <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ছবি ও স্বাক্ষর রিসাইজার | Utilix.bd" />
+        <meta name="twitter:title" content="ছবি ও স্বাক্ষর রিসাইজার | Utools.bd" />
         <meta
           name="twitter:description"
           content="সরকারি চাকরি ও পাসপোর্টের নির্ধারিত মাপে ছবি এবং স্বাক্ষর রিসাইজার।"
         />
-        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
       </Helmet>
 
       {/* Top Breadcrumb & Privacy Guarantee */}
