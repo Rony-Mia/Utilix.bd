@@ -47,7 +47,7 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-center justify-between pb-8 border-b border-white/10 gap-5">
             <div className="space-y-2 max-w-2xl">
               <div className="flex items-center gap-2.5">
-                <UtoolsLogo className="w-8 h-8 shrink-0" withBackground />
+                <UtoolsLogo className="w-8 h-8 shrink-0" variant="reversed" />
                 <span className="text-lg font-bold text-white font-latin">
                   Utools<span className="text-[#F5A524]">.bd</span>
                 </span>
