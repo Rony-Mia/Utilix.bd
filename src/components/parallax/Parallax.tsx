@@ -18,6 +18,8 @@ interface SceneProps {
   className?: string;
   style?: React.CSSProperties;
   children: React.ReactNode;
+  /** tells the cursor follower to use its light-on-dark colours inside this scene */
+  'data-cursor-theme'?: 'dark';
   [key: `aria-${string}`]: string | undefined;
 }
 

@@ -5,6 +5,7 @@ import { Footer } from './components/Footer.tsx';
 import { AppRoutes } from './routes.tsx';
 import { ScrollToTop } from './components/ScrollToTop.tsx';
 import { SiteBackdrop } from './components/parallax/SiteBackdrop.tsx';
+import { CursorFollower } from './components/CursorFollower.tsx';
 
 interface AppProps {
   helmetContext?: Record<string, unknown>;
@@ -20,6 +21,7 @@ export default function App({ helmetContext }: AppProps) {
       <div className="relative min-h-screen flex flex-col bg-[#FAFAF7] text-[#0F1F17]">
         {/* Site-wide parallax backdrop (fixed, decorative, outside <main>) */}
         <SiteBackdrop />
+        <CursorFollower />
 
         {/* Top Navbar */}
         <Navbar
