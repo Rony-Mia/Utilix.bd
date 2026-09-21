@@ -34,17 +34,17 @@ interface HomePageProps {
 
 const FAQS = [
   {
-    question: 'Utilix.bd কি সম্পূর্ণ ফ্রি ব্যবহার করা যায়?',
+    question: 'Utools.bd কি সম্পূর্ণ ফ্রি ব্যবহার করা যায়?',
     answer:
-      'হ্যাঁ, Utilix.bd-এর প্রতিটি টুল ১০০% বিনামূল্যে ব্যবহারযোগ্য। কোনো গোপন চার্জ, সাবস্ক্রিপশন ফি বা সাইন-আপ করার প্রয়োজন নেই। শিক্ষার্থী, চাকরিপ্রার্থী ও পেশাজীবী যে কেউ যেকোনো সময় এটি অবাধে ব্যবহার করতে পারেন।'
+      'হ্যাঁ, Utools.bd-এর প্রতিটি টুল ১০০% বিনামূল্যে ব্যবহারযোগ্য। কোনো গোপন চার্জ, সাবস্ক্রিপশন ফি বা সাইন-আপ করার প্রয়োজন নেই। শিক্ষার্থী, চাকরিপ্রার্থী ও পেশাজীবী যে কেউ যেকোনো সময় এটি অবাধে ব্যবহার করতে পারেন।'
   },
   {
     question: 'আমার ডেটা, ছবি বা ব্যক্তিগত তথ্য কি কোথাও সংরক্ষিত হয়?',
     answer:
-      'না, একেবারেই নয়। Utilix.bd-এর সমস্ত টুল ক্লায়েন্ট-সাইড প্রযুক্তিতে নির্মিত। আপনার টাইপ করা লেখা, হিসাব বা আপলোড করা ছবি সরাসরি আপনার ব্রাউজারের মেমোরিতে (RAM) প্রসেস হয় এবং কোনো সার্ভারে স্থানান্তরিত বা সংরক্ষিত হয় না।'
+      'না, একেবারেই নয়। Utools.bd-এর সমস্ত টুল ক্লায়েন্ট-সাইড প্রযুক্তিতে নির্মিত। আপনার টাইপ করা লেখা, হিসাব বা আপলোড করা ছবি সরাসরি আপনার ব্রাউজারের মেমোরিতে (RAM) প্রসেস হয় এবং কোনো সার্ভারে স্থানান্তরিত বা সংরক্ষিত হয় না।'
   },
   {
-    question: 'Utilix.bd-তে বর্তমানে কী কী টুল পাওয়া যায়?',
+    question: 'Utools.bd-তে বর্তমানে কী কী টুল পাওয়া যায়?',
     answer:
       `বর্তমানে আমাদের প্ল্যাটফর্মে ${toBn(TOOLS.length)}টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, বাল্ক ফটো রিসাইজার, HEIC থেকে JPG/PNG কনভার্টার, AI ব্যাকগ্রাউন্ড রিমুভার, ইমেজ মার্জার ও কোলাজ মেকার, কাস্টম QR কোড জেনারেটর, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, জমির মাপ কনভার্টার, সিভি মেকার এবং ৫টি পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট, পিডিএফ রোটেট ও পিডিএফ ওয়াটারমার্ক/পেজ নম্বর)।`
   },
@@ -56,7 +56,7 @@ const FAQS = [
   {
     question: 'নতুন কোনো টুল কি ভবিষ্যতে যোগ হবে বা ব্যবহারকারী প্রস্তাব করতে পারবেন?',
     answer:
-      'হ্যাঁ, আমরা প্রতিনিয়ত ব্যবহারকারীদের বাস্তব চাহিদা পর্যালোচনা করে নতুন নতুন বাংলা ডিজিটাল ইউটিলিটি টুল যোগ করছি। আপনার যদি কোনো বিশেষ টুলের প্রস্তাবনা বা মতামত থাকে, তবে আমাদের "যোগাযোগ" পেজ বা contact@utilix.bd ইমেইলের মাধ্যমে সরাসরি জানাতে পারেন।'
+      'হ্যাঁ, আমরা প্রতিনিয়ত ব্যবহারকারীদের বাস্তব চাহিদা পর্যালোচনা করে নতুন নতুন বাংলা ডিজিটাল ইউটিলিটি টুল যোগ করছি। আপনার যদি কোনো বিশেষ টুলের প্রস্তাবনা বা মতামত থাকে, তবে আমাদের "যোগাযোগ" পেজ বা contact@utools.bd ইমেইলের মাধ্যমে সরাসরি জানাতে পারেন।'
   }
 ];
 
@@ -552,7 +552,7 @@ const AboutBand: React.FC = () => (
       <div className="rounded-2xl bg-white border border-[#0B5D3B]/10 p-6 sm:p-8 shadow-[0_4px_16px_rgba(11,93,59,0.05)]">
         <h2 className="text-xl font-bold text-[#0F1F17] mb-3">একটি ঠিকানায় আপনার সব প্রয়োজনীয় বাংলা টুলস</h2>
         <p className="text-sm sm:text-base text-[#4A5A52] leading-relaxed">
-          Utilix.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত একটি উন্মুক্ত ও নিরাপদ প্ল্যাটফর্ম। সরকারি চাকরির টেলিটক পোর্টালে (Teletalk/BPSC) ৩০০×৩০০ ছবি ও স্বাক্ষর রিসাইজ, সার্কুলারের বয়স ও কোটা গণনা, পুরোনো বিজয় (SutonnyMJ) লেখা থেকে ইউনিকোডে রূপান্তর, ব্যাংক চেক ও দলিলের টাকার কথায় রূপান্তর, শিক্ষা বোর্ডের এসএসসি/এইচএসসি ও বিশ্ববিদ্যালয়ের সিজিপিএ হিসাব এবং মানসম্মত সিভি তৈরি—দৈনন্দিন সব জটিল কাজ এখন ঝামেলাহীনভাবে সম্পন্ন করুন কোনো সার্ভার আপলোড ছাড়াই।
+          Utools.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত একটি উন্মুক্ত ও নিরাপদ প্ল্যাটফর্ম। সরকারি চাকরির টেলিটক পোর্টালে (Teletalk/BPSC) ৩০০×৩০০ ছবি ও স্বাক্ষর রিসাইজ, সার্কুলারের বয়স ও কোটা গণনা, পুরোনো বিজয় (SutonnyMJ) লেখা থেকে ইউনিকোডে রূপান্তর, ব্যাংক চেক ও দলিলের টাকার কথায় রূপান্তর, শিক্ষা বোর্ডের এসএসসি/এইচএসসি ও বিশ্ববিদ্যালয়ের সিজিপিএ হিসাব এবং মানসম্মত সিভি তৈরি—দৈনন্দিন সব জটিল কাজ এখন ঝামেলাহীনভাবে সম্পন্ন করুন কোনো সার্ভার আপলোড ছাড়াই।
         </p>
       </div>
     </div>
@@ -640,7 +640,7 @@ const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => (
             <ShieldCheck className="w-9 h-9" />
           </span>
           <h2 id="privacy-heading" className="text-3xl lg:text-4xl font-bold mb-6 text-white tracking-tight">
-            কেন ইউটিলিক্স সম্পূর্ণ নিরাপদ?
+            কেন ইউটুলস সম্পূর্ণ নিরাপদ?
           </h2>
           <p className="text-lg leading-relaxed text-white/75 mb-8">
             আমাদের প্রতিটি টুল ক্লায়েন্ট-সাইড জাভাস্ক্রিপ্টে নির্মিত। আপনি যা লিখবেন বা আপলোড করবেন তা কখনোই কোনো রিমোট সার্ভার বা ডেটাবেজে স্থানান্তরিত হয় না।
@@ -876,22 +876,22 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
     '@graph': [
       {
         '@type': 'Organization',
-        '@id': 'https://utilix.bd/#organization',
-        name: 'Utilix.bd',
-        url: 'https://utilix.bd',
-        logo: 'https://utilix.bd/og-image.png',
+        '@id': 'https://utools.bd/#organization',
+        name: 'Utools.bd',
+        url: 'https://utools.bd',
+        logo: 'https://utools.bd/og-image.png',
         description:
           'বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজার-ভিত্তিক ও নিরাপদ বাংলাদেশি অনলাইন টুলস।'
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://utilix.bd/#website',
-        url: 'https://utilix.bd',
-        name: 'Utilix.bd',
+        '@id': 'https://utools.bd/#website',
+        url: 'https://utools.bd',
+        name: 'Utools.bd',
         description: 'প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব',
         inLanguage: 'bn-BD',
         publisher: {
-          '@id': 'https://utilix.bd/#organization'
+          '@id': 'https://utools.bd/#organization'
         }
       }
     ]
@@ -914,27 +914,27 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
   return (
     <div>
       <Helmet>
-        <title>Utilix.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব</title>
+        <title>Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব</title>
         <meta
           name="description"
           content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর, সিভি মেকার এবং টাকা কথায় কনভার্টার।"
         />
-        <link rel="canonical" href="https://utilix.bd/" />
-        <meta property="og:title" content="Utilix.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
+        <link rel="canonical" href="https://utools.bd/" />
+        <meta property="og:title" content="Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
         <meta
           property="og:description"
           content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার।"
         />
-        <meta property="og:url" content="https://utilix.bd/" />
+        <meta property="og:url" content="https://utools.bd/" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utilix.bd/og-image.png" />
+        <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Utilix.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
+        <meta name="twitter:title" content="Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
         <meta
           name="twitter:description"
           content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার।"
         />
-        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(siteAndOrgSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>

@@ -1,4 +1,4 @@
-# Utilix.bd — বাংলা ডিজিটাল ইউটিলিটি হাব
+# Utools.bd — বাংলা ডিজিটাল ইউটিলিটি হাব
 
 A complete browser-based Bengali utility toolkit featuring Bijoy ↔ Unicode conversion, government photo resizing, age calculation, and amount-to-words conversion. **100% client-side processing—your data never leaves your browser.**
 
@@ -64,8 +64,8 @@ package.json         Dependencies & build scripts
 
 ```bash
 # Clone repository
-git clone https://github.com/Rony-Mia/Utilix.bd.git
-cd Utilix.bd
+git clone https://github.com/Rony-Mia/Utools.bd.git
+cd Utools.bd
 
 # Install dependencies
 bun install
@@ -271,8 +271,8 @@ This project is open source. Check LICENSE file for details.
 
 ## Support & Issues
 
-- 🐛 **Report Bugs:** [GitHub Issues](https://github.com/Rony-Mia/Utilix.bd/issues)
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/Rony-Mia/Utilix.bd/discussions)
+- 🐛 **Report Bugs:** [GitHub Issues](https://github.com/Rony-Mia/Utools.bd/issues)
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/Rony-Mia/Utools.bd/discussions)
 - 📧 **Contact:** See repository for contact info
 
 ## Credits
@@ -286,4 +286,4 @@ This project is open source. Check LICENSE file for details.
 
 **Made with ❤️ for Bengali digital tools. 100% browser-based. Your data, your privacy.**
 
-**Utilix.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব**
+**Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব**

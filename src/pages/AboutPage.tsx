@@ -29,13 +29,13 @@ export const AboutPage: React.FC = () => {
         '@type': 'ListItem',
         position: 1,
         name: 'হোম',
-        item: 'https://utilix.bd/'
+        item: 'https://utools.bd/'
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'আমাদের সম্পর্কে',
-        item: 'https://utilix.bd/about'
+        item: 'https://utools.bd/about'
       }
     ]
   };
@@ -43,42 +43,42 @@ export const AboutPage: React.FC = () => {
   const aboutSchema = {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
-    name: 'আমাদের সম্পর্কে — Utilix.bd',
+    name: 'আমাদের সম্পর্কে — Utools.bd',
     description:
-      'Utilix.bd সম্পর্কে বিস্তারিত তথ্য — বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য উন্মুক্ত, নিরাপদ ও ব্রাউজার-ভিত্তিক ডিজিটাল ইউটিলিটি প্ল্যাটফর্ম।',
-    url: 'https://utilix.bd/about',
+      'Utools.bd সম্পর্কে বিস্তারিত তথ্য — বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য উন্মুক্ত, নিরাপদ ও ব্রাউজার-ভিত্তিক ডিজিটাল ইউটিলিটি প্ল্যাটফর্ম।',
+    url: 'https://utools.bd/about',
     publisher: {
       '@type': 'Organization',
-      name: 'Utilix.bd',
-      url: 'https://utilix.bd',
-      logo: 'https://utilix.bd/og-image.png'
+      name: 'Utools.bd',
+      url: 'https://utools.bd',
+      logo: 'https://utools.bd/og-image.png'
     }
   };
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-10">
       <Helmet>
-        <title>আমাদের সম্পর্কে — Utilix.bd | নিরাপদ বাংলা ডিজিটাল ইউটিলিটি হাব</title>
+        <title>আমাদের সম্পর্কে — Utools.bd | নিরাপদ বাংলা ডিজিটাল ইউটিলিটি হাব</title>
         <meta
           name="description"
-          content="Utilix.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত ১০০% ফ্রি, অফলাইন-রেডি ও ব্রাউজার-ভিত্তিক ডিজিটাল ইউটিলিটি প্ল্যাটফর্ম। জানুন আমাদের লক্ষ্য ও নিরাপত্তা ব্যবস্থা।"
+          content="Utools.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত ১০০% ফ্রি, অফলাইন-রেডি ও ব্রাউজার-ভিত্তিক ডিজিটাল ইউটিলিটি প্ল্যাটফর্ম। জানুন আমাদের লক্ষ্য ও নিরাপত্তা ব্যবস্থা।"
         />
-        <link rel="canonical" href="https://utilix.bd/about" />
-        <meta property="og:title" content="আমাদের সম্পর্কে — Utilix.bd" />
+        <link rel="canonical" href="https://utools.bd/about" />
+        <meta property="og:title" content="আমাদের সম্পর্কে — Utools.bd" />
         <meta
           property="og:description"
-          content="Utilix.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত ১০০% ফ্রি, অফলাইন-রেডি ও ব্রাউজার-ভিত্তিক ডিজিটাল ইউটিলিটি প্ল্যাটফর্ম।"
+          content="Utools.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত ১০০% ফ্রি, অফলাইন-রেডি ও ব্রাউজার-ভিত্তিক ডিজিটাল ইউটিলিটি প্ল্যাটফর্ম।"
         />
-        <meta property="og:url" content="https://utilix.bd/about" />
+        <meta property="og:url" content="https://utools.bd/about" />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://utilix.bd/og-image.png" />
+        <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="আমাদের সম্পর্কে — Utilix.bd" />
+        <meta name="twitter:title" content="আমাদের সম্পর্কে — Utools.bd" />
         <meta
           name="twitter:description"
-          content="Utilix.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত ১০০% ফ্রি, অফলাইন-রেডি ও ব্রাউজার-ভিত্তিক ডিজিটাল ইউটিলিটি প্ল্যাটফর্ম।"
+          content="Utools.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত ১০০% ফ্রি, অফলাইন-রেডি ও ব্রাউজার-ভিত্তিক ডিজিটাল ইউটিলিটি প্ল্যাটফর্ম।"
         />
-        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(aboutSchema)}</script>
       </Helmet>
@@ -90,10 +90,10 @@ export const AboutPage: React.FC = () => {
           <span>আমাদের পরিচিতি ও লক্ষ্য</span>
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#084A2E] font-serif tracking-tight">
-          Utilix.bd — আপনার নির্ভরযোগ্য বাংলা ডিজিটাল সঙ্গী
+          Utools.bd — আপনার নির্ভরযোগ্য বাংলা ডিজিটাল সঙ্গী
         </h1>
         <p className="text-sm sm:text-base text-[#4A5A52] max-w-3xl leading-relaxed">
-          প্রতিদিনের ডিজিটাল কাজের ঝামেলা দূর করে দ্রুত, নিরাপদ ও সম্পূর্ণ বিনামূল্যে প্রয়োজনীয় টুলস সবার কাছে পৌঁছে দেওয়াই ইউটিলিক্স-এর মূল লক্ষ্য।
+          প্রতিদিনের ডিজিটাল কাজের ঝামেলা দূর করে দ্রুত, নিরাপদ ও সম্পূর্ণ বিনামূল্যে প্রয়োজনীয় টুলস সবার কাছে পৌঁছে দেওয়াই ইউটুলস-এর মূল লক্ষ্য।
         </p>
       </section>
 
@@ -101,7 +101,7 @@ export const AboutPage: React.FC = () => {
       <section className="bg-[#FFFFFF] border border-[#D5E4DB] p-6 sm:p-8 space-y-6 rounded-2xl">
         <div className="space-y-4 text-sm sm:text-base text-[#0F1F17] leading-relaxed">
           <h2 className="text-xl sm:text-2xl font-bold text-[#084A2E] font-serif">
-            কেন তৈরি হয়েছে Utilix.bd?
+            কেন তৈরি হয়েছে Utools.bd?
           </h2>
           <p>
             বাংলাদেশে প্রতিদিন হাজার হাজার শিক্ষার্থী, চাকরিপ্রার্থী ও সাধারণ পেশাজীবী বিভিন্ন অনলাইন সেবা ও আবেদনের জন্য নানা ধরণের বিড়ম্বনায় পড়েন। যেমন— সরকারি চাকরির টেলিটক পোর্টালে (Teletalk/BPSC) আবেদন করতে গিয়ে নির্দিষ্ট ৩০০×৩০০ পিক্সেল ছবি ও ৩০০×৮০ পিক্সেল স্বাক্ষর তৈরি করা, পুরোনো সুতন্বীএমজে (SutonnyMJ) বিজয় ফন্ট থেকে ইউনিকোডে লেখা রূপান্তর করা, সার্কুলারের নির্দিষ্ট তারিখে বয়স নির্ধারণ ও কোটা যাচাই করা, কিংবা ব্যাংক চেকের জন্য টাকার সঠিক কথায় রূপান্তর লেখা।
@@ -110,7 +110,7 @@ export const AboutPage: React.FC = () => {
             অধিকাংশ সময় এসব সাধারণ কাজের জন্য বিভিন্ন অস্বচ্ছ ওয়েবসাইটে গিয়ে ব্যক্তিগত ছবি ও গোপনীয় তথ্য আপলোড করতে হয়, যাতে তথ্য ফাঁসের ঝুঁকি থাকে। অনেক ওয়েবসাইটে আবার অতিরিক্ত বিজ্ঞাপন, পেইড সাবস্ক্রিপশন বা অ্যাকাউন্ট খোলার বাধ্যবাধকতা থাকে।
           </p>
           <p>
-            এই বাস্তবতা থেকেই <strong>Utilix.bd</strong>-এর জন্ম। আমরা এমন একটি সর্বজনীন প্ল্যাটফর্ম গড়ে তুলেছি, যা ব্যবহার করার জন্য কোনো রেজিস্ট্রেশন লাগবে না, কোনো ডেটা কোনো সার্ভারে যাবে না এবং প্রতিটি টুল সেকেন্ডের মধ্যে সরাসরি আপনার ব্রাউজারেই কার্যকর হবে।
+            এই বাস্তবতা থেকেই <strong>Utools.bd</strong>-এর জন্ম। আমরা এমন একটি সর্বজনীন প্ল্যাটফর্ম গড়ে তুলেছি, যা ব্যবহার করার জন্য কোনো রেজিস্ট্রেশন লাগবে না, কোনো ডেটা কোনো সার্ভারে যাবে না এবং প্রতিটি টুল সেকেন্ডের মধ্যে সরাসরি আপনার ব্রাউজারেই কার্যকর হবে।
           </p>
         </div>
 
@@ -216,7 +216,7 @@ export const AboutPage: React.FC = () => {
 
         <div className="text-xs sm:text-sm text-[#0F1F17] leading-relaxed space-y-4">
           <p>
-            Utilix.bd কোনো সাধারণ ক্লাউড সফটওয়্যারের মতো কাজ করে না। আধুনিক ওয়েব ব্রাউজারের সক্ষমতাকে কাজে লাগিয়ে আমাদের প্রতিটি অ্যালগরিদম (ছবি প্রসেসিং, টেক্সট কনভার্সন, ক্যালকুলেশন ও PDF তৈরি) সরাসরি আপনার ডিভাইসের মেমোরিতে (RAM) চলে।
+            Utools.bd কোনো সাধারণ ক্লাউড সফটওয়্যারের মতো কাজ করে না। আধুনিক ওয়েব ব্রাউজারের সক্ষমতাকে কাজে লাগিয়ে আমাদের প্রতিটি অ্যালগরিদম (ছবি প্রসেসিং, টেক্সট কনভার্সন, ক্যালকুলেশন ও PDF তৈরি) সরাসরি আপনার ডিভাইসের মেমোরিতে (RAM) চলে।
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">

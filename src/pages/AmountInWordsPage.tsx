@@ -76,29 +76,29 @@ export const AmountInWordsPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>টাকা কথায় রূপান্তর — Number & Taka to Words Converter | Utilix.bd</title>
+        <title>টাকা কথায় রূপান্তর — Number & Taka to Words Converter | Utools.bd</title>
         <meta
           name="description"
           content="যেকোনো সংখ্যা বা টাকার পরিমাণ তাৎক্ষণিক শুদ্ধ বাংলা ও ইংরেজিতে কথায় লিখুন। চেক, রসিদ ও দাপ্তরিক ভাউচারের জন্য আদর্শ।"
         />
         <meta
           property="og:title"
-          content="টাকা কথায় রূপান্তর — Number & Taka to Words Converter | Utilix.bd"
+          content="টাকা কথায় রূপান্তর — Number & Taka to Words Converter | Utools.bd"
         />
         <meta
           property="og:description"
           content="যেকোনো সংখ্যা বা টাকার পরিমাণ তাৎক্ষণিক শুদ্ধ বাংলা ও ইংরেজিতে কথায় লিখুন। চেক, রসিদ ও দাপ্তরিক ভাউচারের জন্য আদর্শ।"
         />
-        <meta property="og:url" content="https://utilix.bd/amount-in-words" />
+        <meta property="og:url" content="https://utools.bd/amount-in-words" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utilix.bd/og-image.png" />
+        <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="টাকা কথায় রূপান্তর | Utilix.bd" />
+        <meta name="twitter:title" content="টাকা কথায় রূপান্তর | Utools.bd" />
         <meta
           name="twitter:description"
           content="যেকোনো সংখ্যা বা টাকার পরিমাণ শুদ্ধ বাংলা ও ইংরেজিতে কথায় লেখার অনলাইন টুল।"
         />
-        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
       </Helmet>
 
       {/* Top Breadcrumb & Privacy Guarantee */}

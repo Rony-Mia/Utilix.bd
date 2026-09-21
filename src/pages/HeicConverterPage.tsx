@@ -387,7 +387,7 @@ export const HeicConverterPage: React.FC = () => {
       const zipUrl = URL.createObjectURL(zipBlob);
       const link = document.createElement('a');
       link.href = zipUrl;
-      link.download = `Utilix-HEIC-Converted-${Date.now()}.zip`;
+      link.download = `Utools-HEIC-Converted-${Date.now()}.zip`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -426,7 +426,7 @@ export const HeicConverterPage: React.FC = () => {
         name: 'একসাথে কতগুলো ছবি কনভার্ট করা যায়?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Utilix.bd-তে একসাথে যতগুলো ইচ্ছে ছবি আপলোড ও রূপান্তর করতে পারবেন। এখানে কোনো ফাইলের সংখ্যা বা সাইজের কৃত্রিম সীমাবদ্ধতা নেই। এটি সম্পূর্ণ বিনামূল্যে এবং আনলিমিটেড।',
+          text: 'Utools.bd-তে একসাথে যতগুলো ইচ্ছে ছবি আপলোড ও রূপান্তর করতে পারবেন। এখানে কোনো ফাইলের সংখ্যা বা সাইজের কৃত্রিম সীমাবদ্ধতা নেই। এটি সম্পূর্ণ বিনামূল্যে এবং আনলিমিটেড।',
         },
       },
       {
@@ -451,14 +451,14 @@ export const HeicConverterPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>HEIC থেকে JPG/PNG কনভার্টার — আইফোন ছবি রূপান্তর | Utilix.bd</title>
+        <title>HEIC থেকে JPG/PNG কনভার্টার — আইফোন ছবি রূপান্তর | Utools.bd</title>
         <meta
           name="description"
           content="আইফোনের HEIC ও HEIF ছবি সরাসরি ব্রাউজারে বিনামূল্যে JPG, PNG বা WebP-তে কনভার্ট করুন। ১০০% অফলাইন ও নিরাপদ ক্লায়েন্ট-সাইড প্রসেসিং, ব্যাচ কনভার্ট এবং ZIP ডাউনলোড।"
         />
         <meta
           property="og:title"
-          content="HEIC থেকে JPG/PNG কনভার্টার — আইফোন ছবি রূপান্তর | Utilix.bd"
+          content="HEIC থেকে JPG/PNG কনভার্টার — আইফোন ছবি রূপান্তর | Utools.bd"
         />
         <meta
           property="og:description"

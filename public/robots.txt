@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://utilix.bd/sitemap.xml
+Sitemap: https://utools.bd/sitemap.xml

@@ -170,7 +170,7 @@ export const PdfRotatePage: React.FC = () => {
   const softwareAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'Utilix.bd পিডিএফ রোটেট (PDF Rotate)',
+    name: 'Utools.bd পিডিএফ রোটেট (PDF Rotate)',
     operatingSystem: 'All',
     applicationCategory: 'UtilitiesApplication',
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
@@ -278,10 +278,10 @@ export const PdfRotatePage: React.FC = () => {
 
   return (
     <PdfToolLayout
-      title="পিডিএফ রোটেট — Rotate PDF Pages Online Free | Utilix.bd"
+      title="পিডিএফ রোটেট — Rotate PDF Pages Online Free | Utools.bd"
       metaDescription="অনলাইনে PDF ফাইল ও পেজ ঘোরান সহজে ও ফ্রিতে। উল্টো স্ক্যান করা পেজ ৯০°, ১৮০° বা ২৭০° ঘুরিয়ে সোজা করুন। ১০০% ক্লায়েন্ট-সাইড ব্রাউজারেই নিরাপদ প্রসেসিং।"
-      canonicalUrl="https://utilix.bd/pdf-rotate"
-      ogTitle="পিডিএফ রোটেট — Rotate PDF Pages Online Free | Utilix.bd"
+      canonicalUrl="https://utools.bd/pdf-rotate"
+      ogTitle="পিডিএফ রোটেট — Rotate PDF Pages Online Free | Utools.bd"
       ogDescription="অনলাইনে PDF ফাইল ও পেজ ঘোরান সহজে ও ফ্রিতে। উল্টো স্ক্যান করা পেজ ৯০°, ১৮০° বা ২৭০° ঘুরিয়ে সোজা করুন। ১০০% ক্লায়েন্ট-সাইড ব্রাউজারেই নিরাপদ প্রসেসিং।"
       refCode="DOC-PDF-04"
       badgeText="ডকুমেন্ট ইউটিলিটি • প্রফেশনাল পিডিএফ রোটেটর"
@@ -297,7 +297,7 @@ export const PdfRotatePage: React.FC = () => {
             সরকারি চাকরির আবেদন, জাতীয় পরিচয়পত্র বা শিক্ষা সনদের পিডিএফ জমা দেওয়ার সময় কোনো পেজ উল্টো বা বাঁকা থাকলে নিয়োগকারী কর্মকর্তা বা স্বয়ংক্রিয় ভেরিফিকেশন সিস্টেম আবেদনটি বাতিল করে দিতে পারে। বিশেষ করে মোবাইল স্ক্যানার অ্যাপ দিয়ে দ্রুত ছবি তোলার সময় বিভিন্ন পেজ বিভিন্ন কোণে (Landscape/Portrait) সেভ হয়ে যায়।
           </p>
           <p>
-            Utilix.bd-এর <strong>পিডিএফ রোটেট</strong> টুলে কোনো জটিল সফটওয়্যার ইনস্টল ছাড়াই সরাসরি ব্রাউজারের ভেতর প্রতিটি পেজের কোণ পরিবর্তন করা যায়। আপনি দেখতে পাবেন কোন পেজটি কত ডিগ্রিতে রয়েছে। প্রয়োজনমতো নির্দিষ্ট কোনো একটি পেজকে কিংবা এক ক্লিকে পুরো ডকুমেন্টের সব পেজকে ৯০° বা ১৮০° ঘুরিয়ে সোজা করা যায়। কোনো আপলোড ছাড়া মুহূর্তেই প্রস্তুত হয়ে যায় চূড়ান্ত ফাইল।
+            Utools.bd-এর <strong>পিডিএফ রোটেট</strong> টুলে কোনো জটিল সফটওয়্যার ইনস্টল ছাড়াই সরাসরি ব্রাউজারের ভেতর প্রতিটি পেজের কোণ পরিবর্তন করা যায়। আপনি দেখতে পাবেন কোন পেজটি কত ডিগ্রিতে রয়েছে। প্রয়োজনমতো নির্দিষ্ট কোনো একটি পেজকে কিংবা এক ক্লিকে পুরো ডকুমেন্টের সব পেজকে ৯০° বা ১৮০° ঘুরিয়ে সোজা করা যায়। কোনো আপলোড ছাড়া মুহূর্তেই প্রস্তুত হয়ে যায় চূড়ান্ত ফাইল।
           </p>
         </>
       }

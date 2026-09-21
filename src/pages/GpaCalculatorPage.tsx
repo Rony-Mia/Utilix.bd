@@ -280,19 +280,19 @@ export const GpaCalculatorPage: React.FC = () => {
 বাধ্যতামূলক বিষয়: ${sscResult.mandatoryCount}টি (পয়েন্ট: ${sscResult.totalPoints - sscResult.fourthSubjectBonus})
 ৪র্থ বিষয়ের বোনাস পয়েন্ট: +${sscResult.fourthSubjectBonus.toFixed(2)}
 ৪র্থ বিষয় ছাড়া GPA: ${sscResult.gpaWithoutFourth.toFixed(2)}
-হিসাব করেছেন: Utilix.bd (https://utilix.bd/gpa-calculator)`;
+হিসাব করেছেন: Utools.bd (https://utools.bd/gpa-calculator)`;
     } else if (uniMode === 'courses') {
       textToCopy = `আমার বিশ্ববিদ্যালয়ের সেমিস্টার সিজিপিএ:
 সেমিস্টার SGPA/CGPA: ${uniCourseResult.cgpa.toFixed(2)} (স্কেল: ৪.০০)
 মোট ক্রেডিট আওয়ার: ${uniCourseResult.totalCredits.toFixed(1)}
 অর্জিত ক্রেডিট: ${uniCourseResult.earnedCredits.toFixed(1)}
-হিসাব করেছেন: Utilix.bd (https://utilix.bd/gpa-calculator)`;
+হিসাব করেছেন: Utools.bd (https://utools.bd/gpa-calculator)`;
     } else {
       textToCopy = `আমার বিশ্ববিদ্যালয়ের সামগ্রিক কিউমুলেটিভ সিজিপিএ:
 সর্বমোট CGPA: ${uniSemesterResult.overallCgpa.toFixed(2)} (স্কেল: ৪.০০)
 মোট সেমিস্টার সংখ্যা: ${uniSemesters.length}টি
 সর্বমোট ক্রেডিট আওয়ার: ${uniSemesterResult.totalCredits.toFixed(1)}
-হিসাব করেছেন: Utilix.bd (https://utilix.bd/gpa-calculator)`;
+হিসাব করেছেন: Utools.bd (https://utools.bd/gpa-calculator)`;
     }
     void copy(textToCopy);
   };
@@ -348,29 +348,29 @@ export const GpaCalculatorPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>জিপিএ ও সিজিপিএ ক্যালকুলেটর — SSC HSC CGPA Calculator BD | Utilix.bd</title>
+        <title>জিপিএ ও সিজিপিএ ক্যালকুলেটর — SSC HSC CGPA Calculator BD | Utools.bd</title>
         <meta
           name="description"
           content="এসএসসি, এইচএসসি ও বিশ্ববিদ্যালয় পরীক্ষার জিপিএ ও সিজিপিএ ক্যালকুলেটর। ৪র্থ বিষয়ের বোনাস পয়েন্ট নিয়ম, ক্রেডিট আওয়ার ও ইউজিসি ৪.০০ স্কেল ভিত্তিক নির্ভুল হিসাব।"
         />
         <meta
           property="og:title"
-          content="জিপিএ ও সিজিপিএ ক্যালকুলেটর — SSC HSC CGPA Calculator BD | Utilix.bd"
+          content="জিপিএ ও সিজিপিএ ক্যালকুলেটর — SSC HSC CGPA Calculator BD | Utools.bd"
         />
         <meta
           property="og:description"
           content="এসএসসি, এইচএসসি ও বিশ্ববিদ্যালয় পরীক্ষার জিপিএ ও সিজিপিএ ক্যালকুলেটর। ৪র্থ বিষয়ের বোনাস পয়েন্ট নিয়ম ও ৪.০০ ক্রেডিট স্কেল ভিত্তিক তাৎক্ষণিক গণনা।"
         />
-        <meta property="og:url" content="https://utilix.bd/gpa-calculator" />
+        <meta property="og:url" content="https://utools.bd/gpa-calculator" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utilix.bd/og-image.png" />
+        <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="জিপিএ ও সিজিপিএ ক্যালকুলেটর | Utilix.bd" />
+        <meta name="twitter:title" content="জিপিএ ও সিজিপিএ ক্যালকুলেটর | Utools.bd" />
         <meta
           name="twitter:description"
           content="বাংলাদেশি শিক্ষা বোর্ড এসএসসি, এইচএসসি এবং বিশ্ববিদ্যালয় সেমিস্টার সিজিপিএ গণনার সম্পূর্ণ ফ্রি ক্লায়েন্ট-সাইড টুল।"
         />
-        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

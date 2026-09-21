@@ -1,6 +1,6 @@
 /**
  * Test suite for Bijoy to Unicode conversion utilities.
- * Utilix.bd - Verifying BUG 1 (Kar/hasanta conjunct reordering) and BUG 2 (English/Latin pass-through).
+ * Utools.bd - Verifying BUG 1 (Kar/hasanta conjunct reordering) and BUG 2 (English/Latin pass-through).
  */
 
 import { bijoyToUnicode } from "./bijoyConverter";
@@ -114,8 +114,8 @@ export const TEST_CASES: TestCase[] = [
   },
   {
     name: "Straight quotes with Bangla text",
-    input: "\"Avgvi †mvbvi evsjv\" I 'Utilix.bd' c¬¨vUdg©",
-    expected: "\"আমার সোনার বাংলা\" ও 'Utilix.bd' প্ল্যাটফর্ম",
+    input: "\"Avgvi †mvbvi evsjv\" I 'Utools.bd' c¬¨vUdg©",
+    expected: "\"আমার সোনার বাংলা\" ও 'Utools.bd' প্ল্যাটফর্ম",
     description: "Straight quotes preserved around Bangla & English text"
   },
   {

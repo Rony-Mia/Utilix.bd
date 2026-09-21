@@ -333,7 +333,7 @@ export const AgeCalculatorPage: React.FC = () => {
   // Copy formatted summary
   const handleCopySummary = () => {
     if (!ageResult || !eligibility) return;
-    const summary = `【Utilix.bd সরকারি চাকরির বয়স হিসাব】
+    const summary = `【Utools.bd সরকারি চাকরির বয়স হিসাব】
 জন্ম তারিখ: ${formatBengaliDate(birthDateStr)}
 হিসাবের তারিখ: ${formatBengaliDate(targetDateStr)}
 মোট বয়স: ${toBanglaNum(ageResult.years)} বছর ${toBanglaNum(ageResult.months)} মাস ${toBanglaNum(ageResult.days)} দিন
@@ -357,29 +357,29 @@ export const AgeCalculatorPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>সরকারি চাকরির বয়স ক্যালকুলেটর — Job Age Calculator BD | Utilix.bd</title>
+        <title>সরকারি চাকরির বয়স ক্যালকুলেটর — Job Age Calculator BD | Utools.bd</title>
         <meta
           name="description"
           content="বিজ্ঞপ্তির নির্দিষ্ট তারিখে আপনার সঠিক বয়স (বছর, মাস, দিন) এবং সরকারি ও কোটাভিত্তিক চাকরির যোগ্যতা তাৎক্ষণিক নির্ভুল হিসাব করুন।"
         />
         <meta
           property="og:title"
-          content="সরকারি চাকরির বয়স ক্যালকুলেটর — Job Age Calculator BD | Utilix.bd"
+          content="সরকারি চাকরির বয়স ক্যালকুলেটর — Job Age Calculator BD | Utools.bd"
         />
         <meta
           property="og:description"
           content="বিজ্ঞপ্তির নির্দিষ্ট তারিখে আপনার সঠিক বয়স (বছর, মাস, দিন) এবং সরকারি ও কোটাভিত্তিক চাকরির যোগ্যতা তাৎক্ষণিক নির্ভুল হিসাব করুন।"
         />
-        <meta property="og:url" content="https://utilix.bd/age-calculator" />
+        <meta property="og:url" content="https://utools.bd/age-calculator" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utilix.bd/og-image.png" />
+        <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="সরকারি চাকরির বয়স ক্যালকুলেটর | Utilix.bd" />
+        <meta name="twitter:title" content="সরকারি চাকরির বয়স ক্যালকুলেটর | Utools.bd" />
         <meta
           name="twitter:description"
           content="সরকারি চাকরি ও বিসিএস পরীক্ষার জন্য বিজ্ঞপ্তির তারিখে সঠিক বয়স হিসাব করুন।"
         />
-        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
       </Helmet>
 
       {/* Top Breadcrumb & Privacy Guarantee */}

@@ -243,7 +243,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
           to="/"
           onClick={() => handleLinkClick('all')}
           className="flex items-center gap-2 shrink-0 rounded-lg"
-          aria-label="Utilix.bd — হোম"
+          aria-label="Utools.bd — হোম"
         >
           <span
             aria-hidden="true"
@@ -253,10 +253,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
             U
           </span>
           <span className="text-lg font-bold tracking-tight text-[#0B5D3B] font-latin">
-            Utilix<span className="text-[#F5A524]">.bd</span>
+            Utools<span className="text-[#F5A524]">.bd</span>
           </span>
           <span className="hidden xl:inline text-[#D5E4DB] pl-1">|</span>
-          <span className="hidden xl:inline text-sm text-[#4A5A52]">
+          <span className="hidden xl:inline text-sm text-[#4A5A52] whitespace-nowrap">
             বাংলা ডিজিটাল ইউটিলিটি হাব
           </span>
         </Link>
@@ -265,12 +265,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
         <nav
           ref={navContainerRef}
           aria-label="প্রধান নেভিগেশন"
-          className="hidden lg:flex items-center gap-1 text-sm"
+          className="hidden lg:flex items-center gap-1 text-sm shrink-0"
         >
           <Link
             to="/"
             onClick={() => handleLinkClick('all')}
-            className={`px-3 py-2 rounded-lg transition-colors font-medium ${
+            className={`px-3 py-2 rounded-lg transition-colors font-medium whitespace-nowrap shrink-0 ${
               isHomeActive
                 ? 'text-[#0B5D3B] bg-[#E6F4EC] font-semibold'
                 : 'text-[#4A5A52] hover:text-[#0B5D3B] hover:bg-[#E6F4EC]/60'
@@ -286,7 +286,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
             return (
               <div
                 key={category.id}
-                className="relative"
+                className="relative shrink-0"
                 onMouseEnter={() => handleMouseEnter(category.id)}
                 onMouseLeave={handleMouseLeave}
               >
@@ -297,7 +297,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
                   aria-expanded={isOpen}
                   aria-controls={`menu-${category.id}`}
                   onClick={() => handleCategoryClick(category.id)}
-                  className={`px-3 py-2 rounded-lg transition-colors font-medium flex items-center gap-1 cursor-pointer ${
+                  className={`px-3 py-2 rounded-lg transition-colors font-medium flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0 ${
                     catActive
                       ? 'text-[#0B5D3B] bg-[#E6F4EC] font-semibold'
                       : isOpen
@@ -305,9 +305,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
                       : 'text-[#4A5A52] hover:text-[#0B5D3B] hover:bg-[#E6F4EC]/60'
                   }`}
                 >
-                  <span>{category.label}</span>
+                  <span className="whitespace-nowrap">{category.label}</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
+                    className={`w-3.5 h-3.5 transition-transform duration-150 shrink-0 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
@@ -367,15 +367,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
         </nav>
 
         {/* Right side: CTA + Mobile Hamburger */}
-        <div className="flex items-center gap-3">
-          <div className="hidden xl:flex items-center text-xs text-[#0B5D3B]">
+        <div className="flex items-center gap-3 shrink-0">
+          <div className="hidden xl:flex items-center text-xs text-[#0B5D3B] whitespace-nowrap shrink-0">
             <span className="w-2 h-2 rounded-full bg-[#0B5D3B] mr-1.5" aria-hidden="true"></span>
             <span>১০০% ক্লায়েন্ট-সাইড ও নিরাপদ</span>
           </div>
 
           <Link
             to="/#tools"
-            className="btn-shine hidden lg:inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-white"
+            className="btn-shine hidden lg:inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-white whitespace-nowrap shrink-0"
             style={{
               background: 'linear-gradient(135deg, #0B5D3B, #0D7048)',
               boxShadow: '0 4px 12px rgba(11,93,59,0.3)',
