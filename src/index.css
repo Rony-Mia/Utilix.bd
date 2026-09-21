@@ -197,6 +197,11 @@ h1, h2, h3, h4, .font-heading {
 .float-2 { animation: float2 6s ease-in-out infinite 1s; }
 .float-3 { animation: float3 4.5s ease-in-out infinite 0.5s; }
 
+/* Parallax layers are only promoted to compositor layers while their scene is on/near screen */
+.px-layer { will-change: auto; }
+[data-px-stage] { contain: layout paint; }
+[data-px-stage][data-active] .px-layer { will-change: transform; }
+
 .glow-blob {
   position: absolute;
   border-radius: 50%;
@@ -209,7 +214,6 @@ h1, h2, h3, h4, .font-heading {
   html { scroll-behavior: auto; }
   .float-1, .float-2, .float-3 { animation: none; }
   .card-hover, .tool-arrow, .btn-shine::after { transition: none; }
-  .parallax-bg { transform: none !important; }
 }
 
 /* Strict Bengali Typographic Integrity in CV Pages & Canvas Exports */

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
@@ -23,6 +23,8 @@ import { SITE_UPDATES } from '../data/updates.ts';
 import { getToolIcon } from '../data/toolIcons.tsx';
 import { toBn } from '../utils/bnDigits.ts';
 import type { ToolItem } from '../types.ts';
+import { ParallaxLayer, ParallaxScene, ParallaxStage } from '../components/parallax/Parallax.tsx';
+import { Diamond, JAMDANI_PATTERN, Ring, SolidDiamond, Wave } from '../components/parallax/scenery.tsx';
 
 interface HomePageProps {
   selectedCategory: string;
@@ -112,45 +114,6 @@ const PRIVACY_POINTS = [
   { icon: Gift, title: 'সম্পূর্ণ বিনামূল্যে', desc: 'কোনো প্রিমিয়াম প্ল্যান নেই, সব টুল ফ্রি' },
 ];
 
-const JAMDANI_PATTERN =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 60 32 32 60 4 32Z M32 18 46 32 32 46 18 32Z' fill='none' stroke='%23ffffff' stroke-opacity='0.07' stroke-width='1'/%3E%3C/svg%3E\")";
-
-// ── Parallax (decorative layers only; disabled for reduced motion) ───────────
-
-function useParallax<T extends HTMLElement>(speed = 0.25) {
-  const ref = useRef<T>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const layer = el.querySelector<HTMLElement>('.parallax-bg');
-    if (!layer) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    let raf = 0;
-    const update = () => {
-      const rect = el.getBoundingClientRect();
-      const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
-      layer.style.transform = `translate3d(0, ${offset}px, 0)`;
-    };
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, [speed]);
-
-  return ref;
-}
-
 // ── Small shared pieces ──────────────────────────────────────────────────────
 
 const SectionHeading: React.FC<{
@@ -181,15 +144,63 @@ function findTool(id: string): ToolItem | undefined {
   return TOOLS.find((t) => t.id === id);
 }
 
-// ── Hero ─────────────────────────────────────────────────────────────────────
+// ── Hero (multi-layer parallax: glows → jamdani diamonds → motifs → river waves, plus mouse depth) ─────
 
 const Hero: React.FC = () => (
-  <section className="relative overflow-hidden">
-    <div className="absolute inset-0 dot-grid opacity-40" aria-hidden="true" />
-    <div className="glow-blob w-96 h-96 top-10 -left-24 opacity-50 bg-[#E6F4EC]" aria-hidden="true" />
-    <div className="glow-blob w-72 h-72 top-32 right-10 opacity-30 bg-[#FEF3D0]" aria-hidden="true" />
+  <ParallaxScene pointer>
+    <ParallaxStage>
+    {/* far layer: dot grid + soft glows */}
+    <ParallaxLayer dist={30} className="left-0 right-0 -top-10 -bottom-10 dot-grid opacity-40" />
+    <ParallaxLayer
+      dist={70}
+      depth={-12}
+      className="-top-28 -left-40 w-[560px] h-[560px] rounded-full"
+      style={{ background: 'radial-gradient(closest-side, rgba(230,244,236,1), rgba(230,244,236,0.4) 55%, transparent)' }}
+    />
+    <ParallaxLayer
+      dist={-40}
+      depth={16}
+      className="top-20 -right-24 w-[460px] h-[460px] rounded-full"
+      style={{ background: 'radial-gradient(closest-side, rgba(254,243,208,0.95), rgba(254,243,208,0.35) 55%, transparent)' }}
+    />
 
-    <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    {/* mid layer: oversized jamdani diamonds that drift and slowly turn with the scroll */}
+    <ParallaxLayer dist={90} rot={16} depth={8} className="-top-32 -right-44 w-[580px] h-[580px] text-[#0B5D3B]/[0.09]">
+      <Diamond className="w-full h-full" />
+    </ParallaxLayer>
+    <ParallaxLayer dist={-70} rot={-24} depth={-10} className="bottom-28 -left-44 w-[320px] h-[320px] text-[#F5A524]/30 hidden md:block">
+      <Diamond className="w-full h-full" filled={false} />
+    </ParallaxLayer>
+
+    {/* near layer: small motifs that move faster than the page */}
+    <ParallaxLayer dist={-150} rot={70} depth={26} className="top-[16%] left-[48%] w-4 h-4 text-[#F5A524] hidden md:block">
+      <SolidDiamond className="w-full h-full" />
+    </ParallaxLayer>
+    <ParallaxLayer dist={120} rot={-100} depth={-20} className="top-[64%] left-[46%] w-7 h-7 text-[#0B5D3B]/40 hidden lg:block">
+      <Ring className="w-full h-full" />
+    </ParallaxLayer>
+    <ParallaxLayer dist={-110} rot={40} depth={30} className="top-[30%] right-[5%] w-3 h-3 text-[#0B5D3B]/50 hidden lg:block">
+      <SolidDiamond className="w-full h-full" />
+    </ParallaxLayer>
+    <ParallaxLayer dist={90} rot={120} depth={-28} className="bottom-[26%] right-[12%] w-5 h-5 text-[#F5A524]/80 hidden lg:block">
+      <Ring className="w-full h-full" />
+    </ParallaxLayer>
+    <ParallaxLayer dist={-70} depth={22} className="top-[9%] left-[10%] w-2 h-2 rounded-full bg-[#F5A524]/70 hidden sm:block" />
+    <ParallaxLayer dist={60} depth={-18} className="top-[46%] left-[3%] w-2.5 h-2.5 rounded-full bg-[#0B5D3B]/25 hidden md:block" />
+
+    {/* river / paddy waves; the front one has the page colour so the hero melts into the next section */}
+    <ParallaxLayer x={-50} dist={26} className="left-[-6%] right-[-6%] bottom-0 h-[150px] text-[#DDEFE4]">
+      <Wave variant={0} className="w-full h-full" />
+    </ParallaxLayer>
+    <ParallaxLayer x={60} dist={-10} className="left-[-6%] right-[-6%] bottom-0 h-[115px] text-[#EAF5EE]">
+      <Wave variant={1} className="w-full h-full" />
+    </ParallaxLayer>
+    <ParallaxLayer x={-40} dist={-38} className="left-[-6%] right-[-6%] -bottom-px h-[80px] text-[#FAFAF7]">
+      <Wave variant={2} className="w-full h-full" />
+    </ParallaxLayer>
+    </ParallaxStage>
+
+    <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 pt-16 pb-28 lg:pt-24 lg:pb-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
       <div>
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 bg-[#E6F4EC]/90 text-[#0B5D3B] border border-[#0B5D3B]/25">
           <span aria-hidden="true">🇧🇩</span>
@@ -232,9 +243,11 @@ const Hero: React.FC = () => (
         </ul>
       </div>
 
-      {/* Decorative collage of real tools (hidden on small screens) */}
+
+      {/* Decorative collage of real tools (hidden on small screens). Each card has mouse depth + its own float. */}
       <div className="relative hidden lg:flex items-center justify-center h-[540px]" aria-hidden="true">
-        <div className="float-1 absolute left-4 top-12 w-56 rounded-2xl bg-white/95 border border-[#0B5D3B]/10 shadow-[0_20px_60px_rgba(11,93,59,0.18)] p-4">
+        <ParallaxLayer depth={22} className="left-4 top-12 will-change-transform">
+          <div className="float-1 w-56 rounded-2xl bg-white/95 border border-[#0B5D3B]/10 shadow-[0_20px_60px_rgba(11,93,59,0.18)] p-4">
           <div className="flex items-center gap-2 mb-3">
             <span className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#E6F4EC] text-[#0B5D3B]">
               {React.createElement(getToolIcon('pdf-merger'), { className: 'w-4 h-4' })}
@@ -253,8 +266,9 @@ const Hero: React.FC = () => (
           </div>
           <div className="py-2 rounded-lg text-center text-xs font-semibold text-white bg-[#0B5D3B]">একত্রিত করুন</div>
         </div>
-
-        <div className="float-2 absolute right-0 top-8 w-56 rounded-2xl bg-white/95 border border-[#0B5D3B]/10 shadow-[0_20px_60px_rgba(11,93,59,0.18)] p-4">
+        </ParallaxLayer>
+        <ParallaxLayer depth={34} className="right-0 top-8 will-change-transform">
+          <div className="float-2 w-56 rounded-2xl bg-white/95 border border-[#0B5D3B]/10 shadow-[0_20px_60px_rgba(11,93,59,0.18)] p-4">
           <div className="flex items-center gap-2 mb-3">
             <span className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#FEF3D0] text-[#92400E]">
               {React.createElement(getToolIcon('photo-resizer'), { className: 'w-4 h-4' })}
@@ -275,8 +289,9 @@ const Hero: React.FC = () => (
             <div className="flex-1 text-center px-2 py-1 rounded-lg text-xs font-medium bg-[#F0F4F2] text-[#4A5A52]">পাসপোর্ট</div>
           </div>
         </div>
-
-        <div className="float-3 absolute left-12 bottom-12 w-56 rounded-2xl bg-white/95 border border-[#0B5D3B]/10 shadow-[0_20px_60px_rgba(11,93,59,0.18)] p-4">
+        </ParallaxLayer>
+        <ParallaxLayer depth={14} className="left-12 bottom-12 will-change-transform">
+          <div className="float-3 w-56 rounded-2xl bg-white/95 border border-[#0B5D3B]/10 shadow-[0_20px_60px_rgba(11,93,59,0.18)] p-4">
           <div className="flex items-center gap-2 mb-3">
             <span className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#EDE9FE] text-[#5B21B6]">
               {React.createElement(getToolIcon('gpa-calculator'), { className: 'w-4 h-4' })}
@@ -300,6 +315,7 @@ const Hero: React.FC = () => (
             <span className="text-lg font-bold text-white font-latin">5.00</span>
           </div>
         </div>
+        </ParallaxLayer>
 
         <span className="absolute right-8 bottom-32 px-3 py-1.5 rounded-full text-xs font-bold bg-[#F5A524] text-[#0F1F17] shadow-[0_4px_12px_rgba(245,165,36,0.4)]">
           নতুন
@@ -309,7 +325,7 @@ const Hero: React.FC = () => (
         </span>
       </div>
     </div>
-  </section>
+  </ParallaxScene>
 );
 
 // ── Stats (all figures are real / derived from the tool list) ───────────────
@@ -346,8 +362,19 @@ const FeaturedTools: React.FC = () => {
   const LeadIcon = getToolIcon(lead.id);
 
   return (
-    <section className="py-20 lg:py-24" aria-labelledby="featured-heading">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+    <ParallaxScene className="py-20 lg:py-24" aria-labelledby="featured-heading">
+    <ParallaxStage>
+      <ParallaxLayer dist={80} rot={12} className="-top-16 -right-40 w-[460px] h-[460px] text-[#0B5D3B]/[0.07] hidden md:block">
+        <Diamond className="w-full h-full" />
+      </ParallaxLayer>
+      <ParallaxLayer
+        dist={-60}
+        className="bottom-0 -left-40 w-[420px] h-[420px] rounded-full"
+        style={{ background: 'radial-gradient(closest-side, rgba(254,243,208,0.7), transparent)' }}
+      />
+    </ParallaxStage>
+
+      <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6">
         <SectionHeading
           id="featured-heading"
           badge="প্রয়োজনীয়"
@@ -423,7 +450,7 @@ const FeaturedTools: React.FC = () => {
           })}
         </div>
       </div>
-    </section>
+    </ParallaxScene>
   );
 };
 
@@ -568,22 +595,45 @@ const HowItWorks: React.FC = () => (
   </section>
 );
 
-// ── Privacy (dark) ──────────────────────────────────────────────────────────
+// ── Privacy (dark, layered parallax with waves that flow in from the sections above and below) ────────
 
-const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => {
-  const ref = useParallax<HTMLElement>(0.2);
-  return (
-    <section ref={ref} className="relative overflow-hidden py-20 lg:py-24 bg-[#052D1C]" aria-labelledby="privacy-heading">
-      <div
-        className="parallax-bg absolute will-change-transform"
-        style={{ top: '-20%', bottom: '-20%', left: 0, right: 0, backgroundImage: JAMDANI_PATTERN, backgroundSize: '64px 64px' }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0"
-        style={{ background: 'radial-gradient(ellipse at 20% 0%, rgba(13,112,72,0.55), transparent 60%)' }}
-        aria-hidden="true"
-      />
+const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => (
+  <ParallaxScene className="py-32 lg:py-40 bg-[#052D1C]" aria-labelledby="privacy-heading">
+    <ParallaxStage>
+    {/* far: tiled jamdani lattice + green glow */}
+    <ParallaxLayer
+      dist={60}
+      className="left-0 right-0 -top-[20%] -bottom-[20%]"
+      style={{ backgroundImage: JAMDANI_PATTERN, backgroundSize: '64px 64px' }}
+    />
+    <ParallaxLayer
+      dist={-30}
+      className="inset-0"
+      style={{ background: 'radial-gradient(ellipse at 20% 0%, rgba(13,112,72,0.55), transparent 60%)' }}
+    />
+    {/* mid: large outlined diamonds */}
+    <ParallaxLayer dist={-110} rot={22} className="-bottom-28 -right-24 w-[440px] h-[440px] text-[#F5A524]/[0.22]">
+      <Diamond className="w-full h-full" />
+    </ParallaxLayer>
+    <ParallaxLayer dist={80} rot={-18} className="-top-24 left-[32%] w-[280px] h-[280px] text-white/[0.09] hidden md:block">
+      <Diamond className="w-full h-full" filled={false} />
+    </ParallaxLayer>
+    {/* near: small motifs */}
+    <ParallaxLayer dist={-90} rot={90} className="top-[12%] left-[30%] w-4 h-4 text-[#F5A524]/80 hidden md:block">
+      <SolidDiamond className="w-full h-full" />
+    </ParallaxLayer>
+    <ParallaxLayer dist={110} rot={-120} className="bottom-[22%] left-[46%] w-6 h-6 text-white/30 hidden lg:block">
+      <Ring className="w-full h-full" />
+    </ParallaxLayer>
+    {/* wave edges: white flows in from "How it works", page-colour flows out to the release log */}
+    <ParallaxLayer x={50} dist={-10} className="left-[-6%] right-[-6%] -top-px h-[80px] text-white">
+      <Wave flip variant={1} className="w-full h-full" />
+    </ParallaxLayer>
+    <ParallaxLayer x={-50} dist={10} className="left-[-6%] right-[-6%] -bottom-px h-[80px] text-[#FAFAF7]">
+      <Wave variant={2} className="w-full h-full" />
+    </ParallaxLayer>
+    </ParallaxStage>
+
       <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
         <div>
           <span className="inline-flex w-16 h-16 rounded-2xl items-center justify-center mb-8 bg-white/10 text-[#F5A524]">
@@ -636,9 +686,8 @@ const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => {
           })}
         </ul>
       </div>
-    </section>
-  );
-};
+  </ParallaxScene>
+);
 
 // ── Release log (existing content, restyled) ────────────────────────────────
 
@@ -775,22 +824,35 @@ const FaqSection: React.FC = () => {
 
 // ── Final CTA ───────────────────────────────────────────────────────────────
 
-const FinalCta: React.FC = () => {
-  const ref = useParallax<HTMLDivElement>(0.25);
-  return (
-    <section className="py-16 px-4 sm:px-6">
-      <div className="max-w-[1200px] mx-auto">
-        <div ref={ref} className="relative overflow-hidden rounded-3xl bg-[#052D1C]">
-          <div
-            className="parallax-bg absolute will-change-transform"
-            style={{ top: '-20%', bottom: '-20%', left: 0, right: 0, backgroundImage: JAMDANI_PATTERN, backgroundSize: '64px 64px' }}
-            aria-hidden="true"
-          />
-          <div
-            className="absolute inset-0"
-            style={{ background: 'radial-gradient(ellipse at 80% 0%, rgba(245,165,36,0.22), transparent 55%)' }}
-            aria-hidden="true"
-          />
+const FinalCta: React.FC = () => (
+  <section className="py-16 px-4 sm:px-6">
+    <div className="max-w-[1200px] mx-auto">
+      <ParallaxScene as="div" className="rounded-3xl bg-[#052D1C]">
+    <ParallaxStage>
+        <ParallaxLayer
+          dist={50}
+          className="left-0 right-0 -top-[20%] -bottom-[20%]"
+          style={{ backgroundImage: JAMDANI_PATTERN, backgroundSize: '64px 64px' }}
+        />
+        <ParallaxLayer
+          dist={-30}
+          className="inset-0"
+          style={{ background: 'radial-gradient(ellipse at 80% 0%, rgba(245,165,36,0.22), transparent 55%)' }}
+        />
+        <ParallaxLayer dist={-90} rot={24} className="-top-24 -left-16 w-[320px] h-[320px] text-[#F5A524]/[0.18] hidden md:block">
+          <Diamond className="w-full h-full" />
+        </ParallaxLayer>
+        <ParallaxLayer dist={80} rot={-20} className="-bottom-28 -right-10 w-[360px] h-[360px] text-white/[0.09]">
+          <Diamond className="w-full h-full" filled={false} />
+        </ParallaxLayer>
+        <ParallaxLayer dist={-120} rot={80} className="top-[24%] right-[14%] w-4 h-4 text-[#F5A524]/80 hidden md:block">
+          <SolidDiamond className="w-full h-full" />
+        </ParallaxLayer>
+        <ParallaxLayer dist={100} rot={-90} className="bottom-[20%] left-[16%] w-6 h-6 text-white/30 hidden md:block">
+          <Ring className="w-full h-full" />
+        </ParallaxLayer>
+    </ParallaxStage>
+
           <div className="relative z-10 py-16 lg:py-20 px-8 lg:px-16 text-center">
             <h2 className="text-3xl lg:text-5xl font-bold text-white mb-5 tracking-tight">আজই আপনার কাজ সহজ করুন</h2>
             <p className="text-lg mb-10 mx-auto text-white/75 max-w-md">
@@ -803,11 +865,10 @@ const FinalCta: React.FC = () => {
               সব টুলস দেখুন <ArrowRight className="w-5 h-5" />
             </a>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+      </ParallaxScene>
+    </div>
+  </section>
+);
 
 // ── Page ────────────────────────────────────────────────────────────────────
 
