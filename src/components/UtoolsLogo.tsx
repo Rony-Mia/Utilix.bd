@@ -9,6 +9,8 @@ interface UtoolsLogoProps {
 /**
  * Utools.bd official circular monogram logo
  * Hand-crafted vector matching the green 'U' and orange 'T' monogram.
+ * The viewBox is cropped to the artwork (it spans 200-800 of the original 0-1000 canvas, plus room for the
+ * optional background circle) so the icon has no invisible margin and sits close to the wordmark.
  */
 export const UtoolsLogo: React.FC<UtoolsLogoProps> = ({
   className = 'w-8 h-8',
@@ -17,7 +19,7 @@ export const UtoolsLogo: React.FC<UtoolsLogoProps> = ({
 }) => {
   return (
     <svg
-      viewBox="0 0 1000 1000"
+      viewBox="190 190 620 620"
       className={className}
       style={size ? { width: size, height: size } : undefined}
       fill="none"

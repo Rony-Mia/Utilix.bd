@@ -246,7 +246,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
           className="flex items-center gap-2 shrink-0 rounded-lg"
           aria-label="Utools.bd — হোম"
         >
-          <UtoolsLogo className="w-8 h-8 shrink-0" />
+          <UtoolsLogo className="w-7 h-7 shrink-0" />
           <span className="text-lg font-bold tracking-tight text-[#0B5D3B] font-latin">
             Utools<span className="text-[#F5A524]">.bd</span>
           </span>
