@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { getToolIconByLink } from '../data/toolIcons.tsx';
+import { UtoolsLogo } from './UtoolsLogo';
 
 interface NavbarProps {
   activeCategory?: string;
@@ -245,13 +246,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
           className="flex items-center gap-2 shrink-0 rounded-lg"
           aria-label="Utools.bd — হোম"
         >
-          <span
-            aria-hidden="true"
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold font-latin"
-            style={{ background: 'linear-gradient(135deg, #0B5D3B, #0D7048)' }}
-          >
-            U
-          </span>
+          <UtoolsLogo className="w-8 h-8 shrink-0" />
           <span className="text-lg font-bold tracking-tight text-[#0B5D3B] font-latin">
             Utools<span className="text-[#F5A524]">.bd</span>
           </span>

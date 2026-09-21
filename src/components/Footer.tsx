@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { X, FileText, CheckCircle2, Image as ImageIcon, FileBox, Calculator, HelpCircle } from 'lucide-react';
 import { TOOLS } from '../data/tools.ts';
 import { toBn } from '../utils/bnDigits.ts';
+import { UtoolsLogo } from './UtoolsLogo';
 
 const linkClass =
   'flex items-center group text-white/60 hover:text-[#F5A524] transition-colors';
@@ -46,13 +47,7 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-center justify-between pb-8 border-b border-white/10 gap-5">
             <div className="space-y-2 max-w-2xl">
               <div className="flex items-center gap-2.5">
-                <span
-                  aria-hidden="true"
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold font-latin"
-                  style={{ background: 'linear-gradient(135deg, #0B5D3B, #0D7048)' }}
-                >
-                  U
-                </span>
+                <UtoolsLogo className="w-8 h-8 shrink-0" withBackground />
                 <span className="text-lg font-bold text-white font-latin">
                   Utools<span className="text-[#F5A524]">.bd</span>
                 </span>
