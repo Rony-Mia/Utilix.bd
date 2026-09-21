@@ -91,6 +91,11 @@ const CATEGORIES: NavCategory[] = [
         label: 'জিপিএ ও সিজিপিএ ক্যালকুলেটর',
         description: 'এসএসসি, এইচএসসি ও ভার্সিটি সিজিপিএ হিসাব',
       },
+      {
+        to: '/land-converter',
+        label: 'জমির মাপ কনভার্টার',
+        description: 'শতক, বিঘা, কাঠা, কানি ও একর রূপান্তর',
+      },
     ],
   },
   {

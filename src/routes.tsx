@@ -7,6 +7,7 @@ import { AgeCalculatorPage } from './pages/AgeCalculatorPage.tsx';
 import { AmountInWordsPage } from './pages/AmountInWordsPage.tsx';
 import { CvBuilderPage } from './pages/CvBuilderPage.tsx';
 import { GpaCalculatorPage } from './pages/GpaCalculatorPage.tsx';
+import { LandConverterPage } from './pages/LandConverterPage.tsx';
 import { PdfMergerPage } from './pages/PdfMergerPage.tsx';
 import { PdfSplitPage } from './pages/PdfSplitPage.tsx';
 import { PdfDeletePagesPage } from './pages/PdfDeletePagesPage.tsx';
@@ -34,6 +35,7 @@ export const PRERENDER_ROUTES = [
   '/amount-in-words',
   '/cv-builder',
   '/gpa-calculator',
+  '/land-converter',
   '/pdf-merger',
   '/pdf-split',
   '/pdf-delete-pages',
@@ -78,6 +80,7 @@ export function AppRoutes({
       <Route path="/amount-in-words" element={<AmountInWordsPage />} />
       <Route path="/cv-builder" element={<CvBuilderPage />} />
       <Route path="/gpa-calculator" element={<GpaCalculatorPage />} />
+      <Route path="/land-converter" element={<LandConverterPage />} />
       <Route path="/pdf-merger" element={<PdfMergerPage />} />
       <Route path="/pdf-split" element={<PdfSplitPage />} />
       <Route path="/pdf-delete-pages" element={<PdfDeletePagesPage />} />

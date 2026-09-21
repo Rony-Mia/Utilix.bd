@@ -112,6 +112,17 @@ export const TOOLS: ToolItem[] = [
     link: '/gpa-calculator'
   },
   {
+    id: 'land-converter',
+    refCode: 'CALC-LAND-01',
+    title: 'জমির মাপ কনভার্টার (Land Area Converter)',
+    description: 'শতক, বিঘা, কাঠা, কানি, একর, হেক্টর ও বর্গফুটের তাৎক্ষণিক রূপান্তর। কানি ও বিঘার আঞ্চলিক সংজ্ঞার বিকল্প এবং দলিল ও খতিয়ানের জন্য মিশ্র রূপ।',
+    feature: '২৬টি একক • কানির দুই সংজ্ঞা • মিশ্র রূপে ফলাফল',
+    category: 'calculator',
+    status: 'active',
+    version: 'v1.0',
+    link: '/land-converter'
+  },
+  {
     id: 'cv-builder',
     refCode: 'DOC-CV-01',
     title: 'সিভি ও জীবনবৃত্তান্ত মেকার (CV Builder)',

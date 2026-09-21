@@ -12,6 +12,17 @@ export interface SiteUpdate {
 
 export const SITE_UPDATES: SiteUpdate[] = [
   {
+    id: 'update-land-converter',
+    date: 'মার্চ ২০২৫',
+    version: 'v1.0',
+    badge: 'নতুন টুল',
+    badgeType: 'new',
+    title: 'জমির মাপ কনভার্টার (Land Area Converter) উন্মোচন',
+    description: 'শতক, বিঘা, কাঠা, কানি, একর, হেক্টর ও বর্গফুটের তাৎক্ষণিক রূপান্তর। কানি ও বিঘার আঞ্চলিক সংজ্ঞার বিকল্প এবং দলিল ও খতিয়ানের জন্য মিশ্র রূপ।',
+    toolLink: '/land-converter',
+    toolName: 'জমির মাপ কনভার্টার দেখুন'
+  },
+  {
     id: 'update-gpa-calc',
     date: 'মার্চ ২০২৫',
     version: 'v1.0',

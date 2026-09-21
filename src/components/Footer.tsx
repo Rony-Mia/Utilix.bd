@@ -35,6 +35,7 @@ export const Footer: React.FC = () => {
     { to: '/age-calculator', label: 'সরকারি চাকরির বয়স ক্যালকুলেটর' },
     { to: '/amount-in-words', label: 'টাকা → কথায় কনভার্টার' },
     { to: '/gpa-calculator', label: 'জিপিএ ও সিজিপিএ ক্যালকুলেটর' },
+    { to: '/land-converter', label: 'জমির মাপ কনভার্টার' },
   ];
 
   return (
