@@ -23,6 +23,7 @@ import {
   Layers,
   Palette
 } from 'lucide-react';
+import { RelatedTools } from '../components/RelatedTools.tsx';
 
 type InputCategory = 'url' | 'text' | 'phone' | 'email' | 'wifi';
 type ErrorCorrectionLevel = 'L' | 'M' | 'Q' | 'H';
@@ -374,7 +375,6 @@ export const QrGeneratorPage: React.FC = () => {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#4A5A52] font-mono">REF: QR-ST-01</span>
         </div>
 
         <div className="flex items-center space-x-2 text-xs font-medium text-[#084A2E] bg-[#FFFFFF] border border-[#D5E4DB] px-3 py-1.5 shadow-xs rounded-lg">
@@ -964,6 +964,9 @@ export const QrGeneratorPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Cross-Linking Section ("আরও দরকারি টুলস") */}
+      <RelatedTools currentToolId="qr-generator" />
     </div>
   );
 };

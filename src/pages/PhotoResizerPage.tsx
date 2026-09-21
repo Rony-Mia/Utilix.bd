@@ -19,6 +19,7 @@ import {
 import { PresetProfile } from '../types.ts';
 import { GOVERNMENT_PRESET_PROFILES } from '../constants/presets.ts';
 import { resizeImage } from '../utils/imageResize.ts';
+import { RelatedTools } from '../components/RelatedTools.tsx';
 
 const ACCEPTED_UPLOAD_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 const MAX_UPLOAD_MB = 15;
@@ -368,7 +369,6 @@ export const PhotoResizerPage: React.FC = () => {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#4A5A52] font-mono">REF: IMG-GOV-02</span>
         </div>
 
         {/* 100% Client-Side Privacy Badge */}
@@ -927,6 +927,9 @@ export const PhotoResizerPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Cross-Linking Section ("আরও দরকারি টুলস") */}
+      <RelatedTools currentToolId="photo-resizer" />
     </div>
   );
 };

@@ -34,6 +34,7 @@ import {
 } from '../landConverter.ts';
 import { toBanglaDigits } from '../amountToWords.ts';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard.ts';
+import { RelatedTools } from '../components/RelatedTools.tsx';
 
 interface PresetOption {
   label: string;
@@ -191,29 +192,29 @@ export const LandConverterPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>জমির মাপ কনভার্টার — শতক, বিঘা, কাঠা, কানি ও একর রূপান্তর | Utilix.bd</title>
+        <title>জমির মাপ কনভার্টার — শতক, বিঘা, কাঠা, কানি ও একর রূপান্তর | Utools.bd</title>
         <meta
           name="description"
           content="শতক, বিঘা, কাঠা, কানি, একর, হেক্টর ও বর্গফুটের তাৎক্ষণিক রূপান্তর। কানি ও বিঘার আঞ্চলিক সংজ্ঞার বিকল্প এবং দলিল ও খতিয়ানের জন্য মিশ্র রূপ।"
         />
         <meta
           property="og:title"
-          content="জমির মাপ কনভার্টার — শতক, বিঘা, কাঠা, কানি ও একর রূপান্তর | Utilix.bd"
+          content="জমির মাপ কনভার্টার — শতক, বিঘা, কাঠা, কানি ও একর রূপান্তর | Utools.bd"
         />
         <meta
           property="og:description"
           content="শতক, বিঘা, কাঠা, কানি, একর, হেক্টর ও বর্গফুটের তাৎক্ষণিক রূপান্তর। কানি ও বিঘার আঞ্চলিক সংজ্ঞার বিকল্প এবং দলিল ও খতিয়ানের জন্য মিশ্র রূপ।"
         />
-        <meta property="og:url" content="https://utilix.bd/land-converter" />
+        <meta property="og:url" content="https://utools.bd/land-converter" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utilix.bd/og-image.png" />
+        <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="জমির মাপ কনভার্টার | Utilix.bd" />
+        <meta name="twitter:title" content="জমির মাপ কনভার্টার | Utools.bd" />
         <meta
           name="twitter:description"
           content="শতক, বিঘা, কাঠা, কানি, একর, হেক্টর ও বর্গফুটের নিখুঁত ক্লায়েন্ট-সাইড রূপান্তর।"
         />
-        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
@@ -227,7 +228,6 @@ export const LandConverterPage: React.FC = () => {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#4A5A52] font-mono">REF: CALC-LAND-01</span>
         </div>
 
         {/* 100% Client-Side Privacy Badge */}
@@ -824,112 +824,7 @@ export const LandConverterPage: React.FC = () => {
       </section>
 
       {/* Cross-Linking Section ("আরও দরকারি টুলস") */}
-      <section className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-4 rounded-2xl shadow-xs">
-        <div className="flex items-center space-x-2 border-b border-[#D5E4DB] pb-3">
-          <Sparkles className="w-4 h-4 text-[#0B5D3B]" />
-          <h2 className="text-base sm:text-lg font-bold text-[#084A2E] font-serif">
-            আরও দরকারি টুলস (Related Tools)
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-          {/* Tool 1: Amount in Words */}
-          <div className="border border-[#D5E4DB] bg-[#FFFFFF] p-4 flex flex-col justify-between space-y-3 rounded-2xl">
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono bg-[#F0F4F2] text-[#084A2E] px-2 py-0.5 rounded-sm">
-                  কনভার্টার
-                </span>
-                <span className="text-[11px] font-mono text-[#4A5A52]">REF: CONV-WORDS-01</span>
-              </div>
-              <h3 className="font-bold text-[#084A2E] font-serif text-sm">
-                টাকা কথায় রূপান্তর (Amount in Words)
-              </h3>
-              <p className="text-[#34443B] leading-relaxed">
-                জমির দলিল, ব্যাংক চেক ও ভাউচারের জন্য যেকোনো টাকার অংক শুদ্ধ প্রমিত বাংলায় কথায় লিখুন।
-              </p>
-            </div>
-            <Link
-              to="/amount-in-words"
-              className="inline-flex items-center justify-center px-3 py-2 bg-[#F0F4F2] text-[#084A2E] font-medium hover:bg-[#D5E4DB] transition-colors border border-[#D5E4DB] rounded-lg"
-            >
-              <span>টাকা কথায় কনভার্টারে যান</span>
-            </Link>
-          </div>
-
-          {/* Tool 2: GPA Calculator */}
-          <div className="border border-[#D5E4DB] bg-[#FFFFFF] p-4 flex flex-col justify-between space-y-3 rounded-2xl">
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono bg-[#F0F4F2] text-[#084A2E] px-2 py-0.5 rounded-sm">
-                  ক্যালকুলেটর
-                </span>
-                <span className="text-[11px] font-mono text-[#4A5A52]">REF: CALC-GPA-01</span>
-              </div>
-              <h3 className="font-bold text-[#084A2E] font-serif text-sm">
-                জিপিএ ও সিজিপিএ ক্যালকুলেটর
-              </h3>
-              <p className="text-[#34443B] leading-relaxed">
-                এসএসসি, এইচএসসি ও বিশ্ববিদ্যালয় পরীক্ষার জিপিএ ও সিজিপিএ নির্ভুলভাবে গণনা করুন।
-              </p>
-            </div>
-            <Link
-              to="/gpa-calculator"
-              className="inline-flex items-center justify-center px-3 py-2 bg-[#F0F4F2] text-[#084A2E] font-medium hover:bg-[#D5E4DB] transition-colors border border-[#D5E4DB] rounded-lg"
-            >
-              <span>জিপিএ ক্যালকুলেটরে যান</span>
-            </Link>
-          </div>
-
-          {/* Tool 3: Age Calculator */}
-          <div className="border border-[#D5E4DB] bg-[#FFFFFF] p-4 flex flex-col justify-between space-y-3 rounded-2xl">
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono bg-[#F0F4F2] text-[#084A2E] px-2 py-0.5 rounded-sm">
-                  ক্যালকুলেটর
-                </span>
-                <span className="text-[11px] font-mono text-[#4A5A52]">REF: CALC-AGE-01</span>
-              </div>
-              <h3 className="font-bold text-[#084A2E] font-serif text-sm">
-                বয়স ক্যালকুলেটর (Age Calculator)
-              </h3>
-              <p className="text-[#34443B] leading-relaxed">
-                চাকরির আবেদন ও সরকারি সার্কুলারের নির্ধারিত তারিখে বছর, মাস ও দিন ভিত্তিক সঠিক বয়স।
-              </p>
-            </div>
-            <Link
-              to="/age-calculator"
-              className="inline-flex items-center justify-center px-3 py-2 bg-[#F0F4F2] text-[#084A2E] font-medium hover:bg-[#D5E4DB] transition-colors border border-[#D5E4DB] rounded-lg"
-            >
-              <span>বয়স ক্যালকুলেটরে যান</span>
-            </Link>
-          </div>
-
-          {/* Tool 4: CV Builder */}
-          <div className="border border-[#D5E4DB] bg-[#FFFFFF] p-4 flex flex-col justify-between space-y-3 rounded-2xl">
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono bg-[#0B5D3B] text-[#FFFFFF] px-2 py-0.5 rounded-sm">
-                  ফিচার্ড
-                </span>
-                <span className="text-[11px] font-mono text-[#4A5A52]">REF: DOC-CV-01</span>
-              </div>
-              <h3 className="font-bold text-[#084A2E] font-serif text-sm">
-                সিভি ও বায়োডাটা মেকার (CV Builder)
-              </h3>
-              <p className="text-[#34443B] leading-relaxed">
-                বাংলাদেশি চাকরিপ্রার্থীদের জন্য আধুনিক ৫টি টেমপ্লেট ও এক ক্লিকে প্রফেশনাল A4 PDF ডাউনলোড।
-              </p>
-            </div>
-            <Link
-              to="/cv-builder"
-              className="inline-flex items-center justify-center px-3 py-2 bg-[#0B5D3B] text-[#FFFFFF] font-medium hover:bg-[#084A2E] transition-colors rounded-lg"
-            >
-              <span>সিভি মেকারে যান</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <RelatedTools currentToolId="land-converter" />
     </div>
   );
 };

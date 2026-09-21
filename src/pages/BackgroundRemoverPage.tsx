@@ -21,6 +21,7 @@ import {
   SlidersHorizontal,
   Palette
 } from 'lucide-react';
+import { RelatedTools } from '../components/RelatedTools.tsx';
 
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 const MAX_FILE_SIZE_MB = 20;
@@ -367,7 +368,7 @@ export const BackgroundRemoverPage: React.FC = () => {
         name: 'এই টুল কি সত্যিই সম্পূর্ণ ফ্রি, কোনো লিমিট আছে কি?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'হ্যাঁ, Utilix.bd-এর ছবির ব্যাকগ্রাউন্ড রিমুভার সম্পূর্ণ ফ্রি এবং শতভাগ আনলিমিটেড। remove.bg বা অন্যান্য ওয়েবসাইটের মতো এখানে কোনো পেইড সাবস্ক্রিপশন, ক্রেডিট সিস্টেম বা রেজোলিউশন ডাউনস্কেলিং নেই। আপনি যেকোনো সংখ্যক ছবি ফুল রেজোলিউশনে রিমুভ ও ডাউনলোড করতে পারবেন।',
+          text: 'হ্যাঁ, Utools.bd-এর ছবির ব্যাকগ্রাউন্ড রিমুভার সম্পূর্ণ ফ্রি এবং শতভাগ আনলিমিটেড। remove.bg বা অন্যান্য ওয়েবসাইটের মতো এখানে কোনো পেইড সাবস্ক্রিপশন, ক্রেডিট সিস্টেম বা রেজোলিউশন ডাউনস্কেলিং নেই। আপনি যেকোনো সংখ্যক ছবি ফুল রেজোলিউশনে রিমুভ ও ডাউনলোড করতে পারবেন।',
         },
       },
       {
@@ -408,29 +409,29 @@ export const BackgroundRemoverPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>ফ্রি ছবির ব্যাকগ্রাউন্ড রিমুভার — AI দিয়ে ছবির ব্যাকগ্রাউন্ড সরান | Utilix.bd</title>
+        <title>ফ্রি ছবির ব্যাকগ্রাউন্ড রিমুভার — AI দিয়ে ছবির ব্যাকগ্রাউন্ড সরান | Utools.bd</title>
         <meta
           name="description"
           content="অন-ডিভাইস AI দিয়ে সম্পূর্ণ বিনামূল্যে ছবির ব্যাকগ্রাউন্ড সরান বা সাদা/রঙিন ব্যাকগ্রাউন্ড যোগ করুন। ১০০% ক্লায়েন্ট-সাইড, ফুল রেজোলিউশন ও আনলিমিটেড।"
         />
         <meta
           property="og:title"
-          content="ফ্রি ছবির ব্যাকগ্রাউন্ড রিমুভার — AI দিয়ে ছবির ব্যাকগ্রাউন্ড সরান | Utilix.bd"
+          content="ফ্রি ছবির ব্যাকগ্রাউন্ড রিমুভার — AI দিয়ে ছবির ব্যাকগ্রাউন্ড সরান | Utools.bd"
         />
         <meta
           property="og:description"
           content="অন-ডিভাইস AI দিয়ে সম্পূর্ণ বিনামূল্যে ছবির ব্যাকগ্রাউন্ড সরান বা সাদা/রঙিন ব্যাকগ্রাউন্ড যোগ করুন। কোনো সার্ভার আপলোড নেই, শতভাগ নিরাপদ ও আনলিমিটেড।"
         />
-        <meta property="og:url" content="https://utilix.bd/background-remover" />
+        <meta property="og:url" content="https://utools.bd/background-remover" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utilix.bd/og-image.png" />
+        <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ছবির ব্যাকগ্রাউন্ড রিমুভার | Utilix.bd" />
+        <meta name="twitter:title" content="ছবির ব্যাকগ্রাউন্ড রিমুভার | Utools.bd" />
         <meta
           name="twitter:description"
           content="১০০% ব্রাউজারে অন-ডিভাইস AI দিয়ে ছবির ব্যাকগ্রাউন্ড রিমুভ ও সাদা ব্যাকগ্রাউন্ড বসানোর ফ্রি টুল।"
         />
-        <meta name="twitter:image" content="https://utilix.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
@@ -444,7 +445,6 @@ export const BackgroundRemoverPage: React.FC = () => {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#4A5A52] font-mono">REF: IMG-AI-01</span>
         </div>
 
         {/* 100% Client-Side Privacy Badge */}
@@ -481,7 +481,7 @@ export const BackgroundRemoverPage: React.FC = () => {
               কেন এটি সাধারণ অনলাইন ব্যাকগ্রাউন্ড রিমুভারের চেয়ে আলাদা?
             </strong>
             <span className="text-[#34443B] leading-relaxed">
-              remove.bg বা অন্যান্য জনপ্রিয় সাইটে ফ্রি ভার্সনে রেজোলিউশন কমিয়ে দেয় (লো-রেজ) এবং মাত্র কয়েকটি ছবি করার পর পেমেন্ট চায়। Utilix.bd-তে এটি <strong>সম্পূর্ণ ফ্রি, ফুল রেজোলিউশন এবং আনলিমিটেড ব্যবহার</strong> — কারণ প্রসেসিং আপনার ব্রাউজারেই ঘটে!
+              remove.bg বা অন্যান্য জনপ্রিয় সাইটে ফ্রি ভার্সনে রেজোলিউশন কমিয়ে দেয় (লো-রেজ) এবং মাত্র কয়েকটি ছবি করার পর পেমেন্ট চায়। Utools.bd-তে এটি <strong>সম্পূর্ণ ফ্রি, ফুল রেজোলিউশন এবং আনলিমিটেড ব্যবহার</strong> — কারণ প্রসেসিং আপনার ব্রাউজারেই ঘটে!
             </span>
           </div>
         </div>
@@ -1081,7 +1081,7 @@ export const BackgroundRemoverPage: React.FC = () => {
           <div className="space-y-1 pb-3 border-b border-[#F0F4F2]">
             <h4 className="font-bold text-[#084A2E]">এই টুল কি সত্যিই ফ্রি, কোনো লিমিট আছে কি?</h4>
             <p className="text-[#34443B]">
-              হ্যাঁ, Utilix.bd-এর ছবির ব্যাকগ্রাউন্ড রিমুভার সম্পূর্ণ ফ্রি এবং শতভাগ আনলিমিটেড। remove.bg বা অন্যান্য সাইটের মতো এখানে কোনো ক্রেডিট সীমা বা সাবস্ক্রিপশন নেই। আপনি যত খুশি ছবি ফুল রেজোলিউশনে রিমুভ ও ডাউনলোড করতে পারেন।
+              হ্যাঁ, Utools.bd-এর ছবির ব্যাকগ্রাউন্ড রিমুভার সম্পূর্ণ ফ্রি এবং শতভাগ আনলিমিটেড। remove.bg বা অন্যান্য সাইটের মতো এখানে কোনো ক্রেডিট সীমা বা সাবস্ক্রিপশন নেই। আপনি যত খুশি ছবি ফুল রেজোলিউশনে রিমুভ ও ডাউনলোড করতে পারেন।
             </p>
           </div>
 
@@ -1114,6 +1114,9 @@ export const BackgroundRemoverPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Cross-Linking Section ("আরও দরকারি টুলস") */}
+      <RelatedTools currentToolId="background-remover" />
     </div>
   );
 };

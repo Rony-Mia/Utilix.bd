@@ -18,8 +18,8 @@ export const WhatsAppButton: React.FC = () => {
   const { pathname } = useLocation();
   const tool = TOOLS.find((t) => t.link === pathname);
   const message = tool
-    ? `আসসালামু আলাইকুম, Utilix.bd-এর "${tool.title}" টুল সম্পর্কে জানতে চাই।`
-    : 'আসসালামু আলাইকুম, Utilix.bd সম্পর্কে জানতে চাই।';
+    ? `আসসালামু আলাইকুম, Utools.bd-এর "${tool.title}" টুল সম্পর্কে জানতে চাই।`
+    : 'আসসালামু আলাইকুম, Utools.bd সম্পর্কে জানতে চাই।';
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
   return (

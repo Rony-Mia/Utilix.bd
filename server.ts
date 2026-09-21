@@ -15,7 +15,7 @@ async function startServer() {
   app.get('/api/health', (req, res) => {
     res.json({
       status: 'ok',
-      service: 'Utilix.bd',
+      service: 'Utools.bd',
       timestamp: new Date().toISOString(),
       environment: process.env.NODE_ENV || 'development'
     });
@@ -87,7 +87,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`✅ Utilix.bd server running on http://0.0.0.0:${PORT}`);
+    console.log(`✅ Utools.bd server running on http://0.0.0.0:${PORT}`);
     console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
   });
 }

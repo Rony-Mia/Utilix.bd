@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { GOVERNMENT_PRESET_PROFILES } from '../constants/presets.ts';
 import { resizeImage, loadImage, dataUrlToBlob, ResizeResult } from '../utils/imageResize.ts';
+import { RelatedTools } from '../components/RelatedTools.tsx';
 
 export interface BulkImageItem {
   id: string;
@@ -344,7 +345,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
       const zip = new JSZip();
 
       const ext = activeFormat === 'png' ? 'png' : activeFormat === 'webp' ? 'webp' : 'jpg';
-      const folderName = `utilix_bd_resized_${activeWidth}x${activeHeight}`;
+      const folderName = `utools_bd_resized_${activeWidth}x${activeHeight}`;
       const imgFolder = zip.folder(folderName) || zip;
 
       completedItems.forEach((item, index) => {
@@ -364,7 +365,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
       const zipUrl = URL.createObjectURL(zipBlob);
       const link = document.createElement('a');
       link.href = zipUrl;
-      link.download = `utilix-bd-bulk-photos-${activeWidth}x${activeHeight}.zip`;
+      link.download = `utools-bd-bulk-photos-${activeWidth}x${activeHeight}.zip`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -398,7 +399,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
         name: 'একসাথে কতগুলো ছবি রিসাইজ করা যায়?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'একসাথে যত খুশি ছবি আপলোড ও রিসাইজ করতে পারবেন। কোনো সংখ্যার বাধ্যবাধকতা বা কৃত্রিম সীমাবদ্ধতা নেই। অন্যান্য প্রতিযোগী সাইট যেখানে ৫-১০টির বেশি ফাইল দিলে পেইড সাবস্ক্রিপশন দাবি করে, Utilix.bd-তে এটি সম্পূর্ণ আনলিমিটেড ও ফ্রি।',
+          text: 'একসাথে যত খুশি ছবি আপলোড ও রিসাইজ করতে পারবেন। কোনো সংখ্যার বাধ্যবাধকতা বা কৃত্রিম সীমাবদ্ধতা নেই। অন্যান্য প্রতিযোগী সাইট যেখানে ৫-১০টির বেশি ফাইল দিলে পেইড সাবস্ক্রিপশন দাবি করে, Utools.bd-তে এটি সম্পূর্ণ আনলিমিটেড ও ফ্রি।',
         },
       },
       {
@@ -431,23 +432,23 @@ export const BulkPhotoResizerPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>বাল্ক ফটো রিসাইজার — একসাথে একাধিক ছবি রিসাইজ | Utilix.bd</title>
+        <title>বাল্ক ফটো রিসাইজার — একসাথে একাধিক ছবি রিসাইজ | Utools.bd</title>
         <meta
           name="description"
           content="একসাথে আনলিমিটেড ছবি রিসাইজ ও কম্প্রেস করুন সম্পূর্ণ বিনামূল্যে। সরকারি চাকরি ৩০০×৩০০ ও ৩০০×৮০ প্রিসেট, এক ক্লিকে ZIP ডাউনলোড। ১০০% ক্লায়েন্ট-সাইড ও সুরক্ষিত।"
         />
         <meta
           property="og:title"
-          content="বাল্ক ফটো রিসাইজার — একসাথে একাধিক ছবি রিসাইজ | Utilix.bd"
+          content="বাল্ক ফটো রিসাইজার — একসাথে একাধিক ছবি রিসাইজ | Utools.bd"
         />
         <meta
           property="og:description"
           content="আনলিমিটেড ছবি একসাথে ব্যাচে রিসাইজ করুন। কোনো ফাইল লিমিট নেই, সম্পূর্ণ ব্রাউজারে অন-ডিভাইস প্রসেসিং ও এক ক্লিকে ZIP ডাউনলোড।"
         />
-        <meta property="og:url" content="https://utilix.bd/bulk-photo-resizer" />
+        <meta property="og:url" content="https://utools.bd/bulk-photo-resizer" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="বাল্ক ফটো রিসাইজার | Utilix.bd" />
+        <meta name="twitter:title" content="বাল্ক ফটো রিসাইজার | Utools.bd" />
         <meta
           name="twitter:description"
           content="একসাথে আনলিমিটেড ছবি রিসাইজ ও কম্প্রেস করুন সম্পূর্ণ বিনামূল্যে। ১০০% ক্লায়েন্ট-সাইড।"
@@ -465,7 +466,6 @@ export const BulkPhotoResizerPage: React.FC = () => {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#4A5A52] font-mono">REF: IMG-GOV-02</span>
         </div>
 
         {/* 100% Client-Side Privacy Badge */}
@@ -502,7 +502,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
               আনলিমিটেড ব্যাচ প্রসেসিং — কোনো পেওয়াল বা সীমাবদ্ধতা নেই
             </strong>
             <span className="text-[#34443B] leading-relaxed">
-              অধিকাংশ অনলাইন টুলে ৫ বা ১০টির বেশি ছবি আপলোড করতে দিলে প্রো সাবস্ক্রিপশন কিনতে বাধ্য করে। Utilix.bd-তে <strong>সম্পূর্ণ ক্লায়েন্ট-সাইড মেমোরিতে কাজ করার কারণে কোনো ফাইলের সংখ্যাসীমা নেই</strong>।
+              অধিকাংশ অনলাইন টুলে ৫ বা ১০টির বেশি ছবি আপলোড করতে দিলে প্রো সাবস্ক্রিপশন কিনতে বাধ্য করে। Utools.bd-তে <strong>সম্পূর্ণ ক্লায়েন্ট-সাইড মেমোরিতে কাজ করার কারণে কোনো ফাইলের সংখ্যাসীমা নেই</strong>।
             </span>
           </div>
         </div>
@@ -1036,7 +1036,7 @@ export const BulkPhotoResizerPage: React.FC = () => {
               একসাথে কতগুলো ছবি রিসাইজ করা যায়?
             </h3>
             <p className="text-[#4A5A52] leading-relaxed">
-              একসাথে যত খুশি ছবি আপলোড ও রিসাইজ করতে পারবেন। কোনো সংখ্যার বাধ্যবাধকতা বা কৃত্রিম সীমাবদ্ধতা নেই। অন্যান্য প্রতিযোগী সাইট যেখানে ৫-১০টির বেশি ফাইল দিলে পেইড সাবস্ক্রিপশন দাবি করে, Utilix.bd-তে এটি সম্পূর্ণ আনলিমিটেড ও ফ্রি।
+              একসাথে যত খুশি ছবি আপলোড ও রিসাইজ করতে পারবেন। কোনো সংখ্যার বাধ্যবাধকতা বা কৃত্রিম সীমাবদ্ধতা নেই। অন্যান্য প্রতিযোগী সাইট যেখানে ৫-১০টির বেশি ফাইল দিলে পেইড সাবস্ক্রিপশন দাবি করে, Utools.bd-তে এটি সম্পূর্ণ আনলিমিটেড ও ফ্রি।
             </p>
           </div>
 
@@ -1068,6 +1068,9 @@ export const BulkPhotoResizerPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Cross-Linking Section ("আরও দরকারি টুলস") */}
+      <RelatedTools currentToolId="bulk-photo-resizer" />
     </div>
   );
 };

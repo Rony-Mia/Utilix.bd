@@ -28,6 +28,7 @@ import {
   FileCheck
 } from 'lucide-react';
 import { toBanglaNum } from './AgeCalculatorPage.tsx';
+import { RelatedTools } from '../components/RelatedTools.tsx';
 
 interface PdfFileItem {
   id: string;
@@ -445,7 +446,6 @@ export const PdfMergerPage: React.FC = () => {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>হোমপেজে ফিরুন</span>
           </Link>
-          <span className="text-xs text-[#4A5A52] font-mono">REF: DOC-PDF-01</span>
         </div>
 
         {/* 100% Client-Side Privacy Badge */}
@@ -459,7 +459,7 @@ export const PdfMergerPage: React.FC = () => {
       <div className="space-y-3">
         <div className="inline-flex items-center space-x-2 text-xs font-medium text-[#0B5D3B] bg-[#0B5D3B]/10 px-2.5 py-1 border border-[#0B5D3B]/20 rounded-lg">
           <Layers className="w-3.5 h-3.5" />
-          <span>ডকুমেন্ট ইউটিলিটি • প্রফেশনাল পিডিএফ মার্জার v1.0</span>
+          <span>ডকুমেন্ট ইউটিলিটি • প্রফেশনাল পিডিএফ মার্জার</span>
         </div>
         <h1 className="text-2xl sm:text-4xl font-bold text-[#084A2E] font-serif tracking-tight">
           পিডিএফ মার্জার — একাধিক PDF ফাইল একত্র করুন
@@ -1069,100 +1069,8 @@ export const PdfMergerPage: React.FC = () => {
         </div>
       </section>
 
-      {/* "আরও প্রয়োজনীয় টুলস" Cross-linking Section */}
-      <section className="bg-[#FFFFFF] border border-[#D5E4DB] p-6 sm:p-7 space-y-4 rounded-2xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#D5E4DB] pb-3">
-          <div className="flex items-center space-x-2">
-            <Sparkles className="w-4 h-4 text-[#0B5D3B]" />
-            <h2 className="text-base sm:text-lg font-bold text-[#084A2E] font-serif">
-              Utilix.bd-এর আরও দরকারি টুলসমূহ দেখুন
-            </h2>
-          </div>
-          <Link
-            to="/"
-            className="text-xs text-[#0B5D3B] hover:text-[#084A2E] font-semibold flex items-center space-x-1"
-          >
-            <span>সকল ৭টি টুল এক্সপ্লোর করুন</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
-          {/* Featured 1: Photo Resizer */}
-          <div className="border border-[#0B5D3B]/30 bg-[#0B5D3B]/5 p-4 flex flex-col justify-between space-y-3 rounded-2xl">
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold bg-[#0B5D3B] text-[#FFFFFF] px-2 py-0.5">
-                  ফিচার্ড টুল
-                </span>
-                <span className="text-[11px] font-mono text-[#4A5A52]">REF: IMG-GOV-02</span>
-              </div>
-              <h3 className="font-bold text-[#084A2E] font-serif text-sm">
-                সরকারি চাকরি ও পাসপোর্ট ছবি রিসাইজার
-              </h3>
-              <p className="text-[#34443B] leading-relaxed">
-                টেলিটক ও বিসিএস আবেদনের জন্য ৩০০×৩০০ ছবি (১০০KB) এবং ৩০০×৮০ স্বাক্ষর (৬০KB) নিখুঁত ক্রপ ও অপ্টিমাইজেশন।
-              </p>
-            </div>
-            <Link
-              to="/photo-resizer"
-              className="inline-flex items-center justify-center px-3 py-2 bg-[#0B5D3B] text-[#FFFFFF] font-medium hover:bg-[#084A2E] transition-colors"
-            >
-              <Crop className="w-3.5 h-3.5 mr-1.5" />
-              <span>ছবি রিসাইজারে যান</span>
-            </Link>
-          </div>
-
-          {/* Featured 2: CV Builder */}
-          <div className="border border-[#0B5D3B]/30 bg-[#0B5D3B]/5 p-4 flex flex-col justify-between space-y-3 rounded-2xl">
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold bg-[#0B5D3B] text-[#FFFFFF] px-2 py-0.5">
-                  ফিচার্ড টুল
-                </span>
-                <span className="text-[11px] font-mono text-[#4A5A52]">REF: DOC-CV-01</span>
-              </div>
-              <h3 className="font-bold text-[#084A2E] font-serif text-sm">
-                সিভি ও জীবনবৃত্তান্ত মেকার (CV Builder)
-              </h3>
-              <p className="text-[#34443B] leading-relaxed">
-                বাংলাদেশি চাকরিপ্রার্থীদের জন্য ৫টি আধুনিক ফরম্যাট, বাংলা ও ইংরেজি ভাষা সাপোর্ট ও এক ক্লিকে প্রফেশনাল A4 PDF ডাউনলোড।
-              </p>
-            </div>
-            <Link
-              to="/cv-builder"
-              className="inline-flex items-center justify-center px-3 py-2 bg-[#0B5D3B] text-[#FFFFFF] font-medium hover:bg-[#084A2E] transition-colors"
-            >
-              <FileText className="w-3.5 h-3.5 mr-1.5" />
-              <span>সিভি মেকারে যান</span>
-            </Link>
-          </div>
-
-          {/* Featured 3: Age Calculator */}
-          <div className="border border-[#D5E4DB] bg-[#FFFFFF] p-4 flex flex-col justify-between space-y-3 rounded-2xl">
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono bg-[#F0F4F2] text-[#084A2E] px-2 py-0.5">
-                  ক্যালকুলেটর
-                </span>
-                <span className="text-[11px] font-mono text-[#4A5A52]">REF: CALC-AGE-01</span>
-              </div>
-              <h3 className="font-bold text-[#084A2E] font-serif text-sm">
-                সরকারি চাকরির বয়স ক্যালকুলেটর
-              </h3>
-              <p className="text-[#34443B] leading-relaxed">
-                সার্কুলারের হিসাবের তারিখে সাধারণ প্রার্থী (৩০ বছর) ও কোটা (৩২ বছর) অনুযায়ী নির্ভুল বছর, মাস ও দিন গণনা।
-              </p>
-            </div>
-            <Link
-              to="/age-calculator"
-              className="inline-flex items-center justify-center px-3 py-2 bg-[#F0F4F2] text-[#084A2E] font-medium hover:bg-[#D5E4DB] transition-colors border border-[#D5E4DB]"
-            >
-              <span>বয়স ক্যালকুলেটরে যান</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Cross-Linking Section ("আরও দরকারি টুলস") */}
+      <RelatedTools currentToolId="pdf-merger" />
     </div>
   );
 };
