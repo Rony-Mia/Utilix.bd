@@ -51,7 +51,16 @@ async function startServer() {
     app.use(express.static(distPath, {
       index: false,
       redirect: false,
-      maxAge: '1h'
+      maxAge: '1h',
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith('.html')) {
+          res.setHeader('Cache-Control', 'no-cache');
+        } else if (filePath.match(/\.(woff2?|ttf|otf|eot)$/)) {
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        } else if (filePath.includes('/assets/')) {
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        }
+      }
     }));
 
     // Specific route handler for prerendered pages

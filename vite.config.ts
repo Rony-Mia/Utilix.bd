@@ -26,6 +26,13 @@ export default defineConfig(({ isSsrBuild }): UserConfig => {
       external: ['express', 'react', 'react-dom', 'react-router-dom'],
       noExternal: ['react-helmet-async'],
     },
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+    },
+    esbuild: {
+      legalComments: 'none',
+      drop: process.env.NODE_ENV === 'production' ? ['debugger'] : [],
+    },
     server: {
       port: 3000,
       host: '0.0.0.0',
@@ -35,6 +42,8 @@ export default defineConfig(({ isSsrBuild }): UserConfig => {
     },
     build: {
       minify: 'esbuild',
+      target: 'es2020',
+      cssMinify: true,
       sourcemap: process.env.NODE_ENV === 'development',
       rollupOptions: isSsrBuild
         ? {}
@@ -44,27 +53,31 @@ export default defineConfig(({ isSsrBuild }): UserConfig => {
                 if (id.includes('node_modules')) {
                   // React & ReactDOM + scheduler runtime
                   if (
-                    id.includes('/react/') ||
-                    id.includes('/react-dom/') ||
-                    id.includes('/scheduler/')
+                    id.includes('/node_modules/react/') ||
+                    id.includes('/node_modules/react-dom/') ||
+                    id.includes('/node_modules/scheduler/')
                   ) {
                     return 'vendor-react';
                   }
                   // React Router
                   if (
-                    id.includes('/react-router/') ||
-                    id.includes('/react-router-dom/')
+                    id.includes('/node_modules/react-router/') ||
+                    id.includes('/node_modules/react-router-dom/')
                   ) {
                     return 'vendor-router';
                   }
                   // React Helmet Async
                   if (
-                    id.includes('/react-helmet-async/') ||
-                    id.includes('/react-fast-compare/') ||
-                    id.includes('/invariant/') ||
-                    id.includes('/shallowequal/')
+                    id.includes('/node_modules/react-helmet-async/') ||
+                    id.includes('/node_modules/react-fast-compare/') ||
+                    id.includes('/node_modules/invariant/') ||
+                    id.includes('/node_modules/shallowequal/')
                   ) {
                     return 'vendor-helmet';
+                  }
+                  // Motion animation library
+                  if (id.includes('/node_modules/motion/')) {
+                    return 'vendor-motion';
                   }
                 }
 

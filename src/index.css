@@ -1,7 +1,85 @@
 @import "tailwindcss";
 
-/* UI text uses Google-hosted "Noto Sans Bengali" with metric-matched system fallbacks
-   to completely eliminate layout shifts (CLS) during font swap */
+/* -------------------------------------------------------------
+   Self-Hosted Fonts (Zero external network requests, eliminates render-blocking)
+   Noto Sans Bengali (UI + Typography) & JetBrains Mono (Monospace / Bijoy ANSI)
+   ------------------------------------------------------------- */
+
+/* Noto Sans Bengali */
+@font-face {
+  font-family: 'Noto Sans Bengali';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/noto-sans-bengali-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/noto-sans-bengali-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/noto-sans-bengali-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/noto-sans-bengali-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans Bengali';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/noto-sans-bengali-800.woff2') format('woff2');
+}
+
+/* JetBrains Mono */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-700.woff2') format('woff2');
+}
+
+/* Metric-matched system fallbacks to completely eliminate layout shifts (CLS) during font swap */
 
 @font-face {
   font-family: 'Noto Sans Bengali Fallback';
