@@ -79,10 +79,12 @@ async function startServer() {
       next();
     });
 
-    // Fallback for any other client-side SPA routes (Express v5 format)
+    // Unknown URLs: serve the prerendered 404 page with a real 404 status
+    // (Express v5 wildcard format). Falls back to index.html if missing.
     app.get('*all', (req, res) => {
-      console.log(`[server] Fallback to SPA: ${req.path}`);
-      res.sendFile(path.join(distPath, 'index.html'));
+      console.log(`[server] 404: ${req.path}`);
+      const notFoundPath = path.join(distPath, '404.html');
+      res.status(404).sendFile(fs.existsSync(notFoundPath) ? notFoundPath : path.join(distPath, 'index.html'));
     });
   }
 

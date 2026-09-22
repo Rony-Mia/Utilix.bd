@@ -550,7 +550,7 @@ const AboutBand: React.FC = () => (
   <section className="py-16">
     <div className="max-w-[1000px] mx-auto px-4 sm:px-6">
       <div className="rounded-2xl bg-white border border-[#0B5D3B]/10 p-6 sm:p-8 shadow-[0_4px_16px_rgba(11,93,59,0.05)]">
-        <h2 className="text-xl font-bold text-[#0F1F17] mb-3">একটি ঠিকানায় আপনার সব প্রয়োজনীয় বাংলা টুলস</h2>
+        <h2 className="text-xl font-bold text-[#0F1F17] mb-3">একটি ঠিকানায় Teletalk/BPSC ছবি রিসাইজ, CGPA/HSC ক্যালকুলেটর ও সব বাংলা টুলস</h2>
         <p className="text-sm sm:text-base text-[#4A5A52] leading-relaxed">
           Utools.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত একটি উন্মুক্ত ও নিরাপদ প্ল্যাটফর্ম। সরকারি চাকরির টেলিটক পোর্টালে (Teletalk/BPSC) ৩০০×৩০০ ছবি ও স্বাক্ষর রিসাইজ, সার্কুলারের বয়স ও কোটা গণনা, পুরোনো বিজয় (SutonnyMJ) লেখা থেকে ইউনিকোডে রূপান্তর, ব্যাংক চেক ও দলিলের টাকার কথায় রূপান্তর, শিক্ষা বোর্ডের এসএসসি/এইচএসসি ও বিশ্ববিদ্যালয়ের সিজিপিএ হিসাব এবং মানসম্মত সিভি তৈরি—দৈনন্দিন সব জটিল কাজ এখন ঝামেলাহীনভাবে সম্পন্ন করুন কোনো সার্ভার আপলোড ছাড়াই।
         </p>
@@ -914,25 +914,25 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
   return (
     <div>
       <Helmet>
-        <title>Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব</title>
+        <title>Utools.bd — বিজয় ইউনিকোড, Teletalk ছবি রিসাইজ, PDF ও CGPA ক্যালকুলেটর</title>
         <meta
           name="description"
-          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর, সিভি মেকার এবং টাকা কথায় কনভার্টার।"
+          content="বিজয় ↔ ইউনিকোড কনভার্টার, Teletalk/BPSC ছবি ও স্বাক্ষর রিসাইজ, PDF টুলস, SSC/HSC GPA-CGPA ক্যালকুলেটর, সিভি মেকার ও টাকা কথায় — ফ্রি, ব্রাউজারেই।"
         />
         <link rel="canonical" href="https://utools.bd/" />
-        <meta property="og:title" content="Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
+        <meta property="og:title" content="Utools.bd — বিজয় ইউনিকোড, Teletalk ছবি রিসাইজ, PDF ও CGPA ক্যালকুলেটর" />
         <meta
           property="og:description"
-          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার।"
+          content="বিজয় ↔ ইউনিকোড কনভার্টার, Teletalk/BPSC ছবি ও স্বাক্ষর রিসাইজ, PDF টুলস, SSC/HSC GPA-CGPA ক্যালকুলেটর, সিভি মেকার ও টাকা কথায় — ফ্রি, ব্রাউজারেই।"
         />
         <meta property="og:url" content="https://utools.bd/" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
+        <meta name="twitter:title" content="Utools.bd — বিজয় ইউনিকোড, Teletalk ছবি রিসাইজ, PDF ও CGPA ক্যালকুলেটর" />
         <meta
           name="twitter:description"
-          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার।"
+          content="বিজয় ↔ ইউনিকোড কনভার্টার, Teletalk/BPSC ছবি ও স্বাক্ষর রিসাইজ, PDF টুলস, SSC/HSC GPA-CGPA ক্যালকুলেটর, সিভি মেকার ও টাকা কথায় — ফ্রি, ব্রাউজারেই।"
         />
         <meta name="twitter:image" content="https://utools.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(siteAndOrgSchema)}</script>

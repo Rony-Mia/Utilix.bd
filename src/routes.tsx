@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/HomePage.tsx';
 import { ConverterPage } from './pages/ConverterPage.tsx';
 import { PhotoResizerPage } from './pages/PhotoResizerPage.tsx';
@@ -21,6 +21,7 @@ import { QrGeneratorPage } from './pages/QrGeneratorPage.tsx';
 import { AboutPage } from './pages/AboutPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage.tsx';
+import { NotFoundPage } from './pages/NotFoundPage.tsx';
 
 export const PRERENDER_ROUTES = [
   '/',
@@ -45,6 +46,10 @@ export const PRERENDER_ROUTES = [
   '/contact',
   '/privacy-policy',
 ] as const;
+
+// Not a real page: prerender.ts renders this URL through the catch-all route
+// and writes the result to dist/404.html (served with a 404 status by Vercel/Express).
+export const NOT_FOUND_ROUTE = '/404';
 
 export interface AppRoutesProps {
   selectedCategory?: string;
@@ -89,7 +94,7 @@ export function AppRoutes({
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { PRERENDER_ROUTES } from './src/routes.tsx';
+import { PRERENDER_ROUTES, NOT_FOUND_ROUTE } from './src/routes.tsx';
 
 // Single source of truth: routes come from src/routes.tsx.
 // Add a new tool's path there once and it is automatically
@@ -39,7 +39,8 @@ async function prerender() {
   // Dynamic import of the compiled SSR bundle
   const { render } = await import(pathToFileURL(serverEntryPath).href);
 
-  for (const url of ROUTES) {
+  for (const url of [...ROUTES, NOT_FOUND_ROUTE]) {
+    const isNotFound = url === NOT_FOUND_ROUTE;
     console.log(`[prerender] Rendering route: ${url}`);
     const { html: renderedHtml, helmet } = render(url);
 
@@ -109,11 +110,13 @@ async function prerender() {
     // 2b. Inject a page-specific canonical link (drop any leftover one
     // from the template first so repeated builds don't duplicate it).
     pageHtml = pageHtml.replace(/<link\s+rel="canonical"[^>]*\/?>\s*/gi, '');
-    const canonicalHref = `${SITE_ORIGIN}${url === '/' ? '/' : url}`;
-    pageHtml = pageHtml.replace(
-      '</head>',
-      `  <link rel="canonical" href="${canonicalHref}"/>\n</head>`
-    );
+    if (!isNotFound) {
+      const canonicalHref = `${SITE_ORIGIN}${url === '/' ? '/' : url}`;
+      pageHtml = pageHtml.replace(
+        '</head>',
+        `  <link rel="canonical" href="${canonicalHref}"/>\n</head>`
+      );
+    }
 
     // 3. Inject body content into <div id="root">
     pageHtml = pageHtml.replace(
@@ -123,10 +126,11 @@ async function prerender() {
 
     // 4. Save to destination
     const routeClean = url === '/' ? '' : url.replace(/^\//, '');
-    const outDir = routeClean ? path.join(distDir, routeClean) : distDir;
+    const outDir = routeClean && !isNotFound ? path.join(distDir, routeClean) : distDir;
     fs.mkdirSync(outDir, { recursive: true });
 
-    const outFile = path.join(outDir, 'index.html');
+    // The 404 page is written to dist/404.html (Vercel serves it with status 404).
+    const outFile = path.join(outDir, isNotFound ? '404.html' : 'index.html');
     fs.writeFileSync(outFile, pageHtml, 'utf-8');
     console.log(`[prerender] Wrote: ${outFile} (${(pageHtml.length / 1024).toFixed(1)} KB)`);
   }
