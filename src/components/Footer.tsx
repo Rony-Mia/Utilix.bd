@@ -157,7 +157,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Bottom line */}
-          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 gap-3 sm:pr-20">
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/60 gap-3 sm:pr-20">
             <p>© {new Date().getFullYear()} Utools.bd — সর্বস্বত্ব সংরক্ষিত। সম্পূর্ণ ব্রাউজার-ভিত্তিক ও অফলাইন প্রস্তুত।</p>
             <p>দ্রুত, নিরাপদ ও নির্ভরযোগ্য বাংলা অনলাইন টুলবক্স</p>
           </div>

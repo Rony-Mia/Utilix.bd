@@ -362,7 +362,7 @@ const FeaturedTools: React.FC = () => {
   const LeadIcon = getToolIcon(lead.id);
 
   return (
-    <ParallaxScene className="py-20 lg:py-24" aria-labelledby="featured-heading">
+    <ParallaxScene className="hidden md:block py-20 lg:py-24" aria-labelledby="featured-heading">
     <ParallaxStage>
       <ParallaxLayer dist={80} rot={12} className="-top-16 -right-40 w-[460px] h-[460px] text-[#0B5D3B]/[0.07] hidden md:block">
         <Diamond className="w-full h-full" />
@@ -917,13 +917,13 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
         <title>Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব</title>
         <meta
           name="description"
-          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর, সিভি মেকার এবং টাকা কথায় কনভার্টার।"
+          content="বাংলা ডিজিটাল ইউটিলিটি হাব — বিজয়↔ইউনিকোড কনভার্টার, ছবি রিসাইজার, বয়স ও জিপিএ ক্যালকুলেটর, সিভি মেকার ও টাকা কথায় কনভার্টার। একবার লোড হলে অফলাইনেও চলে।"
         />
         <link rel="canonical" href="https://utools.bd/" />
         <meta property="og:title" content="Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
         <meta
           property="og:description"
-          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার।"
+          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে চলা বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার। একবার লোড হলে অফলাইনেও চলে।"
         />
         <meta property="og:url" content="https://utools.bd/" />
         <meta property="og:type" content="website" />
@@ -932,7 +932,7 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
         <meta name="twitter:title" content="Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
         <meta
           name="twitter:description"
-          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে অফলাইন-ফার্স্ট বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার।"
+          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে চলা বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার। একবার লোড হলে অফলাইনেও চলে।"
         />
         <meta name="twitter:image" content="https://utools.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(siteAndOrgSchema)}</script>

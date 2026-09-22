@@ -13,7 +13,7 @@ export interface SiteUpdate {
 export const SITE_UPDATES: SiteUpdate[] = [
   {
     id: 'update-land-converter',
-    date: 'মার্চ ২০২৫',
+    date: '২১ সেপ্টেম্বর ২০২৬',
     version: 'v1.0',
     badge: 'নতুন টুল',
     badgeType: 'new',
@@ -23,8 +23,63 @@ export const SITE_UPDATES: SiteUpdate[] = [
     toolName: 'জমির মাপ কনভার্টার দেখুন'
   },
   {
+    id: 'update-image-merger',
+    date: '২০ সেপ্টেম্বর ২০২৬',
+    version: 'v1.0',
+    badge: 'নতুন টুল',
+    badgeType: 'new',
+    title: 'ইমেজ মার্জার ও কোলাজ মেকার সংযোজন',
+    description: 'একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। ১০০% অফলাইন ও নিরাপদ।',
+    toolLink: '/image-merger',
+    toolName: 'ইমেজ মার্জার দেখুন'
+  },
+  {
+    id: 'update-background-remover',
+    date: '২০ সেপ্টেম্বর ২০২৬',
+    version: 'v1.0',
+    badge: 'নতুন টুল',
+    badgeType: 'new',
+    title: 'অন-ডিভাইস AI ব্যাকগ্রাউন্ড রিমুভার প্রকাশ',
+    description: 'অন-ডিভাইস AI দিয়ে সম্পূর্ণ বিনামূল্যে ছবির ব্যাকগ্রাউন্ড সরান বা সাদা/রঙিন ব্যাকগ্রাউন্ড যোগ করুন। ১০০% ক্লায়েন্ট-সাইড, ফুল রেজোলিউশন ও আনলিমিটেড।',
+    toolLink: '/background-remover',
+    toolName: 'ব্যাকগ্রাউন্ড রিমুভার দেখুন'
+  },
+  {
+    id: 'update-qr-generator',
+    date: '২০ সেপ্টেম্বর ২০২৬',
+    version: 'v1.0',
+    badge: 'নতুন টুল',
+    badgeType: 'new',
+    title: 'কাস্টম QR কোড জেনারেটর সংযোজন',
+    description: 'ওয়েবসাইট লিংক, প্লেইন টেক্সট, ফোন নম্বর, ইমেইল বা ওয়াইফাই কানেকশনের জন্য কাস্টম রঙের ও মাঝখানে লোগোসহ হাই-কোয়ালিটি QR কোড তৈরি করুন। কোনো লিমিট নেই।',
+    toolLink: '/qr-generator',
+    toolName: 'QR জেনারেটর দেখুন'
+  },
+  {
+    id: 'update-heic-converter',
+    date: '২০ সেপ্টেম্বর ২০২৬',
+    version: 'v1.0',
+    badge: 'নতুন টুল',
+    badgeType: 'new',
+    title: 'HEIC/HEIF ছবি কনভার্টার প্রকাশ',
+    description: 'আইফোনের HEIC ও HEIF ছবি সরাসরি ব্রাউজারে বিনামূল্যে JPG, PNG বা WebP-তে কনভার্ট করুন। ব্যাচ কনভার্ট ও ZIP ডাউনলোড সুবিধাসহ।',
+    toolLink: '/heic-converter',
+    toolName: 'HEIC কনভার্টার দেখুন'
+  },
+  {
+    id: 'update-bulk-resizer',
+    date: '২০ সেপ্টেম্বর ২০২৬',
+    version: 'v1.0',
+    badge: 'নতুন টুল',
+    badgeType: 'new',
+    title: 'বাল্ক ফটো রিসাইজার উন্মোচন',
+    description: 'একসাথে আনলিমিটেড ছবি রিসাইজ ও কম্প্রেস করুন সম্পূর্ণ বিনামূল্যে। সরকারি চাকরির ৩০০×৩০০ ও ৩০০×৮০ প্রিসেট এবং এক ক্লিকে ZIP ডাউনলোড।',
+    toolLink: '/bulk-photo-resizer',
+    toolName: 'বাল্ক রিসাইজার দেখুন'
+  },
+  {
     id: 'update-gpa-calc',
-    date: 'মার্চ ২০২৫',
+    date: '১৯ সেপ্টেম্বর ২০২৬',
     version: 'v1.0',
     badge: 'নতুন টুল',
     badgeType: 'new',
@@ -35,7 +90,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   },
   {
     id: 'update-cv-builder',
-    date: 'মার্চ ২০২৫',
+    date: '১৭ সেপ্টেম্বর ২০২৬',
     version: 'v1.0',
     badge: 'নতুন টুল',
     badgeType: 'new',
@@ -46,7 +101,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   },
   {
     id: 'update-amount-in-words',
-    date: 'ফেব্রুয়ারি ২০২৫',
+    date: '১৬ সেপ্টেম্বর ২০২৬',
     version: 'v1.0',
     badge: 'নতুন টুল',
     badgeType: 'new',
@@ -57,7 +112,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   },
   {
     id: 'update-age-calculator',
-    date: 'ফেব্রুয়ারি ২০২৫',
+    date: '১৬ সেপ্টেম্বর ২০২৬',
     version: 'v1.0',
     badge: 'নতুন টুল',
     badgeType: 'new',
@@ -68,7 +123,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   },
   {
     id: 'update-photo-resizer',
-    date: 'জানুয়ারি ২০২৫',
+    date: '১৬ সেপ্টেম্বর ২০২৬',
     version: 'v1.0',
     badge: 'ফিচার আপডেট',
     badgeType: 'update',
@@ -79,7 +134,7 @@ export const SITE_UPDATES: SiteUpdate[] = [
   },
   {
     id: 'update-bijoy-converter',
-    date: 'জানুয়ারি ২০২৫',
+    date: '১৭ সেপ্টেম্বর ২০২৬',
     version: 'v2.4',
     badge: 'উন্নতি',
     badgeType: 'enhancement',

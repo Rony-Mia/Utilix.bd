@@ -37,8 +37,40 @@ async function prerender() {
   const template = fs.readFileSync(templatePath, 'utf-8');
 
   // Dynamic import of the compiled SSR bundle
-  const { render } = await import(pathToFileURL(serverEntryPath).href);
+  const { render, preloadAllPages } = await import(pathToFileURL(serverEntryPath).href);
 
+  // 0. Warm the module cache for every lazily-loaded tool page. Without
+  //    this, each page's React.lazy() ctor() would hit real disk I/O the
+  //    first time it's triggered below, and one setImmediate flush might
+  //    not be enough time for that to settle.
+  if (typeof preloadAllPages === 'function') {
+    await preloadAllPages();
+  }
+
+  // 1. Trigger pass: render every route once so each lazy page's
+  //    React.lazy() component fires its ctor() at least once. The output
+  //    here is thrown away — on a component's first-ever render, Suspense
+  //    always shows the fallback, because the resulting promise can never
+  //    settle within the same synchronous renderToString() call no matter
+  //    how "ready" the underlying module already is.
+  for (const url of ROUTES) {
+    try {
+      render(url);
+    } catch {
+      // Ignored — this pass exists only to kick off each lazy import.
+    }
+  }
+
+  // Let the just-triggered promises actually resolve. Their module code is
+  // already cached from step 0, so this settles via microtasks almost
+  // immediately rather than waiting on disk I/O again — two setImmediate
+  // round-trips gives plenty of margin.
+  await new Promise((resolve) => setImmediate(resolve));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  // 2. Real pass: every lazy page component is now resolved (its internal
+  //    status flipped to "resolved" while we waited above), so this render
+  //    call returns full HTML synchronously instead of a Suspense fallback.
   for (const url of ROUTES) {
     console.log(`[prerender] Rendering route: ${url}`);
     const { html: renderedHtml, helmet } = render(url);
