@@ -2,12 +2,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import Critters from 'critters';
-import { PRERENDER_ROUTES } from './src/routes.tsx';
+import { PRERENDER_ROUTES, NOT_FOUND_ROUTE } from './src/routes.tsx';
 
 // Single source of truth: routes come from src/routes.tsx.
 // Add a new tool's path there once and it is automatically
 // prerendered here AND included in the generated sitemap.xml below.
 const ROUTES: readonly string[] = PRERENDER_ROUTES;
+// Rendered in the same two passes as every other route, but written to
+// dist/404.html instead of a routeClean folder, and left out of the sitemap.
+const ALL_RENDER_ROUTES: readonly string[] = [...PRERENDER_ROUTES, NOT_FOUND_ROUTE];
 
 const SITE_ORIGIN = 'https://utools.bd';
 
@@ -65,7 +68,7 @@ async function prerender() {
   //    always shows the fallback, because the resulting promise can never
   //    settle within the same synchronous renderToString() call no matter
   //    how "ready" the underlying module already is.
-  for (const url of ROUTES) {
+  for (const url of ALL_RENDER_ROUTES) {
     try {
       render(url);
     } catch {
@@ -83,8 +86,9 @@ async function prerender() {
   // 2. Real pass: every lazy page component is now resolved (its internal
   //    status flipped to "resolved" while we waited above), so this render
   //    call returns full HTML synchronously instead of a Suspense fallback.
-  for (const url of ROUTES) {
-    console.log(`[prerender] Rendering route: ${url}`);
+  for (const url of ALL_RENDER_ROUTES) {
+    const isNotFound = url === NOT_FOUND_ROUTE;
+    console.log(`[prerender] Rendering route: ${isNotFound ? '404' : url}`);
     const { html: renderedHtml, helmet } = render(url);
 
     // Extract title and meta tags from rendered HTML
@@ -153,11 +157,13 @@ async function prerender() {
     // 2b. Inject a page-specific canonical link (drop any leftover one
     // from the template first so repeated builds don't duplicate it).
     pageHtml = pageHtml.replace(/<link\s+rel="canonical"[^>]*\/?>\s*/gi, '');
-    const canonicalHref = `${SITE_ORIGIN}${url === '/' ? '/' : url}`;
-    pageHtml = pageHtml.replace(
-      '</head>',
-      `  <link rel="canonical" href="${canonicalHref}"/>\n</head>`
-    );
+    if (!isNotFound) {
+      const canonicalHref = `${SITE_ORIGIN}${url === '/' ? '/' : url}`;
+      pageHtml = pageHtml.replace(
+        '</head>',
+        `  <link rel="canonical" href="${canonicalHref}"/>\n</head>`
+      );
+    }
 
     // 3. Inject body content into <div id="root">
     pageHtml = pageHtml.replace(
@@ -186,10 +192,12 @@ async function prerender() {
 
     // 4. Save to destination
     const routeClean = url === '/' ? '' : url.replace(/^\//, '');
-    const outDir = routeClean ? path.join(distDir, routeClean) : distDir;
+    const outDir = routeClean && !isNotFound ? path.join(distDir, routeClean) : distDir;
     fs.mkdirSync(outDir, { recursive: true });
 
-    const outFile = path.join(outDir, 'index.html');
+    // Vercel/most static hosts serve dist/404.html with a 404 status automatically;
+    // server.ts also serves it explicitly with res.status(404) for the Express path.
+    const outFile = path.join(outDir, isNotFound ? '404.html' : 'index.html');
     fs.writeFileSync(outFile, pageHtml, 'utf-8');
     console.log(`[prerender] Wrote: ${outFile} (${(pageHtml.length / 1024).toFixed(1)} KB)`);
   }
