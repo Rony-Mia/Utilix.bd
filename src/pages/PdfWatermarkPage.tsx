@@ -38,7 +38,7 @@ import {
   WatermarkType,
   WatermarkPosition
 } from '../lib/pdfUtils.ts';
-import { toBanglaNum } from './AgeCalculatorPage.tsx';
+import { toBanglaNum } from '../utils/bnDigits.ts';
 
 interface ProcessOutput {
   bytes: Uint8Array;

@@ -8,7 +8,7 @@ import {
   Plus
 } from 'lucide-react';
 import { formatBytesBengali } from '../../lib/pdfUtils.ts';
-import { toBanglaNum } from '../../pages/AgeCalculatorPage.tsx';
+import { toBanglaNum } from '../../utils/bnDigits.ts';
 
 export interface SelectedPdfPreview {
   name: string;
