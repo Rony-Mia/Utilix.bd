@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/HomePage.tsx';
 
 // Every non-home page is code-split into its own chunk so the homepage's JS
@@ -25,6 +25,7 @@ const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage.tsx').then((m
 const AboutPage = lazy(() => import('./pages/AboutPage.tsx').then((m) => ({ default: m.AboutPage })));
 const ContactPage = lazy(() => import('./pages/ContactPage.tsx').then((m) => ({ default: m.ContactPage })));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.tsx').then((m) => ({ default: m.PrivacyPolicyPage })));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage.tsx').then((m) => ({ default: m.NotFoundPage })));
 
 // Every lazy importer above, using the exact same specifiers as the lazy()
 // calls so they resolve against the same module records in this bundle.
@@ -52,12 +53,17 @@ const LAZY_PAGE_IMPORTERS: Array<() => Promise<unknown>> = [
   () => import('./pages/AboutPage.tsx'),
   () => import('./pages/ContactPage.tsx'),
   () => import('./pages/PrivacyPolicyPage.tsx'),
+  () => import('./pages/NotFoundPage.tsx'),
 ];
 
 /** Used only by prerender.ts's warm-up pass — not called from the app itself. */
 export async function preloadAllPages(): Promise<void> {
   await Promise.all(LAZY_PAGE_IMPORTERS.map((load) => load()));
 }
+
+// Rendered through the catch-all route above and written to dist/404.html by
+// prerender.ts (served with a real 404 status by server.ts / the hosting platform).
+export const NOT_FOUND_ROUTE = '/__404__';
 
 export const PRERENDER_ROUTES = [
   '/',
@@ -134,7 +140,7 @@ export function AppRoutes({
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>
   );
