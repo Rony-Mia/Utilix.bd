@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
+import { Analytics } from '@vercel/analytics/react';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
 import { AppRoutes } from './routes.tsx';
@@ -44,6 +45,9 @@ export default function App({ helmetContext }: AppProps) {
 
         {/* Floating back-to-top + WhatsApp (bottom-right, every page) */}
         <FloatingActions />
+
+        {/* Vercel Web Analytics */}
+        <Analytics />
 
         {/* Floating / Direct Terms of Use Modal when triggered from Trust section */}
         {showTermsModal && (
