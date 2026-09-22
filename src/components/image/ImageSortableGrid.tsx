@@ -243,8 +243,12 @@ export const ImageSortableGrid: React.FC<ImageSortableGridProps> = ({
                   <img
                     src={item.dataUrl}
                     alt={item.name}
+                    width={item.width || 200}
+                    height={item.height || 200}
+                    loading="lazy"
                     style={{
                       transform: `rotate(${item.rotation}deg)`,
+                      aspectRatio: item.width && item.height ? `${item.width} / ${item.height}` : '1 / 1',
                     }}
                     className="max-w-full max-h-full object-contain transition-transform duration-200"
                   />

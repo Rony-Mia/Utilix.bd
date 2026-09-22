@@ -43,6 +43,9 @@ export const ModernTemplate: React.FC<TemplateProps> = ({
                     <img
                       src={personalInfo.photoUrl}
                       alt={personalInfo.fullName}
+                      width={128}
+                      height={128}
+                      loading="lazy"
                       className="w-full h-full object-cover"
                     />
                   ) : (

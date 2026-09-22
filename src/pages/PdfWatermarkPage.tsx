@@ -719,6 +719,9 @@ export const PdfWatermarkPage: React.FC = () => {
                             <img
                               src={wmImagePreviewUrl}
                               alt="Logo Preview"
+                              width={48}
+                              height={48}
+                              loading="lazy"
                               className="w-12 h-12 object-contain border border-[#D5E4DB] bg-white p-1"
                             />
                             <div className="text-xs">
@@ -1063,6 +1066,8 @@ export const PdfWatermarkPage: React.FC = () => {
                             <img
                               src={wmImagePreviewUrl}
                               alt="Watermark"
+                              width={Math.round(Math.max(wmImageScale * 180, 40))}
+                              height={Math.round(Math.max(wmImageScale * 180, 40))}
                               style={{ width: `${Math.max(wmImageScale * 180, 40)}px` }}
                               className="object-contain"
                             />
@@ -1090,6 +1095,9 @@ export const PdfWatermarkPage: React.FC = () => {
                                     <img
                                       src={wmImagePreviewUrl}
                                       alt="wm"
+                                      width={40}
+                                      height={40}
+                                      loading="lazy"
                                       className="w-10 h-10 object-contain inline-block"
                                     />
                                   ) : (

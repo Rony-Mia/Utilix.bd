@@ -850,6 +850,9 @@ export const HeicConverterPage: React.FC = () => {
                         <img
                           src={item.convertedUrl}
                           alt={item.name}
+                          width={400}
+                          height={300}
+                          loading="lazy"
                           className="w-full h-full object-contain"
                         />
                         <button

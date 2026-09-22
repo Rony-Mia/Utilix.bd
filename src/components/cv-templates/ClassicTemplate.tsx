@@ -84,6 +84,9 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({
                 <img
                   src={personalInfo.photoUrl}
                   alt={personalInfo.fullName}
+                  width={112}
+                  height={128}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               ) : (

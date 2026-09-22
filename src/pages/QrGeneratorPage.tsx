@@ -790,6 +790,9 @@ export const QrGeneratorPage: React.FC = () => {
                     <img
                       src={logoSrc}
                       alt="Logo Preview"
+                      width={32}
+                      height={32}
+                      loading="lazy"
                       className="w-8 h-8 object-contain border border-[#D5E4DB] bg-[#ffffff] p-0.5"
                     />
                     <div>

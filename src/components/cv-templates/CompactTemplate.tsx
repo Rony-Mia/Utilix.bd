@@ -85,6 +85,9 @@ export const CompactTemplate: React.FC<TemplateProps> = ({
                   <img
                     src={personalInfo.photoUrl}
                     alt={personalInfo.fullName}
+                    width={96}
+                    height={112}
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
                 ) : (

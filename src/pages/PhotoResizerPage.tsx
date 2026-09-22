@@ -758,6 +758,8 @@ export const PhotoResizerPage: React.FC = () => {
                     <img
                       src={resultDataUrl}
                       alt="Processed Result"
+                      width={resultMeta?.width || activeWidth}
+                      height={resultMeta?.height || activeHeight}
                       className="w-full h-full object-contain"
                     />
                   </div>

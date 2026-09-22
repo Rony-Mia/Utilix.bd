@@ -41,6 +41,66 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://utools.bd/og-image.png" />
 
+    <!-- Font Fallback Metric Overrides for Noto Sans Bengali & JetBrains Mono to prevent CLS during font swap -->
+    <style>
+      @font-face {
+        font-family: 'Noto Sans Bengali Fallback';
+        src: local('Roboto');
+        size-adjust: 127.69%;
+        ascent-override: 71.81%;
+        descent-override: 31.95%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali Fallback';
+        src: local('Arial');
+        size-adjust: 127.41%;
+        ascent-override: 71.97%;
+        descent-override: 32.02%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali Fallback';
+        src: local('Helvetica Neue'), local('Helvetica');
+        size-adjust: 127.41%;
+        ascent-override: 71.97%;
+        descent-override: 32.02%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali Fallback';
+        src: local('Segoe UI');
+        size-adjust: 128.11%;
+        ascent-override: 71.58%;
+        descent-override: 31.85%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali Fallback';
+        src: local('Noto Sans');
+        size-adjust: 119.83%;
+        ascent-override: 76.52%;
+        descent-override: 34.05%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono Fallback';
+        src: local('Consolas');
+        size-adjust: 100%;
+        ascent-override: 102%;
+        descent-override: 30%;
+        line-gap-override: 0%;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono Fallback';
+        src: local('Courier New');
+        size-adjust: 99.98%;
+        ascent-override: 102.02%;
+        descent-override: 30%;
+        line-gap-override: 0%;
+      }
+    </style>
+
     <!-- Google Fonts: Noto Sans Bengali (site-wide UI font + CV builder/export typography), JetBrains Mono (Code/Bijoy ANSI) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

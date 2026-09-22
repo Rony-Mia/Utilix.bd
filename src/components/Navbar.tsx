@@ -402,7 +402,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
         <nav
           id="mobile-nav"
           aria-label="মোবাইল নেভিগেশন"
-          className="lg:hidden border-t border-[#0B5D3B]/10 bg-[#FAFAF7] max-h-[calc(100vh-4rem)] overflow-y-auto"
+          className="lg:hidden absolute top-full left-0 right-0 w-full border-t border-[#0B5D3B]/10 bg-[#FAFAF7] max-h-[calc(100vh-4rem)] overflow-y-auto shadow-2xl z-50"
         >
           <div className="max-w-7xl mx-auto px-4 py-3 space-y-2">
             <Link

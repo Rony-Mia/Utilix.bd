@@ -958,6 +958,9 @@ export const BulkPhotoResizerPage: React.FC = () => {
                     <img
                       src={item.result?.dataUrl || item.previewUrl}
                       alt={item.name}
+                      width={item.result?.width || 300}
+                      height={item.result?.height || 300}
+                      loading="lazy"
                       className="max-w-full max-h-full object-contain"
                     />
 

@@ -926,6 +926,11 @@ export const ImageMergerPage: React.FC = () => {
                     <img
                       src={previewDataUrl}
                       alt="Merged Canvas Live Preview"
+                      width={canvasDimensions.width}
+                      height={canvasDimensions.height}
+                      style={{
+                        aspectRatio: `${canvasDimensions.width} / ${canvasDimensions.height}`,
+                      }}
                       className="max-w-full max-h-[440px] object-contain block border border-black/10"
                     />
                   </div>

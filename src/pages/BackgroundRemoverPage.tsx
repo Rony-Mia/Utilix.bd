@@ -565,6 +565,9 @@ export const BackgroundRemoverPage: React.FC = () => {
                 <img
                   src={originalImageSrc}
                   alt="থাম্বনেইল"
+                  width={40}
+                  height={40}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -723,6 +726,8 @@ export const BackgroundRemoverPage: React.FC = () => {
                     <img
                       src={removedImageUrl}
                       alt="ব্যাকগ্রাউন্ড রিমুভড"
+                      width={originalDimensions?.width || 800}
+                      height={originalDimensions?.height || 600}
                       className="absolute inset-0 w-full h-full object-contain pointer-events-none"
                     />
 
@@ -734,6 +739,8 @@ export const BackgroundRemoverPage: React.FC = () => {
                       <img
                         src={originalImageSrc}
                         alt="মূল ছবি"
+                        width={originalDimensions?.width || 800}
+                        height={originalDimensions?.height || 600}
                         className="absolute inset-0 w-full h-full object-contain pointer-events-none max-w-none"
                         style={{
                           width: sliderContainerRef.current?.clientWidth || '100%',
@@ -782,6 +789,9 @@ export const BackgroundRemoverPage: React.FC = () => {
                       <img
                         src={originalImageSrc}
                         alt="মূল ছবি"
+                        width={originalDimensions?.width || 800}
+                        height={originalDimensions?.height || 600}
+                        loading="lazy"
                         className="max-w-full max-h-full object-contain"
                       />
                     </div>
@@ -808,6 +818,9 @@ export const BackgroundRemoverPage: React.FC = () => {
                       <img
                         src={removedImageUrl}
                         alt="রিমুভড ছবি"
+                        width={originalDimensions?.width || 800}
+                        height={originalDimensions?.height || 600}
+                        loading="lazy"
                         className="max-w-full max-h-full object-contain"
                       />
                     </div>
@@ -833,6 +846,9 @@ export const BackgroundRemoverPage: React.FC = () => {
                     <img
                       src={removedImageUrl}
                       alt="ফলাফল"
+                      width={originalDimensions?.width || 800}
+                      height={originalDimensions?.height || 600}
+                      loading="lazy"
                       className="max-w-full max-h-full object-contain"
                     />
                   </div>

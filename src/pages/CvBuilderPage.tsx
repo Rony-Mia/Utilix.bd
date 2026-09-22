@@ -1243,6 +1243,9 @@ export const CvBuilderPage: React.FC = () => {
                         <img
                           src={cvData.personalInfo.photoUrl}
                           alt="Uploaded"
+                          width={88}
+                          height={104}
+                          loading="lazy"
                           className="w-full h-full object-cover"
                         />
                       ) : (

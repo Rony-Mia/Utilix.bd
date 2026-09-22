@@ -109,6 +109,9 @@ export const CreativeTemplate: React.FC<TemplateProps> = ({
                     <img
                       src={personalInfo.photoUrl}
                       alt={personalInfo.fullName}
+                      width={112}
+                      height={112}
+                      loading="lazy"
                       className="w-full h-full object-cover"
                     />
                   ) : (
