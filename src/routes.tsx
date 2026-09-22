@@ -1,26 +1,63 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { HomePage } from './pages/HomePage.tsx';
-import { ConverterPage } from './pages/ConverterPage.tsx';
-import { PhotoResizerPage } from './pages/PhotoResizerPage.tsx';
-import { AgeCalculatorPage } from './pages/AgeCalculatorPage.tsx';
-import { AmountInWordsPage } from './pages/AmountInWordsPage.tsx';
-import { CvBuilderPage } from './pages/CvBuilderPage.tsx';
-import { GpaCalculatorPage } from './pages/GpaCalculatorPage.tsx';
-import { LandConverterPage } from './pages/LandConverterPage.tsx';
-import { PdfMergerPage } from './pages/PdfMergerPage.tsx';
-import { PdfSplitPage } from './pages/PdfSplitPage.tsx';
-import { PdfDeletePagesPage } from './pages/PdfDeletePagesPage.tsx';
-import { PdfRotatePage } from './pages/PdfRotatePage.tsx';
-import { PdfWatermarkPage } from './pages/PdfWatermarkPage.tsx';
-import { ImageMergerPage } from './pages/ImageMergerPage.tsx';
-import { BackgroundRemoverPage } from './pages/BackgroundRemoverPage.tsx';
-import { BulkPhotoResizerPage } from './pages/BulkPhotoResizerPage.tsx';
-import { HeicConverterPage } from './pages/HeicConverterPage.tsx';
-import { QrGeneratorPage } from './pages/QrGeneratorPage.tsx';
-import { AboutPage } from './pages/AboutPage.tsx';
-import { ContactPage } from './pages/ContactPage.tsx';
-import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage.tsx';
+
+// Every non-home page is code-split into its own chunk so the homepage's JS
+// bundle doesn't have to carry all 17 tools' code on first load. Each tool's
+// code downloads only when its route is actually visited.
+const ConverterPage = lazy(() => import('./pages/ConverterPage.tsx').then((m) => ({ default: m.ConverterPage })));
+const PhotoResizerPage = lazy(() => import('./pages/PhotoResizerPage.tsx').then((m) => ({ default: m.PhotoResizerPage })));
+const AgeCalculatorPage = lazy(() => import('./pages/AgeCalculatorPage.tsx').then((m) => ({ default: m.AgeCalculatorPage })));
+const AmountInWordsPage = lazy(() => import('./pages/AmountInWordsPage.tsx').then((m) => ({ default: m.AmountInWordsPage })));
+const CvBuilderPage = lazy(() => import('./pages/CvBuilderPage.tsx').then((m) => ({ default: m.CvBuilderPage })));
+const GpaCalculatorPage = lazy(() => import('./pages/GpaCalculatorPage.tsx').then((m) => ({ default: m.GpaCalculatorPage })));
+const LandConverterPage = lazy(() => import('./pages/LandConverterPage.tsx').then((m) => ({ default: m.LandConverterPage })));
+const PdfMergerPage = lazy(() => import('./pages/PdfMergerPage.tsx').then((m) => ({ default: m.PdfMergerPage })));
+const PdfSplitPage = lazy(() => import('./pages/PdfSplitPage.tsx').then((m) => ({ default: m.PdfSplitPage })));
+const PdfDeletePagesPage = lazy(() => import('./pages/PdfDeletePagesPage.tsx').then((m) => ({ default: m.PdfDeletePagesPage })));
+const PdfRotatePage = lazy(() => import('./pages/PdfRotatePage.tsx').then((m) => ({ default: m.PdfRotatePage })));
+const PdfWatermarkPage = lazy(() => import('./pages/PdfWatermarkPage.tsx').then((m) => ({ default: m.PdfWatermarkPage })));
+const ImageMergerPage = lazy(() => import('./pages/ImageMergerPage.tsx').then((m) => ({ default: m.ImageMergerPage })));
+const BackgroundRemoverPage = lazy(() => import('./pages/BackgroundRemoverPage.tsx').then((m) => ({ default: m.BackgroundRemoverPage })));
+const BulkPhotoResizerPage = lazy(() => import('./pages/BulkPhotoResizerPage.tsx').then((m) => ({ default: m.BulkPhotoResizerPage })));
+const HeicConverterPage = lazy(() => import('./pages/HeicConverterPage.tsx').then((m) => ({ default: m.HeicConverterPage })));
+const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage.tsx').then((m) => ({ default: m.QrGeneratorPage })));
+const AboutPage = lazy(() => import('./pages/AboutPage.tsx').then((m) => ({ default: m.AboutPage })));
+const ContactPage = lazy(() => import('./pages/ContactPage.tsx').then((m) => ({ default: m.ContactPage })));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.tsx').then((m) => ({ default: m.PrivacyPolicyPage })));
+
+// Every lazy importer above, using the exact same specifiers as the lazy()
+// calls so they resolve against the same module records in this bundle.
+// prerender.ts awaits this (via preloadAllPages) before its trigger pass so
+// each React.lazy() ctor() resolves off an already-cached module instead of
+// a fresh disk read.
+const LAZY_PAGE_IMPORTERS: Array<() => Promise<unknown>> = [
+  () => import('./pages/ConverterPage.tsx'),
+  () => import('./pages/PhotoResizerPage.tsx'),
+  () => import('./pages/AgeCalculatorPage.tsx'),
+  () => import('./pages/AmountInWordsPage.tsx'),
+  () => import('./pages/CvBuilderPage.tsx'),
+  () => import('./pages/GpaCalculatorPage.tsx'),
+  () => import('./pages/LandConverterPage.tsx'),
+  () => import('./pages/PdfMergerPage.tsx'),
+  () => import('./pages/PdfSplitPage.tsx'),
+  () => import('./pages/PdfDeletePagesPage.tsx'),
+  () => import('./pages/PdfRotatePage.tsx'),
+  () => import('./pages/PdfWatermarkPage.tsx'),
+  () => import('./pages/ImageMergerPage.tsx'),
+  () => import('./pages/BackgroundRemoverPage.tsx'),
+  () => import('./pages/BulkPhotoResizerPage.tsx'),
+  () => import('./pages/HeicConverterPage.tsx'),
+  () => import('./pages/QrGeneratorPage.tsx'),
+  () => import('./pages/AboutPage.tsx'),
+  () => import('./pages/ContactPage.tsx'),
+  () => import('./pages/PrivacyPolicyPage.tsx'),
+];
+
+/** Used only by prerender.ts's warm-up pass — not called from the app itself. */
+export async function preloadAllPages(): Promise<void> {
+  await Promise.all(LAZY_PAGE_IMPORTERS.map((load) => load()));
+}
 
 export const PRERENDER_ROUTES = [
   '/',
@@ -52,45 +89,53 @@ export interface AppRoutesProps {
   onOpenTerms?: () => void;
 }
 
+/** Plain, unstyled placeholder — only ever visible for a moment on a slow connection while a tool's chunk downloads. */
+const RouteFallback: React.FC = () => (
+  <div className="min-h-[40vh] flex items-center justify-center" aria-busy="true" aria-live="polite">
+    <span className="sr-only">লোড হচ্ছে…</span>
+  </div>
+);
+
 export function AppRoutes({
   selectedCategory = 'all',
   onSelectCategory = () => {},
   onOpenTerms = () => {},
 }: AppRoutesProps) {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <HomePage
-            selectedCategory={selectedCategory}
-            onSelectCategory={onSelectCategory}
-            onOpenTerms={onOpenTerms}
-          />
-        }
-      />
-      <Route path="/converter" element={<ConverterPage />} />
-      <Route path="/photo-resizer" element={<PhotoResizerPage />} />
-      <Route path="/bulk-photo-resizer" element={<BulkPhotoResizerPage />} />
-      <Route path="/heic-converter" element={<HeicConverterPage />} />
-      <Route path="/background-remover" element={<BackgroundRemoverPage />} />
-      <Route path="/image-merger" element={<ImageMergerPage />} />
-      <Route path="/qr-generator" element={<QrGeneratorPage />} />
-      <Route path="/age-calculator" element={<AgeCalculatorPage />} />
-      <Route path="/amount-in-words" element={<AmountInWordsPage />} />
-      <Route path="/cv-builder" element={<CvBuilderPage />} />
-      <Route path="/gpa-calculator" element={<GpaCalculatorPage />} />
-      <Route path="/land-converter" element={<LandConverterPage />} />
-      <Route path="/pdf-merger" element={<PdfMergerPage />} />
-      <Route path="/pdf-split" element={<PdfSplitPage />} />
-      <Route path="/pdf-delete-pages" element={<PdfDeletePagesPage />} />
-      <Route path="/pdf-rotate" element={<PdfRotatePage />} />
-      <Route path="/pdf-watermark-page-number" element={<PdfWatermarkPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <Suspense fallback={<RouteFallback />}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              selectedCategory={selectedCategory}
+              onSelectCategory={onSelectCategory}
+              onOpenTerms={onOpenTerms}
+            />
+          }
+        />
+        <Route path="/converter" element={<ConverterPage />} />
+        <Route path="/photo-resizer" element={<PhotoResizerPage />} />
+        <Route path="/bulk-photo-resizer" element={<BulkPhotoResizerPage />} />
+        <Route path="/heic-converter" element={<HeicConverterPage />} />
+        <Route path="/background-remover" element={<BackgroundRemoverPage />} />
+        <Route path="/image-merger" element={<ImageMergerPage />} />
+        <Route path="/qr-generator" element={<QrGeneratorPage />} />
+        <Route path="/age-calculator" element={<AgeCalculatorPage />} />
+        <Route path="/amount-in-words" element={<AmountInWordsPage />} />
+        <Route path="/cv-builder" element={<CvBuilderPage />} />
+        <Route path="/gpa-calculator" element={<GpaCalculatorPage />} />
+        <Route path="/land-converter" element={<LandConverterPage />} />
+        <Route path="/pdf-merger" element={<PdfMergerPage />} />
+        <Route path="/pdf-split" element={<PdfSplitPage />} />
+        <Route path="/pdf-delete-pages" element={<PdfDeletePagesPage />} />
+        <Route path="/pdf-rotate" element={<PdfRotatePage />} />
+        <Route path="/pdf-watermark-page-number" element={<PdfWatermarkPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   );
 }
-
