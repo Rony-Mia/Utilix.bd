@@ -879,7 +879,7 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
         '@id': 'https://utools.bd/#organization',
         name: 'Utools.bd',
         url: 'https://utools.bd',
-        logo: 'https://utools.bd/og-image.png',
+        logo: 'https://utools.bd/og-image.png?v=2',
         description:
           'বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজার-ভিত্তিক ও নিরাপদ বাংলাদেশি অনলাইন টুলস।'
       },
@@ -927,14 +927,14 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
         />
         <meta property="og:url" content="https://utools.bd/" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://utools.bd/og-image.png" />
+        <meta property="og:image" content="https://utools.bd/og-image.png?v=2" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
         <meta
           name="twitter:description"
           content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে চলা বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার। একবার লোড হলে অফলাইনেও চলে।"
         />
-        <meta name="twitter:image" content="https://utools.bd/og-image.png" />
+        <meta name="twitter:image" content="https://utools.bd/og-image.png?v=2" />
         <script type="application/ld+json">{JSON.stringify(siteAndOrgSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
