@@ -914,25 +914,25 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
   return (
     <div>
       <Helmet>
-        <title>Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব</title>
+        <title>Utools.bd — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস</title>
         <meta
           name="description"
-          content="বাংলা ডিজিটাল ইউটিলিটি হাব — বিজয়↔ইউনিকোড কনভার্টার, ছবি রিসাইজার, বয়স ও জিপিএ ক্যালকুলেটর, সিভি মেকার ও টাকা কথায় কনভার্টার। একবার লোড হলে অফলাইনেও চলে।"
+          content="সিভি মেকার, জমির মাপ কনভার্টার, সরকারি চাকরির ছবি রিসাইজার, জিপিএ ক্যালকুলেটর, বিজয়↔ইউনিকোড কনভার্টার ও বয়স ক্যালকুলেটর — সম্পূর্ণ ফ্রি, ব্রাউজারেই।"
         />
         <link rel="canonical" href="https://utools.bd/" />
-        <meta property="og:title" content="Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
+        <meta property="og:title" content="Utools.bd — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস" />
         <meta
           property="og:description"
-          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে চলা বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার। একবার লোড হলে অফলাইনেও চলে।"
+          content="সিভি মেকার, জমির মাপ কনভার্টার, সরকারি চাকরির ছবি রিসাইজার, জিপিএ ক্যালকুলেটর, বিজয়↔ইউনিকোড কনভার্টার ও বয়স ক্যালকুলেটর — সম্পূর্ণ ফ্রি, ব্রাউজারেই।"
         />
         <meta property="og:url" content="https://utools.bd/" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://utools.bd/og-image.png?v=2" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Utools.bd — প্রয়োজনীয় বাংলা ডিজিটাল ইউটিলিটি হাব" />
+        <meta name="twitter:title" content="Utools.bd — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস" />
         <meta
           name="twitter:description"
-          content="বাংলা ডিজিটাল ইউটিলিটি হাব — সম্পূর্ণ ব্রাউজারে চলা বিজয় ↔ ইউনিকোড কনভার্টার, ছবি ও স্বাক্ষর রিসাইজার, চাকরির বয়স ক্যালকুলেটর, জিপিএ ক্যালকুলেটর এবং টাকা কথায় কনভার্টার। একবার লোড হলে অফলাইনেও চলে।"
+          content="সিভি মেকার, জমির মাপ কনভার্টার, সরকারি চাকরির ছবি রিসাইজার, জিপিএ ক্যালকুলেটর, বিজয়↔ইউনিকোড কনভার্টার ও বয়স ক্যালকুলেটর — সম্পূর্ণ ফ্রি, ব্রাউজারেই।"
         />
         <meta name="twitter:image" content="https://utools.bd/og-image.png?v=2" />
         <script type="application/ld+json">{JSON.stringify(siteAndOrgSchema)}</script>
