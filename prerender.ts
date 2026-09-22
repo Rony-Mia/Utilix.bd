@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import Critters from 'critters';
 import { PRERENDER_ROUTES } from './src/routes.tsx';
 
 // Single source of truth: routes come from src/routes.tsx.
@@ -35,6 +36,17 @@ async function prerender() {
   }
 
   const template = fs.readFileSync(templatePath, 'utf-8');
+
+  // Initialize Critters for automated critical CSS extraction & non-critical deferral
+  const critters = new Critters({
+    path: distDir,
+    preload: 'media',
+    noscriptFallback: true,
+    inlineFonts: false,
+    reduceInlineStyles: false,
+    pruneSource: false,
+    logLevel: 'warn',
+  });
 
   // Dynamic import of the compiled SSR bundle
   const { render, preloadAllPages } = await import(pathToFileURL(serverEntryPath).href);
@@ -152,6 +164,25 @@ async function prerender() {
       '<div id="root"></div>',
       `<div id="root">${bodyHtml}</div>`
     );
+
+    // 3.5. Extract critical above-the-fold CSS and load remaining CSS asynchronously
+    try {
+      pageHtml = await critters.process(pageHtml);
+      // Format deferred stylesheet link to exact pattern requested:
+      // <link rel="preload" as="style" href="[css file]">
+      // <link rel="stylesheet" href="[css file]" media="print" onload="this.media='all'; this.onload=null;">
+      // <noscript><link rel="stylesheet" href="[css file]"></noscript>
+      pageHtml = pageHtml.replace(
+        /<link([^>]*rel=["']stylesheet["'][^>]*)media=["']print["']\s+onload=["']this\.media='all'["']([^>]*)>/g,
+        (match, p1, p2) => {
+          const hrefMatch = match.match(/href=["']([^"']+)["']/);
+          const href = hrefMatch ? hrefMatch[1] : '';
+          return `<link rel="preload" as="style" href="${href}">\n    <link${p1}media="print" onload="this.media='all'; this.onload=null;"${p2}>`;
+        }
+      );
+    } catch (crittersErr) {
+      console.warn(`[prerender] Critters optimization warning on ${url}:`, crittersErr);
+    }
 
     // 4. Save to destination
     const routeClean = url === '/' ? '' : url.replace(/^\//, '');

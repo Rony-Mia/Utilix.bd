@@ -3,31 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>
-      /* Ensure window.fetch has both a getter and a setter so parent iframe environments or extensions can safely attach/wrap fetch */
-      (function() {
-        try {
-          var originalFetch = window.fetch ? window.fetch.bind(window) : null;
-          var currentFetch = originalFetch;
-          var descriptor = {
-            get: function() {
-              return currentFetch;
-            },
-            set: function(fn) {
-              currentFetch = fn;
-            },
-            configurable: true,
-            enumerable: true
-          };
-          Object.defineProperty(window, 'fetch', descriptor);
-          if (typeof Window !== 'undefined' && Window.prototype) {
-            try {
-              Object.defineProperty(Window.prototype, 'fetch', descriptor);
-            } catch (_) {}
-          }
-        } catch (_) {}
-      })();
-    </script>
     <title>Utools.bd — বাংলা ডিজিটাল ইউটিলিটি হাব</title>
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -41,8 +16,29 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://utools.bd/og-image.png" />
 
-    <!-- Font Fallback Metric Overrides for Noto Sans Bengali & JetBrains Mono to prevent CLS during font swap -->
+    <!-- Self-hosted font-face declarations & metric fallback overrides to eliminate CLS and FOUC -->
     <style>
+      @font-face {
+        font-family: 'Noto Sans Bengali';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/noto-sans-bengali-400.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url('/fonts/noto-sans-bengali-600.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Noto Sans Bengali';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('/fonts/noto-sans-bengali-700.woff2') format('woff2');
+      }
       @font-face {
         font-family: 'Noto Sans Bengali Fallback';
         src: local('Roboto');
@@ -107,6 +103,10 @@
   </head>
   <body class="bg-[#FAFAF7] text-[#0F1F17] font-sans antialiased selection:bg-[#0B5D3B]/20 selection:text-[#084A2E]">
     <div id="root"></div>
+    <script>
+      /* Ensure window.fetch has both a getter and a setter so parent iframe environments or extensions can safely attach/wrap fetch */
+      (function(){try{var f=window.fetch?window.fetch.bind(window):null,c=f,d={get:function(){return c},set:function(v){c=v},configurable:!0,enumerable:!0};Object.defineProperty(window,'fetch',d);if(typeof Window!=='undefined'&&Window.prototype){try{Object.defineProperty(Window.prototype,'fetch',d)}catch(_){}}}catch(_){}})();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
