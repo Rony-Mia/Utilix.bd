@@ -14,7 +14,8 @@ import {
   FileImage,
   Sliders,
   ShieldCheck,
-  HelpCircle
+  HelpCircle,
+  Wand2
 } from 'lucide-react';
 import { PresetProfile } from '../types.ts';
 import { GOVERNMENT_PRESET_PROFILES } from '../constants/presets.ts';
@@ -258,22 +259,34 @@ export const PhotoResizerPage: React.FC = () => {
     reader.readAsDataURL(file);
   };
 
-  // Trigger processing whenever parameters or image changes
+  // Load the raw source image into imgElementRef whenever a new image is
+  // selected — this does NOT trigger processing, it just makes the image
+  // available for the live crop-stage preview and for the manual Process step
+  const [imageReadyTick, setImageReadyTick] = useState<number>(0);
   useEffect(() => {
-    if (!imageSrc) return;
+    if (!imageSrc) {
+      imgElementRef.current = null;
+      return;
+    }
+    let cancelled = false;
+    const img = new Image();
+    img.onload = () => {
+      if (cancelled) return;
+      imgElementRef.current = img;
+      setImageReadyTick((t) => t + 1);
+    };
+    img.src = imageSrc;
+    return () => {
+      cancelled = true;
+    };
+  }, [imageSrc]);
 
-    // Encoding runs a quality search over the canvas, so coalesce rapid slider
-    // changes into a single pass
-    const timer = setTimeout(() => {
-      const img = new Image();
-      img.onload = () => {
-        imgElementRef.current = img;
-        processImage();
-      };
-      img.src = imageSrc;
-    }, 120);
-
-    return () => clearTimeout(timer);
+  // Any change to the image or crop/zoom/output settings invalidates the
+  // previously processed result — the user must click "প্রসেস করুন" again to
+  // (re)generate the actual resized/compressed output. Nothing is auto-run.
+  useEffect(() => {
+    setResultDataUrl(null);
+    setResultMeta(null);
   }, [
     imageSrc,
     activeWidth,
@@ -289,6 +302,7 @@ export const PhotoResizerPage: React.FC = () => {
   ]);
 
   // Main 100% Client-Side Image Processing Routine with Binary Search Optimization
+  // Runs only when the user explicitly clicks the Process button.
   const processImage = () => {
     if (!imageSrc || !imgElementRef.current) return;
     setIsProcessing(true);
@@ -376,9 +390,9 @@ export const PhotoResizerPage: React.FC = () => {
     const centerY = frameHeightPx / 2 + offsetY * scaleY;
 
     return { imgW, imgH, left: centerX - imgW / 2, top: centerY - imgH / 2 };
-    // resultMeta is included so this recomputes once imgElementRef is populated
-    // after an image finishes loading (imgElementRef itself isn't reactive state)
-  }, [imageSrc, resultMeta, fitMode, zoom, offsetX, offsetY, activeWidth, activeHeight, frameWidthPx, frameHeightPx]);
+    // imageReadyTick is included so this recomputes once imgElementRef is
+    // populated after an image finishes loading (the ref itself isn't reactive)
+  }, [imageSrc, imageReadyTick, fitMode, zoom, offsetX, offsetY, activeWidth, activeHeight, frameWidthPx, frameHeightPx]);
 
   // Drag-to-reposition directly on the preview: pointer events unify mouse & touch
   const handlePreviewPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -832,20 +846,28 @@ export const PhotoResizerPage: React.FC = () => {
             {/* Compliance Badge Banner */}
             <div
               className={`p-3 border flex items-center justify-between text-xs ${
-                isCompliant
+                !resultMeta
+                  ? 'bg-[#F0F4F2] border-[#D5E4DB] text-[#0F1F17]'
+                  : isCompliant
                   ? 'bg-[#ecfdf5] border-[#a7f3d0] text-[#065f46]'
                   : 'bg-[#fffbeb] border-[#fde68a] text-[#92400e]'
               }`}
             >
               <div className="flex items-center space-x-2">
-                {isCompliant ? (
+                {!resultMeta ? (
+                  <Sliders className="w-4 h-4 text-[#0B5D3B] shrink-0" />
+                ) : isCompliant ? (
                   <CheckCircle2 className="w-4 h-4 text-[#10b981] shrink-0" />
                 ) : (
                   <AlertTriangle className="w-4 h-4 text-[#f59e0b] shrink-0" />
                 )}
                 <div>
                   <div className="font-semibold">
-                    {isCompliant ? 'সরকারি আবেদনের মানদণ্ড অনুযায়ী প্রস্তুত ✓' : 'সাইজ বা পরিমাপ যাচাই করুন'}
+                    {!resultMeta
+                      ? 'ক্রপ ও জুম ঠিক করে "প্রসেস করুন" বাটনে ক্লিক করুন'
+                      : isCompliant
+                      ? 'সরকারি আবেদনের মানদণ্ড অনুযায়ী প্রস্তুত ✓'
+                      : 'সাইজ বা পরিমাপ যাচাই করুন'}
                   </div>
                   <div className="text-[11px] opacity-80 font-mono">
                     নির্ধারিত: {activeWidth}×{activeHeight} px | অনূর্ধ্ব {activeMaxKb} KB
@@ -870,7 +892,7 @@ export const PhotoResizerPage: React.FC = () => {
                 </div>
               )}
 
-              {resultDataUrl ? (
+              {imageSrc ? (
                 <div className="flex flex-col items-center space-y-3">
                   <div
                     ref={previewFrameRef}
@@ -889,8 +911,8 @@ export const PhotoResizerPage: React.FC = () => {
                   >
                     {liveCropGeometry && (
                       <img
-                        src={imageSrc || undefined}
-                        alt="Processed Result"
+                        src={imageSrc}
+                        alt="Crop preview"
                         draggable={false}
                         className="absolute pointer-events-none"
                         style={{
@@ -907,7 +929,9 @@ export const PhotoResizerPage: React.FC = () => {
 
                   <div className="text-center space-y-1">
                     <span className="text-xs font-mono text-[#4A5A52] bg-[#FFFFFF] px-2 py-0.5 border border-[#D5E4DB]">
-                      আউটপুট রেজোলিউশন: {resultMeta?.width} × {resultMeta?.height} px ({resultMeta?.format})
+                      {resultMeta
+                        ? `আউটপুট রেজোলিউশন: ${resultMeta.width} × ${resultMeta.height} px (${resultMeta.format})`
+                        : `টার্গেট: ${activeWidth} × ${activeHeight} px`}
                     </span>
                     <div className="text-[11px] text-[#4A5A52]">
                       🖱️ ছবি টেনে সরান • স্ক্রল করে জুম করুন
@@ -947,10 +971,21 @@ export const PhotoResizerPage: React.FC = () => {
             <button
               type="button"
               onClick={processImage}
-              className="border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 px-3 py-2 text-xs text-[#0F1F17] flex items-center space-x-1.5 transition-colors cursor-pointer rounded-lg"
+              disabled={!imageSrc}
+              className={`px-4 py-2 text-xs font-semibold flex items-center space-x-1.5 transition-all shadow-sm rounded-lg ${
+                !imageSrc
+                  ? 'bg-[#D5E4DB]/50 text-[#4A5A52] cursor-not-allowed'
+                  : resultDataUrl
+                  ? 'border border-[#D5E4DB] bg-[#F0F4F2] hover:bg-[#D5E4DB]/50 text-[#0F1F17] cursor-pointer'
+                  : 'bg-[#0B5D3B] hover:bg-[#084A2E] text-[#FFFFFF] cursor-pointer'
+              }`}
             >
-              <RefreshCw className="w-3.5 h-3.5 text-[#084A2E]" />
-              <span>পুনরায় প্রসেস করুন</span>
+              {resultDataUrl ? (
+                <RefreshCw className="w-3.5 h-3.5 text-[#084A2E]" />
+              ) : (
+                <Wand2 className="w-4 h-4" />
+              )}
+              <span>{resultDataUrl ? 'পুনরায় প্রসেস করুন' : 'প্রসেস করুন'}</span>
             </button>
 
             <button
