@@ -36,6 +36,7 @@ import { ModernTemplate } from '../components/cv-templates/ModernTemplate.tsx';
 import { CompactTemplate } from '../components/cv-templates/CompactTemplate.tsx';
 import { GovtStandardTemplate } from '../components/cv-templates/GovtStandardTemplate.tsx';
 import { CreativeTemplate } from '../components/cv-templates/CreativeTemplate.tsx';
+import { EducationItemEditor } from '../components/cv/EducationItemEditor.tsx';
 import { RelatedTools } from '../components/RelatedTools.tsx';
 
 type TemplateId = 'classic' | 'modern' | 'compact' | 'govt' | 'creative';
@@ -1531,82 +1532,13 @@ export const CvBuilderPage: React.FC = () => {
                     </div>
                   ) : (
                     cvData.education.map((edu, idx) => (
-                      <div
+                      <EducationItemEditor
                         key={edu.id}
-                        className="p-3 bg-[#F8FAF9] border border-[#D5E4DB] space-y-2.5 rounded-2xl"
-                      >
-                        <div className="flex justify-between items-center border-b border-[#E6F4EC] pb-1.5">
-                          <span className="font-bold text-[#084A2E]">
-                            #{idx + 1}. {edu.degree || 'ডিগ্রির নাম লিখুন'}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => removeEducation(edu.id)}
-                            className="text-[#c8342a] hover:text-red-800 p-1 cursor-pointer"
-                            title="মুছে ফেলুন"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                          <div>
-                            <label className="block text-[#4A5A52] mb-0.5">পরীক্ষা / ডিগ্রি:</label>
-                            <input
-                              type="text"
-                              value={edu.degree}
-                              onChange={(e) => updateEducation(edu.id, 'degree', e.target.value)}
-                              placeholder="যেমন: এস.এস.সি / বি.এসসি"
-                              className="w-full px-2.5 py-1 bg-white border border-[#D5E4DB] focus:border-[#0B5D3B] focus:outline-hidden rounded-lg"
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block text-[#4A5A52] mb-0.5">প্রতিষ্ঠান / বিশ্ববিদ্যালয়:</label>
-                            <input
-                              type="text"
-                              value={edu.institution}
-                              onChange={(e) => updateEducation(edu.id, 'institution', e.target.value)}
-                              placeholder="প্রতিষ্ঠানের নাম"
-                              className="w-full px-2.5 py-1 bg-white border border-[#D5E4DB] focus:border-[#0B5D3B] focus:outline-hidden rounded-lg"
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block text-[#4A5A52] mb-0.5">বোর্ড / বিভাগ / বিষয়:</label>
-                            <input
-                              type="text"
-                              value={edu.boardOrMajor || ''}
-                              onChange={(e) => updateEducation(edu.id, 'boardOrMajor', e.target.value)}
-                              placeholder="যেমন: বিজ্ঞান / কম্পিউটার সায়েন্স"
-                              className="w-full px-2.5 py-1 bg-white border border-[#D5E4DB] focus:border-[#0B5D3B] focus:outline-hidden rounded-lg"
-                            />
-                          </div>
-
-                          <div className="grid grid-cols-2 gap-2">
-                            <div>
-                              <label className="block text-[#4A5A52] mb-0.5">পাসের বছর:</label>
-                              <input
-                                type="text"
-                                value={edu.passingYear}
-                                onChange={(e) => updateEducation(edu.id, 'passingYear', e.target.value)}
-                                placeholder="যেমন: ২০১৮"
-                                className="w-full px-2.5 py-1 bg-white border border-[#D5E4DB] focus:border-[#0B5D3B] focus:outline-hidden rounded-lg"
-                              />
-                            </div>
-                            <div>
-                              <label className="block text-[#4A5A52] mb-0.5">ফলাফল / GPA:</label>
-                              <input
-                                type="text"
-                                value={edu.result}
-                                onChange={(e) => updateEducation(edu.id, 'result', e.target.value)}
-                                placeholder="GPA ৫.০০"
-                                className="w-full px-2.5 py-1 bg-white border border-[#D5E4DB] focus:border-[#0B5D3B] focus:outline-hidden rounded-lg"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                        edu={edu}
+                        idx={idx}
+                        onUpdate={(field, value) => updateEducation(edu.id, field, value)}
+                        onRemove={() => removeEducation(edu.id)}
+                      />
                     ))
                   )}
                 </div>

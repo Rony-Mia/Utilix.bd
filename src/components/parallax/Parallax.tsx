@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { registerPointerScene, registerScene } from './engine.ts';
 
 /**
@@ -51,12 +51,19 @@ export const ParallaxScene: React.FC<SceneProps> = ({
   );
 };
 
-/** Container for a scene's decorative layers. `--p` is written here so scrolling never restyles the scene's content. */
-export const ParallaxStage: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div data-px-stage="" aria-hidden="true" className="absolute inset-0 pointer-events-none">
-    {children}
-  </div>
-);
+/** Container for a scene's decorative layers. Rendered client-side only to eliminate decorative parallax bloat from static SSR HTML. */
+export const ParallaxStage: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return (
+    <div data-px-stage="" aria-hidden="true" className="absolute inset-0 pointer-events-none">
+      {mounted ? children : null}
+    </div>
+  );
+};
 
 interface LayerProps {
   /** vertical travel in px across the scene's scroll range (−p…+p) */
