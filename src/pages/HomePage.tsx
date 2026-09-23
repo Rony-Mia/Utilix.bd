@@ -46,7 +46,7 @@ const FAQS = [
   {
     question: 'Utools.bd-তে বর্তমানে কী কী টুল পাওয়া যায়?',
     answer:
-      `বর্তমানে আমাদের প্ল্যাটফর্মে ${toBn(TOOLS.length)}টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, বাল্ক ফটো রিসাইজার, HEIC থেকে JPG/PNG কনভার্টার, AI ব্যাকগ্রাউন্ড রিমুভার, ইমেজ মার্জার ও কোলাজ মেকার, কাস্টম QR কোড জেনারেটর, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, জমির মাপ কনভার্টার, সিভি মেকার এবং ৫টি পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট, পিডিএফ রোটেট ও পিডিএফ ওয়াটারমার্ক/পেজ নম্বর)।`
+      `বর্তমানে আমাদের প্ল্যাটফর্মে ${toBn(TOOLS.length)}টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, বাল্ক ফটো রিসাইজার, HEIC থেকে JPG/PNG কনভার্টার, ইমেজ মার্জার ও কোলাজ মেকার, কাস্টম QR কোড জেনারেটর, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, জমির মাপ কনভার্টার, সিভি মেকার এবং ৫টি পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট, পিডিএফ রোটেট ও পিডিএফ ওয়াটারমার্ক/পেজ নম্বর)।`
   },
   {
     question: 'ইন্টারনেট সংযোগ ছাড়া অফলাইনে কি এই টুলগুলো কাজ করে?',
@@ -79,7 +79,7 @@ const CATEGORY_GRADIENT: Record<string, string> = {
 };
 
 /** Tools added most recently — shown with a "নতুন" badge. */
-const NEW_TOOL_IDS = new Set(['land-converter', 'heic-converter', 'background-remover', 'bulk-photo-resizer', 'qr-generator']);
+const NEW_TOOL_IDS = new Set(['land-converter', 'heic-converter', 'bulk-photo-resizer', 'qr-generator']);
 
 /** Featured tools in the bento section (first one gets the large card). */
 const FEATURED_IDS = [
@@ -89,7 +89,6 @@ const FEATURED_IDS = [
   'pdf-merger',
   'gpa-calculator',
   'age-calculator',
-  'background-remover',
 ];
 
 const FEATURED_SHORT: Record<string, string> = {
@@ -98,7 +97,6 @@ const FEATURED_SHORT: Record<string, string> = {
   'pdf-merger': 'একাধিক PDF এক ফাইলে জোড়া লাগান',
   'gpa-calculator': 'SSC/HSC ও ভার্সিটি CGPA হিসাব',
   'age-calculator': 'সরকারি চাকরির বয়স ও কোটা যাচাই',
-  'background-remover': 'AI দিয়ে ছবির ব্যাকগ্রাউন্ড মুছুন',
 };
 
 const STEPS = [

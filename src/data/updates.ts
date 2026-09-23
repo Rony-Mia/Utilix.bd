@@ -34,17 +34,6 @@ export const SITE_UPDATES: SiteUpdate[] = [
     toolName: 'ইমেজ মার্জার দেখুন'
   },
   {
-    id: 'update-background-remover',
-    date: '২০ সেপ্টেম্বর ২০২৬',
-    version: 'v1.0',
-    badge: 'নতুন টুল',
-    badgeType: 'new',
-    title: 'অন-ডিভাইস AI ব্যাকগ্রাউন্ড রিমুভার প্রকাশ',
-    description: 'অন-ডিভাইস AI দিয়ে সম্পূর্ণ বিনামূল্যে ছবির ব্যাকগ্রাউন্ড সরান বা সাদা/রঙিন ব্যাকগ্রাউন্ড যোগ করুন। ১০০% ক্লায়েন্ট-সাইড, ফুল রেজোলিউশন ও আনলিমিটেড।',
-    toolLink: '/background-remover',
-    toolName: 'ব্যাকগ্রাউন্ড রিমুভার দেখুন'
-  },
-  {
     id: 'update-qr-generator',
     date: '২০ সেপ্টেম্বর ২০২৬',
     version: 'v1.0',
