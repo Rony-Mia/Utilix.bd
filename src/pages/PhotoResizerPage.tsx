@@ -65,6 +65,15 @@ export const PhotoResizerPage: React.FC = () => {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const imgElementRef = useRef<HTMLImageElement | null>(null);
+  const previewFrameRef = useRef<HTMLDivElement>(null);
+  const dragStateRef = useRef<{
+    pointerId: number;
+    startClientX: number;
+    startClientY: number;
+    startOffsetX: number;
+    startOffsetY: number;
+  } | null>(null);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
   // Determine active parameters
   const currentPreset = useMemo(() => {
@@ -331,6 +340,105 @@ export const PhotoResizerPage: React.FC = () => {
     return correctDims && correctSize;
   }, [resultMeta, activeWidth, activeHeight, activeMaxKb]);
 
+  // Display-frame pixel size for the output preview box (mirrors the CSS box
+  // sizing below so drag/zoom math converts screen px <-> canvas px correctly)
+  const frameWidthPx = activeHeight < 150 ? 300 : activeWidth > 350 ? 240 : activeWidth;
+  const frameHeightPx =
+    activeHeight < 150 ? 80 : activeHeight > 350 ? (240 * activeHeight) / activeWidth : activeHeight;
+
+  // Live geometry for the draggable crop-stage image: replicates the same
+  // cover/contain/fill + zoom + offset math as resizeImage(), but computed in
+  // display pixels so it can be rendered instantly via CSS (no re-encode).
+  const liveCropGeometry = useMemo(() => {
+    const srcImg = imgElementRef.current;
+    if (!srcImg || !imageSrc) return null;
+
+    const srcW = srcImg.naturalWidth || srcImg.width || activeWidth;
+    const srcH = srcImg.naturalHeight || srcImg.height || activeHeight;
+
+    let drawW = activeWidth;
+    let drawH = activeHeight;
+    if (fitMode === 'cover') {
+      const scale = Math.max(activeWidth / srcW, activeHeight / srcH);
+      drawW = srcW * scale;
+      drawH = srcH * scale;
+    } else if (fitMode === 'contain') {
+      const scale = Math.min(activeWidth / srcW, activeHeight / srcH);
+      drawW = srcW * scale;
+      drawH = srcH * scale;
+    }
+
+    const scaleX = frameWidthPx / activeWidth;
+    const scaleY = frameHeightPx / activeHeight;
+    const imgW = drawW * zoom * scaleX;
+    const imgH = drawH * zoom * scaleY;
+    const centerX = frameWidthPx / 2 + offsetX * scaleX;
+    const centerY = frameHeightPx / 2 + offsetY * scaleY;
+
+    return { imgW, imgH, left: centerX - imgW / 2, top: centerY - imgH / 2 };
+    // resultMeta is included so this recomputes once imgElementRef is populated
+    // after an image finishes loading (imgElementRef itself isn't reactive state)
+  }, [imageSrc, resultMeta, fitMode, zoom, offsetX, offsetY, activeWidth, activeHeight, frameWidthPx, frameHeightPx]);
+
+  // Drag-to-reposition directly on the preview: pointer events unify mouse & touch
+  const handlePreviewPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!imageSrc) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    dragStateRef.current = {
+      pointerId: e.pointerId,
+      startClientX: e.clientX,
+      startClientY: e.clientY,
+      startOffsetX: offsetX,
+      startOffsetY: offsetY
+    };
+    setIsDragging(true);
+  };
+
+  const handlePreviewPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = dragStateRef.current;
+    if (!drag || drag.pointerId !== e.pointerId) return;
+
+    const scaleX = frameWidthPx / activeWidth;
+    const scaleY = frameHeightPx / activeHeight;
+    const deltaXpx = e.clientX - drag.startClientX;
+    const deltaYpx = e.clientY - drag.startClientY;
+
+    const newOffsetX = Math.round(
+      Math.max(-150, Math.min(150, drag.startOffsetX + deltaXpx / scaleX))
+    );
+    const newOffsetY = Math.round(
+      Math.max(-150, Math.min(150, drag.startOffsetY + deltaYpx / scaleY))
+    );
+    setOffsetX(newOffsetX);
+    setOffsetY(newOffsetY);
+  };
+
+  const handlePreviewPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStateRef.current?.pointerId === e.pointerId) {
+      dragStateRef.current = null;
+      setIsDragging(false);
+    }
+  };
+
+  // Scroll-to-zoom directly on the preview (attached natively so preventDefault
+  // reliably stops the page from scrolling while zooming)
+  useEffect(() => {
+    const el = previewFrameRef.current;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (!imageSrc) return;
+      e.preventDefault();
+      setZoom((z) => {
+        const next = z - e.deltaY * 0.001;
+        return Math.max(0.5, Math.min(2.5, Number(next.toFixed(2))));
+      });
+    };
+
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    return () => el.removeEventListener('wheel', handleWheel);
+  }, [imageSrc]);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
@@ -593,7 +701,15 @@ export const PhotoResizerPage: React.FC = () => {
 
               {/* Zoom Slider */}
               <div className="flex items-center space-x-3">
-                <ZoomOut className="w-4 h-4 text-[#4A5A52]" />
+                <button
+                  type="button"
+                  onClick={() => setZoom((z) => Math.max(0.5, Number((z - 0.1).toFixed(2))))}
+                  disabled={zoom <= 0.5}
+                  aria-label="জুম আউট"
+                  className="shrink-0 p-1 rounded-md hover:bg-[#D5E4DB]/50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                >
+                  <ZoomOut className="w-4 h-4 text-[#4A5A52]" />
+                </button>
                 <input
                   type="range"
                   min="0.5"
@@ -603,7 +719,15 @@ export const PhotoResizerPage: React.FC = () => {
                   onChange={(e) => setZoom(parseFloat(e.target.value))}
                   className="w-full accent-[#0B5D3B]"
                 />
-                <ZoomIn className="w-4 h-4 text-[#4A5A52]" />
+                <button
+                  type="button"
+                  onClick={() => setZoom((z) => Math.min(2.5, Number((z + 0.1).toFixed(2))))}
+                  disabled={zoom >= 2.5}
+                  aria-label="জুম ইন"
+                  className="shrink-0 p-1 rounded-md hover:bg-[#D5E4DB]/50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                >
+                  <ZoomIn className="w-4 h-4 text-[#4A5A52]" />
+                </button>
               </div>
 
               {/* Pan Horizontal & Vertical */}
@@ -749,25 +873,45 @@ export const PhotoResizerPage: React.FC = () => {
               {resultDataUrl ? (
                 <div className="flex flex-col items-center space-y-3">
                   <div
-                    className="border-2 border-[#084A2E] shadow-sm bg-white overflow-hidden rounded-lg"
+                    ref={previewFrameRef}
+                    onPointerDown={handlePreviewPointerDown}
+                    onPointerMove={handlePreviewPointerMove}
+                    onPointerUp={handlePreviewPointerUp}
+                    onPointerCancel={handlePreviewPointerUp}
+                    className="relative border-2 border-[#084A2E] shadow-sm overflow-hidden rounded-lg select-none"
                     style={{
-                      width: activeHeight < 150 ? '300px' : activeWidth > 350 ? '240px' : `${activeWidth}px`,
-                      height: activeHeight < 150 ? '80px' : activeHeight > 350 ? `${(240 * activeHeight) / activeWidth}px` : `${activeHeight}px`
+                      width: `${frameWidthPx}px`,
+                      height: `${frameHeightPx}px`,
+                      backgroundColor,
+                      touchAction: 'none',
+                      cursor: isDragging ? 'grabbing' : 'grab'
                     }}
                   >
-                    <img
-                      src={resultDataUrl}
-                      alt="Processed Result"
-                      width={resultMeta?.width || activeWidth}
-                      height={resultMeta?.height || activeHeight}
-                      className="w-full h-full object-contain"
-                    />
+                    {liveCropGeometry && (
+                      <img
+                        src={imageSrc || undefined}
+                        alt="Processed Result"
+                        draggable={false}
+                        className="absolute pointer-events-none"
+                        style={{
+                          width: `${liveCropGeometry.imgW}px`,
+                          height: `${liveCropGeometry.imgH}px`,
+                          left: `${liveCropGeometry.left}px`,
+                          top: `${liveCropGeometry.top}px`,
+                          transform: `rotate(${rotation}deg)`,
+                          objectFit: 'fill'
+                        }}
+                      />
+                    )}
                   </div>
 
-                  <div className="text-center">
+                  <div className="text-center space-y-1">
                     <span className="text-xs font-mono text-[#4A5A52] bg-[#FFFFFF] px-2 py-0.5 border border-[#D5E4DB]">
                       আউটপুট রেজোলিউশন: {resultMeta?.width} × {resultMeta?.height} px ({resultMeta?.format})
                     </span>
+                    <div className="text-[11px] text-[#4A5A52]">
+                      🖱️ ছবি টেনে সরান • স্ক্রল করে জুম করুন
+                    </div>
                   </div>
                 </div>
               ) : (
