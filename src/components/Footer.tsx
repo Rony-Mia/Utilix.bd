@@ -17,7 +17,6 @@ export const Footer: React.FC = () => {
     { to: '/photo-resizer', label: 'পাসপোর্ট ও সরকারি ছবি রিসাইজার' },
     { to: '/bulk-photo-resizer', label: 'বাল্ক ফটো রিসাইজার (Bulk Resizer)' },
     { to: '/heic-converter', label: 'HEIC → JPG/PNG কনভার্টার' },
-    { to: '/background-remover', label: 'AI ব্যাকগ্রাউন্ড রিমুভার' },
     { to: '/image-merger', label: 'ইমেজ মার্জার ও কোলাজ মেকার' },
     { to: '/qr-generator', label: 'কাস্টম QR কোড জেনারেটর' },
   ];

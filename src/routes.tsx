@@ -18,7 +18,6 @@ const PdfDeletePagesPage = lazy(() => import('./pages/PdfDeletePagesPage.tsx').t
 const PdfRotatePage = lazy(() => import('./pages/PdfRotatePage.tsx').then((m) => ({ default: m.PdfRotatePage })));
 const PdfWatermarkPage = lazy(() => import('./pages/PdfWatermarkPage.tsx').then((m) => ({ default: m.PdfWatermarkPage })));
 const ImageMergerPage = lazy(() => import('./pages/ImageMergerPage.tsx').then((m) => ({ default: m.ImageMergerPage })));
-const BackgroundRemoverPage = lazy(() => import('./pages/BackgroundRemoverPage.tsx').then((m) => ({ default: m.BackgroundRemoverPage })));
 const BulkPhotoResizerPage = lazy(() => import('./pages/BulkPhotoResizerPage.tsx').then((m) => ({ default: m.BulkPhotoResizerPage })));
 const HeicConverterPage = lazy(() => import('./pages/HeicConverterPage.tsx').then((m) => ({ default: m.HeicConverterPage })));
 const QrGeneratorPage = lazy(() => import('./pages/QrGeneratorPage.tsx').then((m) => ({ default: m.QrGeneratorPage })));
@@ -46,7 +45,6 @@ const LAZY_PAGE_IMPORTERS: Array<() => Promise<unknown>> = [
   () => import('./pages/PdfRotatePage.tsx'),
   () => import('./pages/PdfWatermarkPage.tsx'),
   () => import('./pages/ImageMergerPage.tsx'),
-  () => import('./pages/BackgroundRemoverPage.tsx'),
   () => import('./pages/BulkPhotoResizerPage.tsx'),
   () => import('./pages/HeicConverterPage.tsx'),
   () => import('./pages/QrGeneratorPage.tsx'),
@@ -71,7 +69,6 @@ export const PRERENDER_ROUTES = [
   '/photo-resizer',
   '/bulk-photo-resizer',
   '/heic-converter',
-  '/background-remover',
   '/image-merger',
   '/qr-generator',
   '/age-calculator',
@@ -124,7 +121,6 @@ export function AppRoutes({
         <Route path="/photo-resizer" element={<PhotoResizerPage />} />
         <Route path="/bulk-photo-resizer" element={<BulkPhotoResizerPage />} />
         <Route path="/heic-converter" element={<HeicConverterPage />} />
-        <Route path="/background-remover" element={<BackgroundRemoverPage />} />
         <Route path="/image-merger" element={<ImageMergerPage />} />
         <Route path="/qr-generator" element={<QrGeneratorPage />} />
         <Route path="/age-calculator" element={<AgeCalculatorPage />} />
