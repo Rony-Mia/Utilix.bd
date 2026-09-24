@@ -24,10 +24,39 @@ async function startServer() {
   app.get('/api/capabilities', (req, res) => {
     res.json({
       prerendered: true,
-      routes: ['/', '/converter', '/photo-resizer', '/age-calculator', '/amount-in-words'],
+      routes: ['/', '/converter', '/photo-resizer', '/age-calculator', '/amount-in-words', '/bangla-date-converter'],
       ssr: true,
       hydration: true
     });
+  });
+
+  // Wikipedia On This Day Proxy API
+  app.get('/api/onthisday', async (req, res) => {
+    try {
+      const month = String(req.query.month || '').padStart(2, '0');
+      const day = String(req.query.day || '').padStart(2, '0');
+      if (!month || !day || isNaN(Number(month)) || isNaN(Number(day))) {
+        return res.status(400).json({ error: 'Valid month and day parameters required (MM and DD)' });
+      }
+
+      const wikiUrl = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/selected/${month}/${day}`;
+      const response = await fetch(wikiUrl, {
+        headers: {
+          'User-Agent': 'Utools.bd (https://utools.bd; contact@utools.bd)',
+          'Accept': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        return res.status(response.status).json({ error: 'Wikipedia API responded with status ' + response.status });
+      }
+
+      const data = await response.json();
+      res.setHeader('Cache-Control', 'public, max-age=86400, stale-while-revalidate=43200');
+      res.json(data);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || 'Failed to fetch historical events from Wikipedia' });
+    }
   });
 
   // 2. Vite middleware in Development OR Static Serving in Production

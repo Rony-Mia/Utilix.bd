@@ -32,6 +32,7 @@ export const Footer: React.FC = () => {
 
   const textCalcTools = [
     { to: '/converter', label: 'বিজয় ↔ ইউনিকোড কনভার্টার' },
+    { to: '/bangla-date-converter', label: 'বাংলা তারিখ কনভার্টার' },
     { to: '/age-calculator', label: 'সরকারি চাকরির বয়স ক্যালকুলেটর' },
     { to: '/amount-in-words', label: 'টাকা → কথায় কনভার্টার' },
     { to: '/gpa-calculator', label: 'জিপিএ ও সিজিপিএ ক্যালকুলেটর' },

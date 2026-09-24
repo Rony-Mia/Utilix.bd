@@ -2,6 +2,7 @@ import React from 'react';
 import {
   ArrowLeftRight,
   Calculator,
+  Calendar,
   Coins,
   Crop,
   FileText,
@@ -30,6 +31,7 @@ const ICONS: Record<string, ToolIconComponent> = {
   'qr-generator': QrCode,
   'age-calculator': Calculator,
   'amount-in-words': Coins,
+  'bangla-date-converter': Calendar,
   'gpa-calculator': GraduationCap,
   'land-converter': LandPlot,
   'cv-builder': FileText,

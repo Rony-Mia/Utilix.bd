@@ -90,6 +90,17 @@ export const TOOLS: ToolItem[] = [
     link: '/amount-in-words'
   },
   {
+    id: 'bangla-date-converter',
+    refCode: 'CALC-DATE-01',
+    title: 'বাংলা তারিখ কনভার্টার (Bangla Date Converter)',
+    description: 'ইংরেজি ↔ বাংলা ↔ হিজরি তারিখের দ্বিমুখী রূপান্তর। বাংলা একাডেমির ২০১৯ সংশোধিত প্রমিত বর্ষপঞ্জি, ঋতু, সরকারি ছুটি, জন্মবার্ষিকী কার্ড ও ইতিহাস।',
+    feature: 'দ্বিমুখী ক্যালেন্ডার • হিজরি সন • জন্মদিন কার্ড ও ইতিহাস',
+    category: 'calculator',
+    status: 'active',
+    version: 'v1.0',
+    link: '/bangla-date-converter'
+  },
+  {
     id: 'gpa-calculator',
     refCode: 'CALC-GPA-01',
     title: 'জিপিএ ও সিজিপিএ ক্যালকুলেটর (GPA & CGPA Calculator)',

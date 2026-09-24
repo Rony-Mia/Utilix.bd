@@ -83,6 +83,11 @@ const CATEGORIES: NavCategory[] = [
         description: 'চেক ও দলিলের টাকার কথায় রূপান্তর',
       },
       {
+        to: '/bangla-date-converter',
+        label: 'বাংলা তারিখ কনভার্টার',
+        description: 'ইংরেজি ↔ বাংলা ↔ হিজরি তারিখ ও ইতিহাস',
+      },
+      {
         to: '/gpa-calculator',
         label: 'জিপিএ ও সিজিপিএ ক্যালকুলেটর',
         description: 'এসএসসি, এইচএসসি ও ভার্সিটি সিজিপিএ হিসাব',
