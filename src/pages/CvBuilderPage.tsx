@@ -1054,7 +1054,7 @@ export const CvBuilderPage: React.FC = () => {
 
             {/* Open in New Tab */}
             <a
-              href="/tools/cv-builder"
+              href="/cv-builder"
               target="_blank"
               rel="noopener noreferrer"
               title="ব্রাউজারে নতুন ট্যাবে খুলুন"

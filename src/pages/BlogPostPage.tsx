@@ -52,7 +52,7 @@ export const BlogPostPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>{post.title} — Utools.bd ব্লগ</title>
+        <title>{`${post.title} — Utools.bd ব্লগ`}</title>
         <meta name="description" content={post.excerpt} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
