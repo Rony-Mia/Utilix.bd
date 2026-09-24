@@ -253,31 +253,6 @@ export const PdfWatermarkPage: React.FC = () => {
     document.body.removeChild(a);
   };
 
-  // Structured Data Schemas
-  const softwareSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর — Utools.bd',
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'All (Web Browser)',
-    url: 'https://utools.bd/pdf-watermark-page-number',
-    description:
-      'বিনামূল্যে পিডিএফ ডকুমেন্টে টেক্সট বা লোগো ওয়াটারমার্ক এবং পৃষ্ঠা নম্বর বসানোর সম্পূর্ণ ক্লায়েন্ট-সাইড ইউটিলিটি।',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'BDT',
-    },
-    featureList: [
-      'টেক্সট ওয়াটারমার্ক কাস্টমাইজেশন (রং, অপাসিটি, ফন্ট সাইজ, রোটেশন)',
-      'লোগো ইমেজ ওয়াটারমার্ক (PNG/JPG ব্র্যান্ডিং)',
-      'টাইল্ড (Tiled) সিকিউরিটি প্যাটার্ন বা সেন্ট্রাল ওয়াটারমার্ক',
-      '৬টি সুবিধাজনক পজিশনে পেজ নম্বর বসানো',
-      'বাংলা ও ইংরেজি সংখ্যা ও বিভিন্ন পৃষ্ঠা ফরম্যাট সাপোর্ট',
-      'সম্পূর্ণ অফলাইন ব্রাউজার প্রসেসিং ও ডাটা নিরাপত্তা',
-    ],
-  };
-
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -374,7 +349,7 @@ export const PdfWatermarkPage: React.FC = () => {
       h1="পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর (PDF Watermark & Page Number)"
       introText="অফিসিয়াল ডকুমেন্ট, টেন্ডার পেপার, থিসিস বা আইনি ফাইলে কাস্টম ওয়াটারমার্ক স্ট্যাম্প এবং পেশাদার পেজ নম্বর বসিয়ে নথিকে অপব্যবহারমুক্ত রাখুন। সম্পূর্ণ ক্লায়েন্ট-সাইড প্রযুক্তি, ১০০% অফলাইন ও নিরাপদ।"
       currentToolId="pdf-watermark-page-number"
-      schemas={[softwareSchema, faqSchema]}
+      schemas={[faqSchema]}
       howToSteps={[
         {
           stepNum: '০১',

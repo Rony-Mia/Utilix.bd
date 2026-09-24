@@ -356,30 +356,6 @@ export const ImageMergerPage: React.FC = () => {
   };
 
   // Schema.org Structured Data
-  const softwareSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'ইমেজ মার্জার ও কোলাজ মেকার — Utools.bd',
-    applicationCategory: 'MultimediaApplication',
-    operatingSystem: 'All (Web Browser)',
-    url: 'https://utools.bd/image-merger',
-    description:
-      'বিনামূল্যে একাধিক ছবি একসাথে জোড়া লাগানো, A4 পেজে পাসপোর্ট বা স্ট্যাম্প সাইজ লেআউট তৈরি, গ্রিড কোলাজ এবং সরাসরি PDF বা JPG ডাউনলোড করার সম্পূর্ণ ক্লায়েন্ট-সাইড টুল।',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'BDT',
-    },
-    featureList: [
-      'একাধিক ছবি ড্রাগ-অ্যান্ড-ড্রপ আপলোড ও লাইভ রি-অর্ডার',
-      'A4, Letter, A3 ও অটোফিট পেজ ফরম্যাটে নিখুঁত প্রিন্ট লেআউট',
-      'ভার্টিক্যাল, হরাইজন্টাল ও কাস্টম গ্রিড (যেমন ২×২, ২×৩, ৩×৩)',
-      'মার্জিন, প্যাডিং, বর্ডার স্ট্রোক ও কর্নার রেডিয়াস কাস্টমাইজেশন',
-      'JPG, PNG এবং সরাসরি Print-ready PDF এক্সপোর্ট',
-      '১০০% ক্লায়েন্ট-সাইড ব্রাউজার প্রসেসিং ও ডাটা নিরাপত্তা',
-    ],
-  };
-
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -473,7 +449,6 @@ export const ImageMergerPage: React.FC = () => {
           name="twitter:description"
           content="একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। ১০০% অফলাইন ও নিরাপদ।"
         />
-        <script type="application/ld+json">{JSON.stringify(softwareSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

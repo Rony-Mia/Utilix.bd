@@ -315,30 +315,6 @@ export const PdfMergerPage: React.FC = () => {
   const totalPagesSelected = files.reduce((acc, f) => acc + f.pageCount, 0);
   const totalBytesSelected = files.reduce((acc, f) => acc + f.sizeBytes, 0);
 
-  // SEO Schemas
-  const softwareAppSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Utools.bd পিডিএফ মার্জার',
-    operatingSystem: 'All',
-    applicationCategory: 'UtilitiesApplication',
-    browserRequirements: 'Requires JavaScript. Requires HTML5.',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'BDT',
-    },
-    description:
-      'একাধিক PDF ফাইল একত্র করার জন্য ১০০% ক্লায়েন্ট-সাইড, অফলাইন-রেডি ও সম্পূর্ণ ফ্রি অনলাইন পিডিএফ মার্জার। কোনো ফাইল বা পেজ সীমা নেই, কোনো সার্ভার আপলোড নেই।',
-    featureList: [
-      'আনলিমিটেড ফাইল ও পেজ মার্জিং',
-      '১০০% ক্লায়েন্ট-সাইড ব্রাউজার প্রসেসিং',
-      'কোনো ফাইল সার্ভারে আপলোড হয় না',
-      'সহজ ড্র্যাগ-অ্যান্ড-ড্রপ রিঅর্ডারিং',
-      'সম্পূর্ণ বিনামূল্যে ও নো সাইন-আপ',
-    ],
-  };
-
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -432,7 +408,6 @@ export const PdfMergerPage: React.FC = () => {
           content="একাধিক PDF ফাইল একত্র করুন সম্পূর্ণ বিনামূল্যে। কোনো ফাইল বা পেজ সীমা নেই, ১০০% ক্লায়েন্ট-সাইড ব্রাউজারেই নিরাপদ ও দ্রুত মার্জ — কোনো সার্ভার আপলোড নেই।"
         />
         <meta name="twitter:image" content="https://utools.bd/og-image.png" />
-        <script type="application/ld+json">{JSON.stringify(softwareAppSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

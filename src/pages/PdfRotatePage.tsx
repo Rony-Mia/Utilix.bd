@@ -166,29 +166,6 @@ export const PdfRotatePage: React.FC = () => {
     document.body.removeChild(a);
   };
 
-  // SEO Schemas
-  const softwareAppSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Utools.bd পিডিএফ রোটেট (PDF Rotate)',
-    operatingSystem: 'All',
-    applicationCategory: 'UtilitiesApplication',
-    browserRequirements: 'Requires JavaScript. Requires HTML5.',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'BDT',
-    },
-    description:
-      'উল্টো বা বাঁকা পিডিএফ পেজ সোজা করার ১০০% ক্লায়েন্ট-সাইড ফ্রি অনলাইন টুল। একক পেজ বা সকল পেজ ৯০°, ১৮০° বা ২৭০° ঘোরানোর সুবিধা। কোনো সার্ভার আপলোড নেই।',
-    featureList: [
-      'প্রতিটি পেজ আলাদাভাবে ৯০° ডানে বা বামে ঘোরানো',
-      'এক ক্লিকে সকল পেজ একসাথে রোটেট করার সুবিধা',
-      'রিয়েল-টাইম অ্যাঙ্গেল প্রিভিউ ও ডিগ্রি সূচক',
-      '১০০% অফলাইন ও নিরাপদ ব্রাউজার এক্সিকিউশন',
-      'আসল টেক্সট ও কোয়ালিটি শতভাগ অক্ষুণ্ণ',
-    ],
-  };
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -287,7 +264,7 @@ export const PdfRotatePage: React.FC = () => {
       badgeText="ডকুমেন্ট ইউটিলিটি • প্রফেশনাল পিডিএফ রোটেটর"
       h1="পিডিএফ রোটেট — উল্টো বা বাঁকা পেজ সোজা করুন"
       introText="মোবাইল ক্যামেরা বা স্ক্যানার দিয়ে স্ক্যান করার সময় প্রায়ই নথিপত্রের পাতা উল্টো বা ল্যান্ডস্কেপ হয়ে যায়। একক পেজ বা সকল পেজকে ৯০° ডানে/বামে কিংবা ১৮০° উল্টিয়ে চোখের পলকে সঠিক ওরিয়েন্টেশনে সোজা করুন সম্পূর্ণ ক্লায়েন্ট-সাইড ও নিরাপদে।"
-      schemas={[softwareAppSchema, faqSchema]}
+      schemas={[faqSchema]}
       howToSteps={howToSteps}
       currentToolId="pdf-rotate"
       deepDiveTitle="কেন পিডিএফ ডকুমেন্টের সঠিক ওরিয়েন্টেশন বজায় রাখা জরুরি?"

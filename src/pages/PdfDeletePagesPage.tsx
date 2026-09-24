@@ -225,30 +225,6 @@ export const PdfDeletePagesPage: React.FC = () => {
     document.body.removeChild(a);
   };
 
-  // SEO Schemas
-  const softwareAppSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Utools.bd পিডিএফ পেজ ডিলিট (PDF Delete Pages)',
-    operatingSystem: 'All',
-    applicationCategory: 'UtilitiesApplication',
-    browserRequirements: 'Requires JavaScript. Requires HTML5.',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'BDT',
-    },
-    description:
-      'পিডিএফ ফাইল থেকে অপ্রয়োজনীয় বা অতিরিক্ত পেজ মুছে ফেলার ১০০% ক্লায়েন্ট-সাইড নিরাপদ ও ফ্রি অনলাইন টুল। কোনো সার্ভার আপলোড নেই, তাৎক্ষণিক ডাউনলোড।',
-    featureList: [
-      'ভিজ্যুয়াল পেজ গ্রিড ও চেকবক্স সিলেকশন',
-      'এক ক্লিকে জোড়/বিজোড় পেজ নির্বাচনের সুবিধা',
-      'ম্যানুয়াল রেঞ্জ ও পেজ নম্বর ইনপুট সিঙ্ক',
-      '১০০% অফলাইন ও নিরাপদ ব্রাউজার এক্সিকিউশন',
-      'আসল টেক্সট ও কোয়ালিটি শতভাগ অক্ষুণ্ণ',
-    ],
-  };
-
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -346,7 +322,7 @@ export const PdfDeletePagesPage: React.FC = () => {
       badgeText="ডকুমেন্ট ইউটিলিটি • প্রফেশনাল পেজ রিমুভার"
       h1="পিডিএফ পেজ ডিলিট — অপ্রয়োজনীয় পৃষ্ঠা মুছে ফেলুন"
       introText="স্ক্যান করা নথির খালি পাতা, অতিরিক্ত কভার পেজ বা গোপনীয় তথ্য সংবলিত নির্দিষ্ট পৃষ্ঠা বাদ দিন এক ক্লিকে। ভিজ্যুয়াল পেজ সিলেক্টর ও রিয়েলটাইম প্রিভিউ সহ ১০০% ক্লায়েন্ট-সাইড ব্রাউজারে সেকেন্ডেই ফ্রেশ ও পরিচ্ছন্ন পিডিএফ ফাইল তৈরি করুন।"
-      schemas={[softwareAppSchema, faqSchema]}
+      schemas={[faqSchema]}
       howToSteps={howToSteps}
       currentToolId="pdf-delete-pages"
       deepDiveTitle="কেন পিডিএফ থেকে অপ্রয়োজনীয় পৃষ্ঠা ছাঁটাই করা গুরুত্বপূর্ণ?"
