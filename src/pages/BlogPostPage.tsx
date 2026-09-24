@@ -2,6 +2,8 @@ import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Calendar, User, ArrowLeft, ArrowRight, Tag, Sparkles, ExternalLink, Bookmark } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { getBlogPostBySlug, ALL_BLOG_POSTS } from '../utils/blog.ts';
 import { toBn } from '../utils/bnDigits.ts';
 
@@ -12,42 +14,6 @@ export const BlogPostPage: React.FC = () => {
   if (!post) {
     return <Navigate to="/blog" replace />;
   }
-
-  // Format simple markdown into paragraphs & headings
-  const renderContent = (content: string) => {
-    return content.split('\n\n').map((block, idx) => {
-      if (block.startsWith('### ')) {
-        return (
-          <h3 key={idx} className="text-lg sm:text-xl font-bold text-[#0F1F17] mt-6 mb-2">
-            {block.replace('### ', '')}
-          </h3>
-        );
-      }
-      if (block.startsWith('1. ') || block.startsWith('- ')) {
-        const items = block.split('\n').map((line) => line.replace(/^(\d+\.|\-)\s+/, ''));
-        return (
-          <ul key={idx} className="list-disc list-inside space-y-1.5 my-3 text-sm sm:text-base text-[#4A5A52] leading-relaxed">
-            {items.map((item, i) => (
-              <li key={i} dangerouslySetInnerHTML={{ __html: formatInline(item) }} />
-            ))}
-          </ul>
-        );
-      }
-      return (
-        <p
-          key={idx}
-          className="text-sm sm:text-base text-[#4A5A52] leading-relaxed my-3"
-          dangerouslySetInnerHTML={{ __html: formatInline(block) }}
-        />
-      );
-    });
-  };
-
-  const formatInline = (text: string) => {
-    return text
-      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-[#0F1F17]">$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
-  };
 
   return (
     <>
@@ -141,7 +107,115 @@ export const BlogPostPage: React.FC = () => {
 
             {/* Content Body */}
             <div className="prose max-w-none pt-2">
-              {renderContent(post.content)}
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  h1: ({ node, children, ...props }) => (
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F1F17] mt-8 mb-4 tracking-tight" {...props}>
+                      {children}
+                    </h1>
+                  ),
+                  h2: ({ node, children, ...props }) => (
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#0F1F17] mt-8 mb-3 pt-2 border-b border-[#D5E4DB]/40 pb-2" {...props}>
+                      {children}
+                    </h2>
+                  ),
+                  h3: ({ node, children, ...props }) => (
+                    <h3 className="text-lg sm:text-xl font-bold text-[#0F1F17] mt-6 mb-2" {...props}>
+                      {children}
+                    </h3>
+                  ),
+                  h4: ({ node, children, ...props }) => (
+                    <h4 className="text-base sm:text-lg font-bold text-[#0F1F17] mt-4 mb-2" {...props}>
+                      {children}
+                    </h4>
+                  ),
+                  p: ({ node, children, ...props }) => (
+                    <p className="text-sm sm:text-base text-[#4A5A52] leading-relaxed my-3" {...props}>
+                      {children}
+                    </p>
+                  ),
+                  strong: ({ node, children, ...props }) => (
+                    <strong className="font-bold text-[#0F1F17]" {...props}>
+                      {children}
+                    </strong>
+                  ),
+                  em: ({ node, children, ...props }) => (
+                    <em className="italic" {...props}>
+                      {children}
+                    </em>
+                  ),
+                  ul: ({ node, children, ...props }) => (
+                    <ul className="list-disc list-outside ml-5 space-y-1.5 my-3 text-sm sm:text-base text-[#4A5A52] leading-relaxed" {...props}>
+                      {children}
+                    </ul>
+                  ),
+                  ol: ({ node, children, ...props }) => (
+                    <ol className="list-decimal list-outside ml-5 space-y-1.5 my-3 text-sm sm:text-base text-[#4A5A52] leading-relaxed" {...props}>
+                      {children}
+                    </ol>
+                  ),
+                  li: ({ node, children, ...props }) => (
+                    <li className="pl-1" {...props}>
+                      {children}
+                    </li>
+                  ),
+                  a: ({ node, href, children, ...props }) => {
+                    const isInternal =
+                      href &&
+                      (href.startsWith('/') ||
+                        href.startsWith('https://utools.bd') ||
+                        href.startsWith('http://utools.bd'));
+                    const cleanHref = href
+                      ? href.replace(/^https?:\/\/utools\.bd/, '') || '/'
+                      : '#';
+
+                    if (isInternal) {
+                      return (
+                        <Link
+                          to={cleanHref}
+                          className="font-medium text-[#0B5D3B] hover:text-[#084A2E] underline decoration-[#0B5D3B]/40 hover:decoration-[#084A2E] transition-colors"
+                          {...props}
+                        >
+                          {children}
+                        </Link>
+                      );
+                    }
+
+                    return (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-[#0B5D3B] hover:text-[#084A2E] underline decoration-[#0B5D3B]/40 hover:decoration-[#084A2E] transition-colors inline-flex items-center gap-1"
+                        {...props}
+                      >
+                        {children}
+                      </a>
+                    );
+                  },
+                  blockquote: ({ node, children, ...props }) => (
+                    <blockquote className="border-l-4 border-[#0B5D3B] bg-[#F8FAF9] pl-4 py-2 my-4 rounded-r-lg italic text-[#4A5A52]" {...props}>
+                      {children}
+                    </blockquote>
+                  ),
+                  pre: ({ node, children, ...props }) => (
+                    <pre className="bg-[#0F1F17] text-[#FAFAF7] p-4 rounded-xl overflow-x-auto my-4 text-sm font-mono" {...props}>
+                      {children}
+                    </pre>
+                  ),
+                  code: ({ node, className, children, ...props }) => (
+                    <code className={className ? className : "px-1.5 py-0.5 bg-[#F0F4F2] text-[#0B5D3B] rounded text-xs font-mono"} {...props}>
+                      {children}
+                    </code>
+                  ),
+                  hr: ({ node, ...props }) => (
+                    <hr className="my-6 border-[#D5E4DB]" {...props} />
+                  ),
+                }}
+              >
+                {post.content}
+              </ReactMarkdown>
             </div>
           </article>
         </div>
