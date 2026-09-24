@@ -59,6 +59,90 @@ async function startServer() {
     }
   });
 
+  // Decap CMS GitHub OAuth Flow
+  app.get('/api/auth', (req, res) => {
+    const host = req.get('host') || 'localhost:3000';
+    const protocol = req.protocol === 'https' || req.get('x-forwarded-proto') === 'https' ? 'https' : 'http';
+    const redirectUri = `${protocol}://${host}/api/callback`;
+    const clientId = process.env.GITHUB_CLIENT_ID;
+
+    if (!clientId) {
+      return res.status(500).send(`
+        <!doctype html>
+        <html lang="bn">
+          <head><meta charset="utf-8"><title>GitHub OAuth Credentials Missing</title></head>
+          <body style="font-family:sans-serif;padding:2rem;text-align:center;line-height:1.6;">
+            <h2>GitHub OAuth Credentials Missing</h2>
+            <p>Decap CMS অ্যাডমিন ব্যবহারের জন্য <code>GITHUB_CLIENT_ID</code> এবং <code>GITHUB_CLIENT_SECRET</code> এনভায়রনমেন্ট ভেরিয়েবল সেট করতে হবে।</p>
+          </body>
+        </html>
+      `);
+    }
+
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo,user&redirect_uri=${encodeURIComponent(redirectUri)}`;
+    res.redirect(githubAuthUrl);
+  });
+
+  app.get('/api/callback', async (req, res) => {
+    const code = req.query.code as string;
+    const clientId = process.env.GITHUB_CLIENT_ID;
+    const clientSecret = process.env.GITHUB_CLIENT_SECRET;
+
+    if (!code) {
+      return res.status(400).send('Authorization code missing');
+    }
+
+    try {
+      const response = await fetch('https://github.com/login/oauth/access_token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'User-Agent': 'Utools.bd-CMS-Auth',
+        },
+        body: JSON.stringify({
+          client_id: clientId,
+          client_secret: clientSecret,
+          code,
+        }),
+      });
+
+      const data = await response.json();
+      const token = data.access_token;
+
+      if (!token) {
+        return res.status(401).send(`Authentication failed: ${data.error_description || data.error || 'Unknown error'}`);
+      }
+
+      const content = `
+        <!doctype html>
+        <html><body>
+        <script>
+          (function() {
+            function receiveMessage(e) {
+              window.opener.postMessage(
+                'authorization:github:success:${JSON.stringify({ token, provider: 'github' })}',
+                e.origin
+              );
+            }
+            window.addEventListener("message", receiveMessage, false);
+            window.opener.postMessage("authorizing:github", "*");
+          })();
+        </script>
+        </body></html>
+      `;
+      res.setHeader('Content-Type', 'text/html');
+      res.send(content);
+    } catch (err: any) {
+      res.status(500).send('OAuth exchange error: ' + (err.message || 'unknown error'));
+    }
+  });
+
+  // Admin redirect
+  app.get('/admin', (req, res) => {
+    res.redirect(301, '/admin/');
+  });
+
   // 2. Vite middleware in Development OR Static Serving in Production
   if (process.env.NODE_ENV !== 'production') {
     console.log('[server] Running in development mode with Vite middleware...');

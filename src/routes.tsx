@@ -25,6 +25,8 @@ const BanglaDateConverterPage = lazy(() => import('./pages/BanglaDateConverterPa
 const AboutPage = lazy(() => import('./pages/AboutPage.tsx').then((m) => ({ default: m.AboutPage })));
 const ContactPage = lazy(() => import('./pages/ContactPage.tsx').then((m) => ({ default: m.ContactPage })));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.tsx').then((m) => ({ default: m.PrivacyPolicyPage })));
+const BlogListPage = lazy(() => import('./pages/BlogListPage.tsx').then((m) => ({ default: m.BlogListPage })));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage.tsx').then((m) => ({ default: m.BlogPostPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.tsx').then((m) => ({ default: m.NotFoundPage })));
 
 // Every lazy importer above, using the exact same specifiers as the lazy()
@@ -53,6 +55,8 @@ const LAZY_PAGE_IMPORTERS: Array<() => Promise<unknown>> = [
   () => import('./pages/AboutPage.tsx'),
   () => import('./pages/ContactPage.tsx'),
   () => import('./pages/PrivacyPolicyPage.tsx'),
+  () => import('./pages/BlogListPage.tsx'),
+  () => import('./pages/BlogPostPage.tsx'),
   () => import('./pages/NotFoundPage.tsx'),
 ];
 
@@ -87,6 +91,10 @@ export const PRERENDER_ROUTES = [
   '/about',
   '/contact',
   '/privacy-policy',
+  '/blog',
+  '/blog/teletalk-photo-signature-resize-guide',
+  '/blog/bijoy-to-unicode-conversion-tips',
+  '/blog/bangla-date-calculation-rules',
 ] as const;
 
 export interface AppRoutesProps {
@@ -140,6 +148,8 @@ export function AppRoutes({
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/blog" element={<BlogListPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>

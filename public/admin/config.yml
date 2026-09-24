@@ -1,0 +1,78 @@
+backend:
+  name: github
+  repo: Rony-Mia/Utools.bd
+  branch: main
+  base_url: https://utools.bd
+  auth_endpoint: api/auth
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "global"
+    label: "গ্লোবাল কনটেন্ট"
+    files:
+      - name: "navbar"
+        label: "নেভিগেশন বার (Navbar)"
+        file: "content/global/navbar.json"
+        fields:
+          - { name: "brandName", label: "ব্র্যান্ডের নাম", widget: "string" }
+          - { name: "tagline", label: "ট্যাগলাইন", widget: "string" }
+          - { name: "homeLabel", label: "হোম লিংক লেবেল", widget: "string" }
+          - { name: "blogLabel", label: "ব্লগ লিংক লেবেল", widget: "string" }
+      - name: "footer"
+        label: "ফুটার (Footer)"
+        file: "content/global/footer.json"
+        fields:
+          - { name: "brandDescription", label: "ব্র্যান্ড বিবরণ", widget: "text" }
+          - { name: "privacyBadge", label: "প্রাইভেসি ব্যাজ টেক্সট", widget: "string" }
+          - { name: "copyrightText", label: "কপিরাইট টেক্সট", widget: "string" }
+          - { name: "slogan", label: "স্লোগান", widget: "string" }
+          - { name: "imageToolsHeading", label: "ইমেজ হেডিং", widget: "string" }
+          - { name: "pdfDocumentHeading", label: "পিডিএফ হেডিং", widget: "string" }
+          - { name: "textCalcHeading", label: "ক্যালকুলেটর হেডিং", widget: "string" }
+          - { name: "importantLinksHeading", label: "জরুরি লিংক হেডিং", widget: "string" }
+
+  - name: "pages"
+    label: "ওয়েব পেজসমূহ"
+    files:
+      - name: "home"
+        label: "হোমপেজ কনটেন্ট"
+        file: "content/pages/home.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল (SEO Title)", widget: "string" }
+          - { name: "metaDescription", label: "এসইও মেটা বিবরণ (Meta Description)", widget: "text" }
+          - { name: "heroBadge", label: "হিরো ব্যাজ", widget: "string" }
+          - { name: "heroTitlePrefix", label: "হিরো টাইটেল প্রিফিক্স", widget: "string" }
+          - { name: "heroTitleHighlight", label: "হিরো টাইটেল হাইলাইট", widget: "string" }
+          - { name: "heroTitleSuffix", label: "হিরো টাইটেল সাফিক্স", widget: "string" }
+          - { name: "heroSubtitle", label: "হিরো সাবটাইটেল", widget: "text" }
+      - name: "home-faq"
+        label: "হোমপেজ এফএকিউ (FAQ)"
+        file: "content/pages/home-faq.json"
+        fields:
+          - label: "প্রশ্নোত্তর তালিকা"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
+
+  - name: "blog"
+    label: "ব্লগ ও গাইড (Blog Posts)"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { name: "title", label: "পোস্টের শিরোনাম", widget: "string" }
+      - { name: "slug", label: "স্লাগ (URL Slug)", widget: "string" }
+      - { name: "date", label: "প্রকাশের তারিখ (YYYY-MM-DD)", widget: "string" }
+      - { name: "author", label: "লেখকের নাম", widget: "string", default: "ইউটিম" }
+      - { name: "category", label: "ক্যাটাগরি", widget: "string" }
+      - { name: "excerpt", label: "সংক্ষিপ্ত বিবরণ", widget: "text" }
+      - { name: "readTime", label: "পড়ার আনুমানিক সময়", widget: "string", default: "৪ মিনিট" }
+      - { name: "relatedTool", label: "সম্পর্কিত টুল পাথ (যেমন /photo-resizer)", widget: "string", required: false }
+      - { name: "relatedToolLabel", label: "সম্পর্কিত টুলের নাম", widget: "string", required: false }
+      - { name: "content", label: "ব্লগ কনটেন্ট (Markdown)", widget: "markdown" }

@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { getToolIconByLink } from '../data/toolIcons.tsx';
 import { UtoolsLogo } from './UtoolsLogo';
+import navbarContent from '../../content/global/navbar.json';
 
 interface NavbarProps {
   activeCategory?: string;
@@ -22,121 +23,7 @@ interface NavCategory {
   items: ToolLinkItem[];
 }
 
-const CATEGORIES: NavCategory[] = [
-  {
-    id: 'text-tools',
-    label: 'টেক্সট টুলস',
-    categoryKey: 'text',
-    items: [
-      {
-        to: '/converter',
-        label: 'বিজয় ↔ ইউনিকোড কনভার্টার',
-        description: 'সুতন্বীএমজে ও ইউনিকোড ফন্ট রূপান্তর',
-      },
-    ],
-  },
-  {
-    id: 'image-tools',
-    label: 'ইমেজ টুলস',
-    categoryKey: 'image',
-    items: [
-      {
-        to: '/photo-resizer',
-        label: 'পাসপোর্ট ও চাকরির ছবি রিসাইজার',
-        description: '৩০০×৩০০ ছবি ও ৩০০×৮০ স্বাক্ষর রিসাইজ',
-      },
-      {
-        to: '/bulk-photo-resizer',
-        label: 'বাল্ক ফটো রিসাইজার (Bulk Resizer)',
-        description: 'একসাথে একাধিক ছবি ব্যাচ রিসাইজ ও ZIP ডাউনলোড',
-      },
-      {
-        to: '/heic-converter',
-        label: 'HEIC → JPG/PNG কনভার্টার',
-        description: 'আইফোনের HEIC ছবি তাৎক্ষণিক JPG/PNG-তে রূপান্তর',
-      },
-      {
-        to: '/image-merger',
-        label: 'ইমেজ মার্জার ও কোলাজ মেকার',
-        description: 'A4 প্রিন্ট লেআউট, গ্রিড কোলাজ ও PDF',
-      },
-      {
-        to: '/qr-generator',
-        label: 'কাস্টম QR কোড জেনারেটর',
-        description: 'লোগো, রঙ ও হাই-রেজোলিউশন SVG/PNG ডাউনলোড',
-      },
-    ],
-  },
-  {
-    id: 'calculator-tools',
-    label: 'হিসাব ও ক্যালকুলেটর',
-    categoryKey: 'calculator',
-    items: [
-      {
-        to: '/age-calculator',
-        label: 'বয়স ক্যালকুলেটর',
-        description: 'চাকরির আবেদনের বয়স ও কোটা যাচাই',
-      },
-      {
-        to: '/amount-in-words',
-        label: 'টাকা কথায় রূপান্তরক',
-        description: 'চেক ও দলিলের টাকার কথায় রূপান্তর',
-      },
-      {
-        to: '/bangla-date-converter',
-        label: 'বাংলা তারিখ কনভার্টার',
-        description: 'ইংরেজি ↔ বাংলা ↔ হিজরি তারিখ ও ইতিহাস',
-      },
-      {
-        to: '/gpa-calculator',
-        label: 'জিপিএ ও সিজিপিএ ক্যালকুলেটর',
-        description: 'এসএসসি, এইচএসসি ও ভার্সিটি সিজিপিএ হিসাব',
-      },
-      {
-        to: '/land-converter',
-        label: 'জমির মাপ কনভার্টার',
-        description: 'শতক, বিঘা, কাঠা, কানি ও একর রূপান্তর',
-      },
-    ],
-  },
-  {
-    id: 'document-tools',
-    label: 'সিভি ও ডকুমেন্ট',
-    categoryKey: 'document',
-    items: [
-      {
-        to: '/pdf-merger',
-        label: 'পিডিএফ মার্জার',
-        description: 'একাধিক PDF ফাইল একত্র ও ফ্রি মার্জ',
-      },
-      {
-        to: '/pdf-split',
-        label: 'পিডিএফ স্প্লিটার',
-        description: 'পেজ রেঞ্জ বা একক পেজে ভাগ ও ZIP ডাউনলোড',
-      },
-      {
-        to: '/pdf-delete-pages',
-        label: 'পিডিএফ পেজ ডিলিট',
-        description: 'অপ্রয়োজনীয় বা অতিরিক্ত পৃষ্ঠা বাদ দিন',
-      },
-      {
-        to: '/pdf-rotate',
-        label: 'পিডিএফ রোটেট',
-        description: 'উল্টো বা বাঁকা পৃষ্ঠা ৯০° বা ১৮০° ঘোরান',
-      },
-      {
-        to: '/pdf-watermark-page-number',
-        label: 'পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর',
-        description: 'কাস্টম টেক্সট/লোগো স্ট্যাম্প ও পৃষ্ঠা নম্বর যোগ',
-      },
-      {
-        to: '/cv-builder',
-        label: 'সিভি ও জীবনবৃত্তান্ত মেকার',
-        description: 'সরকারি ও কর্পোরেট চাকরির ৫টি ফরম্যাটে CV তৈরি',
-      },
-    ],
-  },
-];
+const CATEGORIES: NavCategory[] = navbarContent.categories;
 
 export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
   const location = useLocation();
@@ -252,7 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
           </span>
           <span className="hidden xl:inline text-[#D5E4DB] pl-1">|</span>
           <span className="hidden xl:inline text-sm text-[#4A5A52] whitespace-nowrap">
-            বাংলা ডিজিটাল ইউটিলিটি হাব
+            {navbarContent.tagline}
           </span>
         </Link>
 
@@ -271,7 +158,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
                 : 'text-[#4A5A52] hover:text-[#0B5D3B] hover:bg-[#E6F4EC]/60'
             }`}
           >
-            হোম
+            {navbarContent.homeLabel}
+          </Link>
+
+          <Link
+            to="/blog"
+            onClick={() => handleLinkClick()}
+            className={`px-3 py-2 rounded-lg transition-colors font-medium whitespace-nowrap shrink-0 ${
+              location.pathname.startsWith('/blog')
+                ? 'text-[#0B5D3B] bg-[#E6F4EC] font-semibold'
+                : 'text-[#4A5A52] hover:text-[#0B5D3B] hover:bg-[#E6F4EC]/60'
+            }`}
+          >
+            {navbarContent.blogLabel}
           </Link>
 
           {CATEGORIES.map((category) => {
@@ -414,7 +313,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
                   : 'text-[#0F1F17] hover:bg-[#E6F4EC]'
               }`}
             >
-              হোম
+              {navbarContent.homeLabel}
+            </Link>
+
+            <Link
+              to="/blog"
+              onClick={() => handleLinkClick()}
+              className={`block px-3.5 py-2.5 rounded-xl font-medium text-sm transition-colors ${
+                location.pathname.startsWith('/blog')
+                  ? 'bg-[#E6F4EC] text-[#084A2E] font-semibold'
+                  : 'text-[#0F1F17] hover:bg-[#E6F4EC]'
+              }`}
+            >
+              {navbarContent.blogLabel}
             </Link>
 
             {CATEGORIES.map((category) => {

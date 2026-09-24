@@ -4,6 +4,7 @@ import { X, FileText, CheckCircle2, Image as ImageIcon, FileBox, Calculator, Hel
 import { TOOLS } from '../data/tools.ts';
 import { toBn } from '../utils/bnDigits.ts';
 import { UtoolsLogo } from './UtoolsLogo';
+import footerContent from '../../content/global/footer.json';
 
 const linkClass =
   'flex items-center group text-white/60 hover:text-[#F5A524] transition-colors';
@@ -13,31 +14,10 @@ const dotClass =
 export const Footer: React.FC = () => {
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false);
 
-  const imageTools = [
-    { to: '/photo-resizer', label: 'পাসপোর্ট ও সরকারি ছবি রিসাইজার' },
-    { to: '/bulk-photo-resizer', label: 'বাল্ক ফটো রিসাইজার (Bulk Resizer)' },
-    { to: '/heic-converter', label: 'HEIC → JPG/PNG কনভার্টার' },
-    { to: '/image-merger', label: 'ইমেজ মার্জার ও কোলাজ মেকার' },
-    { to: '/qr-generator', label: 'কাস্টম QR কোড জেনারেটর' },
-  ];
-
-  const pdfDocumentTools = [
-    { to: '/pdf-merger', label: 'পিডিএফ মার্জার (PDF Merger)' },
-    { to: '/pdf-split', label: 'পিডিএফ স্প্লিটার (PDF Splitter)' },
-    { to: '/pdf-delete-pages', label: 'পিডিএফ পেজ ডিলিট' },
-    { to: '/pdf-rotate', label: 'পিডিএফ রোটেট (Rotate Pages)' },
-    { to: '/pdf-watermark-page-number', label: 'পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর' },
-    { to: '/cv-builder', label: 'সিভি ও জীবনবৃত্তান্ত মেকার (CV)' },
-  ];
-
-  const textCalcTools = [
-    { to: '/converter', label: 'বিজয় ↔ ইউনিকোড কনভার্টার' },
-    { to: '/bangla-date-converter', label: 'বাংলা তারিখ কনভার্টার' },
-    { to: '/age-calculator', label: 'সরকারি চাকরির বয়স ক্যালকুলেটর' },
-    { to: '/amount-in-words', label: 'টাকা → কথায় কনভার্টার' },
-    { to: '/gpa-calculator', label: 'জিপিএ ও সিজিপিএ ক্যালকুলেটর' },
-    { to: '/land-converter', label: 'জমির মাপ কনভার্টার' },
-  ];
+  const imageTools = footerContent.imageTools;
+  const pdfDocumentTools = footerContent.pdfDocumentTools;
+  const textCalcTools = footerContent.textCalcTools;
+  const importantLinks = footerContent.importantLinks;
 
   return (
     <>
@@ -56,13 +36,13 @@ export const Footer: React.FC = () => {
                 </span>
               </div>
               <p className="text-sm text-white/60 leading-relaxed">
-                বাংলা ডিজিটাল ইউটিলিটি হাব — বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী, প্রফেশনাল ও সাধারণ মানুষের জন্য সম্পূর্ণ ফ্রি, নিরাপদ ও ব্রাউজার-ভিত্তিক ডিজিটাল টুলবক্স।
+                {footerContent.brandDescription}
               </p>
             </div>
 
             <div className="flex items-center gap-2 text-xs text-[#E6F4EC] bg-white/[0.07] border border-white/10 px-3.5 py-2 shrink-0 self-start md:self-auto rounded-xl">
               <CheckCircle2 className="w-4 h-4 text-[#F5A524] shrink-0" />
-              <span className="font-medium">১০০% ক্লায়েন্ট-সাইড প্রসেসিং • কোনো ফাইল সার্ভারে যায় না</span>
+              <span className="font-medium">{footerContent.privacyBadge}</span>
             </div>
           </div>
 
@@ -71,7 +51,7 @@ export const Footer: React.FC = () => {
             <div className="space-y-3.5">
               <div className="flex items-center gap-2 text-white">
                 <ImageIcon className="w-4 h-4 text-[#F5A524] shrink-0" />
-                <h3 className="text-sm font-semibold font-serif">ইমেজ ও ফটো টুলস</h3>
+                <h3 className="text-sm font-semibold font-serif">{footerContent.imageToolsHeading}</h3>
               </div>
               <ul className="space-y-2 text-sm">
                 {imageTools.map((tool) => (
@@ -87,7 +67,7 @@ export const Footer: React.FC = () => {
             <div className="space-y-3.5">
               <div className="flex items-center gap-2 text-white">
                 <FileBox className="w-4 h-4 text-[#F5A524] shrink-0" />
-                <h3 className="text-sm font-semibold font-serif">পিডিএফ ও ডকুমেন্ট</h3>
+                <h3 className="text-sm font-semibold font-serif">{footerContent.pdfDocumentHeading}</h3>
               </div>
               <ul className="space-y-2 text-sm">
                 {pdfDocumentTools.map((tool) => (
@@ -103,7 +83,7 @@ export const Footer: React.FC = () => {
             <div className="space-y-3.5">
               <div className="flex items-center gap-2 text-white">
                 <Calculator className="w-4 h-4 text-[#F5A524] shrink-0" />
-                <h3 className="text-sm font-semibold font-serif">টেক্সট ও হিসাব</h3>
+                <h3 className="text-sm font-semibold font-serif">{footerContent.textCalcHeading}</h3>
               </div>
               <ul className="space-y-2 text-sm">
                 {textCalcTools.map((tool) => (
@@ -121,27 +101,17 @@ export const Footer: React.FC = () => {
             <div className="space-y-3.5">
               <div className="flex items-center gap-2 text-white">
                 <HelpCircle className="w-4 h-4 text-[#F5A524] shrink-0" />
-                <h3 className="text-sm font-semibold font-serif">গুরুত্বপূর্ণ লিংক</h3>
+                <h3 className="text-sm font-semibold font-serif">{footerContent.importantLinksHeading}</h3>
               </div>
               <ul className="space-y-2 text-sm">
-                <li>
-                  <Link to="/about" className={linkClass}>
-                    <span className={dotClass}></span>
-                    <span>আমাদের সম্পর্কে (About Us)</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/privacy-policy" className={linkClass}>
-                    <span className={dotClass}></span>
-                    <span>গোপনীয়তা নীতি (Privacy Policy)</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contact" className={linkClass}>
-                    <span className={dotClass}></span>
-                    <span>যোগাযোগ ও প্রতিক্রিয়া (Contact)</span>
-                  </Link>
-                </li>
+                {importantLinks.map((link) => (
+                  <li key={link.to}>
+                    <Link to={link.to} className={linkClass}>
+                      <span className={dotClass}></span>
+                      <span>{link.label}</span>
+                    </Link>
+                  </li>
+                ))}
                 <li>
                   <button
                     type="button"
@@ -149,7 +119,7 @@ export const Footer: React.FC = () => {
                     className={`${linkClass} text-left cursor-pointer`}
                   >
                     <span className={dotClass}></span>
-                    <span>ব্যবহারের শর্তাবলী (Terms)</span>
+                    <span>{footerContent.termsLabel}</span>
                   </button>
                 </li>
               </ul>
@@ -158,8 +128,8 @@ export const Footer: React.FC = () => {
 
           {/* Bottom line */}
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/60 gap-3 sm:pr-20">
-            <p>© {new Date().getFullYear()} Utools.bd — সর্বস্বত্ব সংরক্ষিত। সম্পূর্ণ ব্রাউজার-ভিত্তিক ও অফলাইন প্রস্তুত।</p>
-            <p>দ্রুত, নিরাপদ ও নির্ভরযোগ্য বাংলা অনলাইন টুলবক্স</p>
+            <p>© {new Date().getFullYear()} Utools.bd — {footerContent.copyrightText}</p>
+            <p>{footerContent.slogan}</p>
           </div>
         </div>
       </footer>

@@ -1,0 +1,40 @@
+{
+  "brandDescription": "বাংলা ডিজিটাল ইউটিলিটি হাব — বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী, প্রফেশনাল ও সাধারণ মানুষের জন্য সম্পূর্ণ ফ্রি, নিরাপদ ও ব্রাউজার-ভিত্তিক ডিজিটাল টুলবক্স।",
+  "privacyBadge": "১০০% ক্লায়েন্ট-সাইড প্রসেসিং • কোনো ফাইল সার্ভারে যায় না",
+  "imageToolsHeading": "ইমেজ ও ফটো টুলস",
+  "imageTools": [
+    { "to": "/photo-resizer", "label": "পাসপোর্ট ও সরকারি ছবি রিসাইজার" },
+    { "to": "/bulk-photo-resizer", "label": "বাল্ক ফটো রিসাইজার (Bulk Resizer)" },
+    { "to": "/heic-converter", "label": "HEIC → JPG/PNG কনভার্টার" },
+    { "to": "/image-merger", "label": "ইমেজ মার্জার ও কোলাজ মেকার" },
+    { "to": "/qr-generator", "label": "কাস্টম QR কোড জেনারেটর" }
+  ],
+  "pdfDocumentHeading": "পিডিএফ ও ডকুমেন্ট",
+  "pdfDocumentTools": [
+    { "to": "/pdf-merger", "label": "পিডিএফ মার্জার (PDF Merger)" },
+    { "to": "/pdf-split", "label": "পিডিএফ স্প্লিটার (PDF Splitter)" },
+    { "to": "/pdf-delete-pages", "label": "পিডিএফ পেজ ডিলিট" },
+    { "to": "/pdf-rotate", "label": "পিডিএফ রোটেট (Rotate Pages)" },
+    { "to": "/pdf-watermark-page-number", "label": "পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর" },
+    { "to": "/cv-builder", "label": "সিভি ও জীবনবৃত্তান্ত মেকার (CV)" }
+  ],
+  "textCalcHeading": "টেক্সট ও হিসাব",
+  "textCalcTools": [
+    { "to": "/converter", "label": "বিজয় ↔ ইউনিকোড কনভার্টার" },
+    { "to": "/bangla-date-converter", "label": "বাংলা তারিখ কনভার্টার" },
+    { "to": "/age-calculator", "label": "সরকারি চাকরির বয়স ক্যালকুলেটর" },
+    { "to": "/amount-in-words", "label": "টাকা → কথায় কনভার্টার" },
+    { "to": "/gpa-calculator", "label": "জিপিএ ও সিজিপিএ ক্যালকুলেটর" },
+    { "to": "/land-converter", "label": "জমির মাপ কনভার্টার" }
+  ],
+  "importantLinksHeading": "গুরুত্বপূর্ণ লিংক",
+  "importantLinks": [
+    { "to": "/blog", "label": "ব্লগ ও গাইড (Blog)" },
+    { "to": "/about", "label": "আমাদের সম্পর্কে (About Us)" },
+    { "to": "/privacy-policy", "label": "গোপনীয়তা নীতি (Privacy Policy)" },
+    { "to": "/contact", "label": "যোগাযোগ ও প্রতিক্রিয়া (Contact)" }
+  ],
+  "termsLabel": "ব্যবহারের শর্তাবলী (Terms)",
+  "copyrightText": "সর্বস্বত্ব সংরক্ষিত। সম্পূর্ণ ব্রাউজার-ভিত্তিক ও অফলাইন প্রস্তুত।",
+  "slogan": "দ্রুত, নিরাপদ ও নির্ভরযোগ্য বাংলা অনলাইন টুলবক্স"
+}

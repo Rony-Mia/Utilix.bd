@@ -25,6 +25,8 @@ import { toBn } from '../utils/bnDigits.ts';
 import type { ToolItem } from '../types.ts';
 import { ParallaxLayer, ParallaxScene, ParallaxStage } from '../components/parallax/Parallax.tsx';
 import { Diamond, JAMDANI_PATTERN, Ring, SolidDiamond, Wave } from '../components/parallax/scenery.tsx';
+import homeContent from '../../content/pages/home.json';
+import homeFaqs from '../../content/pages/home-faq.json';
 
 interface HomePageProps {
   selectedCategory: string;
@@ -32,33 +34,7 @@ interface HomePageProps {
   onOpenTerms: () => void;
 }
 
-const FAQS = [
-  {
-    question: 'Utools.bd কি সম্পূর্ণ ফ্রি ব্যবহার করা যায়?',
-    answer:
-      'হ্যাঁ, Utools.bd-এর প্রতিটি টুল ১০০% বিনামূল্যে ব্যবহারযোগ্য। কোনো গোপন চার্জ, সাবস্ক্রিপশন ফি বা সাইন-আপ করার প্রয়োজন নেই। শিক্ষার্থী, চাকরিপ্রার্থী ও পেশাজীবী যে কেউ যেকোনো সময় এটি অবাধে ব্যবহার করতে পারেন।'
-  },
-  {
-    question: 'আমার ডেটা, ছবি বা ব্যক্তিগত তথ্য কি কোথাও সংরক্ষিত হয়?',
-    answer:
-      'না, একেবারেই নয়। Utools.bd-এর সমস্ত টুল ক্লায়েন্ট-সাইড প্রযুক্তিতে নির্মিত। আপনার টাইপ করা লেখা, হিসাব বা আপলোড করা ছবি সরাসরি আপনার ব্রাউজারের মেমোরিতে (RAM) প্রসেস হয় এবং কোনো সার্ভারে স্থানান্তরিত বা সংরক্ষিত হয় না।'
-  },
-  {
-    question: 'Utools.bd-তে বর্তমানে কী কী টুল পাওয়া যায়?',
-    answer:
-      `বর্তমানে আমাদের প্ল্যাটফর্মে ${toBn(TOOLS.length)}টি সক্রিয় ডিজিটাল ইউটিলিটি রয়েছে: বিজয় ↔ ইউনিকোড কনভার্টার, সরকারি ছবি ও স্বাক্ষর রিসাইজার, বাল্ক ফটো রিসাইজার, HEIC থেকে JPG/PNG কনভার্টার, ইমেজ মার্জার ও কোলাজ মেকার, কাস্টম QR কোড জেনারেটর, চাকরির বয়স ক্যালকুলেটর, টাকা কথায় রূপান্তরক, জিপিএ/সিজিপিএ ক্যালকুলেটর, জমির মাপ কনভার্টার, সিভি মেকার এবং ৫টি পিডিএফ ইউটিলিটি (পিডিএফ মার্জার, পিডিএফ স্প্লিটার, পিডিএফ পেজ ডিলিট, পিডিএফ রোটেট ও পিডিএফ ওয়াটারমার্ক/পেজ নম্বর)।`
-  },
-  {
-    question: 'ইন্টারনেট সংযোগ ছাড়া অফলাইনে কি এই টুলগুলো কাজ করে?',
-    answer:
-      'হ্যাঁ, ওয়েবসাইটটি একবার আপনার ব্রাউজারে লোড হয়ে গেলে ইন্টারনেট সংযোগ বিচ্ছিন্ন হলেও আপনি সব টুল পুরোপুরি ব্যবহার করতে পারবেন। কারণ এর কোনো ফিচারই দূরবর্তী সার্ভার কলের ওপর নির্ভরশীল নয়।'
-  },
-  {
-    question: 'নতুন কোনো টুল কি ভবিষ্যতে যোগ হবে বা ব্যবহারকারী প্রস্তাব করতে পারবেন?',
-    answer:
-      'হ্যাঁ, আমরা প্রতিনিয়ত ব্যবহারকারীদের বাস্তব চাহিদা পর্যালোচনা করে নতুন নতুন বাংলা ডিজিটাল ইউটিলিটি টুল যোগ করছি। আপনার যদি কোনো বিশেষ টুলের প্রস্তাবনা বা মতামত থাকে, তবে আমাদের "যোগাযোগ" পেজ বা contact@utools.bd ইমেইলের মাধ্যমে সরাসরি জানাতে পারেন।'
-  }
-];
+const FAQS = homeFaqs;
 
 
 // ── Static content ───────────────────────────────────────────────────────────
@@ -202,15 +178,15 @@ const Hero: React.FC = () => (
       <div>
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 bg-[#E6F4EC]/90 text-[#0B5D3B] border border-[#0B5D3B]/25">
           <span aria-hidden="true">🇧🇩</span>
-          <span>১০০% ফ্রি • কোনো লগইন নেই</span>
+          <span>{homeContent.heroBadge}</span>
         </div>
 
         <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-[#0F1F17] tracking-tight leading-[1.2] mb-6">
-          দ্রুত, <span className="squiggle-underline text-[#0B5D3B]">নিরাপদ</span> ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস।
+          {homeContent.heroTitlePrefix}<span className="squiggle-underline text-[#0B5D3B]">{homeContent.heroTitleHighlight}</span>{homeContent.heroTitleSuffix}
         </h1>
 
         <p className="text-lg leading-relaxed mb-10 max-w-xl text-[#4A5A52]">
-          আপনার কোনো ডেটা বা ফাইল সার্ভারে জমা হয় না; সমস্ত রূপান্তর এবং গণনা সরাসরি আপনার কম্পিউটারে সম্পন্ন হয় — নিখরচায় ও তাৎক্ষণিকভাবে।
+          {homeContent.heroSubtitle}
         </p>
 
         <div className="flex flex-wrap gap-4 mb-10">
@@ -232,11 +208,11 @@ const Hero: React.FC = () => (
         <ul className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-[#4A5A52]">
           <li className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-[#0B5D3B] shrink-0" />
-            কোনো লগইন প্রয়োজন নেই
+            {homeContent.heroPoints[0]}
           </li>
           <li className="flex items-center gap-2">
             <Lock className="w-4 h-4 text-[#0B5D3B] shrink-0" />
-            সম্পূর্ণ ব্যক্তিগত ও ব্রাউজার-ভিত্তিক প্রসেসিং
+            {homeContent.heroPoints[1]}
           </li>
         </ul>
       </div>
@@ -330,10 +306,10 @@ const Hero: React.FC = () => (
 
 const Stats: React.FC = () => {
   const stats = [
-    { value: `${toBn(TOOLS.length)}টি`, label: 'ফ্রি টুলস' },
-    { value: '১০০%', label: 'ক্লায়েন্ট-সাইড প্রসেসিং' },
-    { value: '০ টাকা', label: 'সম্পূর্ণ বিনামূল্যে' },
-    { value: 'লগইন ছাড়াই', label: 'সরাসরি ব্যবহার' },
+    { value: `${toBn(TOOLS.length)}টি`, label: homeContent.stats.toolsLabel },
+    { value: homeContent.stats.processingValue, label: homeContent.stats.processingLabel },
+    { value: homeContent.stats.costValue, label: homeContent.stats.costLabel },
+    { value: homeContent.stats.accessValue, label: homeContent.stats.accessLabel },
   ];
   return (
     <div className="max-w-[1000px] mx-auto px-4 sm:px-6 relative z-20 -mt-2 lg:-mt-6">
@@ -375,9 +351,9 @@ const FeaturedTools: React.FC = () => {
       <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6">
         <SectionHeading
           id="featured-heading"
-          badge="প্রয়োজনীয়"
-          title="সবচেয়ে প্রয়োজনীয় টুলস"
-          subtitle="চাকরির আবেদন, পড়াশোনা ও দাপ্তরিক কাজে সবচেয়ে বেশি লাগে যেগুলো"
+          badge={homeContent.featuredHeading.badge}
+          title={homeContent.featuredHeading.title}
+          subtitle={homeContent.featuredHeading.subtitle}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -466,7 +442,11 @@ const AllTools: React.FC<{ selectedCategory: string; onSelectCategory: (c: strin
   return (
     <section id="tools" className="py-20 lg:py-24 bg-white" aria-labelledby="tools-heading">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <SectionHeading id="tools-heading" title="সব টুলস" subtitle="ক্যাটাগরি অনুযায়ী ফিল্টার করুন" />
+        <SectionHeading
+          id="tools-heading"
+          title={homeContent.allToolsHeading.title}
+          subtitle={homeContent.allToolsHeading.subtitle}
+        />
 
         <div className="flex flex-wrap gap-2 mb-10" role="group" aria-label="টুলস ক্যাটাগরি">
           {CATEGORY_TABS.map((tab) => {
@@ -548,9 +528,9 @@ const AboutBand: React.FC = () => (
   <section className="py-16">
     <div className="max-w-[1000px] mx-auto px-4 sm:px-6">
       <div className="rounded-2xl bg-white border border-[#0B5D3B]/10 p-6 sm:p-8 shadow-[0_4px_16px_rgba(11,93,59,0.05)]">
-        <h2 className="text-xl font-bold text-[#0F1F17] mb-3">একটি ঠিকানায় আপনার সব প্রয়োজনীয় বাংলা টুলস</h2>
+        <h2 className="text-xl font-bold text-[#0F1F17] mb-3">{homeContent.banner.heading}</h2>
         <p className="text-sm sm:text-base text-[#4A5A52] leading-relaxed">
-          Utools.bd হলো বাংলাদেশি চাকরিপ্রার্থী, শিক্ষার্থী ও পেশাজীবীদের জন্য নির্মিত একটি উন্মুক্ত ও নিরাপদ প্ল্যাটফর্ম। সরকারি চাকরির টেলিটক পোর্টালে (Teletalk/BPSC) ৩০০×৩০০ ছবি ও স্বাক্ষর রিসাইজ, সার্কুলারের বয়স ও কোটা গণনা, পুরোনো বিজয় (SutonnyMJ) লেখা থেকে ইউনিকোডে রূপান্তর, ব্যাংক চেক ও দলিলের টাকার কথায় রূপান্তর, শিক্ষা বোর্ডের এসএসসি/এইচএসসি ও বিশ্ববিদ্যালয়ের সিজিপিএ হিসাব এবং মানসম্মত সিভি তৈরি—দৈনন্দিন সব জটিল কাজ এখন ঝামেলাহীনভাবে সম্পন্ন করুন কোনো সার্ভার আপলোড ছাড়াই।
+          {homeContent.banner.description}
         </p>
       </div>
     </div>
@@ -562,7 +542,12 @@ const AboutBand: React.FC = () => (
 const HowItWorks: React.FC = () => (
   <section id="how" className="py-20 lg:py-24 bg-white" aria-labelledby="how-heading">
     <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-      <SectionHeading id="how-heading" center badge="কীভাবে কাজ করে" title="মাত্র ৩ ধাপে কাজ করুন" />
+      <SectionHeading
+        id="how-heading"
+        center
+        badge={homeContent.howItWorks.badge}
+        title={homeContent.howItWorks.title}
+      />
       <ol className="relative grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
         <span
           className="hidden md:block absolute top-12 left-[20%] right-[20%] border-t-2 border-dashed border-[#0B5D3B]/20"
@@ -583,8 +568,8 @@ const HowItWorks: React.FC = () => (
                   {i + 1}
                 </span>
               </div>
-              <h3 className="text-xl font-bold mb-2 text-[#0F1F17]">{step.title}</h3>
-              <p className="text-base leading-relaxed text-[#4A5A52] max-w-xs mx-auto">{step.desc}</p>
+              <h3 className="text-xl font-bold mb-2 text-[#0F1F17]">{homeContent.howItWorks.steps[i]?.title ?? step.title}</h3>
+              <p className="text-base leading-relaxed text-[#4A5A52] max-w-xs mx-auto">{homeContent.howItWorks.steps[i]?.desc ?? step.desc}</p>
             </li>
           );
         })}
@@ -638,10 +623,10 @@ const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => (
             <ShieldCheck className="w-9 h-9" />
           </span>
           <h2 id="privacy-heading" className="text-3xl lg:text-4xl font-bold mb-6 text-white tracking-tight">
-            কেন ইউটুলস সম্পূর্ণ নিরাপদ?
+            {homeContent.privacy.heading}
           </h2>
           <p className="text-lg leading-relaxed text-white/75 mb-8">
-            আমাদের প্রতিটি টুল ক্লায়েন্ট-সাইড জাভাস্ক্রিপ্টে নির্মিত। আপনি যা লিখবেন বা আপলোড করবেন তা কখনোই কোনো রিমোট সার্ভার বা ডেটাবেজে স্থানান্তরিত হয় না।
+            {homeContent.privacy.description}
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
@@ -667,7 +652,7 @@ const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => (
         </div>
 
         <ul className="grid grid-cols-1 gap-4">
-          {PRIVACY_POINTS.map((p) => {
+          {PRIVACY_POINTS.map((p, i) => {
             const Icon = p.icon;
             return (
               <li key={p.title} className="flex items-start gap-4 p-5 rounded-2xl bg-white/[0.07] border border-white/10">
@@ -675,8 +660,8 @@ const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => (
                   <Icon className="w-5 h-5" />
                 </span>
                 <div className="flex-1">
-                  <h3 className="font-bold text-white mb-1">{p.title}</h3>
-                  <p className="text-sm text-white/65">{p.desc}</p>
+                  <h3 className="font-bold text-white mb-1">{homeContent.privacy.points[i]?.title ?? p.title}</h3>
+                  <p className="text-sm text-white/65">{homeContent.privacy.points[i]?.desc ?? p.desc}</p>
                 </div>
                 <CheckCircle2 className="w-5 h-5 text-[#F5A524] shrink-0 mt-1" aria-hidden="true" />
               </li>
@@ -695,13 +680,13 @@ const Updates: React.FC = () => (
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-10">
         <div>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4 bg-[#E6F4EC] text-[#0B5D3B]">
-            <Calendar className="w-3.5 h-3.5" /> রিলিজ লগ
+            <Calendar className="w-3.5 h-3.5" /> {homeContent.updatesHeading.badge}
           </span>
           <h2 id="updates-heading" className="text-3xl font-bold text-[#0F1F17] tracking-tight">
-            সাম্প্রতিক আপডেট ও রিলিজ লগ
+            {homeContent.updatesHeading.title}
           </h2>
         </div>
-        <p className="text-sm text-[#4A5A52]">নিয়মিত হালনাগাদ ও নতুন ফিচার সংযোজন</p>
+        <p className="text-sm text-[#4A5A52]">{homeContent.updatesHeading.subtitle}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -912,25 +897,25 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
   return (
     <div>
       <Helmet>
-        <title>Utools.bd — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস</title>
+        <title>{homeContent.metaTitle}</title>
         <meta
           name="description"
-          content="সিভি মেকার, জমির মাপ কনভার্টার, সরকারি চাকরির ছবি রিসাইজার, জিপিএ ক্যালকুলেটর, বিজয়↔ইউনিকোড কনভার্টার ও বয়স ক্যালকুলেটর — সম্পূর্ণ ফ্রি, ব্রাউজারেই।"
+          content={homeContent.metaDescription}
         />
         <link rel="canonical" href="https://utools.bd/" />
-        <meta property="og:title" content="Utools.bd — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস" />
+        <meta property="og:title" content={homeContent.metaTitle} />
         <meta
           property="og:description"
-          content="সিভি মেকার, জমির মাপ কনভার্টার, সরকারি চাকরির ছবি রিসাইজার, জিপিএ ক্যালকুলেটর, বিজয়↔ইউনিকোড কনভার্টার ও বয়স ক্যালকুলেটর — সম্পূর্ণ ফ্রি, ব্রাউজারেই।"
+          content={homeContent.metaDescription}
         />
         <meta property="og:url" content="https://utools.bd/" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://utools.bd/og-image.png?v=2" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Utools.bd — দ্রুত, নিরাপদ ও সম্পূর্ণ ব্রাউজার-ভিত্তিক বাংলা টুলস" />
+        <meta name="twitter:title" content={homeContent.metaTitle} />
         <meta
           name="twitter:description"
-          content="সিভি মেকার, জমির মাপ কনভার্টার, সরকারি চাকরির ছবি রিসাইজার, জিপিএ ক্যালকুলেটর, বিজয়↔ইউনিকোড কনভার্টার ও বয়স ক্যালকুলেটর — সম্পূর্ণ ফ্রি, ব্রাউজারেই।"
+          content={homeContent.metaDescription}
         />
         <meta name="twitter:image" content="https://utools.bd/og-image.png?v=2" />
         <script type="application/ld+json">{JSON.stringify(siteAndOrgSchema)}</script>
