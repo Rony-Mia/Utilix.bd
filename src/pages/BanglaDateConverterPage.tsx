@@ -289,6 +289,19 @@ export const BanglaDateConverterPage: React.FC = () => {
     },
   ];
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.a
+      }
+    }))
+  };
+
   return (
     <>
       <Helmet>
@@ -304,6 +317,7 @@ export const BanglaDateConverterPage: React.FC = () => {
         />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://utools.bd/bangla-date-converter" />
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
       <main className="min-h-screen bg-[#FAFAF7] text-[#0F1F17] py-6 sm:py-10 px-4 sm:px-6 lg:px-8">
