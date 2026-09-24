@@ -4,6 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utools.bd CMS — অ্যাডমিন প্যানেল</title>
+  <!--
+    Fixes "Failed to load config.yml (404)": when this page is reached at
+    /admin (no trailing slash) instead of /admin/, the browser's relative-URL
+    base is the site root, so Decap CMS's relative fetch("config.yml") was
+    resolving to https://utools.bd/config.yml instead of .../admin/config.yml.
+    An explicit <base> pins every relative URL on this page to /admin/
+    regardless of which form of the URL the visitor lands on.
+  -->
+  <base href="/admin/" />
+  <link rel="cms-config-url" href="/admin/config.yml" type="text/yaml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
