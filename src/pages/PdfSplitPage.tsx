@@ -191,30 +191,6 @@ export const PdfSplitPage: React.FC = () => {
     }
   };
 
-  // SEO Schemas
-  const softwareAppSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Utools.bd পিডিএফ স্প্লিটার (PDF Splitter)',
-    operatingSystem: 'All',
-    applicationCategory: 'UtilitiesApplication',
-    browserRequirements: 'Requires JavaScript. Requires HTML5.',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'BDT',
-    },
-    description:
-      'অনলাইনে PDF ফাইল ভাগ করা ও নির্দিষ্ট পেজ আলাদা করার ১০০% ক্লায়েন্ট-সাইড ফ্রি ইউটিলিটি। পেজ রেঞ্জ নির্ধারণ বা প্রতি পেজ আলাদা করে জিপ (ZIP) ডাউনলোডের সুবিধা।',
-    featureList: [
-      'নির্দিষ্ট পেজ রেঞ্জ অনুসারে স্প্লিট (যেমন: 1-3, 5, 7-9)',
-      'প্রতিটি পেজ আলাদা ফাইলে রূপান্তর',
-      'এক ক্লিকে সকল অংশ ZIP আকারে ডাউনলোড',
-      '১০০% অফলাইন ও ক্লায়েন্ট-সাইড ব্রাউজার প্রসেসিং',
-      'কোনো ফাইল সাইজ বা পেজ সংখ্যার কৃত্রিম সীমা নেই',
-    ],
-  };
-
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -312,7 +288,7 @@ export const PdfSplitPage: React.FC = () => {
       badgeText="ডকুমেন্ট ইউটিলিটি • প্রফেশনাল পিডিএফ স্প্লিটার"
       h1="পিডিএফ স্প্লিটার — PDF ফাইল ভাগ ও পেজ আলাদা করুন"
       introText="বড় পিডিএফ বই, সরকারি রেজাল্ট শিট বা চাকরির গেজেট থেকে প্রয়োজনীয় পৃষ্ঠাসমূহ আলাদা করুন সহজে ও নিখুঁতভাবে। নির্দিষ্ট রেঞ্জ (যেমন ১-৪, ৭, ১০-১৫) অথবা প্রতিটি পৃষ্ঠাকে একক ফাইলে রূপান্তর করে এক ক্লিকে জিপ (ZIP) ডাউনলোড করুন সম্পূর্ণ ক্লায়েন্ট-সাইড ও নিরাপদে।"
-      schemas={[softwareAppSchema, faqSchema]}
+      schemas={[faqSchema]}
       howToSteps={howToSteps}
       currentToolId="pdf-split"
       deepDiveTitle="কেন Utools.bd-এর পিডিএফ স্প্লিটার অনন্য ও নির্ভরযোগ্য?"
