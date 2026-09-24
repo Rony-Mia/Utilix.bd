@@ -25,6 +25,12 @@
   </style>
 </head>
 <body>
+  <!-- This gate's own logout (clears only the utools_admin_gate cookie via
+       middleware.ts; does not touch Decap CMS's GitHub login). -->
+  <a
+    href="/admin/logout"
+    style="position:fixed;bottom:10px;right:10px;z-index:9999;font:12px -apple-system,sans-serif;color:#6b7280;background:#fff;border:1px solid #e5e7eb;padding:4px 10px;border-radius:999px;text-decoration:none;"
+  >Basic Auth Logout</a>
   <!-- Decap CMS (Formerly Netlify CMS) CDN script -->
   <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
 </body>
