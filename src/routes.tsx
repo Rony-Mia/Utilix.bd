@@ -123,6 +123,7 @@ export function AppRoutes({
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/blog" element={<BlogListPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="/admin" element={<AdminApp />} />
         <Route path="/admin/*" element={<AdminApp />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
