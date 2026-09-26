@@ -21,8 +21,10 @@ export const ContactPage: React.FC = () => {
   const [subject, setSubject] = useState('general');
   const [relatedTool, setRelatedTool] = useState('none');
   const [message, setMessage] = useState('');
+  const [website, setWebsite] = useState(''); // honeypot; must always stay empty
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const { copied, copy } = useCopyToClipboard();
 
@@ -30,16 +32,31 @@ export const ContactPage: React.FC = () => {
     void copy('contact@utools.bd');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !message.trim()) return;
 
     setSubmitting(true);
-    // Simulate instantaneous client-side acknowledgment
-    setTimeout(() => {
-      setSubmitting(false);
+    setSubmitError(null);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, subject, relatedTool, message, website }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to send message');
+      }
       setSubmitted(true);
-    }, 600);
+    } catch (err: any) {
+      setSubmitError(
+        err?.message ||
+          'বার্তা পাঠাতে সমস্যা হয়েছে। সরাসরি contact@utools.bd-এ ইমেইল করুন।'
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -48,6 +65,7 @@ export const ContactPage: React.FC = () => {
     setSubject('general');
     setRelatedTool('none');
     setMessage('');
+    setSubmitError(null);
     setSubmitted(false);
   };
 
@@ -180,6 +198,17 @@ export const ContactPage: React.FC = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Honeypot: hidden from real visitors, bots often fill every input. */}
+              <input
+                type="text"
+                name="website"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute left-[-9999px] w-px h-px opacity-0"
+              />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label htmlFor="contact-name" className="text-xs font-semibold text-[#084A2E] block">
@@ -281,6 +310,12 @@ export const ContactPage: React.FC = () => {
                   <span>{submitting ? 'পাঠানো হচ্ছে...' : 'বার্তা পাঠান'}</span>
                 </button>
               </div>
+              {submitError && (
+                <p className="text-xs text-[#c8342a] flex items-center gap-1.5 pt-1">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{submitError}</span>
+                </p>
+              )}
             </form>
           )}
         </div>
