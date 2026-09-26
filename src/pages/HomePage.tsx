@@ -3,15 +3,18 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
   ArrowRight,
+  BookOpen,
   Calendar,
   CheckCircle2,
   ChevronDown,
+  Clock,
   Download,
   Gift,
   HelpCircle,
   Lock,
   MousePointerClick,
   ShieldCheck,
+  Tag,
   Upload,
   User,
   UserX,
@@ -22,6 +25,8 @@ import { TOOLS } from '../data/tools.ts';
 import { SITE_UPDATES } from '../data/updates.ts';
 import { getToolIcon } from '../data/toolIcons.tsx';
 import { toBn } from '../utils/bnDigits.ts';
+import { HOMEPAGE_BLOG_POSTS, getCategorySlug } from '../utils/blog.ts';
+import { BlogImage } from '../components/blog/BlogImage.tsx';
 import type { ToolItem } from '../types.ts';
 import { ParallaxLayer, ParallaxScene, ParallaxStage } from '../components/parallax/Parallax.tsx';
 import { Diamond, JAMDANI_PATTERN, Ring, SolidDiamond, Wave } from '../components/parallax/scenery.tsx';
@@ -672,67 +677,113 @@ const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => (
   </ParallaxScene>
 );
 
-// ── Release log (existing content, restyled) ────────────────────────────────
+// ── Latest Blog Posts (Homepage Section) ───────────────────────────────────
 
-const Updates: React.FC = () => (
-  <section className="py-20 lg:py-24" aria-labelledby="updates-heading">
-    <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-10">
-        <div>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4 bg-[#E6F4EC] text-[#0B5D3B]">
-            <Calendar className="w-3.5 h-3.5" /> {homeContent.updatesHeading.badge}
-          </span>
-          <h2 id="updates-heading" className="text-3xl font-bold text-[#0F1F17] tracking-tight">
-            {homeContent.updatesHeading.title}
-          </h2>
+const LatestBlogPosts: React.FC = () => {
+  const heading = (homeContent as any).blogHeading || {
+    badge: 'লেটেস্ট ব্লগ',
+    title: 'ব্লগ ও প্রয়োজনীয় নির্দেশিকা',
+    subtitle: 'চাকরি, শিক্ষা ও ডিজিটাল জীবনকে সহজ করার নির্ভরযোগ্য সহায়ক গাইড',
+  };
+
+  return (
+    <section className="py-20 lg:py-24 bg-[#F8FAF9]/60 border-t border-b border-[#D5E4DB]/60" aria-labelledby="blog-heading">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+          <div>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4 bg-[#E6F4EC] text-[#0B5D3B]">
+              <BookOpen className="w-3.5 h-3.5" /> {heading.badge}
+            </span>
+            <h2 id="blog-heading" className="text-3xl font-bold text-[#0F1F17] tracking-tight">
+              {heading.title}
+            </h2>
+          </div>
+          <p className="text-sm text-[#4A5A52] max-w-md">{heading.subtitle}</p>
         </div>
-        <p className="text-sm text-[#4A5A52]">{homeContent.updatesHeading.subtitle}</p>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {SITE_UPDATES.map((update) => (
-          <article
-            key={update.id}
-            className="rounded-2xl bg-white border border-[#0B5D3B]/10 p-5 flex flex-col justify-between hover:border-[#0B5D3B]/40 transition-colors"
-          >
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-mono text-[#4A5A52]">{update.date}</span>
-                <div className="flex items-center gap-1.5">
-                  <span
-                    className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
-                      update.badgeType === 'new'
-                        ? 'bg-[#0B5D3B] text-white'
-                        : update.badgeType === 'update'
-                        ? 'bg-[#084A2E] text-white'
-                        : 'bg-[#E6F4EC] text-[#084A2E]'
-                    }`}
-                  >
-                    {update.badge}
-                  </span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {HOMEPAGE_BLOG_POSTS.map((post) => (
+            <article
+              key={post.slug}
+              className="rounded-2xl bg-white border border-[#D5E4DB] p-5 flex flex-col justify-between hover:border-[#0B5D3B]/40 hover:shadow-md transition-all group"
+            >
+              <div className="space-y-3">
+                <Link to={`/blog/${post.slug}`} className="block rounded-xl overflow-hidden aspect-[16/9] bg-[#F0F4F2]">
+                  <BlogImage
+                    src={post.image}
+                    alt={post.imageAlt || post.title}
+                    aspectRatio="16/9"
+                    className="group-hover:scale-105 transition-transform duration-300"
+                  />
+                </Link>
+
+                <div className="flex items-center justify-between text-xs text-[#4A5A52] pt-1">
+                  {post.category && (
+                    <Link
+                      to={`/blog/category/${getCategorySlug(post.category)}`}
+                      className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FEF3D0] text-[#B45309] font-medium text-[11px] hover:bg-[#FDE68A] transition-colors"
+                    >
+                      <Tag className="w-3 h-3" />
+                      <span>{post.category}</span>
+                    </Link>
+                  )}
+                  <div className="flex items-center gap-2 font-mono text-[11px]">
+                    {post.readTime && (
+                      <span className="inline-flex items-center gap-1 text-[#4A5A52]">
+                        <Clock className="w-3 h-3" />
+                        <span>{post.readTime}</span>
+                      </span>
+                    )}
+                    <span>{toBn(post.date)}</span>
+                  </div>
                 </div>
-              </div>
-              <h3 className="text-base font-bold text-[#0F1F17]">{update.title}</h3>
-              <p className="text-sm text-[#4A5A52] leading-relaxed">{update.description}</p>
-            </div>
 
-            {update.toolLink && (
-              <div className="pt-3">
+                <h3 className="text-lg font-bold text-[#0F1F17] leading-snug group-hover:text-[#0B5D3B] transition-colors">
+                  <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                </h3>
+
+                <p className="text-xs sm:text-sm text-[#4A5A52] leading-relaxed line-clamp-2">
+                  {post.excerpt}
+                </p>
+              </div>
+
+              <div className="pt-4 mt-4 border-t border-[#D5E4DB]/60 flex items-center justify-between">
+                {post.relatedTool && post.relatedToolLabel ? (
+                  <Link
+                    to={post.relatedTool}
+                    className="text-[11px] font-medium text-[#0B5D3B] hover:underline bg-[#E6F4EC] px-2 py-1 rounded-md"
+                  >
+                    টুল: {post.relatedToolLabel}
+                  </Link>
+                ) : (
+                  <span />
+                )}
+
                 <Link
-                  to={update.toolLink}
-                  className="inline-flex items-center text-sm font-semibold text-[#0B5D3B] hover:text-[#084A2E] hover:underline"
+                  to={`/blog/${post.slug}`}
+                  className="inline-flex items-center text-xs font-bold text-[#0B5D3B] group-hover:text-[#084A2E]"
                 >
-                  <span>{update.toolName || 'টুল দেখুন'}</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                  <span>পড়ুন</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
-            )}
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#0B5D3B] hover:bg-[#084A2E] text-white font-semibold text-sm rounded-xl transition-all shadow-sm hover:shadow-md group cursor-pointer"
+          >
+            <span>সব আর্টিকেল দেখুন</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // ── FAQ ─────────────────────────────────────────────────────────────────────
 
@@ -929,7 +980,7 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
       <AboutBand />
       <HowItWorks />
       <Privacy onOpenTerms={onOpenTerms} />
-      <Updates />
+      <LatestBlogPosts />
       <FaqSection />
       <FinalCta />
     </div>

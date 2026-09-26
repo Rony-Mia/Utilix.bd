@@ -57,6 +57,13 @@ collections:
           - { name: "heroTitleHighlight", label: "হিরো টাইটেল হাইলাইট", widget: "string" }
           - { name: "heroTitleSuffix", label: "হিরো টাইটেল সাফিক্স", widget: "string" }
           - { name: "heroSubtitle", label: "হিরো সাবটাইটেল", widget: "text" }
+          - label: "ব্লগ সেকশন হেডিং"
+            name: "blogHeading"
+            widget: "object"
+            fields:
+              - { name: "badge", label: "ব্যাজ", widget: "string" }
+              - { name: "title", label: "শিরোনাম (H2)", widget: "string" }
+              - { name: "subtitle", label: "সাবটাইটেল", widget: "string" }
       - name: "home-faq"
         label: "হোমপেজ এফএকিউ (FAQ)"
         file: "content/pages/home-faq.json"

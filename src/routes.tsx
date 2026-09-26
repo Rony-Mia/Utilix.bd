@@ -1,10 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { HomePage } from './pages/HomePage.tsx';
 
-// Every non-home page is code-split into its own chunk so the homepage's JS
-// bundle doesn't have to carry all 17 tools' code on first load. Each tool's
-// code downloads only when its route is actually visited.
+const HomePage = lazy(() => import('./pages/HomePage.tsx').then((m) => ({ default: m.HomePage })));
 const ConverterPage = lazy(() => import('./pages/ConverterPage.tsx').then((m) => ({ default: m.ConverterPage })));
 const PhotoResizerPage = lazy(() => import('./pages/PhotoResizerPage.tsx').then((m) => ({ default: m.PhotoResizerPage })));
 const AgeCalculatorPage = lazy(() => import('./pages/AgeCalculatorPage.tsx').then((m) => ({ default: m.AgeCalculatorPage })));
@@ -26,6 +23,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage.tsx').then((m) => ({ defa
 const ContactPage = lazy(() => import('./pages/ContactPage.tsx').then((m) => ({ default: m.ContactPage })));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.tsx').then((m) => ({ default: m.PrivacyPolicyPage })));
 const BlogListPage = lazy(() => import('./pages/BlogListPage.tsx').then((m) => ({ default: m.BlogListPage })));
+const BlogCategoryPage = lazy(() => import('./pages/BlogCategoryPage.tsx').then((m) => ({ default: m.BlogCategoryPage })));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage.tsx').then((m) => ({ default: m.BlogPostPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.tsx').then((m) => ({ default: m.NotFoundPage })));
 
@@ -35,6 +33,7 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage.tsx').then((m) => (
 // each React.lazy() ctor() resolves off an already-cached module instead of
 // a fresh disk read.
 const LAZY_PAGE_IMPORTERS: Array<() => Promise<unknown>> = [
+  () => import('./pages/HomePage.tsx'),
   () => import('./pages/ConverterPage.tsx'),
   () => import('./pages/PhotoResizerPage.tsx'),
   () => import('./pages/AgeCalculatorPage.tsx'),
@@ -56,6 +55,7 @@ const LAZY_PAGE_IMPORTERS: Array<() => Promise<unknown>> = [
   () => import('./pages/ContactPage.tsx'),
   () => import('./pages/PrivacyPolicyPage.tsx'),
   () => import('./pages/BlogListPage.tsx'),
+  () => import('./pages/BlogCategoryPage.tsx'),
   () => import('./pages/BlogPostPage.tsx'),
   () => import('./pages/NotFoundPage.tsx'),
 ];
@@ -92,6 +92,12 @@ export const PRERENDER_ROUTES = [
   '/contact',
   '/privacy-policy',
   '/blog',
+  '/blog/category/culture-history',
+  '/blog/category/job-preparation',
+  '/blog/category/bangla-typing',
+  '/blog/category/education-results',
+  '/blog/category/digital-guide',
+  '/blog/category/utility-tips',
   '/blog/teletalk-photo-signature-resize-guide',
   '/blog/bijoy-to-unicode-conversion-tips',
   '/blog/bangla-date-calculation-rules',
@@ -149,6 +155,7 @@ export function AppRoutes({
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/blog" element={<BlogListPage />} />
+        <Route path="/blog/category/:categorySlug" element={<BlogCategoryPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

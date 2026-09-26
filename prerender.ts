@@ -3,6 +3,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import Critters from 'critters';
 import { PRERENDER_ROUTES, NOT_FOUND_ROUTE } from './src/routes.tsx';
+import { generateRssFeed } from './scripts/generate-rss.ts';
 
 // Single source of truth: routes come from src/routes.tsx.
 // Add a new tool's path there once and it is automatically
@@ -214,6 +215,11 @@ async function prerender() {
   const sitemapXml = generateSitemap(ROUTES);
   fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXml, 'utf-8');
   console.log(`[prerender] Wrote: ${path.join(distDir, 'sitemap.xml')} (${ROUTES.length} routes)`);
+
+  // 7. Auto-generate rss.xml for the blog
+  const rssXml = generateRssFeed();
+  fs.writeFileSync(path.join(distDir, 'rss.xml'), rssXml, 'utf-8');
+  console.log(`[prerender] Wrote: ${path.join(distDir, 'rss.xml')}`);
 
   console.log('[prerender] All routes successfully prerendered!');
 }
