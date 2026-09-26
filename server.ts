@@ -169,8 +169,8 @@ async function startServer() {
       redirect: false,
       maxAge: '1h',
       setHeaders: (res, filePath) => {
-        if (filePath.endsWith('.html')) {
-          res.setHeader('Cache-Control', 'no-cache');
+        if (filePath.endsWith('.html') || filePath.endsWith('.yml') || filePath.endsWith('.yaml')) {
+          res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
         } else if (filePath.match(/\.(woff2?|ttf|otf|eot)$/)) {
           res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
         } else if (filePath.includes('/assets/')) {
