@@ -138,9 +138,12 @@ async function startServer() {
     }
   });
 
-  // Admin redirect
-  app.get('/admin', (req, res) => {
-    res.redirect(301, '/admin/');
+  // Admin redirect (/admin -> /admin/)
+  app.get('/admin', (req, res, next) => {
+    if (req.path === '/admin') {
+      return res.redirect(301, '/admin/');
+    }
+    next();
   });
 
   // 2. Vite middleware in Development OR Static Serving in Production
