@@ -19,7 +19,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { TOOLS } from '../data/tools.ts';
-import { HomeBlogSection } from '../components/home/HomeBlogSection.tsx';
+import { SITE_UPDATES } from '../data/updates.ts';
 import { getToolIcon } from '../data/toolIcons.tsx';
 import { toBn } from '../utils/bnDigits.ts';
 import type { ToolItem } from '../types.ts';
@@ -608,7 +608,7 @@ const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => (
     <ParallaxLayer dist={110} rot={-120} className="bottom-[22%] left-[46%] w-6 h-6 text-white/30 hidden lg:block">
       <Ring className="w-full h-full" />
     </ParallaxLayer>
-    {/* wave edges: white flows in from "How it works", page-colour flows out to the blog section */}
+    {/* wave edges: white flows in from "How it works", page-colour flows out to the release log */}
     <ParallaxLayer x={50} dist={-10} className="left-[-6%] right-[-6%] -top-px h-[80px] text-white">
       <Wave flip variant={1} className="w-full h-full" />
     </ParallaxLayer>
@@ -670,6 +670,68 @@ const Privacy: React.FC<{ onOpenTerms: () => void }> = ({ onOpenTerms }) => (
         </ul>
       </div>
   </ParallaxScene>
+);
+
+// ── Release log (existing content, restyled) ────────────────────────────────
+
+const Updates: React.FC = () => (
+  <section className="py-20 lg:py-24" aria-labelledby="updates-heading">
+    <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-10">
+        <div>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4 bg-[#E6F4EC] text-[#0B5D3B]">
+            <Calendar className="w-3.5 h-3.5" /> {homeContent.updatesHeading.badge}
+          </span>
+          <h2 id="updates-heading" className="text-3xl font-bold text-[#0F1F17] tracking-tight">
+            {homeContent.updatesHeading.title}
+          </h2>
+        </div>
+        <p className="text-sm text-[#4A5A52]">{homeContent.updatesHeading.subtitle}</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {SITE_UPDATES.map((update) => (
+          <article
+            key={update.id}
+            className="rounded-2xl bg-white border border-[#0B5D3B]/10 p-5 flex flex-col justify-between hover:border-[#0B5D3B]/40 transition-colors"
+          >
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-mono text-[#4A5A52]">{update.date}</span>
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+                      update.badgeType === 'new'
+                        ? 'bg-[#0B5D3B] text-white'
+                        : update.badgeType === 'update'
+                        ? 'bg-[#084A2E] text-white'
+                        : 'bg-[#E6F4EC] text-[#084A2E]'
+                    }`}
+                  >
+                    {update.badge}
+                  </span>
+                </div>
+              </div>
+              <h3 className="text-base font-bold text-[#0F1F17]">{update.title}</h3>
+              <p className="text-sm text-[#4A5A52] leading-relaxed">{update.description}</p>
+            </div>
+
+            {update.toolLink && (
+              <div className="pt-3">
+                <Link
+                  to={update.toolLink}
+                  className="inline-flex items-center text-sm font-semibold text-[#0B5D3B] hover:text-[#084A2E] hover:underline"
+                >
+                  <span>{update.toolName || 'টুল দেখুন'}</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                </Link>
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 );
 
 // ── FAQ ─────────────────────────────────────────────────────────────────────
@@ -867,7 +929,7 @@ export const HomePage: React.FC<HomePageProps> = ({ selectedCategory, onSelectCa
       <AboutBand />
       <HowItWorks />
       <Privacy onOpenTerms={onOpenTerms} />
-      <HomeBlogSection />
+      <Updates />
       <FaqSection />
       <FinalCta />
     </div>

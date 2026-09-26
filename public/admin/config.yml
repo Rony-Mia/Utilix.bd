@@ -324,53 +324,13 @@ collections:
     extension: "json"
     format: "json"
     fields:
-      - { name: "title", label: "পোস্টের শিরোনাম (H1)", widget: "string" }
+      - { name: "title", label: "পোস্টের শিরোনাম", widget: "string" }
       - { name: "slug", label: "স্লাগ (URL Slug)", widget: "string" }
-      - { name: "date", label: "প্রকাশের তারিখ (YYYY-MM-DD)", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
-      - { name: "updatedDate", label: "সর্বশেষ আপডেটের তারিখ", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
-      - { name: "author", label: "লেখকের নাম", widget: "string", default: "ইউটিলিটি টিম" }
-      - label: "ক্যাটাগরি"
-        name: "category"
-        widget: "select"
-        options: ["সংস্কৃতি ও ইতিহাস", "চাকরির প্রস্তুতি", "বাংলা টাইピング", "শিক্ষা ও রেজাল্ট", "ডিজিটাল গাইড", "ইউটিলিটি টিপস"]
-        default: "ডিজিটাল গাইড"
-      - label: "ট্যাগসমূহ (Tags)"
-        name: "tags"
-        widget: "list"
-        required: false
-      - { name: "excerpt", label: "সংক্ষিপ্ত বিবরণ (Excerpt / Summary)", widget: "text" }
-      - { name: "image", label: "ফিচার্ড ছবি (Featured Image)", widget: "image", required: false }
-      - { name: "imageAlt", label: "ছবির বিকল্প লেখা (Image Alt Text)", widget: "string", required: false }
+      - { name: "date", label: "প্রকাশের তারিখ (YYYY-MM-DD)", widget: "string" }
+      - { name: "author", label: "লেখকের নাম", widget: "string", default: "ইউটিম" }
+      - { name: "category", label: "ক্যাটাগরি", widget: "string" }
+      - { name: "excerpt", label: "সংক্ষিপ্ত বিবরণ", widget: "text" }
       - { name: "readTime", label: "পড়ার আনুমানিক সময়", widget: "string", default: "৪ মিনিট" }
-      - { name: "published", label: "প্রকাশিত অবস্থা (Published)", widget: "boolean", default: true }
-      - { name: "showOnHomepage", label: "হোমপেজে দেখান (Show on Homepage)", widget: "boolean", default: true }
-      - { name: "homepageFeatured", label: "হোমপেজ ফিচার্ড পোস্ট (Homepage Featured)", widget: "boolean", default: false }
-      - { name: "homepageOrder", label: "হোমপেজ ক্রম (Homepage Order)", widget: "number", value_type: "int", default: 1 }
-      - label: "সম্পর্কিত টুল পাথ (Related Tool Path)"
-        name: "relatedTool"
-        widget: "select"
-        options:
-          - { label: "কোনোটি নয়", value: "" }
-          - { label: "বাংলা তারিখ কনভার্টার (/bangla-date-converter)", value: "/bangla-date-converter" }
-          - { label: "পাসপোর্ট ও সরকারি ছবি রিসাইজার (/photo-resizer)", value: "/photo-resizer" }
-          - { label: "বিজয় ↔ ইউনিকোড কনভার্টার (/converter)", value: "/converter" }
-          - { label: "জিপিএ ও সিজিপিএ ক্যালকুলেটর (/gpa-calculator)", value: "/gpa-calculator" }
-          - { label: "সরকারি চাকরির বয়স ক্যালকুলেটর (/age-calculator)", value: "/age-calculator" }
-          - { label: "জমির মাপ কনভার্টার (/land-converter)", value: "/land-converter" }
-          - { label: "পিডিএফ মার্জার (/pdf-merger)", value: "/pdf-merger" }
-          - { label: "পিডিএফ স্প্লিটার (/pdf-split)", value: "/pdf-split" }
-          - { label: "সিভি মেকার (/cv-builder)", value: "/cv-builder" }
-          - { label: "টাকা কথায় কনভার্টার (/amount-in-words)", value: "/amount-in-words" }
-          - { label: "HEIC কনভার্টার (/heic-converter)", value: "/heic-converter" }
-          - { label: "বাল্ক ফটো রিসাইজার (/bulk-photo-resizer)", value: "/bulk-photo-resizer" }
-          - { label: "QR কোড জেনারেটর (/qr-generator)", value: "/qr-generator" }
-        required: false
-      - { name: "relatedToolLabel", label: "সম্পর্কিত টুলের নাম (Display Label)", widget: "string", required: false }
-      - label: "সম্পর্কিত আর্টিকেলের স্লাগসমূহ (Related Articles)"
-        name: "relatedArticles"
-        widget: "list"
-        required: false
-      - { name: "seoTitle", label: "এসইও টাইটেল (SEO Title)", widget: "string", required: false }
-      - { name: "metaDescription", label: "এসইও মেটা বিবরণ (Meta Description)", widget: "text", required: false }
-      - { name: "canonicalUrl", label: "ক্যানোনিকাল লিংক (Canonical URL)", widget: "string", required: false }
+      - { name: "relatedTool", label: "সম্পর্কিত টুল পাথ (যেমন /photo-resizer)", widget: "string", required: false }
+      - { name: "relatedToolLabel", label: "সম্পর্কিত টুলের নাম", widget: "string", required: false }
       - { name: "content", label: "ব্লগ কনটেন্ট (Markdown)", widget: "markdown" }
