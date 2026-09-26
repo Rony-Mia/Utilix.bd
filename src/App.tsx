@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from '@vercel/analytics/react';
 import { Navbar } from './components/Navbar.tsx';
@@ -17,25 +16,6 @@ interface AppProps {
 export default function App({ helmetContext }: AppProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [showTermsModal, setShowTermsModal] = useState<boolean>(false);
-  const location = useLocation();
-
-  // Admin routes should be a dedicated, self-contained portal without public site chrome
-  const isAdminRoute = location.pathname === '/admin' || location.pathname.startsWith('/admin/');
-
-  if (isAdminRoute) {
-    return (
-      <HelmetProvider context={helmetContext}>
-        <ScrollToTop />
-        <main className="min-h-screen">
-          <AppRoutes
-            selectedCategory={selectedCategory}
-            onSelectCategory={(cat) => setSelectedCategory(cat)}
-            onOpenTerms={() => setShowTermsModal(true)}
-          />
-        </main>
-      </HelmetProvider>
-    );
-  }
 
   return (
     <HelmetProvider context={helmetContext}>

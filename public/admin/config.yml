@@ -5,8 +5,6 @@ backend:
   base_url: https://utools.bd
   auth_endpoint: api/auth
 
-publish_mode: editorial_workflow
-
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
@@ -42,16 +40,8 @@ collections:
         label: "হোমপেজ কনটেন্ট"
         file: "content/pages/home.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল (SEO Title)"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "এসইও মেটা বিবরণ (Meta Description)"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল (SEO Title)", widget: "string" }
+          - { name: "metaDescription", label: "এসইও মেটা বিবরণ (Meta Description)", widget: "text" }
           - { name: "heroBadge", label: "হিরো ব্যাজ", widget: "string" }
           - { name: "heroTitlePrefix", label: "হিরো টাইটেল প্রিফিক্স", widget: "string" }
           - { name: "heroTitleHighlight", label: "হিরো টাইটেল হাইলাইট", widget: "string" }
@@ -71,16 +61,8 @@ collections:
         label: "ফটো ও স্বাক্ষর রিসাইজার"
         file: "content/pages/photo-resizer.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
           - { name: "presetStepTitle", label: "প্রিসেট সেকশন শিরোনাম", widget: "string" }
@@ -101,21 +83,9 @@ collections:
         label: "বাল্ক ফটো রিসাইজার"
         file: "content/pages/bulk-photo-resizer.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaOgDescription"
-            label: "সোশ্যাল শেয়ার বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "metaOgDescription", label: "সোশ্যাল শেয়ার বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
           - { name: "sellingPointTitle", label: "হাইলাইট টাইটেল", widget: "string" }
@@ -131,21 +101,9 @@ collections:
         label: "HEIC কনভার্টার"
         file: "content/pages/heic-converter.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaOgDescription"
-            label: "সোশ্যাল শেয়ার বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "metaOgDescription", label: "সোশ্যাল শেয়ার বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
           - label: "সুবিধাসমূহ (Features)"
@@ -165,21 +123,9 @@ collections:
         label: "ইমেজ মার্জার ও কোলাজ"
         file: "content/pages/image-merger.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaOgDescription"
-            label: "সোশ্যাল শেয়ার বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "metaOgDescription", label: "সোশ্যাল শেয়ার বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
           - { name: "stepsHeading", label: "ধাপসমূহের হেডিং", widget: "string" }
@@ -201,16 +147,8 @@ collections:
         label: "পিডিএফ মার্জার"
         file: "content/pages/pdf-merger.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
           - { name: "stepsHeading", label: "ধাপসমূহের হেডিং", widget: "string" }
@@ -232,16 +170,8 @@ collections:
         label: "পিডিএফ স্প্লিটার"
         file: "content/pages/pdf-split.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "introText", label: "ভূমিকা বিবরণ", widget: "text" }
           - { name: "deepDiveTitle", label: "বিস্তারিত সেকশন শিরোনাম", widget: "string" }
@@ -270,16 +200,8 @@ collections:
         label: "পিডিএফ রোটেট"
         file: "content/pages/pdf-rotate.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "introText", label: "ভূমিকা বিবরণ", widget: "text" }
           - { name: "deepDiveTitle", label: "বিস্তারিত সেকশন শিরোনাম", widget: "string" }
@@ -308,16 +230,8 @@ collections:
         label: "পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর"
         file: "content/pages/pdf-watermark.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "introText", label: "ভূমিকা বিবরণ", widget: "text" }
           - { name: "deepDiveTitle", label: "বিস্তারিত সেকশন শিরোনাম", widget: "string" }
@@ -345,16 +259,8 @@ collections:
         label: "পিডিএফ পেজ ডিলিট"
         file: "content/pages/pdf-delete-pages.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "introText", label: "ভূমিকা বিবরণ", widget: "text" }
           - { name: "deepDiveTitle", label: "বিস্তারিত সেকশন শিরোনাম", widget: "string" }
@@ -383,16 +289,8 @@ collections:
         label: "বয়স ক্যালকুলেটর"
         file: "content/pages/age-calculator.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "introText", label: "ভূমিকা বিবরণ", widget: "text" }
           - { name: "guidelinesHeading", label: "নির্দেশিকা হেডিং", widget: "string" }
@@ -406,16 +304,8 @@ collections:
         label: "জিপিএ ও সিজিপিএ ক্যালকুলেটর"
         file: "content/pages/gpa-calculator.json"
         fields:
-          - name: "metaTitle"
-            label: "এসইও টাইটেল"
-            widget: "string"
-            hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-            pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-          - name: "metaDescription"
-            label: "মেটা বিবরণ"
-            widget: "text"
-            hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-            pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
           - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
           - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
           - { name: "faqHeading", label: "এফএকিউ হেডিং", widget: "string" }
@@ -434,11 +324,7 @@ collections:
     extension: "json"
     format: "json"
     fields:
-      - name: "title"
-        label: "পোস্টের শিরোনাম (H1)"
-        widget: "string"
-        hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-        pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+      - { name: "title", label: "পোস্টের শিরোনাম (H1)", widget: "string" }
       - { name: "slug", label: "স্লাগ (URL Slug)", widget: "string" }
       - { name: "date", label: "প্রকাশের তারিখ (YYYY-MM-DD)", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
       - { name: "updatedDate", label: "সর্বশেষ আপডেটের তারিখ", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
@@ -446,17 +332,13 @@ collections:
       - label: "ক্যাটাগরি"
         name: "category"
         widget: "select"
-        options: ["সংস্কৃতি ও ইতিহাস", "চাকরির প্রস্তুতি", "বাংলা টাইপিং", "শিক্ষা ও রেজাল্ট", "ডিজিটাল গাইড", "ইউটিলিটি টিপস"]
+        options: ["সংস্কৃতি ও ইতিহাস", "চাকরির প্রস্তুতি", "বাংলা টাইピング", "শিক্ষা ও রেজাল্ট", "ডিজিটাল গাইড", "ইউটিলিটি টিপস"]
         default: "ডিজিটাল গাইড"
       - label: "ট্যাগসমূহ (Tags)"
         name: "tags"
         widget: "list"
         required: false
-      - name: "excerpt"
-        label: "সংক্ষিপ্ত বিবরণ (Excerpt / Summary)"
-        widget: "text"
-        hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-        pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+      - { name: "excerpt", label: "সংক্ষিপ্ত বিবরণ (Excerpt / Summary)", widget: "text" }
       - { name: "image", label: "ফিচার্ড ছবি (Featured Image)", widget: "image", required: false }
       - { name: "imageAlt", label: "ছবির বিকল্প লেখা (Image Alt Text)", widget: "string", required: false }
       - { name: "readTime", label: "পড়ার আনুমানিক সময়", widget: "string", default: "৪ মিনিট" }
@@ -484,29 +366,11 @@ collections:
           - { label: "QR কোড জেনারেটর (/qr-generator)", value: "/qr-generator" }
         required: false
       - { name: "relatedToolLabel", label: "সম্পর্কিত টুলের নাম (Display Label)", widget: "string", required: false }
-      - label: "সম্পর্কিত আর্টিকেল (Related Articles)"
+      - label: "সম্পর্কিত আর্টিকেলের স্লাগসমূহ (Related Articles)"
         name: "relatedArticles"
         widget: "list"
         required: false
-        field:
-          label: "আর্টিকেল"
-          name: "articleSlug"
-          widget: "relation"
-          collection: "blog"
-          search_fields: ["title"]
-          display_fields: ["title"]
-          value_field: "slug"
-      - name: "seoTitle"
-        label: "এসইও টাইটেল (SEO Title)"
-        widget: "string"
-        required: false
-        hint: "Google-এ ৫৫-৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — ছোট রাখুন"
-        pattern: ['^.{1,65}$', "টাইটেল ৬৫ ক্যারেক্টারের বেশি না রাখাই ভালো"]
-      - name: "metaDescription"
-        label: "এসইও মেটা বিবরণ (Meta Description)"
-        widget: "text"
-        required: false
-        hint: "Google-এ ১৫৫-১৬০ ক্যারেক্টারের বেশি হলে কেটে যায় — সংক্ষেপে লিখুন"
-        pattern: ['^.{1,160}$', "মেটা ডেসক্রিপশন ১৬০ ক্যারেক্টারের বেশি না রাখাই ভালো"]
+      - { name: "seoTitle", label: "এসইও টাইটেল (SEO Title)", widget: "string", required: false }
+      - { name: "metaDescription", label: "এসইও মেটা বিবরণ (Meta Description)", widget: "text", required: false }
       - { name: "canonicalUrl", label: "ক্যানোনিকাল লিংক (Canonical URL)", widget: "string", required: false }
       - { name: "content", label: "ব্লগ কনটেন্ট (Markdown)", widget: "markdown" }
