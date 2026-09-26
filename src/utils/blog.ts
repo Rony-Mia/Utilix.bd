@@ -1,14 +1,20 @@
+export type ArticleStatus = 'published' | 'draft' | 'scheduled' | 'archived';
+
 export interface BlogPost {
   slug: string;
   title: string;
   date: string;
   updatedDate?: string;
+  status?: ArticleStatus;
+  scheduledAt?: string;
   author?: string;
   category?: string;
   tags?: string[];
   excerpt: string;
   image?: string;
   imageAlt?: string;
+  imageTitle?: string;
+  imageCaption?: string;
   readTime?: string;
   content: string;
   relatedTool?: string;
@@ -21,6 +27,16 @@ export interface BlogPost {
   seoTitle?: string;
   metaDescription?: string;
   canonicalUrl?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  robots?: string;
+  createdAt?: string;
+  createdBy?: string;
+  updatedAt?: string;
+  updatedBy?: string;
+  publishedAt?: string;
+  publishedBy?: string;
 }
 
 // Eagerly import all blog posts from /content/blog/*.json at build time
@@ -29,11 +45,26 @@ const blogModules = import.meta.glob<{ default: BlogPost } | BlogPost>(
   { eager: true }
 );
 
-// All published posts, sorted by date (newest first)
-export const ALL_BLOG_POSTS: BlogPost[] = Object.values(blogModules)
+/** Determines if a post is publicly visible according to publishing & scheduling logic */
+export function isPostPubliclyVisible(post: BlogPost): boolean {
+  if (post.published === false) return false;
+  if (post.status === 'draft' || post.status === 'archived') return false;
+  if (post.status === 'scheduled' && post.scheduledAt) {
+    const scheduledTime = new Date(post.scheduledAt).getTime();
+    if (!isNaN(scheduledTime) && Date.now() < scheduledTime) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// All raw posts (including drafts and scheduled) for admin inspection
+export const RAW_BLOG_POSTS: BlogPost[] = Object.values(blogModules)
   .map((mod: any) => (mod.default ? mod.default : mod))
-  .filter((post: BlogPost) => post.published !== false)
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+// All publicly published posts, sorted by date (newest first)
+export const ALL_BLOG_POSTS: BlogPost[] = RAW_BLOG_POSTS.filter(isPostPubliclyVisible);
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   return ALL_BLOG_POSTS.find((p) => p.slug === slug);

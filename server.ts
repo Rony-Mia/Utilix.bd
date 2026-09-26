@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'node:path';
 import fs from 'node:fs';
 import { createServer as createViteServer } from 'vite';
+import { createAdminRouter } from './src/server/adminApi.ts';
 
 async function startServer() {
   const app = express();
@@ -10,6 +11,25 @@ async function startServer() {
   // Body parsing for JSON and urlencoded
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+  // Check dynamic 301/302 redirects
+  app.use((req, res, next) => {
+    if (req.method !== 'GET') return next();
+    try {
+      const redirPath = path.resolve(process.cwd(), 'content/data/redirects.json');
+      if (fs.existsSync(redirPath)) {
+        const redirects = JSON.parse(fs.readFileSync(redirPath, 'utf-8'));
+        const found = redirects.find((r: any) => r.status === 'active' && r.oldUrl === req.path);
+        if (found && found.newUrl) {
+          return res.redirect(found.type === 302 ? 302 : 301, found.newUrl);
+        }
+      }
+    } catch {}
+    next();
+  });
+
+  // Admin CMS API routes
+  app.use('/api/admin', createAdminRouter());
 
   // 1. API routes FIRST (before static serving or fallback handlers)
   app.get('/api/health', (req, res) => {
@@ -138,11 +158,6 @@ async function startServer() {
     }
   });
 
-  // Admin redirect
-  app.get('/admin', (req, res) => {
-    res.redirect(301, '/admin/');
-  });
-
   // 2. Vite middleware in Development OR Static Serving in Production
   if (process.env.NODE_ENV !== 'production') {
     console.log('[server] Running in development mode with Vite middleware...');
@@ -185,6 +200,11 @@ async function startServer() {
       // Ignore API requests if any slipped through
       if (req.path.startsWith('/api')) {
         return next();
+      }
+
+      // For admin SPA routes, serve index.html directly
+      if (req.path === '/admin' || req.path.startsWith('/admin/')) {
+        return res.sendFile(path.join(distPath, 'index.html'));
       }
 
       const reqPath = req.path.replace(/\/+$/, '') || '/';
