@@ -20,6 +20,7 @@ import {
   Award
 } from 'lucide-react';
 import { RelatedTools } from '../components/RelatedTools.tsx';
+import pageContent from '../../content/pages/age-calculator.json';
 
 // Convert English numbers to Bengali digits
 export function toBanglaNum(num: number | string): string {
@@ -357,27 +358,27 @@ export const AgeCalculatorPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>সরকারি চাকরির বয়স ক্যালকুলেটর — Job Age Calculator BD | Utools.bd</title>
+        <title>{pageContent.metaTitle}</title>
         <meta
           name="description"
-          content="বিজ্ঞপ্তির নির্দিষ্ট তারিখে আপনার সঠিক বয়স (বছর, মাস, দিন) এবং সরকারি ও কোটাভিত্তিক চাকরির যোগ্যতা তাৎক্ষণিক নির্ভুল হিসাব করুন।"
+          content={pageContent.metaDescription}
         />
         <meta
           property="og:title"
-          content="সরকারি চাকরির বয়স ক্যালকুলেটর — Job Age Calculator BD | Utools.bd"
+          content={pageContent.metaTitle}
         />
         <meta
           property="og:description"
-          content="বিজ্ঞপ্তির নির্দিষ্ট তারিখে আপনার সঠিক বয়স (বছর, মাস, দিন) এবং সরকারি ও কোটাভিত্তিক চাকরির যোগ্যতা তাৎক্ষণিক নির্ভুল হিসাব করুন।"
+          content={pageContent.metaDescription}
         />
         <meta property="og:url" content="https://utools.bd/age-calculator" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="সরকারি চাকরির বয়স ক্যালকুলেটর | Utools.bd" />
+        <meta name="twitter:title" content={pageContent.metaTitle} />
         <meta
           name="twitter:description"
-          content="সরকারি চাকরি ও বিসিএস পরীক্ষার জন্য বিজ্ঞপ্তির তারিখে সঠিক বয়স হিসাব করুন।"
+          content={pageContent.metaDescription}
         />
         <meta name="twitter:image" content="https://utools.bd/og-image.png" />
       </Helmet>
@@ -404,11 +405,10 @@ export const AgeCalculatorPage: React.FC = () => {
       {/* Page Title & Intro */}
       <div className="space-y-2">
         <h1 className="text-2xl sm:text-3xl font-bold text-[#084A2E] font-serif tracking-tight">
-          সরকারি চাকরির বয়স ক্যালকুলেটর
+          {pageContent.title}
         </h1>
         <p className="text-sm text-[#34443B] max-w-3xl leading-relaxed">
-          বাংলাদেশি সরকারি চাকরি (বিসিএস, ব্যাংক, প্রাথমিক শিক্ষক ও স্বায়ত্তশাসিত প্রতিষ্ঠান)-এর আবেদনের নির্ধারিত সার্কুলারের তারিখ অনুযায়ী
-          <strong> নির্ভুল বছর, মাস ও দিন</strong> হিসাব করুন। সাধারণ প্রার্থী (৩০ বছর), মুক্তিযোদ্ধা কোটা (৩২ বছর) ও প্রতিবন্ধী কোটায় আপনার প্রার্থিতা অবিলম্বে যাচাই করুন।
+          {pageContent.introText}
         </p>
       </div>
 
@@ -826,30 +826,16 @@ export const AgeCalculatorPage: React.FC = () => {
       <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-6 space-y-4 rounded-2xl">
         <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
           <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
-          <span>সরকারি চাকরিতে বয়স নির্ধারণ ও কোটা সংক্রান্ত সরকারি বিধিমালা</span>
+          <span>{pageContent.guidelinesHeading}</span>
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-[#34443B] leading-relaxed">
-          <div className="space-y-2">
-            <h4 className="font-bold text-[#084A2E]">১. সাধারণ প্রার্থী (৩০ বছর):</h4>
-            <p>
-              বাংলাদেশ সিভিল সার্ভিস (BCS) ও সকল সরকারি, আধা-সরকারি এবং স্বায়ত্তশাসিত প্রতিষ্ঠানে সরাসরি নিয়োগের ক্ষেত্রে সাধারণ প্রার্থীদের সর্বোচ্চ বয়সসীমা <strong>৩০ বছর</strong>। সার্কুলারে উল্লিখিত নির্দিষ্ট তারিখে এই বয়স পূর্ণ হতে হয়।
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <h4 className="font-bold text-[#084A2E]">২. কোটাভুক্ত প্রার্থী (৩২ বছর):</h4>
-            <p>
-              বীর মুক্তিযোদ্ধা ও শহীদ মুক্তিযোদ্ধাদের সন্তান, শারীরিক প্রতিবন্ধী প্রার্থী এবং বিসিএস স্বাস্থ্য ক্যাডারে সহকারী সার্জন ও ডেন্টাল সার্জন পদে আবেদনের সর্বোচ্চ বয়সসীমা <strong>৩২ বছর</strong>।
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <h4 className="font-bold text-[#084A2E]">৩. বয়স গণনার নির্ভুল পদ্ধতি:</h4>
-            <p>
-              শুধু ৩৬৫ দিনে বছর হিসাব করলে লিপ-ইয়ার এবং ফেব্রুয়ারি/৩১ দিনের মাসের কারণে দিনে ভুল হয়। এই ক্যালকুলেটরটি ক্যালেন্ডার তারিখ অনুযায়ী প্রতিটি মাস ও দিনের প্রকৃত ব্যবধান ধরে এক্সাক্ট হিসাব প্রদান করে।
-            </p>
-          </div>
+          {pageContent.guidelines.map((item, idx) => (
+            <div key={idx} className="space-y-2">
+              <h4 className="font-bold text-[#084A2E]">{item.title}</h4>
+              <p>{item.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
 

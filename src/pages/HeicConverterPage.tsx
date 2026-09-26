@@ -24,6 +24,7 @@ import {
   Check
 } from 'lucide-react';
 import { RelatedTools } from '../components/RelatedTools.tsx';
+import pageContent from '../../content/pages/heic-converter.json';
 
 export type OutputFormat = 'jpeg' | 'png' | 'webp';
 
@@ -412,57 +413,31 @@ export const HeicConverterPage: React.FC = () => {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'HEIC ফরম্যাট কী, কেন আইফোনে এটা ব্যবহার হয়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'HEIC (High Efficiency Image Container) হলো অ্যাপল কর্তৃক আইফোনে ব্যবহৃত একটি আধুনিক ইমেজ কম্প্রেশন ফরম্যাট। এটি প্রচলিত JPEG ছবির তুলনায় প্রায় অর্ধেক ফাইল সাইজে একই বা উন্নত ছবির মান প্রদান করে। ফলে আইফোনের মূল্যবান স্টোরেজ সাশ্রয় হয়। তবে অনেক উইন্ডোজ পিসি, পুরনো অ্যান্ড্রয়েড ফোন বা সরকারি অনলাইন পোর্টালে HEIC সরাসরি সমর্থন করে না।',
-        },
+    mainEntity: pageContent.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
       },
-      {
-        '@type': 'Question',
-        name: 'একসাথে কতগুলো ছবি কনভার্ট করা যায়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Utools.bd-তে একসাথে যতগুলো ইচ্ছে ছবি আপলোড ও রূপান্তর করতে পারবেন। এখানে কোনো ফাইলের সংখ্যা বা সাইজের কৃত্রিম সীমাবদ্ধতা নেই। এটি সম্পূর্ণ বিনামূল্যে এবং আনলিমিটেড।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'ছবির কোয়ালিটি কি কমে যায়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'না। আপনার আইফোনের তোলা ছবির পূর্ণ রেজোলিউশন (Full Resolution) অক্ষুণ্ণ রাখা হয়। এছাড়া আপনি নিজের ইচ্ছামতো কোয়ালিটি স্লাইডার দিয়ে ৮০% থেকে ১০০% কোয়ালিটি নির্ধারণ করতে পারেন। আর PNG সিলেক্ট করলে এটি সম্পূর্ণ লসলেসভাবে (Lossless) রূপান্তরিত হয়।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'ছবি কি কোথাও আপলোড বা সংরক্ষণ হয়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'একদমই না! সম্পূর্ণ কনভার্শন প্রসেস আপনার নিজের ডিভাইসের ব্রাউজারে WebAssembly প্রযুক্তিতে সম্পন্ন হয়। আপনার কোনো ছবি বা ব্যক্তিগত ফাইল ইন্টারনেটে বা কোনো রিমোট সার্ভারে আপলোড হয় না। ফলে আপনার ব্যক্তিগত ও পারিবারিক ছবির গোপনীয়তা ১০০% নিশ্চিত থাকে।',
-        },
-      },
-    ],
+    })),
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>HEIC থেকে JPG/PNG কনভার্টার — আইফোন ছবি রূপান্তর | Utools.bd</title>
+        <title>{pageContent.metaTitle}</title>
         <meta
           name="description"
-          content="আইফোনের HEIC ও HEIF ছবি সরাসরি ব্রাউজারে বিনামূল্যে JPG, PNG বা WebP-তে কনভার্ট করুন। ১০০% অফলাইন ও নিরাপদ ক্লায়েন্ট-সাইড প্রসেসিং, ব্যাচ কনভার্ট এবং ZIP ডাউনলোড।"
+          content={pageContent.metaDescription}
         />
         <meta
           property="og:title"
-          content="HEIC থেকে JPG/PNG কনভার্টার — আইফোন ছবি রূপান্তর | Utools.bd"
+          content={pageContent.metaTitle}
         />
         <meta
           property="og:description"
-          content="আইফোনে তোলা HEIC ছবি সহজে রূপান্তর করুন JPG বা PNG ফরম্যাটে। সম্পূর্ণ ফ্রি, দ্রুত এবং কোনো ফাইল সার্ভারে আপলোড হয় না।"
+          content={pageContent.metaOgDescription}
         />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
@@ -493,10 +468,10 @@ export const HeicConverterPage: React.FC = () => {
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-bold text-[#084A2E] font-serif leading-tight">
-          HEIC থেকে JPG/PNG কনভার্টার — আইফোনের ছবি সহজে রূপান্তর করুন
+          {pageContent.title}
         </h1>
         <p className="text-sm text-[#34443B] max-w-3xl leading-relaxed">
-          আইফোনে তোলা ছবি ডিফল্টভাবে উচ্চ প্রযুক্তির <strong>HEIC</strong> ফরম্যাটে সেভ হয়, যেটা অনেক ওয়েবসাইট, সরকারি চাকরি পোর্টাল বা সাধারণ অ্যান্ড্রয়েড ডিভাইসে সরাসরি প্রদর্শিত হয় না। এখানে কোনো অ্যাপ ইনস্টল ছাড়াই আপনার আইফোনের একাধিক ছবি একসাথে <strong>JPG, PNG বা WebP</strong> ফরম্যাটে রূপান্তর করুন।
+          {pageContent.subtitle}
         </p>
       </div>
 
@@ -1033,11 +1008,11 @@ export const HeicConverterPage: React.FC = () => {
           <div className="flex items-center space-x-2 text-[#0B5D3B]">
             <Smartphone className="w-5 h-5" />
             <h3 className="font-bold text-xs sm:text-sm font-serif text-[#084A2E]">
-              আইফোনের আসল রেজোলিউশন
+              {pageContent.features[0].title}
             </h3>
           </div>
           <p className="text-xs text-[#4A5A52] leading-relaxed">
-            ক্যামেরার উচ্চ মান এবং কালার প্রোফাইল অক্ষুণ্ণ রেখে ছবিগুলো কনভার্ট করা হয়। কোনো ব্লার বা অপ্রয়োজনীয় ক্রপ হয় না।
+            {pageContent.features[0].desc}
           </p>
         </div>
 
@@ -1045,11 +1020,11 @@ export const HeicConverterPage: React.FC = () => {
           <div className="flex items-center space-x-2 text-[#0B5D3B]">
             <FileArchive className="w-5 h-5" />
             <h3 className="font-bold text-xs sm:text-sm font-serif text-[#084A2E]">
-              এক ক্লিকে ZIP ডাউনলোড
+              {pageContent.features[1].title}
             </h3>
           </div>
           <p className="text-xs text-[#4A5A52] leading-relaxed">
-            একাধিক ছবি থাকলে প্রতিটি আলাদা ডাউনলোড করার ঝামেলা ছাড়াই সবগুলো ছবি একসাথে গোছানো জিপ প্যাকেজে নামিয়ে নিতে পারবেন।
+            {pageContent.features[1].desc}
           </p>
         </div>
 
@@ -1057,11 +1032,11 @@ export const HeicConverterPage: React.FC = () => {
           <div className="flex items-center space-x-2 text-[#0B5D3B]">
             <ShieldCheck className="w-5 h-5" />
             <h3 className="font-bold text-xs sm:text-sm font-serif text-[#084A2E]">
-              গোপনীয়তা ও অফলাইন সুবিধা
+              {pageContent.features[2].title}
             </h3>
           </div>
           <p className="text-xs text-[#4A5A52] leading-relaxed">
-            কোনো ফাইল ইন্টারনেটে আপলোড হয় না। সম্পূর্ণ কনভার্শন আপনার ব্রাউজারের ভেতর মেমোরিতে নিরাপদে সম্পন্ন হয়।
+            {pageContent.features[2].desc}
           </p>
         </div>
       </div>
@@ -1071,46 +1046,21 @@ export const HeicConverterPage: React.FC = () => {
         <div className="flex items-center space-x-2 border-b border-[#D5E4DB] pb-3">
           <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
           <h2 className="text-base font-bold text-[#084A2E] font-serif">
-            সাধারণ জিজ্ঞাসা (FAQ)
+            {pageContent.faqHeading}
           </h2>
         </div>
 
         <div className="divide-y divide-[#D5E4DB] text-xs sm:text-sm text-[#34443B]">
-          <div className="py-3.5 space-y-1">
-            <h3 className="font-semibold text-[#084A2E]">
-              HEIC ফরম্যাট কী, কেন আইফোনে এটা ব্যবহার হয়?
-            </h3>
-            <p className="text-[#4A5A52] leading-relaxed">
-              HEIC (High Efficiency Image Container) হলো অ্যাপল কর্তৃক আইফোনে ব্যবহৃত একটি আধুনিক ইমেজ কম্প্রেশন ফরম্যাট। এটি প্রচলিত JPEG ছবির তুলনায় প্রায় অর্ধেক ফাইল সাইজে একই বা উন্নত ছবির মান প্রদান করে। ফলে আইফোনের মূল্যবান স্টোরেজ সাশ্রয় হয়। তবে অনেক উইন্ডোজ পিসি, পুরনো অ্যান্ড্রয়েড ফোন বা সরকারি অনলাইন পোর্টালে HEIC সরাসরি সমর্থন করে না বিধায় এটিকে JPG/PNG-তে রূপান্তর করার প্রয়োজন হয়।
-            </p>
-          </div>
-
-          <div className="py-3.5 space-y-1">
-            <h3 className="font-semibold text-[#084A2E]">
-              একসাথে কতগুলো ছবি কনভার্ট করা যায়?
-            </h3>
-            <p className="text-[#4A5A52] leading-relaxed">
-              একসাথে যতগুলো ইচ্ছে ছবি আপলোড ও রূপান্তর করতে পারবেন। এখানে কোনো ফাইলের সংখ্যা বা সাইজের কৃত্রিম সীমাবদ্ধতা নেই। এটি সম্পূর্ণ আনলিমিটেড এবং ফ্রি।
-            </p>
-          </div>
-
-          <div className="py-3.5 space-y-1">
-            <h3 className="font-semibold text-[#084A2E]">
-              ছবির কোয়ালিটি কি কমে যায়?
-            </h3>
-            <p className="text-[#4A5A52] leading-relaxed">
-              না। আপনার আইফোনে তোলা ছবির মূল রেজোলিউশন সম্পূর্ণ অক্ষুণ্ণ রাখা হয়। এছাড়া আপনি নিজের ইচ্ছামতো কোয়ালিটি স্লাইডার দিয়ে ৮০% থেকে ১০০% কোয়ালিটি নির্ধারণ করতে পারেন। আর PNG ফরম্যাট নির্বাচন করলে এটি সম্পূর্ণ লসলেসভাবে (Lossless) রূপান্তরিত হয়।
-            </p>
-          </div>
-
-          <div className="py-3.5 space-y-1">
-            <h3 className="font-semibold text-[#084A2E]">
-              ছবি কি কোথাও আপলোড বা সংরক্ষণ হয়?
-            </h3>
-            <p className="text-[#4A5A52] leading-relaxed">
-              একদমই না! সম্পূর্ণ কনভার্শন প্রসেস আপনার ডিভাইসের ব্রাউজারে WebAssembly প্রযুক্তিতে সম্পন্ন হয়। আপনার কোনো ছবি বা ব্যক্তিগত ফাইল ইন্টারনেটে বা কোনো রিমোট সার্ভারে আপলোড হয় না। ফলে আপনার ব্যক্তিগত ও পারিবারিক ছবির গোপনীয়তা ১০০% সুরক্ষিত থাকে।
-            </p>
-          </div>
+          {pageContent.faqs.map((faq, idx) => (
+            <div key={idx} className="py-3.5 space-y-1">
+              <h3 className="font-semibold text-[#084A2E]">
+                {faq.question}
+              </h3>
+              <p className="text-[#4A5A52] leading-relaxed">
+                {faq.answer}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
 

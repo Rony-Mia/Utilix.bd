@@ -25,6 +25,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { RelatedTools } from '../components/RelatedTools.tsx';
+import pageContent from '../../content/pages/image-merger.json';
 import {
   PageSize,
   PageOrientation,
@@ -359,95 +360,37 @@ export const ImageMergerPage: React.FC = () => {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'ইমেজ মার্জার (Image Merger) দিয়ে কি A4 পেজে একাধিক ছবি প্রিন্ট করা যায়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'হ্যাঁ, খুব সহজেই! পেজ সাইজ থেকে A4 নির্বাচন করে ২×২ (৪টি ছবি), ২×৩ (৬টি ছবি) কিংবা কাস্টম গ্রিড সেট করে এক পেজে একাধিক ছবি সাজিয়ে সরাসরি প্রিন্ট-রেডি PDF বা হাই-কোয়ালিটি JPG আকারে ডাউনলোড করতে পারেন।',
-        },
+    mainEntity: pageContent.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
       },
-      {
-        '@type': 'Question',
-        name: 'এনআইডি (NID) বা আইডি কার্ডের এপিঠ-ওপিঠ কি এক পৃষ্ঠায় জোড়া লাগানো সম্ভব?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'হ্যাঁ, আইডি কার্ডের সামনের এবং পেছনের পৃষ্ঠার ২টি ছবি আপলোড করে "Vertical Stack" বা ২ কলামের গ্রিড নির্বাচন করলে স্বয়ংক্রিয়ভাবে দুটি ছবি সুন্দরভাবে এক ফ্রেমে জোড়া লেগে যাবে।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'ছবিগুলোর ক্রম বা পজিশন কি পরিবর্তন করা যায়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'হ্যাঁ, আপলোডকৃত ছবির থাম্বনেইল মাউস বা আঙুল দিয়ে টেনে (Drag & Drop) অথবা অ্যারো বোতাম চেপে যেকোনো ছবির অবস্থান পরিবর্তন করা যায়। এছাড়াও প্রতিটি ছবি ৯০° কোণে ঘোরানোর (Rotate) ব্যবস্থাও রয়েছে।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'ছবি কি ঝাপসা বা কম কোয়ালিটির হয়ে যাবে?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'না, আমাদের অ্যালগরিদম ১৫০ ডিপিআই (DPI) স্ট্যান্ডার্ড ভেক্টর ক্যানভাসে ছবি রেন্ডার করে। এক্সপোর্টের সময় আপনি ছবির কোয়ালিটি ১০০% পর্যন্ত রাখতে পারেন অথবা লসলেস PNG বেছে নিতে পারেন।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'আমার আপলোড করা ছবি কি ইন্টারনেটে বা কোনো সার্ভারে চলে যায়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'না, কোনো ছবি সার্ভারে যায় না। Utools.bd-এর পুরো প্রযুক্তি আপনার ডিভাইসের ব্রাউজার মেমরিতে (HTML5 Canvas) চলে। অফলাইনেও টুলটি পূর্ণ কার্যক্ষম থাকে।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'ছবিগুলোর মাঝে কি ব্যবধান (Gap) বা বর্ডার যোগ করা যায়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'হ্যাঁ, আপনি প্যাডিং (Padding) স্লাইডার দিয়ে ছবিগুলোর মধ্যকার দূরত্ব এবং মার্জিন (Margin) দিয়ে পেজের কিনারা থেকে দূরত্ব নিয়ন্ত্রণ করতে পারেন। এছাড়াও ফ্রেমের মতো সুন্দর বর্ডার ও গোল কোণ (Border Radius) যুক্ত করার সুযোগ রয়েছে।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'পিডিএফ (PDF) আকারে সেভ করলে কি সরাসরি ফটো পেপারে প্রিন্ট দেওয়া যাবে?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'হ্যাঁ, এক্সপোর্ট ফরম্যাট হিসেবে "PDF" নির্বাচন করলে তা স্ট্যান্ডার্ড প্রিন্টার পেজ মাপ অনুযায়ী তৈরি হয়, যা যেকোনো সাইবার ক্যাফে বা ব্যক্তিগত প্রিন্টারে সরাসরি প্রিন্ট করার উপযোগী।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'টুলটি ব্যবহার করতে কি কোনো টাকা বা রেজিস্ট্রেশন লাগে?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'না, Utools.bd-এর অন্যান্য টুলের মতো এটিও সম্পূর্ণ বিনামূল্যে, বিজ্ঞাপন-মুক্ত এবং কোনো সাইন-আপ ছাড়াই আজীবন ব্যবহারের জন্য উন্মুক্ত।',
-        },
-      },
-    ],
+    })),
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-10">
       <Helmet>
-        <title>ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utools.bd</title>
+        <title>{pageContent.metaTitle}</title>
         <meta
           name="description"
-          content="একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। পাসপোর্ট ছবি প্রিন্ট লেআউট ও অফিসিয়াল ডকুমেন্টের জন্য ফ্রি টুল। ১০০% ক্লায়েন্ট-সাইড ও নিরাপদ।"
+          content={pageContent.metaDescription}
         />
         <link rel="canonical" href="https://utools.bd/image-merger" />
-        <meta property="og:title" content="ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utools.bd" />
+        <meta property="og:title" content={pageContent.metaTitle} />
         <meta
           property="og:description"
-          content="একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। পাসপোর্ট ছবি প্রিন্ট লেআউট ও অফিসিয়াল ডকুমেন্টের জন্য ফ্রি টুল।"
+          content={pageContent.metaOgDescription}
         />
         <meta property="og:url" content="https://utools.bd/image-merger" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ইমেজ মার্জার ও কোলাজ মেকার | Image Merger & Photo Grid Maker Online Free — Utools.bd" />
+        <meta name="twitter:title" content={pageContent.metaTitle} />
         <meta
           name="twitter:description"
-          content="একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজে সাজান, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। ১০০% অফলাইন ও নিরাপদ।"
+          content={pageContent.metaDescription}
         />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
@@ -469,11 +412,11 @@ export const ImageMergerPage: React.FC = () => {
         </div>
 
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#084A2E] tracking-tight">
-          ইমেজ মার্জার ও কোলাজ মেকার (Image Merger & Grid Creator)
+          {pageContent.title}
         </h1>
 
         <p className="text-sm sm:text-base text-[#34443B] max-w-4xl leading-relaxed">
-          একাধিক ছবি সহজে জোড়া লাগিয়ে A4 পেজ, গ্রিড কোলাজ বা ভার্টিক্যাল/হরাইজন্টাল স্ট্রিপ তৈরি করুন। সরকারি আবেদন, পাসপোর্ট ছবি প্রিন্ট লেআউট, এনআইডি কার্ডের এপিঠ-ওপিঠ বা প্রজেক্ট রিপোর্টের জন্য আদর্শ। কোনো ছবি সার্ভারে যায় না।
+          {pageContent.subtitle}
         </p>
       </div>
 
@@ -1113,40 +1056,18 @@ export const ImageMergerPage: React.FC = () => {
         {/* Step-by-Step Guide */}
         <div className="space-y-4 pt-4 border-t border-[#D5E4DB]">
           <h3 className="text-lg font-serif font-bold text-[#084A2E]">
-            কীভাবে খুব সহজে ছবি মার্জ করবেন? (৪টি সহজ ধাপ)
+            {pageContent.stepsHeading}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="border border-[#D5E4DB] bg-[#F0F4F2]/30 p-4 space-y-1 rounded-2xl">
-              <span className="text-xs font-mono font-bold text-[#0B5D3B]">ধাপ ০১</span>
-              <h4 className="font-bold text-sm text-[#084A2E]">ছবি আপলোড</h4>
-              <p className="text-xs text-[#34443B]">
-                কম্পিউটার বা মোবাইল থেকে আপনার কাঙ্ক্ষিত ছবিগুলো একসাথে ড্রপজোন বক্সে নির্বাচন করুন।
-              </p>
-            </div>
-
-            <div className="border border-[#D5E4DB] bg-[#F0F4F2]/30 p-4 space-y-1 rounded-2xl">
-              <span className="text-xs font-mono font-bold text-[#0B5D3B]">ধাপ ০২</span>
-              <h4 className="font-bold text-sm text-[#084A2E]">ক্রম ও রোটেশন ঠিক করা</h4>
-              <p className="text-xs text-[#34443B]">
-                থাম্বনেইল ড্রাগ করে ছবির ক্রম সাজিয়ে নিন এবং উল্টো ছবি থাকলে তা ৯০° রোটেট করে সোজা করুন।
-              </p>
-            </div>
-
-            <div className="border border-[#D5E4DB] bg-[#F0F4F2]/30 p-4 space-y-1 rounded-2xl">
-              <span className="text-xs font-mono font-bold text-[#0B5D3B]">ধাপ ০৩</span>
-              <h4 className="font-bold text-sm text-[#084A2E]">লেআউট ও গ্রিড কাস্টমাইজ</h4>
-              <p className="text-xs text-[#34443B]">
-                A4, Letter বা AutoFit পেজ নির্বাচন করে কলাম, রো, প্যাডিং ও ব্যাকগ্রাউন্ড কালার ঠিক করুন।
-              </p>
-            </div>
-
-            <div className="border border-[#D5E4DB] bg-[#F0F4F2]/30 p-4 space-y-1 rounded-2xl">
-              <span className="text-xs font-mono font-bold text-[#0B5D3B]">ধাপ ০৪</span>
-              <h4 className="font-bold text-sm text-[#084A2E]">এক ক্লিকে ডাউনলোড</h4>
-              <p className="text-xs text-[#34443B]">
-                লাইভ প্রিভিউ সন্তোষজনক হলে JPG, PNG বা সরাসরি Print-ready PDF হিসেবে ডাউনলোড করে নিন।
-              </p>
-            </div>
+            {pageContent.steps.map((item, idx) => (
+              <div key={idx} className="border border-[#D5E4DB] bg-[#F0F4F2]/30 p-4 space-y-1 rounded-2xl">
+                <span className="text-xs font-mono font-bold text-[#0B5D3B]">{item.step}</span>
+                <h4 className="font-bold text-sm text-[#084A2E]">{item.title}</h4>
+                <p className="text-xs text-[#34443B]">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -1154,7 +1075,7 @@ export const ImageMergerPage: React.FC = () => {
         <div className="space-y-4 pt-6 border-t border-[#D5E4DB]">
           <h3 className="text-lg font-serif font-bold text-[#084A2E] flex items-center space-x-2">
             <HelpCircle className="w-5 h-5 text-[#0B5D3B]" />
-            <span>সচরাচর জিজ্ঞাসিত প্রশ্নাবলী (FAQ)</span>
+            <span>{pageContent.faqHeading}</span>
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

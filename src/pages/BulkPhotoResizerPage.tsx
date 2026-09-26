@@ -25,6 +25,7 @@ import {
 import { GOVERNMENT_PRESET_PROFILES } from '../constants/presets.ts';
 import { resizeImage, loadImage, dataUrlToBlob, ResizeResult } from '../utils/imageResize.ts';
 import { RelatedTools } from '../components/RelatedTools.tsx';
+import pageContent from '../../content/pages/bulk-photo-resizer.json';
 
 export interface BulkImageItem {
   id: string;
@@ -393,65 +394,39 @@ export const BulkPhotoResizerPage: React.FC = () => {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'একসাথে কতগুলো ছবি রিসাইজ করা যায়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'একসাথে যত খুশি ছবি আপলোড ও রিসাইজ করতে পারবেন। কোনো সংখ্যার বাধ্যবাধকতা বা কৃত্রিম সীমাবদ্ধতা নেই। অন্যান্য প্রতিযোগী সাইট যেখানে ৫-১০টির বেশি ফাইল দিলে পেইড সাবস্ক্রিপশন দাবি করে, Utools.bd-তে এটি সম্পূর্ণ আনলিমিটেড ও ফ্রি।',
-        },
+    mainEntity: pageContent.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
       },
-      {
-        '@type': 'Question',
-        name: 'ছবিগুলো কি কোনো সার্ভারে আপলোড হয়? প্রাইভেসি কতটা সুরক্ষিত?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'বিন্দুমাত্র নয়। আপনার কোনো ছবি কখনোই কোনো ক্লাউড বা সার্ভারে আপলোড হয় না। সম্পূর্ণ প্রসেসিং সরাসরি আপনার নিজস্ব ডিভাইসে ব্রাউজারের মেমোরিতে (HTML5 Canvas) অফলাইনে ঘটে। আপনার ছবি সম্পূর্ণ সুরক্ষিত ও ব্যক্তিগত থাকে।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'সবগুলো ছবি একসাথে কীভাবে ZIP হিসেবে ডাউনলোড করব?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'সব ছবি প্রসেসিং সম্পন্ন হওয়ার পর "সব ডাউনলোড করুন (ZIP)" বাটনে ক্লিক করলেই সেকেন্ডের মধ্যে ব্রাউজারেই একটি জিপ ফাইল তৈরি হয়ে স্বয়ংক্রিয়ভাবে ডাউনলোড শুরু হবে। এছাড়া এককভাবেও প্রতিটা ছবি আলাদা ডাউনলোড করা সম্ভব।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'সরকারি চাকরি ও বিসিএস পরীক্ষার ৩০০×৩০০ ও ৩০০×৮০ প্রিসেট কি সাপোর্ট করে?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'হ্যাঁ! টেলিটক, বিসিএস, এনআইডি পোর্টাল, বাংলাদেশ ই-পাসপোর্ট এবং প্রাথমিক শিক্ষক নিয়োগের নির্ধারিত ৩০০×৩০০ পিক্সেল (১০০ KB) এবং ৩০০×৮০ পিক্সেল (৬০ KB) সরকারি প্রিসেট রেডিমেড রাখা আছে। এক ক্লিকেই সব ছবি এই নিয়মে ব্যাচ রিসাইজ হয়ে যাবে।',
-        },
-      },
-    ],
+    })),
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>বাল্ক ফটো রিসাইজার — একসাথে একাধিক ছবি রিসাইজ | Utools.bd</title>
+        <title>{pageContent.metaTitle}</title>
         <meta
           name="description"
-          content="একসাথে আনলিমিটেড ছবি রিসাইজ ও কম্প্রেস করুন সম্পূর্ণ বিনামূল্যে। সরকারি চাকরি ৩০০×৩০০ ও ৩০০×৮০ প্রিসেট, এক ক্লিকে ZIP ডাউনলোড। ১০০% ক্লায়েন্ট-সাইড ও সুরক্ষিত।"
+          content={pageContent.metaDescription}
         />
         <meta
           property="og:title"
-          content="বাল্ক ফটো রিসাইজার — একসাথে একাধিক ছবি রিসাইজ | Utools.bd"
+          content={pageContent.metaTitle}
         />
         <meta
           property="og:description"
-          content="আনলিমিটেড ছবি একসাথে ব্যাচে রিসাইজ করুন। কোনো ফাইল লিমিট নেই, সম্পূর্ণ ব্রাউজারে অন-ডিভাইস প্রসেসিং ও এক ক্লিকে ZIP ডাউনলোড।"
+          content={pageContent.metaOgDescription}
         />
         <meta property="og:url" content="https://utools.bd/bulk-photo-resizer" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="বাল্ক ফটো রিসাইজার | Utools.bd" />
+        <meta name="twitter:title" content={pageContent.metaTitle} />
         <meta
           name="twitter:description"
-          content="একসাথে আনলিমিটেড ছবি রিসাইজ ও কম্প্রেস করুন সম্পূর্ণ বিনামূল্যে। ১০০% ক্লায়েন্ট-সাইড।"
+          content={pageContent.metaDescription}
         />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
@@ -484,10 +459,10 @@ export const BulkPhotoResizerPage: React.FC = () => {
           <span className="text-xs text-[#4A5A52]">কোনো ফাইল লিমিট নেই</span>
         </div>
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#084A2E] font-serif tracking-tight">
-          বাল্ক ফটো রিসাইজার (Bulk Photo Resizer)
+          {pageContent.title}
         </h1>
         <p className="text-xs sm:text-sm text-[#4A5A52] max-w-3xl leading-relaxed">
-          একসাথে যত খুশি ছবি আপলোড করে এক ক্লিকে একই মাপে (যেমন সরকারি চাকরির ৩০০×৩০০ বা পাসপোর্ট সাইজ) রিসাইজ ও কম্প্রেস করুন। সম্পূর্ণ প্রসেসিং আপনার ব্রাউজারে ঘটে এবং সবশেষে এক ক্লিকে জিপ (ZIP) ফাইলে ডাউনলোড করা যায়।
+          {pageContent.subtitle}
         </p>
       </div>
 
@@ -499,10 +474,10 @@ export const BulkPhotoResizerPage: React.FC = () => {
           </div>
           <div className="text-xs sm:text-sm text-[#0F1F17]">
             <strong className="text-[#084A2E] block font-serif">
-              আনলিমিটেড ব্যাচ প্রসেসিং — কোনো পেওয়াল বা সীমাবদ্ধতা নেই
+              {pageContent.sellingPointTitle}
             </strong>
             <span className="text-[#34443B] leading-relaxed">
-              অধিকাংশ অনলাইন টুলে ৫ বা ১০টির বেশি ছবি আপলোড করতে দিলে প্রো সাবস্ক্রিপশন কিনতে বাধ্য করে। Utools.bd-তে <strong>সম্পূর্ণ ক্লায়েন্ট-সাইড মেমোরিতে কাজ করার কারণে কোনো ফাইলের সংখ্যাসীমা নেই</strong>।
+              {pageContent.sellingPointDesc}
             </span>
           </div>
         </div>
@@ -1029,46 +1004,21 @@ export const BulkPhotoResizerPage: React.FC = () => {
         <div className="flex items-center space-x-2 border-b border-[#D5E4DB] pb-3">
           <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
           <h2 className="text-base font-bold text-[#084A2E] font-serif">
-            সাধারণ জিজ্ঞাসা (FAQ)
+            {pageContent.faqHeading}
           </h2>
         </div>
 
         <div className="divide-y divide-[#D5E4DB] text-xs sm:text-sm text-[#34443B]">
-          <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#084A2E]">
-              একসাথে কতগুলো ছবি রিসাইজ করা যায়?
-            </h3>
-            <p className="text-[#4A5A52] leading-relaxed">
-              একসাথে যত খুশি ছবি আপলোড ও রিসাইজ করতে পারবেন। কোনো সংখ্যার বাধ্যবাধকতা বা কৃত্রিম সীমাবদ্ধতা নেই। অন্যান্য প্রতিযোগী সাইট যেখানে ৫-১০টির বেশি ফাইল দিলে পেইড সাবস্ক্রিপশন দাবি করে, Utools.bd-তে এটি সম্পূর্ণ আনলিমিটেড ও ফ্রি।
-            </p>
-          </div>
-
-          <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#084A2E]">
-              ছবিগুলো কি কোনো সার্ভারে আপলোড হয়? প্রাইভেসি কতটা সুরক্ষিত?
-            </h3>
-            <p className="text-[#4A5A52] leading-relaxed">
-              বিন্দুমাত্র নয়। আপনার কোনো ছবি কখনোই কোনো ক্লাউড বা সার্ভারে আপলোড হয় না। সম্পূর্ণ প্রসেসিং সরাসরি আপনার নিজস্ব ডিভাইসে ব্রাউজারের মেমোরিতে (HTML5 Canvas) অফলাইনে ঘটে। আপনার ছবি সম্পূর্ণ সুরক্ষিত ও ব্যক্তিগত থাকে।
-            </p>
-          </div>
-
-          <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#084A2E]">
-              সবগুলো ছবি একসাথে কীভাবে ZIP হিসেবে ডাউনলোড করব?
-            </h3>
-            <p className="text-[#4A5A52] leading-relaxed">
-              সব ছবি প্রসেসিং সম্পন্ন হওয়ার পর উপরের "সব ডাউনলোড করুন (ZIP)" বাটনে ক্লিক করলেই সেকেন্ডের মধ্যে ব্রাউজারেই একটি জিপ ফাইল তৈরি হয়ে স্বয়ংক্রিয়ভাবে ডাউনলোড শুরু হবে। এছাড়া এককভাবেও প্রতিটা ছবি আলাদা ডাউনলোড করা সম্ভব।
-            </p>
-          </div>
-
-          <div className="py-3 space-y-1">
-            <h3 className="font-semibold text-[#084A2E]">
-              সরকারি চাকরির ৩০০×৩০০ ও ৩০০×৮০ প্রিসেট কি সাপোর্ট করে?
-            </h3>
-            <p className="text-[#4A5A52] leading-relaxed">
-              হ্যাঁ! টেলিটক, বিসিএস, এনআইডি পোর্টাল, বাংলাদেশ ই-পাসপোর্ট এবং প্রাথমিক শিক্ষক নিয়োগের নির্ধারিত ৩০০×৩০০ পিক্সেল (১০০ KB) এবং ৩০০×৮০ পিক্সেল (৬০ KB) সরকারি প্রিসেট রেডিমেড রাখা আছে। এক ক্লিকেই সব ছবি এই নিয়মে ব্যাচ রিসাইজ হয়ে যাবে।
-            </p>
-          </div>
+          {pageContent.faqs.map((faq, idx) => (
+            <div key={idx} className="py-3 space-y-1">
+              <h3 className="font-semibold text-[#084A2E]">
+                {faq.question}
+              </h3>
+              <p className="text-[#4A5A52] leading-relaxed">
+                {faq.answer}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
 

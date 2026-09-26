@@ -21,6 +21,7 @@ import { PresetProfile } from '../types.ts';
 import { GOVERNMENT_PRESET_PROFILES } from '../constants/presets.ts';
 import { resizeImage } from '../utils/imageResize.ts';
 import { RelatedTools } from '../components/RelatedTools.tsx';
+import pageContent from '../../content/pages/photo-resizer.json';
 
 const ACCEPTED_UPLOAD_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 const MAX_UPLOAD_MB = 15;
@@ -456,27 +457,27 @@ export const PhotoResizerPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>সরকারি চাকরি ও পাসপোর্ট ছবি রিসাইজার — Photo & Signature Resizer | Utools.bd</title>
+        <title>{pageContent.metaTitle}</title>
         <meta
           name="description"
-          content="বিসিএস, সরকারি চাকরি (৩০০×৩০০ পিক্সেল, ১০০ কেবি) ও স্বাক্ষর (৩০০×৮০ পিক্সেল, ৬০ কেবি) সহ পাসপোর্ট সাইজ ছবির নির্ভুল অনলাইন রিসাইজার ও ক্রপার।"
+          content={pageContent.metaDescription}
         />
         <meta
           property="og:title"
-          content="সরকারি চাকরি ও পাসপোর্ট ছবি রিসাইজার — Photo & Signature Resizer | Utools.bd"
+          content={pageContent.metaTitle}
         />
         <meta
           property="og:description"
-          content="বিসিএস, সরকারি চাকরি (৩০০×৩০০ পিক্সেল, ১০০ কেবি) ও স্বাক্ষর (৩০০×৮০ পিক্সেল, ৬০ কেবি) সহ পাসপোর্ট সাইজ ছবির নির্ভুল অনলাইন রিসাইজার ও ক্রপার।"
+          content={pageContent.metaDescription}
         />
         <meta property="og:url" content="https://utools.bd/photo-resizer" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="ছবি ও স্বাক্ষর রিসাইজার | Utools.bd" />
+        <meta name="twitter:title" content={pageContent.metaTitle} />
         <meta
           name="twitter:description"
-          content="সরকারি চাকরি ও পাসপোর্টের নির্ধারিত মাপে ছবি এবং স্বাক্ষর রিসাইজার।"
+          content={pageContent.metaDescription}
         />
         <meta name="twitter:image" content="https://utools.bd/og-image.png" />
       </Helmet>
@@ -503,19 +504,17 @@ export const PhotoResizerPage: React.FC = () => {
       {/* Page Title & Intro */}
       <div className="space-y-2">
         <h1 className="text-2xl sm:text-3xl font-bold text-[#084A2E] font-serif tracking-tight">
-          সরকারি ও পাসপোর্ট ছবি রিসাইজার
+          {pageContent.title}
         </h1>
         <p className="text-sm text-[#34443B] max-w-3xl leading-relaxed">
-          বাংলাদেশি সরকারি চাকরি (Teletalk / BPSC), বিসিএস, প্রাথমিক শিক্ষক নিয়োগ, স্মার্ট এনআইডি ও ই-পাসপোর্ট আবেদনের নির্ধারিত
-          <strong> ৩০০×৩০০ পিক্সেল (১০০ KB)</strong> এবং <strong>৩০০×৮০ পিক্সেল স্বাক্ষর (৬০ KB)</strong> মাপে
-          তাৎক্ষণিক নিখুঁত ক্রপ, রিসাইজ ও বাইনারি সার্চ কম্প্রেশন। সম্পূর্ণ কাজ ব্রাউজারের অভ্যন্তরে সম্পন্ন হয়।
+          {pageContent.subtitle}
         </p>
       </div>
 
       {/* Preset Selector Grid */}
       <div className="space-y-2">
         <label className="text-xs font-bold text-[#084A2E] uppercase tracking-wider block font-serif">
-          ১. নির্ধারিত আবেদনের প্রিসেট নির্বাচন করুন
+          {pageContent.presetStepTitle}
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
           {GOVERNMENT_PRESET_PROFILES.map((p) => {
@@ -1009,27 +1008,25 @@ export const PhotoResizerPage: React.FC = () => {
       <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-6 space-y-4 rounded-2xl">
         <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
           <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
-          <span>সরকারি চাকরি ও পাসপোর্ট আবেদনের অফিশিয়াল নির্দেশিকা</span>
+          <span>{pageContent.guidelinesHeading}</span>
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-[#34443B] leading-relaxed">
           <div className="space-y-2">
-            <h4 className="font-bold text-[#084A2E]">১. ছবির নিয়মাবলী (Photo Rules):</h4>
+            <h4 className="font-bold text-[#084A2E]">{pageContent.photoRulesTitle}</h4>
             <ul className="list-disc pl-4 space-y-1.5">
-              <li>ছবির মাপ অবশ্যই নির্দিষ্ট <strong>৩০০ × ৩০০ পিক্সেল (প্রস্থ × উচ্চতা)</strong> হতে হবে।</li>
-              <li>ছবির ফাইলের আকার কোনোভাবেই <strong>১০০ কিলোবাইট (100 KB)</strong>-এর বেশি হওয়া যাবে না।</li>
-              <li>ছবির ব্যাকগ্রাউন্ড সাধারণত সাদা বা হালকা একরঙা হতে হবে।</li>
-              <li>চোখ ও মুখাবয়ব স্পষ্টভাবে দৃশ্যমান থাকতে হবে, ক্যাপ বা গাঢ় সানগ্লাস পরা ছবি গ্রহণযোগ্য নয়।</li>
+              {pageContent.photoRules.map((rule, idx) => (
+                <li key={idx}>{rule}</li>
+              ))}
             </ul>
           </div>
 
           <div className="space-y-2">
-            <h4 className="font-bold text-[#084A2E]">২. স্বাক্ষরের নিয়মাবলী (Signature Rules):</h4>
+            <h4 className="font-bold text-[#084A2E]">{pageContent.signatureRulesTitle}</h4>
             <ul className="list-disc pl-4 space-y-1.5">
-              <li>স্বাক্ষরের মাপ অবশ্যই নির্দিষ্ট <strong>৩০০ × ৮০ পিক্সেল (প্রস্থ × উচ্চতা)</strong> হতে হবে।</li>
-              <li>স্বাক্ষরের ফাইলের আকার কোনোভাবেই <strong>৬০ কিলোবাইট (60 KB)</strong>-এর বেশি হওয়া যাবে না।</li>
-              <li>সাদা পরিষ্কার কাগজের ওপর কালো কালির বলপেন বা সাইনপেন দিয়ে স্বাক্ষর করে ক্রপ করুন।</li>
-              <li>টেলিটক বা বিসিএস অনলাইন পোর্টালে এই মাপের ব্যত্যয় হলে ফর্ম সাবমিট হবে না।</li>
+              {pageContent.signatureRules.map((rule, idx) => (
+                <li key={idx}>{rule}</li>
+              ))}
             </ul>
           </div>
         </div>
@@ -1039,7 +1036,7 @@ export const PhotoResizerPage: React.FC = () => {
       <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-4 rounded-2xl">
         <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
           <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
-          <span>কোন প্রতিষ্ঠানে কোন সাইজ লাগে — দ্রুত রেফারেন্স টেবিল</span>
+          <span>{pageContent.tableTitle}</span>
         </h3>
 
         <div className="overflow-x-auto border border-[#D5E4DB]">
@@ -1075,37 +1072,16 @@ export const PhotoResizerPage: React.FC = () => {
       <div className="bg-[#FFFFFF] border border-[#D5E4DB] p-5 sm:p-6 space-y-5 rounded-2xl">
         <h3 className="text-sm font-bold text-[#084A2E] font-serif uppercase tracking-wider flex items-center space-x-2">
           <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
-          <span>সাধারণ ভুল যা আবেদন বাতিল করে দেয়</span>
+          <span>{pageContent.faqHeading}</span>
         </h3>
 
         <div className="space-y-4 text-xs sm:text-sm text-[#0F1F17] leading-relaxed">
-          <div className="space-y-1">
-            <h4 className="font-bold text-[#084A2E]">ভুল ব্যাকগ্রাউন্ড কালার</h4>
-            <p className="text-[#34443B]">
-              রঙিন, প্যাটার্নযুক্ত বা ছায়াময় ব্যাকগ্রাউন্ডে তোলা ছবি অনেক পোর্টালে সরাসরি রিজেক্ট হয়। সবসময় <strong>সাদা বা হালকা ধূসর একরঙা ব্যাকগ্রাউন্ডে</strong> তোলা ছবি ব্যবহার করুন — পাসপোর্টের ক্ষেত্রে সাদা ব্যাকগ্রাউন্ড বাধ্যতামূলক।
-            </p>
-          </div>
-
-          <div className="space-y-1">
-            <h4 className="font-bold text-[#084A2E]">"এক্স্যাক্ট" সাইজ না মেলা</h4>
-            <p className="text-[#34443B]">
-              অনেকে ছবি ছোট করেন কিন্তু <strong>অনুপাত (aspect ratio)</strong> ঠিক রাখেন না, ফলে ছবি টেনে বিকৃত (stretched) দেখায়। এই টুলে প্রিসেট সিলেক্ট করলে অনুপাত স্বয়ংক্রিয়ভাবে ঠিক থাকে, তাই ম্যানুয়াল ক্রপের বদলে প্রিসেট ব্যবহার করাই নিরাপদ।
-            </p>
-          </div>
-
-          <div className="space-y-1">
-            <h4 className="font-bold text-[#084A2E]">কম্প্রেস করে সাইজ কমাতে গিয়ে ছবি অস্পষ্ট হয়ে যাওয়া</h4>
-            <p className="text-[#34443B]">
-              KB লিমিট মেলাতে অতিরিক্ত কম্প্রেশন করলে ছবির মুখ ঝাপসা/পিক্সেলেটেড দেখাতে পারে, যা যাচাইকারী কর্মকর্তার কাছে সন্দেহজনক মনে হতে পারে। ভালো রেজোলিউশনের মূল ছবি দিয়ে শুরু করলে কম্প্রেশনের পরও কোয়ালিটি ভালো থাকে।
-            </p>
-          </div>
-
-          <div className="space-y-1">
-            <h4 className="font-bold text-[#084A2E]">স্বাক্ষরের ক্ষেত্রে ভুল কালির রঙ বা ঝাপসা স্ক্যান</h4>
-            <p className="text-[#34443B]">
-              নীল বা হালকা রঙের কালি, অথবা কম আলোয় তোলা স্বাক্ষরের ছবি স্পষ্টভাবে বোঝা যায় না। সবসময় <strong>কালো কালির বলপেন/সাইনপেন</strong> দিয়ে স্বাক্ষর করে ভালো আলোয় ছবি তুলুন বা স্ক্যান করুন।
-            </p>
-          </div>
+          {pageContent.faqs.map((faq, idx) => (
+            <div key={idx} className="space-y-1">
+              <h4 className="font-bold text-[#084A2E]">{faq.question}</h4>
+              <p className="text-[#34443B]">{faq.answer}</p>
+            </div>
+          ))}
         </div>
       </div>
 

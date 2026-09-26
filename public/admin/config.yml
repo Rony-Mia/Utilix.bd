@@ -57,6 +57,264 @@ collections:
             fields:
               - { name: "question", label: "প্রশ্ন", widget: "string" }
               - { name: "answer", label: "উত্তর", widget: "text" }
+      - name: "photo-resizer"
+        label: "ফটো ও স্বাক্ষর রিসাইজার"
+        file: "content/pages/photo-resizer.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
+          - { name: "presetStepTitle", label: "প্রিসেট সেকশন শিরোনাম", widget: "string" }
+          - { name: "guidelinesHeading", label: "অফিশিয়াল নির্দেশিকা হেডিং", widget: "string" }
+          - { name: "photoRulesTitle", label: "ছবির নিয়মাবলী টাইটেল", widget: "string" }
+          - { name: "photoRules", label: "ছবির নিয়মাবলী পয়েন্ট", widget: "list" }
+          - { name: "signatureRulesTitle", label: "স্বাক্ষরের নিয়মাবলী টাইটেল", widget: "string" }
+          - { name: "signatureRules", label: "স্বাক্ষরের নিয়মাবলী পয়েন্ট", widget: "list" }
+          - { name: "tableTitle", label: "রেফারেন্স টেবিল শিরোনাম", widget: "string" }
+          - { name: "faqHeading", label: "এফএকিউ হেডিং", widget: "string" }
+          - label: "প্রশ্নোত্তর তালিকা (FAQ)"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
+      - name: "bulk-photo-resizer"
+        label: "বাল্ক ফটো রিসাইজার"
+        file: "content/pages/bulk-photo-resizer.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "metaOgDescription", label: "সোশ্যাল শেয়ার বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
+          - { name: "sellingPointTitle", label: "হাইলাইট টাইটেল", widget: "string" }
+          - { name: "sellingPointDesc", label: "হাইলাইট বিবরণ", widget: "text" }
+          - { name: "faqHeading", label: "এফএকিউ হেডিং", widget: "string" }
+          - label: "প্রশ্নোত্তর তালিকা (FAQ)"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
+      - name: "heic-converter"
+        label: "HEIC কনভার্টার"
+        file: "content/pages/heic-converter.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "metaOgDescription", label: "সোশ্যাল শেয়ার বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
+          - label: "সুবিধাসমূহ (Features)"
+            name: "features"
+            widget: "list"
+            fields:
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - { name: "faqHeading", label: "এফএকিউ হেডিং", widget: "string" }
+          - label: "প্রশ্নোত্তর তালিকা (FAQ)"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
+      - name: "image-merger"
+        label: "ইমেজ মার্জার ও কোলাজ"
+        file: "content/pages/image-merger.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "metaOgDescription", label: "সোশ্যাল শেয়ার বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
+          - { name: "stepsHeading", label: "ধাপসমূহের হেডিং", widget: "string" }
+          - label: "ব্যবহারের ধাপসমূহ (Steps)"
+            name: "steps"
+            widget: "list"
+            fields:
+              - { name: "step", label: "ধাপ নং", widget: "string" }
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - { name: "faqHeading", label: "এফএকিউ হেডিং", widget: "string" }
+          - label: "প্রশ্নোত্তর তালিকা (FAQ)"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
+      - name: "pdf-merger"
+        label: "পিডিএফ মার্জার"
+        file: "content/pages/pdf-merger.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
+          - { name: "stepsHeading", label: "ধাপসমূহের হেডিং", widget: "string" }
+          - label: "ব্যবহারের ধাপসমূহ (Steps)"
+            name: "steps"
+            widget: "list"
+            fields:
+              - { name: "step", label: "ধাপ নং", widget: "string" }
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - { name: "faqHeading", label: "এফএকিউ হেডিং", widget: "string" }
+          - label: "প্রশ্নোত্তর তালিকা (FAQ)"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
+      - name: "pdf-split"
+        label: "পিডিএফ স্প্লিটার"
+        file: "content/pages/pdf-split.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "introText", label: "ভূমিকা বিবরণ", widget: "text" }
+          - { name: "deepDiveTitle", label: "বিস্তারিত সেকশন শিরোনাম", widget: "string" }
+          - { name: "deepDiveParagraphs", label: "বিস্তারিত অনুচ্ছেদসমূহ", widget: "list" }
+          - { name: "featuresTitle", label: "ফিচার সেকশন শিরোনাম", widget: "string" }
+          - label: "সুবিধাসমূহ (Features)"
+            name: "features"
+            widget: "list"
+            fields:
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - label: "ব্যবহারের ধাপসমূহ (How To Steps)"
+            name: "howToSteps"
+            widget: "list"
+            fields:
+              - { name: "stepNum", label: "ধাপ নং", widget: "string" }
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - label: "প্রশ্নোত্তর তালিকা (FAQ)"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
+      - name: "pdf-rotate"
+        label: "পিডিএফ রোটেট"
+        file: "content/pages/pdf-rotate.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "introText", label: "ভূমিকা বিবরণ", widget: "text" }
+          - { name: "deepDiveTitle", label: "বিস্তারিত সেকশন শিরোনাম", widget: "string" }
+          - { name: "deepDiveParagraphs", label: "বিস্তারিত অনুচ্ছেদসমূহ", widget: "list" }
+          - { name: "featuresTitle", label: "ফিচার সেকশন শিরোনাম", widget: "string" }
+          - label: "সুবিধাসমূহ (Features)"
+            name: "features"
+            widget: "list"
+            fields:
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - label: "ব্যবহারের ধাপসমূহ (How To Steps)"
+            name: "howToSteps"
+            widget: "list"
+            fields:
+              - { name: "stepNum", label: "ধাপ নং", widget: "string" }
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - label: "প্রশ্নোত্তর তালিকা (FAQ)"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
+      - name: "pdf-watermark"
+        label: "পিডিএফ ওয়াটারমার্ক ও পেজ নম্বর"
+        file: "content/pages/pdf-watermark.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "introText", label: "ভূমিকা বিবরণ", widget: "text" }
+          - { name: "deepDiveTitle", label: "বিস্তারিত সেকশন শিরোনাম", widget: "string" }
+          - { name: "deepDiveParagraphs", label: "বিস্তারিত অনুচ্ছেদসমূহ", widget: "list" }
+          - label: "সুবিধাসমূহ (Features)"
+            name: "features"
+            widget: "list"
+            fields:
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - label: "ব্যবহারের ধাপসমূহ (How To Steps)"
+            name: "howToSteps"
+            widget: "list"
+            fields:
+              - { name: "stepNum", label: "ধাপ নং", widget: "string" }
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - label: "প্রশ্নোত্তর তালিকা (FAQ)"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
+      - name: "pdf-delete-pages"
+        label: "পিডিএফ পেজ ডিলিট"
+        file: "content/pages/pdf-delete-pages.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "introText", label: "ভূমিকা বিবরণ", widget: "text" }
+          - { name: "deepDiveTitle", label: "বিস্তারিত সেকশন শিরোনাম", widget: "string" }
+          - { name: "deepDiveParagraphs", label: "বিস্তারিত অনুচ্ছেদসমূহ", widget: "list" }
+          - { name: "featuresTitle", label: "ফিচার সেকশন শিরোনাম", widget: "string" }
+          - label: "সুবিধাসমূহ (Features)"
+            name: "features"
+            widget: "list"
+            fields:
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - label: "ব্যবহারের ধাপসমূহ (How To Steps)"
+            name: "howToSteps"
+            widget: "list"
+            fields:
+              - { name: "stepNum", label: "ধাপ নং", widget: "string" }
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+          - label: "প্রশ্নোত্তর তালিকা (FAQ)"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
+      - name: "age-calculator"
+        label: "বয়স ক্যালকুলেটর"
+        file: "content/pages/age-calculator.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "introText", label: "ভূমিকা বিবরণ", widget: "text" }
+          - { name: "guidelinesHeading", label: "নির্দেশিকা হেডিং", widget: "string" }
+          - label: "সরকারি বিধিমালা (Guidelines)"
+            name: "guidelines"
+            widget: "list"
+            fields:
+              - { name: "title", label: "শিরোনাম", widget: "string" }
+              - { name: "desc", label: "বিবরণ", widget: "text" }
+      - name: "gpa-calculator"
+        label: "জিপিএ ও সিজিপিএ ক্যালকুলেটর"
+        file: "content/pages/gpa-calculator.json"
+        fields:
+          - { name: "metaTitle", label: "এসইও টাইটেল", widget: "string" }
+          - { name: "metaDescription", label: "মেটা বিবরণ", widget: "text" }
+          - { name: "title", label: "পেজ টাইটেল (H1)", widget: "string" }
+          - { name: "subtitle", label: "সাবটাইটেল / বিবরণ", widget: "text" }
+          - { name: "faqHeading", label: "এফএকিউ হেডিং", widget: "string" }
+          - label: "প্রশ্নোত্তর তালিকা (FAQ)"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { name: "question", label: "প্রশ্ন", widget: "string" }
+              - { name: "answer", label: "উত্তর", widget: "text" }
 
   - name: "blog"
     label: "ব্লগ ও গাইড (Blog Posts)"

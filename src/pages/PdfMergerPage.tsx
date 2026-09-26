@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { toBanglaNum } from './AgeCalculatorPage.tsx';
 import { RelatedTools } from '../components/RelatedTools.tsx';
+import pageContent from '../../content/pages/pdf-merger.json';
 
 interface PdfFileItem {
   id: string;
@@ -318,82 +319,32 @@ export const PdfMergerPage: React.FC = () => {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'পিডিএফ মার্জ করলে কি ফাইলের টেক্সট বা ছবির মান কমে যায়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'না, বিন্দুমাত্র মান কমে না। Utools.bd-এর পিডিএফ মার্জার কোনো ক্ষতিকর কম্প্রেশন প্রয়োগ করে না। আপনার প্রতিটি মূল ডকুমেন্টের ভেক্টর টেক্সট, হাই-রেজোলিউশন ছবি, ফন্ট এবং পেজ ডাইমেনশন অবিকল অক্ষুণ্ণ রেখে শুধুমাত্র পেজগুলোকে একত্রিত করে।',
-        },
+    mainEntity: pageContent.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
       },
-      {
-        '@type': 'Question',
-        name: 'একসাথে সর্বোচ্চ কতগুলো ফাইল বা পেজ মার্জ করা যায়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Utools.bd-এর কোনো কৃত্রিম ফাইল সংখ্যা বা পেজ সীমা নেই। সম্পূর্ণ প্রসেসটি আপনার ব্রাউজারের মেমোরিতে (RAM) সম্পন্ন হয়। ফলে সাধারণ কম্পিউটার বা স্মার্টফোনে অনায়াসে ২০-৫০টি ফাইল বা শত শত পেজ একসাথে মার্জ করা যায়।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'পাসওয়ার্ড বা এনক্রিপশন যুক্ত পিডিএফ ফাইল কি মার্জ করা যাবে?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'পাসওয়ার্ড-সুরক্ষিত বা এনক্রিপ্ট করা ফাইল বর্তমানে সমর্থিত নয়। এনক্রিপ্ট করা পিডিএফ যুক্ত করতে চাইলে প্রথমে সেটির পাসওয়ার্ড সুরক্ষা অপসারণ করে সাধারণ আনপ্রোটেক্টেড পিডিএফ হিসেবে এখানে যুক্ত করুন।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'আমার ফাইলগুলো কি কোনো সার্ভারে আপলোড বা জমা থাকে?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'একেবারেই না! এটি ১০০% ক্লায়েন্ট-সাইড টুল। ফাইলগুলো আপনার ডিভাইস থেকে ইন্টারনেটের মাধ্যমে কোনো রিমোট সার্ভারে যায় না। ব্রাউজারের লোকাল মেমোরিতেই সম্পূর্ণ কাজ সম্পন্ন হয়, ফলে আপনার গোপনীয় দলিল বা ব্যক্তিগত তথ্য থাকে সম্পূর্ণ সুরক্ষিত।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'স্মার্টফোন বা ট্যাবলেটে কি এই পিডিএফ মার্জার ব্যবহার করা যাবে?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'হ্যাঁ, অ্যান্ড্রয়েড, আইফোন, আইপ্যাড ও যেকোনো আধুনিক মোবাইল ব্রাউজারে এটি দারুণভাবে কাজ করে। মোবাইল ব্যবহারকারীদের সুবিধার্থে ড্র্যাগ করার পাশাপাশি আপ-ডাউন বাটনের মাধ্যমেও ফাইলের ক্রম পরিবর্তন করার সুবিধা রাখা হয়েছে।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'ফাইল সাইজের কোনো সর্বোচ্চ সীমা (Limit) আছে কি?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'আমাদের সাইট থেকে কোনো কৃত্রিম ফাইল সাইজ লিমিট বা ক্যাপ বসানো হয়নি। যেহেতু কোনো ফাইল সার্ভারে আপলোড করতে হয় না, তাই আপনার ডিভাইসের রানিং মেমোরি যতদূর অনুমতি দেয় তত বড় সাইজের ফাইলই সরাসরি মার্জ করা সম্ভব।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'এই পিডিএফ মার্জার টুলটি কি সম্পূর্ণ ফ্রি?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'হ্যাঁ, Utools.bd-এর প্রতিটি ইউটিলিটি টুলের মতো এই পিডিএফ মার্জার টুলটিও আজীবন শতভাগ বিনামূল্যে উন্মুক্ত। কোনো প্রকার হিডেন চার্জ, ওয়াটারমার্ক, দৈনিক ট্রায়াল লিমিট বা ক্রেডিট কার্ডের প্রয়োজন নেই।',
-        },
-      },
-    ],
+    })),
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       <Helmet>
-        <title>পিডিএফ মার্জার — আনলিমিটেড PDF Merge Online Free | Utools.bd</title>
+        <title>{pageContent.metaTitle}</title>
         <meta
           name="description"
-          content="একাধিক PDF ফাইল একত্র করুন সম্পূর্ণ বিনামূল্যে। কোনো ফাইল বা পেজ সীমা নেই, ১০০% ক্লায়েন্ট-সাইড ব্রাউজারেই নিরাপদ ও দ্রুত মার্জ — কোনো সার্ভার আপলোড নেই।"
+          content={pageContent.metaDescription}
         />
         <link rel="canonical" href="https://utools.bd/pdf-merger" />
         <meta
           property="og:title"
-          content="পিডিএফ মার্জার — আনলিমিটেড PDF Merge Online Free | Utools.bd"
+          content={pageContent.metaTitle}
         />
         <meta
           property="og:description"
-          content="একাধিক PDF ফাইল একত্র করুন সম্পূর্ণ বিনামূল্যে। কোনো ফাইল বা পেজ সীমা নেই, ১০০% ক্লায়েন্ট-সাইড ব্রাউজারেই নিরাপদ ও দ্রুত মার্জ — কোনো সার্ভার আপলোড নেই।"
+          content={pageContent.metaDescription}
         />
         <meta property="og:url" content="https://utools.bd/pdf-merger" />
         <meta property="og:type" content="website" />
@@ -401,11 +352,11 @@ export const PdfMergerPage: React.FC = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="পিডিএফ মার্জার — আনলিমিটেড PDF Merge Online Free | Utools.bd"
+          content={pageContent.metaTitle}
         />
         <meta
           name="twitter:description"
-          content="একাধিক PDF ফাইল একত্র করুন সম্পূর্ণ বিনামূল্যে। কোনো ফাইল বা পেজ সীমা নেই, ১০০% ক্লায়েন্ট-সাইড ব্রাউজারেই নিরাপদ ও দ্রুত মার্জ — কোনো সার্ভার আপলোড নেই।"
+          content={pageContent.metaDescription}
         />
         <meta name="twitter:image" content="https://utools.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
@@ -437,10 +388,10 @@ export const PdfMergerPage: React.FC = () => {
           <span>ডকুমেন্ট ইউটিলিটি • প্রফেশনাল পিডিএফ মার্জার</span>
         </div>
         <h1 className="text-2xl sm:text-4xl font-bold text-[#084A2E] font-serif tracking-tight">
-          পিডিএফ মার্জার — একাধিক PDF ফাইল একত্র করুন
+          {pageContent.title}
         </h1>
         <p className="text-sm sm:text-base text-[#34443B] max-w-4xl leading-relaxed">
-          সরকারি ও বেসরকারি চাকরির আবেদন, ব্যাংক লোন, বিশ্ববিদ্যালয়ের অ্যাসাইনমেন্ট বা আইনি নথিপত্রের জন্য একাধিক পিডিএফ ফাইলকে ক্রমানুসারে সাজিয়ে একটি একক ফাইলে মার্জ করুন। অন্যান্য অনলাইন টুলের মতো এখানে কোনো ফাইল বা পেজ সীমা নেই, সাইন-আপের বাধ্যবাধকতা নেই এবং ফাইল ইন্টারনেটে আপলোড হয় না—সম্পূর্ণ মার্জ আপনার ব্রাউজারেই দ্রুততম সময়ে সম্পন্ন হয়।
+          {pageContent.subtitle}
         </p>
       </div>
 
@@ -906,49 +857,19 @@ export const PdfMergerPage: React.FC = () => {
       {/* Step-by-Step Usage Guide */}
       <section className="bg-[#FFFFFF] border border-[#D5E4DB] p-6 sm:p-7 space-y-5 rounded-2xl">
         <h2 className="text-lg sm:text-xl font-bold text-[#084A2E] font-serif border-b border-[#D5E4DB] pb-3">
-          সহজ ৪টি ধাপে পিডিএফ ফাইল মার্জ করার নিয়ম
+          {pageContent.stepsHeading}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs sm:text-sm text-[#0F1F17]">
-          <div className="border border-[#D5E4DB] p-4 bg-[#F0F4F2]/30 space-y-2 rounded-2xl">
-            <div className="text-xs font-mono font-bold text-[#0B5D3B] bg-[#FFFFFF] border border-[#D5E4DB] w-7 h-7 flex items-center justify-center rounded-lg">
-              ১
+          {pageContent.steps.map((item, idx) => (
+            <div key={idx} className="border border-[#D5E4DB] p-4 bg-[#F0F4F2]/30 space-y-2 rounded-2xl">
+              <div className="text-xs font-mono font-bold text-[#0B5D3B] bg-[#FFFFFF] border border-[#D5E4DB] w-7 h-7 flex items-center justify-center rounded-lg">
+                {item.step}
+              </div>
+              <h3 className="font-bold text-[#084A2E]">{item.title}</h3>
+              <p className="text-xs text-[#34443B] leading-relaxed">{item.desc}</p>
             </div>
-            <h3 className="font-bold text-[#084A2E]">ফাইল নির্বাচন করুন</h3>
-            <p className="text-xs text-[#34443B] leading-relaxed">
-              "পিডিএফ ফাইল নির্বাচন করুন" বাটনে ক্লিক করে কিংবা কম্পিউটার ফোল্ডার থেকে সরাসরি ড্রপ করে একাধিক .pdf ফাইল যোগ করুন।
-            </p>
-          </div>
-
-          <div className="border border-[#D5E4DB] p-4 bg-[#F0F4F2]/30 space-y-2 rounded-2xl">
-            <div className="text-xs font-mono font-bold text-[#0B5D3B] bg-[#FFFFFF] border border-[#D5E4DB] w-7 h-7 flex items-center justify-center rounded-lg">
-              ২
-            </div>
-            <h3 className="font-bold text-[#084A2E]">ক্রম বা সিরিয়াল সাজান</h3>
-            <p className="text-xs text-[#34443B] leading-relaxed">
-              তালিকার প্রতিটি ফাইলের ড্র্যাগ হ্যান্ডেল ধরে টেনে উপরে-নিচে নিয়ে যান অথবা ডানের তীরচিহ্ন ব্যবহার করে নির্দিষ্ট ক্রম ঠিক করুন।
-            </p>
-          </div>
-
-          <div className="border border-[#D5E4DB] p-4 bg-[#F0F4F2]/30 space-y-2 rounded-2xl">
-            <div className="text-xs font-mono font-bold text-[#0B5D3B] bg-[#FFFFFF] border border-[#D5E4DB] w-7 h-7 flex items-center justify-center rounded-lg">
-              ৩
-            </div>
-            <h3 className="font-bold text-[#084A2E]">মার্জ বাটনে ক্লিক করুন</h3>
-            <p className="text-xs text-[#34443B] leading-relaxed">
-              সবকিছু ঠিক থাকলে "মার্জ করুন" বাটনে ক্লিক করুন। আপনার ব্রাউজার কয়েক সেকেন্ডের মধ্যে ফাইলগুলোকে একত্র করে ফেলবে।
-            </p>
-          </div>
-
-          <div className="border border-[#D5E4DB] p-4 bg-[#F0F4F2]/30 space-y-2 rounded-2xl">
-            <div className="text-xs font-mono font-bold text-[#0B5D3B] bg-[#FFFFFF] border border-[#D5E4DB] w-7 h-7 flex items-center justify-center rounded-lg">
-              ৪
-            </div>
-            <h3 className="font-bold text-[#084A2E]">ডাউনলোড বা প্রিভিউ নিন</h3>
-            <p className="text-xs text-[#34443B] leading-relaxed">
-              মার্জ সম্পন্ন হলে তাৎক্ষণিক "ডাউনলোড" বাটনে ক্লিক করে <strong>merged-utools.pdf</strong> ফাইলটি আপনার ডিভাইসে সেভ করুন।
-            </p>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -957,90 +878,19 @@ export const PdfMergerPage: React.FC = () => {
         <div className="flex items-center space-x-2 border-b border-[#D5E4DB] pb-3">
           <HelpCircle className="w-5 h-5 text-[#0B5D3B]" />
           <h2 className="text-base sm:text-xl font-bold text-[#084A2E] font-serif">
-            প্রায়শই জিজ্ঞাসিত প্রশ্ন ও উত্তর (FAQ)
+            {pageContent.faqHeading}
           </h2>
         </div>
 
         <div className="space-y-6 text-xs sm:text-sm text-[#0F1F17] leading-relaxed">
-          {/* FAQ 1 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E] text-sm sm:text-base">
-              ১. পিডিএফ মার্জ করলে কি লেখার বা ছবির মান (Quality) কমে যায়?
-            </h3>
-            <p className="text-[#34443B]">
-              না, বিন্দুমাত্র কোয়ালিটি নষ্ট হয় না। Utools.bd-এর পিডিএফ মার্জার কোনো ক্ষতিকর কম্প্রেশন প্রয়োগ করে না। আপনার প্রতিটি মূল ডকুমেন্টের ভেক্টর টেক্সট, হাই-রেজোলিউশন ছবি, ফন্ট এবং পেজ ডাইমেনশন অবিকল অক্ষুণ্ণ রেখে শুধুমাত্র পেজগুলোকে একটি অভিন্ন কন্টেইনারে একত্রিত করে।
-            </p>
-          </div>
-
-          {/* FAQ 2 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E] text-sm sm:text-base">
-              ২. একসাথে সর্বোচ্চ কতগুলো ফাইল বা পেজ মার্জ করা সম্ভব?
-            </h3>
-            <p className="text-[#34443B]">
-              আমাদের সিস্টেমে কোনো কৃত্রিম ফাইল সংখ্যা বা পেজ সীমা নির্ধারিত নেই। সম্পূর্ণ প্রসেসটি যেহেতু আপনার ব্রাউজারের মেমোরিতে (RAM) সম্পন্ন হয়, তাই ডিভাইসের মেমোরি সক্ষমতা অনুযায়ী ১০, ২০, ৫০ বা শতাধিক পেজ অনায়াসে মার্জ করা সম্ভব।
-            </p>
-          </div>
-
-          {/* FAQ 3 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E] text-sm sm:text-base">
-              ৩. পাসওয়ার্ড বা এনক্রিপশন যুক্ত পিডিএফ মার্জ করা যাবে কি?
-            </h3>
-            <p className="text-[#34443B]">
-              পাসওয়ার্ড-সুরক্ষিত বা এনক্রিপ্ট করা ফাইল বর্তমানে সমর্থিত নয়। এনক্রিপ্ট করা পিডিএফ যুক্ত করতে চাইলে প্রথমে সেটির পাসওয়ার্ড সুরক্ষা অপসারণ করে সাধারণ আনপ্রোটেক্টেড পিডিএফ হিসেবে রূপান্তর করে এখানে যোগ করুন।
-            </p>
-          </div>
-
-          {/* FAQ 4 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E] text-sm sm:text-base">
-              ৪. আমার ফাইলগুলো কি কোনো সার্ভারে জমা থাকে? (গোপনীয়তা কেমন?)
-            </h3>
-            <p className="text-[#34443B]">
-              একেবারেই না! এটি ১০০% ক্লায়েন্ট-সাইড প্রযুক্তি দ্বারা চালিত। আপনার ফাইলগুলো আপনার ডিভাইস থেকে ইন্টারনেটের মাধ্যমে কোনো ক্লাউড সার্ভারে প্রেরিত বা সংরক্ষিত হয় না। ব্রাউজারের লোকাল মেমোরিতেই সম্পূর্ণ কাজ সম্পন্ন হয়, ফলে আপনার গোপনীয় দলিল বা ব্যক্তিগত তথ্য থাকে সম্পূর্ণ নিরাপদ।
-            </p>
-          </div>
-
-          {/* FAQ 5 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E] text-sm sm:text-base">
-              ৫. মোবাইল ও ট্যাবলেটে এই টুল কি মসৃণভাবে কাজ করে?
-            </h3>
-            <p className="text-[#34443B]">
-              হ্যাঁ, অ্যান্ড্রয়েড, আইফোন, আইপ্যাড ও যেকোনো আধুনিক মোবাইল ব্রাউজারে এটি চমৎকারভাবে কাজ করে। মোবাইল ব্যবহারকারীদের সুবিধার্থে ড্র্যাগ করার পাশাপাশি আপ-ডাউন বাটনের মাধ্যমেও ফাইলের ক্রম পরিবর্তন করার ব্যবস্থা রাখা হয়েছে।
-            </p>
-          </div>
-
-          {/* FAQ 6 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E] text-sm sm:text-base">
-              ৬. সর্বোচ্চ কত সাইজের ফাইল মার্জ করা যায়? (File Size Limit)
-            </h3>
-            <p className="text-[#34443B]">
-              আমাদের সাইট থেকে কোনো সাইজ লিমিট বসানো হয়নি। ঐতিহ্যবাহী সার্ভার-বেসড সাইটগুলোতে ১০ বা ২০ মেগাবাইট লিমিট থাকে কারণ তাদের সার্ভার ব্যান্ডউইথ খরচ হয়। কিন্তু এখানে কোনো আপলোড না থাকায় আপনার ফোনের বা কম্পিউটারের ফ্রি র‍্যাম যতদূর সমর্থন করে তত বড় সাইজের ফাইলই মার্জ করতে পারবেন।
-            </p>
-          </div>
-
-          {/* FAQ 7 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E] text-sm sm:text-base">
-              ৭. এই সার্ভিসটি কি ভবিষ্যতে পেইড হবে বা কোনো সাবস্ক্রিপশন ফি আছে?
-            </h3>
-            <p className="text-[#34443B]">
-              Utools.bd-এর প্রতিটি ইউটিলিটি টুলের মতো এই পিডিএফ মার্জার টুলটিও আজীবন শতভাগ বিনামূল্যে উন্মুক্ত থাকবে। কোনো প্রকার হিডেন চার্জ, ওয়াটারমার্ক, দৈনিক ব্যবহারের সীমা বা ক্রেডিট কার্ডের প্রয়োজন নেই।
-            </p>
-          </div>
-
-          {/* FAQ 8 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E] text-sm sm:text-base">
-              ৮. ফাইল মার্জ করার পর কীভাবে ফাইলের নাম পরিবর্তন করব?
-            </h3>
-            <p className="text-[#34443B]">
-              মার্জ সম্পন্ন হওয়ার পর স্বয়ংক্রিয়ভাবে ফাইলটি "merged-utools.pdf" নামে ডাউনলোড হবে। আপনার কম্পিউটারে বা ফোনে সেভ করার সময় অথবা ডাউনলোড সম্পন্ন হওয়ার পর আপনি আপনার প্রয়োজন অনুযায়ী রিনেম করে নিতে পারবেন।
-            </p>
-          </div>
+          {pageContent.faqs.map((faq, idx) => (
+            <div key={idx} className="space-y-1.5">
+              <h3 className="font-bold text-[#084A2E] text-sm sm:text-base">
+                {idx + 1}. {faq.question}
+              </h3>
+              <p className="text-[#34443B]">{faq.answer}</p>
+            </div>
+          ))}
         </div>
       </section>
 

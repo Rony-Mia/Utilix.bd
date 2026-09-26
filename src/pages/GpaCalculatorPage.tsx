@@ -36,6 +36,7 @@ import {
 } from '../gpaCalculator.ts';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard.ts';
 import { RelatedTools } from '../components/RelatedTools.tsx';
+import pageContent from '../../content/pages/gpa-calculator.json';
 
 // Default starter subjects for SSC/HSC (Science standard template)
 const DEFAULT_SSC_SUBJECTS: SscSubject[] = [
@@ -298,78 +299,33 @@ export const GpaCalculatorPage: React.FC = () => {
   };
 
   // FAQ Schema for SEO Rich Snippets
+  const faqs = pageContent?.faqs || [];
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'GPA আর CGPA-র মধ্যে পার্থক্য কী?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'GPA (Grade Point Average) সাধারণত একটি নির্দিষ্ট পরীক্ষা বা একটি একক সেমিস্টারের ফলাফল বোঝায়। যেমন এসএসসি বা এইচএসসি পরীক্ষায় প্রাপ্ত গ্রেড হলো GPA। অন্যদিকে CGPA (Cumulative Grade Point Average) হলো একাধিক সেমিস্টার বা পুরো ডিগ্রি কোর্সের সব গ্রেডের সমন্বয়ে অর্জিত গড় ফলাফল। বিশ্ববিদ্যালয়ে প্রতিটি সেমিস্টারের আলাদা GPA থাকে এবং সবগুলো সেমিস্টার শেষ হলে গড়ে সামগ্রিক CGPA নির্ধারিত হয়।',
-        },
+    mainEntity: faqs.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
       },
-      {
-        '@type': 'Question',
-        name: '৪র্থ বিষয়ের নিয়ম কী, GPA-তে কীভাবে যোগ হয়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'বাংলাদেশ শিক্ষা বোর্ডের প্রচলিত নিয়ম অনুযায়ী, ৪র্থ বা ঐচ্ছিক বিষয়ের প্রাপ্ত গ্রেড পয়েন্টের মধ্য থেকে ২.০০-এর বেশি অংশটুকু মূল জিপিএ-এর মোট পয়েন্টের সাথে বোনাস হিসেবে যোগ হয়। যেমন—৪র্থ বিষয়ে A+ (৫.০০ পয়েন্ট) পেলে ৩.০০ পয়েন্ট (৫.০০ - ২.০০) এবং A (৪.০০ পয়েন্ট) পেলে ২.০০ পয়েন্ট বোনাস হিসেবে বাধ্যতামূলক বিষয়গুলোর মোট পয়েন্টের সাথে যুক্ত হয়। ৪র্থ বিষয়ে C (২.০০) বা তার কম পেলে কোনো অতিরিক্ত পয়েন্ট যোগ হয় না। তবে ৪র্থ বিষয়ে ফেল করলেও শিক্ষার্থী সামগ্রিকভাবে ফেল করে না।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'SSC/HSC-এর ৫.০০ স্কেল আর ইউনিভার্সিটির ৪.০০ স্কেলে কেন পার্থক্য?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'বাংলাদেশ মাধ্যমিক ও উচ্চমাধ্যমিক শিক্ষা বোর্ডে গ্রেডিং পদ্ধতি ৫.০০ স্কেলে পরিচালিত হয় (যেখানে ৮০% বা তার বেশি নম্বরে A+ বা ৫.০০ দেওয়া হয়)। কিন্তু স্নাতক ও স্নাতকোত্তর পর্যায়ে বাংলাদেশ বিশ্ববিদ্যালয় মঞ্জুরী কমিশন (UGC) এবং আন্তর্জাতিক বিশ্ববিদ্যালয়ের সাথে সামঞ্জস্য রেখে সর্বোচ্চ ৪.০০ স্কেল (UGC Uniform Grading System) অনুসরণ করা হয়। আন্তর্জাতিকভাবে উচ্চশিক্ষা ও স্কলারশিপের ক্ষেত্রে ৪.০০ স্কেলই প্রমিত মানদণ্ড হিসেবে বিবেচিত হয়।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'আমার ট্রান্সক্রিপ্টে GPA আর এই ক্যালকুলেটরের ফলাফল না মিললে কী করব?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'আমাদের ক্যালকুলেটরটি বাংলাদেশ শিক্ষা বোর্ড ও ইউজিসি (UGC)-এর অফিসিয়াল প্রমিত ফর্মুলা অনুসরণ করে তৈরি। তবে কিছু প্রাইভেট বিশ্ববিদ্যালয় বা স্বায়ত্তশাসিত প্রতিষ্ঠানে নিজস্ব গ্রেডিং টেবিল ও পয়েন্ট বিভাজনে সামান্য ভিন্নতা থাকতে পারে (যেমন কোনো কোনো বিশ্ববিদ্যালয়ে ৮০%-এ ৪.০০ এর বদলে ৮৫% লাগতে পারে)। যদি কোনো অমিল পরিলক্ষিত হয়, তবে আপনার প্রতিষ্ঠানের একাডেমিক হ্যান্ডবুক বা পরীক্ষা নিয়ন্ত্রক অফিসের গ্রেডিং নীতিমালাটি মিলিয়ে নেওয়া সমীচীন।',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'বিশ্ববিদ্যালয়ে সিজিপিএ (CGPA) কীভাবে ক্রেডিট আওয়ার দিয়ে হিসাব করা হয়?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'বিশ্ববিদ্যালয়ে সিজিপিএ হিসাব করা হয় ওয়েটেড এভারেজ (Weighted Average) পদ্ধতিতে। প্রতি কোর্সের ক্রেডিট আওয়ারকে তার প্রাপ্ত গ্রেড পয়েন্ট দিয়ে গুণ করে "কোয়ালিটি পয়েন্ট" বের করা হয়। এরপর সবগুলো কোর্সের কোয়ালিটি পয়েন্টের যোগফলকে মোট ক্রেডিট আওয়ারের সংখ্যা দিয়ে ভাগ করলে সেমিস্টার জিপিএ বা কিউমুলেটিভ সিজিপিএ নির্ণীত হয়। অর্থাৎ বেশি ক্রেডিটের কোর্সে ভালো গ্রেড পেলে সিজিপিএ অনেক দ্রুত বাড়ে।',
-        },
-      },
-    ],
+    })),
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Helmet>
-        <title>জিপিএ ও সিজিপিএ ক্যালকুলেটর — SSC HSC CGPA Calculator BD | Utools.bd</title>
-        <meta
-          name="description"
-          content="এসএসসি, এইচএসসি ও বিশ্ববিদ্যালয় পরীক্ষার জিপিএ ও সিজিপিএ ক্যালকুলেটর। ৪র্থ বিষয়ের বোনাস পয়েন্ট নিয়ম, ক্রেডিট আওয়ার ও ইউজিসি ৪.০০ স্কেল ভিত্তিক নির্ভুল হিসাব।"
-        />
-        <meta
-          property="og:title"
-          content="জিপিএ ও সিজিপিএ ক্যালকুলেটর — SSC HSC CGPA Calculator BD | Utools.bd"
-        />
-        <meta
-          property="og:description"
-          content="এসএসসি, এইচএসসি ও বিশ্ববিদ্যালয় পরীক্ষার জিপিএ ও সিজিপিএ ক্যালকুলেটর। ৪র্থ বিষয়ের বোনাস পয়েন্ট নিয়ম ও ৪.০০ ক্রেডিট স্কেল ভিত্তিক তাৎক্ষণিক গণনা।"
-        />
+        <title>{pageContent.metaTitle}</title>
+        <meta name="description" content={pageContent.metaDescription} />
+        <meta property="og:title" content={pageContent.metaTitle} />
+        <meta property="og:description" content={pageContent.metaDescription} />
         <meta property="og:url" content="https://utools.bd/gpa-calculator" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://utools.bd/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="জিপিএ ও সিজিপিএ ক্যালকুলেটর | Utools.bd" />
-        <meta
-          name="twitter:description"
-          content="বাংলাদেশি শিক্ষা বোর্ড এসএসসি, এইচএসসি এবং বিশ্ববিদ্যালয় সেমিস্টার সিজিপিএ গণনার সম্পূর্ণ ফ্রি ক্লায়েন্ট-সাইড টুল।"
-        />
+        <meta name="twitter:title" content={pageContent.metaTitle} />
+        <meta name="twitter:description" content={pageContent.metaDescription} />
         <meta name="twitter:image" content="https://utools.bd/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
@@ -396,12 +352,10 @@ export const GpaCalculatorPage: React.FC = () => {
       {/* Page Title & Intro */}
       <div className="space-y-2">
         <h1 className="text-2xl sm:text-3xl font-bold text-[#084A2E] font-serif tracking-tight">
-          জিপিএ ও সিজিপিএ ক্যালকুলেটর (GPA & CGPA Calculator BD)
+          {pageContent.title}
         </h1>
         <p className="text-sm text-[#34443B] max-w-3xl leading-relaxed">
-          বাংলাদেশি শিক্ষা বোর্ডের <strong>এসএসসি ও এইচএসসি (৫.০০ স্কেল, ৪র্থ বিষয়ের বোনাস পয়েন্ট নিয়মসহ)</strong> এবং
-          বিশ্ববিদ্যালয়ের <strong>সেমিস্টার ও সামগ্রিক সিজিপিএ (৪.০০ স্কেল, ক্রেডিট আওয়ার ভিত্তিক)</strong> তাৎক্ষণিক
-          ও নির্ভুলভাবে হিসাব করুন। নম্বর বা সরাসরি লেটার গ্রেড নির্বাচন করে ফলাফল যাচাই করা যায়।
+          {pageContent.subtitle}
         </p>
       </div>
 
@@ -1233,50 +1187,17 @@ export const GpaCalculatorPage: React.FC = () => {
         <div className="flex items-center space-x-2 border-b border-[#D5E4DB] pb-3">
           <HelpCircle className="w-4 h-4 text-[#0B5D3B]" />
           <h2 className="text-base sm:text-lg font-bold text-[#084A2E] font-serif">
-            প্রায়শই জিজ্ঞাসিত প্রশ্ন (FAQ — জিপিএ ও সিজিপিএ)
+            {pageContent.faqHeading}
           </h2>
         </div>
 
         <div className="space-y-5 text-xs sm:text-sm text-[#0F1F17] leading-relaxed">
-          {/* Q1 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E]">GPA আর CGPA-র মধ্যে পার্থক্য কী?</h3>
-            <p className="text-[#34443B]">
-              GPA (Grade Point Average) সাধারণত একটি নির্দিষ্ট একক পরীক্ষা বা একটি সেমিস্টারের প্রাপ্ত ফলাফলের গ্রেড নির্দেশ করে—যেমন এসএসসি কিংবা এইচএসসি পরীক্ষার ফল হলো জিপিএ। অপরদিকে CGPA (Cumulative Grade Point Average) হলো একাধিক সেমিস্টার বা একটি পূর্ণাঙ্গ একাডেমিক ডিগ্রি প্রোগ্রামের সবগুলো কোর্সের সার্বিক গড় ফলাফল। বিশ্ববিদ্যালয়ে প্রতি সেমিস্টারের আলাদা GPA নির্ধারিত হয় এবং ডিগ্রির শেষে সবগুলো সেমিস্টারের সমন্বয়ে চূড়ান্ত কিউমুলেটিভ সিজিপিএ (CGPA) প্রদান করা হয়।
-            </p>
-          </div>
-
-          {/* Q2 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E]">৪র্থ বিষয়ের নিয়ম কী, GPA-তে কীভাবে যোগ হয়?</h3>
-            <p className="text-[#34443B]">
-              বাংলাদেশ শিক্ষা বোর্ডের অফিসিয়াল নিয়ম অনুযায়ী, ৪র্থ (ঐচ্ছিক) বিষয়ের প্রাপ্ত গ্রেড পয়েন্টের মধ্য থেকে ২.০০ পয়েন্ট বাদ দিয়ে বাকি অতিরিক্ত অংশটুকু আবশ্যিক বিষয়গুলোর মোট পয়েন্টের সাথে বোনাস হিসেবে যুক্ত হয়। উদাহরণস্বরূপ: ৪র্থ বিষয়ে A+ (৫.০০ পয়েন্ট) অর্জন করলে ৩.০০ পয়েন্ট (৫.০০ - ২.০০) এবং A (৪.০০ পয়েন্ট) পেলে ২.০০ পয়েন্ট বোনাস হিসেবে মূল পয়েন্টে যোগ হয়। ৪র্থ বিষয়ে C (২.০০) বা তার কম পেলে কোনো অতিরিক্ত পয়েন্ট যোগ হয় না। উল্লেখ্য, ৪র্থ বিষয়ে অকৃতকার্য (F) হলেও শিক্ষার্থী সামগ্রিকভাবে পরীক্ষায় ফেল করে না।
-            </p>
-          </div>
-
-          {/* Q3 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E]">SSC/HSC-এর ৫.০০ স্কেল আর ইউনিভার্সিটির ৪.০০ স্কেলে কেন পার্থক্য?</h3>
-            <p className="text-[#34443B]">
-              বাংলাদেশের মাধ্যমিক ও উচ্চমাধ্যমিক শিক্ষা বোর্ডগুলোতে ঐতিহ্যগতভাবে ৫.০০ স্কেলের গ্রেডিং সিস্টেম অনুসৃত হয়, যেখানে ৮০% বা তার বেশি নম্বর পেলে সর্বোচ্চ গ্রেড A+ (৫.০০) দেওয়া হয়। কিন্তু উচ্চশিক্ষা স্তরে বাংলাদেশ বিশ্ববিদ্যালয় মঞ্জুরী কমিশন (UGC) আন্তর্জাতিক বিশ্ববিদ্যালয় ও ক্রেডিট ট্রান্সফার সিস্টেমের সাথে সামঞ্জস্য রেখে সর্বোচ্চ ৪.০০ স্কেল প্রবর্তন করেছে। বহির্বিশ্বের বেশিরভাগ বিশ্ববিদ্যালয় ও আন্তর্জাতিক বৃত্তির আবেদনে ৪.০০ স্কেলই সর্বজনীন স্ট্যান্ডার্ড হিসেবে গৃহীত হয়।
-            </p>
-          </div>
-
-          {/* Q4 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E]">আমার ট্রান্সক্রিপ্টে GPA আর এই ক্যালকুলেটরের ফলাফল না মিললে কী করব?</h3>
-            <p className="text-[#34443B]">
-              আমাদের এই ক্যালকুলেটরটি বাংলাদেশ শিক্ষা বোর্ড ও ইউজিসি (UGC)-এর অফিশিয়াল ইউনিফর্ম কারিকুলাম ও ফর্মুলা মেনেই প্রস্তুত করা হয়েছে। তবে কিছু স্বায়ত্তশাসিত বিশ্ববিদ্যালয় (যেমন ঢাকা বিশ্ববিদ্যালয়, বুয়েট) কিংবা নির্দিষ্ট কিছু প্রাইভেট বিশ্ববিদ্যালয়ে অভ্যন্তরীণ গ্রেডিং নীতিমালা ও লেটার গ্রেডের মার্কস রেঞ্জে সামান্য তারতম্য থাকতে পারে (যেমন কোথাও কোথাও ৮৫% নম্বরে A+ ৪.০০ হতে পারে)। সামান্য ভগ্নাংশিক পার্থক্য দেখা দিলে আপনার নিজ বিশ্ববিদ্যালয়ের একাডেমিক হ্যান্ডবুক বা পরীক্ষা নিয়ন্ত্রক দপ্তরের গ্রেড শিটের নিয়মাবলী যাচাই করে নেওয়া সমীচীন।
-            </p>
-          </div>
-
-          {/* Q5 */}
-          <div className="space-y-1.5">
-            <h3 className="font-bold text-[#084A2E]">বিশ্ববিদ্যালয়ে সিজিপিএ (CGPA) কীভাবে ক্রেডিট আওয়ার দিয়ে হিসাব করা হয়?</h3>
-            <p className="text-[#34443B]">
-              বিশ্ববিদ্যালয়ে সিজিপিএ পরিমাপ করা হয় "ওয়েটেড এভারেজ" বা ভারযুক্ত গড় পদ্ধতিতে। কোনো কোর্সে ৩ ক্রেডিট থাকলে এবং তাতে A (৩.৭৫) পেলে সেই কোর্সের কোয়ালিটি পয়েন্ট হয় ১১.২৫ (৩ × ৩.৭৫)। এরপর সমস্ত কোর্সের কোয়ালিটি পয়েন্টের যোগফলকে মোট ক্রেডিট আওয়ারের সমষ্টি দিয়ে ভাগ করলে সিজিপিএ পাওয়া যায়। এ কারণে বেশি ক্রেডিটের থিওরি কোর্সে ভালো গ্রেড পেলে সিজিপিএ অনেক দ্রুত বৃদ্ধি পায়।
-            </p>
-          </div>
+          {faqs.map((faq, idx) => (
+            <div key={idx} className="space-y-1.5">
+              <h3 className="font-bold text-[#084A2E]">{faq.question}</h3>
+              <p className="text-[#34443B]">{faq.answer}</p>
+            </div>
+          ))}
         </div>
       </section>
 
