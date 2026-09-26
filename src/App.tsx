@@ -63,7 +63,7 @@ export default function App({ helmetContext }: AppProps) {
         {/* Footer */}
         <Footer />
 
-        {/* Floating back-to-top + WhatsApp (bottom-right, every page) */}
+        {/* Floating back-to-top button (bottom-right, every page) */}
         <FloatingActions />
 
         {/* Vercel Web Analytics */}

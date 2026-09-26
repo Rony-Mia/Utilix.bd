@@ -89,7 +89,6 @@ export default defineConfig(({ isSsrBuild }): UserConfig => {
                   id.includes('/src/components/ScrollToTop') ||
                   id.includes('/src/components/floating/') ||
                   id.includes('/src/utils/') ||
-                  id.includes('/src/data/site') ||
                   id.includes('/src/data/tools') ||
                   id.includes('/src/data/toolIcons')
                 ) {

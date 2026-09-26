@@ -411,60 +411,9 @@ h1, h2, h3, h4, .font-heading {
 }
 .stt[data-launching] .stt-arrow { animation: stt-rise 0.7s ease-in-out infinite; }
 .stt:hover .stt-arrow { transform: translateY(-1px); }
-
-.wa-fab {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  height: 52px;
-  border-radius: 9999px;
-  background: #25D366;
-  color: #ffffff;
-  text-decoration: none;
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4), 0 2px 6px rgba(15, 31, 23, 0.15);
-  position: relative;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.2s ease;
-}
-.wa-fab:hover, .wa-fab:focus-visible { background: #1EBE5A; transform: translateY(-3px); box-shadow: 0 14px 32px rgba(37, 211, 102, 0.5), 0 2px 6px rgba(15, 31, 23, 0.15); }
-.wa-fab:active { transform: translateY(0) scale(0.96); }
-.wa-icon { width: 52px; height: 52px; display: grid; place-items: center; flex: none; position: relative; z-index: 1; }
-.wa-label {
-  max-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  font-size: 0.875rem;
-  font-weight: 600;
-  opacity: 0;
-  transition: max-width 0.35s ease, opacity 0.25s ease, padding 0.35s ease;
-}
-/* a soft pulse now and then to say "we're here" */
-.wa-fab::before {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 52px;
-  height: 52px;
-  border-radius: 9999px;
-  background: #25D366;
-  opacity: 0;
-  animation: wa-pulse 3.2s ease-out 2s infinite;
-  pointer-events: none;
-}
-@keyframes wa-pulse {
-  0%   { transform: scale(1);   opacity: 0.45; }
-  70%  { transform: scale(1.7); opacity: 0; }
-  100% { transform: scale(1.7); opacity: 0; }
-}
-@media (hover: hover) and (min-width: 768px) {
-  .wa-fab:hover .wa-label, .wa-fab:focus-visible .wa-label { max-width: 12rem; opacity: 1; padding-left: 1.1rem; padding-right: 0.2rem; }
-  .wa-fab:hover::before, .wa-fab:focus-visible::before { animation: none; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .stt, .stt[data-visible='true'], .wa-fab, .wa-label { transition: none; }
+  .stt, .stt[data-visible='true'] { transition: none; }
   .stt[data-launching] .stt-arrow { animation: none; }
-  .wa-fab::before { animation: none; display: none; }
 }
 
 /* Parallax layers are only promoted to compositor layers while their scene is on/near screen */
