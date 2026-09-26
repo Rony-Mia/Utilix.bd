@@ -17,16 +17,8 @@ function getDynamicBlogRoutes(): string[] {
       if (file.endsWith('.json')) {
         const filePath = path.join(blogDir, file);
         const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-        // Only include published articles (not drafts, archived, or future scheduled)
-        const isDraft = data.status === 'draft' || data.published === false || data.status === 'archived';
-        let isFutureScheduled = false;
-        if (data.status === 'scheduled' && data.scheduledAt) {
-          const t = new Date(data.scheduledAt).getTime();
-          if (!isNaN(t) && Date.now() < t) {
-            isFutureScheduled = true;
-          }
-        }
-        if (!isDraft && !isFutureScheduled && data.slug) {
+        // Only include published articles (not drafts)
+        if (data.published !== false && data.slug) {
           routes.push(`/blog/${data.slug}`);
         }
       }
