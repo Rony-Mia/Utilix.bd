@@ -61,6 +61,10 @@ async function optimizeImages() {
   for (const filename of targets) {
     const srcPath = path.join(UPLOADS_DIR, filename);
     const srcStat = fs.statSync(srcPath);
+    if (srcStat.size === 0) {
+      console.log(`[optimize-images] Skipping empty file (0 bytes): ${filename}`);
+      continue;
+    }
     const ext = path.extname(filename).toLowerCase();
     const baseName = path.basename(filename, ext);
 

@@ -69,7 +69,7 @@ export async function preloadAllPages(): Promise<void> {
 // prerender.ts (served with a real 404 status by server.ts / the hosting platform).
 export const NOT_FOUND_ROUTE = '/__404__';
 
-export const PRERENDER_ROUTES = [
+export const STATIC_PRERENDER_ROUTES = [
   '/',
   '/converter',
   '/photo-resizer',
@@ -98,10 +98,9 @@ export const PRERENDER_ROUTES = [
   '/blog/category/education-results',
   '/blog/category/digital-guide',
   '/blog/category/utility-tips',
-  '/blog/teletalk-photo-signature-resize-guide',
-  '/blog/bijoy-to-unicode-conversion-tips',
-  '/blog/bangla-date-calculation-rules',
 ] as const;
+
+export const PRERENDER_ROUTES = STATIC_PRERENDER_ROUTES;
 
 export interface AppRoutesProps {
   selectedCategory?: string;

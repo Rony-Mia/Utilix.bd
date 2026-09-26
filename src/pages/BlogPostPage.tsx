@@ -79,7 +79,15 @@ export const BlogPostPage: React.FC = () => {
     return items;
   }, [post?.content]);
 
+// Redirect map for historical/renamed post slugs
+const SLUG_REDIRECTS: Record<string, string> = {
+  'bijoy-to-unicode-conversion-tips': 'bijoy-to-unicode-converter',
+};
+
   if (!post) {
+    if (slug && SLUG_REDIRECTS[slug]) {
+      return <Navigate to={`/blog/${SLUG_REDIRECTS[slug]}`} replace />;
+    }
     return <Navigate to="/blog" replace />;
   }
 

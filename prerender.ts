@@ -5,13 +5,30 @@ import Critters from 'critters';
 import { PRERENDER_ROUTES, NOT_FOUND_ROUTE } from './src/routes.tsx';
 import { generateRssFeed } from './scripts/generate-rss.ts';
 
-// Single source of truth: routes come from src/routes.tsx.
-// Add a new tool's path there once and it is automatically
-// prerendered here AND included in the generated sitemap.xml below.
-const ROUTES: readonly string[] = PRERENDER_ROUTES;
+function getDynamicBlogRoutes(): string[] {
+  const blogDir = path.resolve(process.cwd(), 'content/blog');
+  if (!fs.existsSync(blogDir)) return [];
+  const files = fs.readdirSync(blogDir).filter((f) => f.endsWith('.json'));
+  const routes: string[] = [];
+  for (const f of files) {
+    try {
+      const raw = JSON.parse(fs.readFileSync(path.join(blogDir, f), 'utf-8'));
+      if (raw.published !== false && raw.slug && raw.title) {
+        routes.push(`/blog/${raw.slug}`);
+      }
+    } catch (err) {
+      console.warn(`[prerender] Skipping invalid blog file: ${f}`, err);
+    }
+  }
+  return routes;
+}
+
+// Single source of truth: static routes from src/routes.tsx + dynamic blog posts from content/blog/
+const DYNAMIC_BLOG_ROUTES = getDynamicBlogRoutes();
+const ROUTES: readonly string[] = [...PRERENDER_ROUTES, ...DYNAMIC_BLOG_ROUTES];
 // Rendered in the same two passes as every other route, but written to
 // dist/404.html instead of a routeClean folder, and left out of the sitemap.
-const ALL_RENDER_ROUTES: readonly string[] = [...PRERENDER_ROUTES, NOT_FOUND_ROUTE];
+const ALL_RENDER_ROUTES: readonly string[] = [...ROUTES, NOT_FOUND_ROUTE];
 
 const SITE_ORIGIN = 'https://utools.bd';
 
