@@ -366,7 +366,7 @@ collections:
           - { label: "QR কোড জেনারেটর (/qr-generator)", value: "/qr-generator" }
         required: false
       - { name: "relatedToolLabel", label: "সম্পর্কিত টুলের নাম (Display Label)", widget: "string", required: false }
-      - label: "সম্পর্কিত আর্টিকেলের স্লাগসমূহ (Related Articles)",
+      - label: "সম্পর্কিত আর্টিকেলের স্লাগসমূহ (Related Articles)"
         name: "relatedArticles"
         widget: "list"
         required: false
