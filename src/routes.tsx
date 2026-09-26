@@ -28,6 +28,7 @@ const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.tsx').the
 const BlogListPage = lazy(() => import('./pages/BlogListPage.tsx').then((m) => ({ default: m.BlogListPage })));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage.tsx').then((m) => ({ default: m.BlogPostPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.tsx').then((m) => ({ default: m.NotFoundPage })));
+const AdminApp = lazy(() => import('./admin/AdminApp.tsx').then((m) => ({ default: m.AdminApp })));
 
 // Every lazy importer above, using the exact same specifiers as the lazy()
 // calls so they resolve against the same module records in this bundle.
@@ -122,6 +123,8 @@ export function AppRoutes({
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/blog" element={<BlogListPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
+        <Route path="/admin" element={<AdminApp />} />
+        <Route path="/admin/*" element={<AdminApp />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>
