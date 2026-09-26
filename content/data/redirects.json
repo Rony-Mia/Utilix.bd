@@ -1,0 +1,10 @@
+[
+  {
+    "id": "redir-1",
+    "oldUrl": "/blog/bangla-calendar-rules",
+    "newUrl": "/blog/bangla-date-calculation-rules",
+    "type": 301,
+    "status": "active",
+    "createdAt": "2026-09-24T10:00:00.000Z"
+  }
+]

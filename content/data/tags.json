@@ -1,0 +1,22 @@
+[
+  { "id": "tag-1", "name": "বাংলা সন", "slug": "bangla-son" },
+  { "id": "tag-2", "name": "বাংলা ক্যালেন্ডার", "slug": "bangla-calendar" },
+  { "id": "tag-3", "name": "তারিখ কনভার্টার", "slug": "date-converter" },
+  { "id": "tag-4", "name": "ইতিহাস", "slug": "history" },
+  { "id": "tag-5", "name": "বিজয়", "slug": "bijoy" },
+  { "id": "tag-6", "name": "ইউনিকোড", "slug": "unicode" },
+  { "id": "tag-7", "name": "বাংলা টাইピング", "slug": "bangla-typing" },
+  { "id": "tag-8", "name": "ফন্ট কনভার্টার", "slug": "font-converter" },
+  { "id": "tag-9", "name": "Teletalk", "slug": "teletalk" },
+  { "id": "tag-10", "name": "BPSC", "slug": "bpsc" },
+  { "id": "tag-11", "name": "সরকারি চাকরি", "slug": "govt-job" },
+  { "id": "tag-12", "name": "ছবি রিসাইজ", "slug": "photo-resize" },
+  { "id": "tag-13", "name": "স্বাক্ষর রিসাইজ", "slug": "signature-resize" },
+  { "id": "tag-14", "name": "GPA", "slug": "gpa" },
+  { "id": "tag-15", "name": "CGPA", "slug": "cgpa" },
+  { "id": "tag-16", "name": "ফলাফল", "slug": "result" },
+  { "id": "tag-17", "name": "গ্রেডিং পদ্ধতি", "slug": "grading-system" },
+  { "id": "tag-18", "name": "ডিজিটাল টুল", "slug": "digital-tool" },
+  { "id": "tag-19", "name": "PDF", "slug": "pdf" },
+  { "id": "tag-20", "name": "NID", "slug": "nid" }
+]
