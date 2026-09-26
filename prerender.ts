@@ -2,15 +2,39 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import Critters from 'critters';
-import { PRERENDER_ROUTES, NOT_FOUND_ROUTE } from './src/routes.tsx';
+import { PRERENDER_ROUTES, NOT_FOUND_ROUTE } from './src/routeConstants.ts';
 
-// Single source of truth: routes come from src/routes.tsx.
-// Add a new tool's path there once and it is automatically
-// prerendered here AND included in the generated sitemap.xml below.
-const ROUTES: readonly string[] = PRERENDER_ROUTES;
+// Single source of truth: routes come from src/routes.tsx + dynamically
+// discovered published articles in /content/blog/*.json so that newly authored
+// articles in Decap CMS are automatically prerendered and added to sitemap.xml.
+function getDynamicBlogRoutes(): string[] {
+  const blogDir = path.resolve(process.cwd(), 'content/blog');
+  if (!fs.existsSync(blogDir)) return [];
+  try {
+    const files = fs.readdirSync(blogDir);
+    const routes: string[] = [];
+    for (const file of files) {
+      if (file.endsWith('.json')) {
+        const filePath = path.join(blogDir, file);
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        // Only include published articles (not drafts)
+        if (data.published !== false && data.slug) {
+          routes.push(`/blog/${data.slug}`);
+        }
+      }
+    }
+    return routes;
+  } catch {
+    return [];
+  }
+}
+
+const dynamicBlogRoutes = getDynamicBlogRoutes();
+const COMBINED_ROUTES = Array.from(new Set([...PRERENDER_ROUTES, ...dynamicBlogRoutes]));
+const ROUTES: readonly string[] = COMBINED_ROUTES;
 // Rendered in the same two passes as every other route, but written to
 // dist/404.html instead of a routeClean folder, and left out of the sitemap.
-const ALL_RENDER_ROUTES: readonly string[] = [...PRERENDER_ROUTES, NOT_FOUND_ROUTE];
+const ALL_RENDER_ROUTES: readonly string[] = [...COMBINED_ROUTES, NOT_FOUND_ROUTE];
 
 const SITE_ORIGIN = 'https://utools.bd';
 

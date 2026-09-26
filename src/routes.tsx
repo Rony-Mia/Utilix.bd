@@ -67,35 +67,7 @@ export async function preloadAllPages(): Promise<void> {
 
 // Rendered through the catch-all route above and written to dist/404.html by
 // prerender.ts (served with a real 404 status by server.ts / the hosting platform).
-export const NOT_FOUND_ROUTE = '/__404__';
-
-export const PRERENDER_ROUTES = [
-  '/',
-  '/converter',
-  '/photo-resizer',
-  '/bulk-photo-resizer',
-  '/heic-converter',
-  '/image-merger',
-  '/qr-generator',
-  '/age-calculator',
-  '/amount-in-words',
-  '/bangla-date-converter',
-  '/cv-builder',
-  '/gpa-calculator',
-  '/land-converter',
-  '/pdf-merger',
-  '/pdf-split',
-  '/pdf-delete-pages',
-  '/pdf-rotate',
-  '/pdf-watermark-page-number',
-  '/about',
-  '/contact',
-  '/privacy-policy',
-  '/blog',
-  '/blog/teletalk-photo-signature-resize-guide',
-  '/blog/bijoy-to-unicode-conversion-tips',
-  '/blog/bangla-date-calculation-rules',
-] as const;
+export { NOT_FOUND_ROUTE, PRERENDER_ROUTES } from './routeConstants.ts';
 
 export interface AppRoutesProps {
   selectedCategory?: string;
